@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use File;
+use Hash;
 
 class UserController extends Controller
 {
@@ -110,10 +111,17 @@ class UserController extends Controller
             'dob'=> 'nullable|date_format:Y-m-d|before:today',
             'gender'=> 'nullable|in:male,female',
             'status'=>'nullable',
-            'password'=>'nullable',
+            'password'=>'nullable|string|min:8|confirmed',
         ]);
 
-        // dd($request->all());
+        $user = User::findOrFail($id);
+
+        if ($request->password) {
+            if (Hash::check($request->password, $user->password)) { }
+            else {
+                return redirect()->back()->with('error', 'Password missmatched.');
+            }
+        }
 
         // save avatar
         $image_name = $request->hidden_avatar;
@@ -132,10 +140,6 @@ class UserController extends Controller
         }
         if (empty($request->status)) {
             $request['status'] = User::findOrFail($id)->status;
-        }
-
-        if ($request->password) {
-            dd("pass check");
         }
         
         User::whereId($id)->update(['name'=>$request->name,'email'=>$request->email,'mobile'=>$request->mobile,'avatar'=>$image_name,'dob'=>$request->dob,'gender'=>$request->gender,'status'=>$request->status]);

@@ -54,7 +54,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="col-form-label">Full Name:</label>
-                                                <input type="text" id="name" class="form-control form-control-sm @error('email') is-invalid @enderror" Placeholder="Enter Name." required value="{{ $user->name }}" name="name" />
+                                                <input type="text" id="name" class="form-control form-control-sm @error('name') is-invalid @enderror" Placeholder="Enter Name." required value="{{ $user->name }}" name="name" />
                                                 @error('name')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -65,7 +65,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="col-form-label">Email Id:</label>
-                                                <input type="email" class="form-control form-control-sm" Placeholder="Enter Email." required name="email" value="{{ $user->email }}" />
+                                                <input type="email" class="form-control form-control-sm @error('email') is-invalid @enderror" Placeholder="Enter Email." required name="email" value="{{ $user->email }}" />
                                                 @error('email')
                                                     <span class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -136,12 +136,17 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group"> 
-                                        <input type="text" class="form-control form-control-sm" placeholder="Password" />
+                                        <input type="password" name="password" class="form-control form-control-sm @error('password') is-invalid @enderror" placeholder="Password" />
+                                        @error('password')
+                                            <span class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>  
                                 <div class="col-sm-4">
                                     <div class="form-group"> 
-                                        <input type="text" class="form-control form-control-sm" placeholder="Confirm Password" />
+                                        <input type="password" name="password_confirmation" class="form-control form-control-sm" placeholder="Confirm Password" />
                                     </div>
                                 </div>  
                             </div>

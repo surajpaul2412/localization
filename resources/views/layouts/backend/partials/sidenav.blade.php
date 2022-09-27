@@ -33,8 +33,8 @@
                     <a href="bookings.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-package"></i></span><span class="pcoded-mtext">Manage Bookings</span></a> 
                 </li>
                 
-                <li class="nav-item">
-                    <a href="pages.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Static Pages</span></a> 
+                <li class="nav-item {{ Request::is('admin/pages') ? 'active' : '' }}">
+                    <a href="{{route('admin.pages')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Static Pages</span></a> 
                 </li>  
 
                 <li class="nav-item">

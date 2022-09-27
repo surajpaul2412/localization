@@ -39,45 +39,76 @@
         <div class="row"> 
             <div class="col-sm-12">
                 <div class="card"> 
-                    <form class="custom-form">
-
+                    <form class="custom-form" method="post" action="{{ route('admin.pages.update', $page->id) }}">
+                        @method('PATCH')
+                        @csrf
                         <div class="card-header"></div>
                         <div class="card-body">
                             <div class="row">   
                                 <div class="col-sm-6">
                                     <div class="form-group fill">  
                                         <label class="control-label">Page Name<span>*</span></label>
-                                        <input type="text" class="form-control form-control-sm " placeholder="Enter Category Name..." required/> 
+                                        <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ $page->name }}" required/>
+                                        @error('name')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>   
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="col-form-label">URL Slug<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" Placeholder="Enter Uniqe URL Slug."  required/>
+                                        <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" value="{{ $page->slug }}"  required/>
+                                        @error('slug')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div> 
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="col-form-label">Description:</label> 
-                                        <textarea name="description" id="editor1"></textarea> 
+                                        <textarea name="description" class="@error('description') is-invalid @enderror" id="editor1">{{$page->description}}</textarea>
+                                        @error('description')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </div> 
                                 </div>  
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="col-form-label">Meta Title:</label>
-                                        <input type="text" class="form-control form-control-sm" placeholder="" />
+                                        <input type="text" class="form-control form-control-sm @error('meta_title') is-invalid @enderror" name="meta_title" value="{{$page->meta_title}}" placeholder="" />
+                                        @error('meta_title')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </div> 
                                 </div>   
                                 <div class="col-sm-6"> 
                                     <div class="form-group">
                                         <label class="col-form-label">Meta Keywords:</label>
-                                        <textarea class="form-control form-control-sm" placeholder=""></textarea>  
+                                        <textarea class="form-control form-control-sm @error('meta_keywords') is-invalid @enderror" name="meta_keywords" placeholder="">{{$page->meta_keywords}}</textarea>
+                                        @error('meta_keywords')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </div> 
                                 </div>    
                                 <div class="col-sm-6">  
                                     <div class="form-group">
                                         <label class="col-form-label">Meta Description:</label>
-                                        <textarea class="form-control form-control-sm" placeholder=""></textarea> 
+                                        <textarea class="form-control form-control-sm @error('meta_description') is-invalid @enderror" name="meta_description" placeholder="">{{$page->meta_description}}</textarea>
+                                        @error('meta_description')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div> 
                             </div>  

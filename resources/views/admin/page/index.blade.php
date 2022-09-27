@@ -65,11 +65,10 @@
                                         </td>
                                         <td>  
                                             <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-info btn-xs" title="Edit"><i class="feather icon-edit"></i></a>
-                                            <!-- <button class="btn btn-danger btn-xs sweet-multiple" title="Delete"><i class="feather icon-trash-2"></i></button> -->
                                             <form method="POST" action="{{ route('admin.pages.destroy', $page->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
-                                                <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'>Delete</button>
+                                                <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'><i class="feather icon-trash-2"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -86,27 +85,4 @@
         <!-- [ Main Content ] end -->
     </div>
 </div>
-@endsection
-
-@section('script')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
-<script type="text/javascript">
-    $('.show_confirm').click(function(event) {
-          var form =  $(this).closest("form");
-          var name = $(this).data("name");
-          event.preventDefault();
-          swal({
-              title: `Are you sure you want to delete this record?`,
-              text: "If you delete this, it will be gone forever.",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              form.submit();
-            }
-          });
-    });  
-</script>
 @endsection

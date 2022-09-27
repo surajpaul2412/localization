@@ -12,9 +12,15 @@
                         <div id="newsletter">
                             <h6>Newsletter</h6>
                             <div id="message-newsletter"></div>
-                            <form method="post" action="#" name="newsletter_form" id="newsletter_form">
+                            <form method="post" action="{{route('newsletter.store')}}" name="newsletter_form" id="newsletter_form">
+                                @csrf
                                 <div class="form-group">
-                                    <input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Your email">
+                                    <input type="email" name="email" id="email_newsletter" class="form-control @error('email') is-invalid @enderror" placeholder="Your email" required>
+                                    @error('email')
+                                        <div class="text-danger">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
                                     <input type="submit" value="Submit" id="submit-newsletter">
                                 </div>
                             </form>

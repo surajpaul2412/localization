@@ -41,9 +41,9 @@ class PageController extends Controller
             'name' => 'required|string|min:3|max:255',
             'slug' => 'required|string|min:2|max:255|unique:pages,slug',
             'description' => 'required|string',
-            'meta_title' => 'required|string',
-            'meta_keywords' => 'required|string',
-            'meta_description' => 'required|string'
+            'meta_title' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
+            'meta_description' => 'nullable|string'
         ]);
 
         $data = $request->all();
@@ -72,7 +72,7 @@ class PageController extends Controller
     public function edit($id)
     {
         $page = Page::findOrFail($id);
-        return view('admin.page.edit', compact($page));
+        return view('admin.page.edit', compact('page'));
     }
 
     /**
@@ -88,10 +88,16 @@ class PageController extends Controller
             'name' => 'required|string|min:3|max:255',
             'slug' => 'required|string|min:2|max:255',
             'description' => 'required|string',
-            'meta_title' => 'required|string',
-            'meta_keywords' => 'required|string',
-            'meta_description' => 'required|string'
+            'meta_title' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
+            'meta_description' => 'nullable|string'
         ]);
+
+        $page = Page::findOrFail($id);
+        $data = $request->all();
+
+        $page->update($data);
+        return redirect('/admin/pages')->with('success','Page updated successfully.');
     }
 
     /**

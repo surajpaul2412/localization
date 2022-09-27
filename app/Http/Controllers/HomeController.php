@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Newsletter;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,15 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function newsletter(Request $req) {
+        $req->validate([
+            'email' => 'required|email|unique:newsletters,email',
+        ]);
+
+        $data = $req->all();
+        Newsletter::create($data);
+        return redirect(url()->previous().'#newsletter');
     }
 }

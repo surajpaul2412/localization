@@ -80,7 +80,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="col-form-label">Meta Title:</label>
-                                        <input type="text" class="form-control form-control-sm @error('meta_title') is-invalid @enderror" name="meta_title" placeholder="" />
+                                        <input type="text" class="form-control form-control-sm @error('meta_title') is-invalid @enderror" name="meta_title" value="{{old('meta_title')}}" placeholder="" />
                                         @error('meta_title')
                                             <div class="text-danger">
                                                 <strong>{{ $message }}</strong>

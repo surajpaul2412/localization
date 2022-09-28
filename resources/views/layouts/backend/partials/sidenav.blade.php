@@ -46,7 +46,7 @@
                     <ul class="pcoded-submenu">
                         <li><a href="general-setting.php">General Settings</a></li> 
                         <li><a href="#">Banners</a></li> 
-                        <li><a href="#">Testimonials</a></li> 
+                        <li><a href="{{route('admin.testimonials')}}">Testimonials</a></li> 
                         <li><a href="#">Currency</a></li> 
                         <li><a href="#">Language</a></li>  
                         <li><a href="#">Payment Methods (Razorpay)</a></li> 

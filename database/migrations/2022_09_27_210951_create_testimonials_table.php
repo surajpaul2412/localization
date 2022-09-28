@@ -20,6 +20,7 @@ class CreateTestimonialsTable extends Migration
             $table->string('country');
             $table->integer('stars');
             $table->longText('description');
+            $table->integer('status');
             $table->timestamps();
         });
     }

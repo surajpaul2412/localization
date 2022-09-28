@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Testimonial;
 
 class TestimonialController extends Controller
 {
@@ -14,7 +15,8 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        //
+        $testimonials = Testimonial::all();
+        return view('admin.testimonial.index', compact('testimonials'));
     }
 
     /**
@@ -57,7 +59,8 @@ class TestimonialController extends Controller
      */
     public function edit($id)
     {
-        //
+        $testimonial = Testimonial::findOrFail($id);
+        return view('admin.testimonial.edit', compact('testimonial'));
     }
 
     /**
@@ -80,6 +83,23 @@ class TestimonialController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Testimonial::findOrFail($id)->delete();
+        return redirect('/admin/testimonials')->with('success','Testimonial deleted successfully.');
+    }
+
+    // Acttive Page
+    public function activate($id)
+    {
+        $testimonial = Testimonial::findOrFail($id);
+        $testimonial->update(['status'=>1]);
+        return redirect('/admin/testimonials')->with('success', 'Testimonial has been successfully activated.');
+    }
+
+    // Deactivate Page
+    public function deactivate($id)
+    {
+        $testimonial = Testimonial::findOrFail($id);
+        $testimonial->update(['status'=>0]);
+        return redirect('/admin/testimonials')->with('success', 'Testimonial has been successfully deactivated.');
     }
 }

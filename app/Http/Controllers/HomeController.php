@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Newsletter;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -35,5 +36,34 @@ class HomeController extends Controller
         $data = $req->all();
         Newsletter::create($data);
         return redirect(url()->previous().'#newsletter');
+    }
+
+    public function success()
+    {
+        return view('frontend.success');
+    }
+
+    public function wishlist()
+    {
+        if (Auth::user()) {
+            return view('frontend.wishlist');
+        }
+        return redirect()->back();
+    }
+
+    public function cart()
+    {
+        if (Auth::user()) {
+            return view('frontend.cart');
+        }
+        return redirect()->back();
+    }
+
+    public function checkout()
+    {
+        if (Auth::user()) {
+            return view('frontend.checkout');
+        }
+        return redirect()->back();
     }
 }

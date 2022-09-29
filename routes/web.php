@@ -30,6 +30,14 @@ foreach ($pages as $page) {
     });
 }
 
+// Frontend
+Route::get('success', [App\Http\Controllers\HomeController::class, 'success'])->name('success');
+Route::get('wishlist', [App\Http\Controllers\HomeController::class, 'wishlist'])->name('wishlist')->middleware('auth');
+Route::get('cart', [App\Http\Controllers\HomeController::class, 'cart'])->name('cart')->middleware('auth');
+Route::get('checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout')->middleware('auth');
+Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');
+Route::get('tours/{id}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
+
 // Newsletter
 Route::post('/newsletter/store', [App\Http\Controllers\HomeController::class, 'newsletter'])->name('newsletter.store');
 
@@ -56,8 +64,6 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::delete('pages/destroy/{id}', [App\Http\Controllers\Admin\PageController::class, 'destroy'])->name('pages.destroy');
     // Testimonials
     Route::get('testimonials', [App\Http\Controllers\Admin\TestimonialController::class, 'index'])->name('testimonials');
-    Route::get('testimonials/{id}/edit', [App\Http\Controllers\Admin\TestimonialController::class, 'edit'])->name('testimonials.edit');
-    Route::patch('testimonials/{id}', [App\Http\Controllers\Admin\TestimonialController::class, 'update'])->name('testimonials.update');
     Route::get('testimonials/activate/{id}', [App\Http\Controllers\Admin\TestimonialController::class, 'activate'])->name('testimonials.activate');
     Route::get('testimonials/deactivate/{id}', [App\Http\Controllers\Admin\TestimonialController::class, 'deactivate'])->name('testimonials.deactivate');
     Route::delete('testimonials/destroy/{id}', [App\Http\Controllers\Admin\TestimonialController::class, 'destroy'])->name('testimonials.destroy');

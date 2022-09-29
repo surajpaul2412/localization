@@ -1,7 +1,7 @@
 @extends('layouts.backend.app')
 
 @section('title')
-<title>Profile | {{Auth::user()->name}}</title>
+<title>Profile | {{Auth::user()->role->name}}</title>
 @endsection
 
 @section('css')

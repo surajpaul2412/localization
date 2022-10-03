@@ -24,9 +24,9 @@
                             <li class="breadcrumb-item"><a href="">All Pages</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-4 text-md-right"> 
+                    <!-- <div class="col-md-4 text-md-right"> 
                         <a href="{{route('admin.pages.create')}}" class="btn btn-success" title="Back to List"><i class="feather icon-plus"></i> Add Pages</a> 
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

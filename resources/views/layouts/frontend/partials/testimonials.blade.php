@@ -1,6 +1,6 @@
 @php
 use App\Models\Testimonial;
-$testimonials = Testimonial::all();
+$testimonials = Testimonial::whereStatus(1)->get();
 @endphp
 
 @if($testimonials->count())
@@ -20,12 +20,11 @@ $testimonials = Testimonial::all();
                 <div class="testimonial-box">
                     <div class="head d-flex justify-content-between">
                         <div class="left d-flex justify-content-start align-items-center">
-                            <img src="https://d2d3n9ufwugv3m.cloudfront.net/w80-h80-cfill-100/users/6xSlbFuCZKkjwUcCvK6G.jpg" class="img-fluid" alt="" />
+                            <img src="{{asset($testimonial->avatar)}}" class="img-fluid" alt="avatar" />
                             <div class="tit">
                                 <h4>{{$testimonial->name}}</h4>
                                 <p class="d-flex justify-content-start align-items-center">
-                                    <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/flags/it.png" /> 
-                                    {{$testimonial->country}}
+                                    Country: {{$testimonial->country}}
                                 </p>
                             </div>
                         </div>

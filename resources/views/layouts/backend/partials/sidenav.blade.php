@@ -24,8 +24,8 @@
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-map-pin"></i></span><span class="pcoded-mtext">Manage Location</span></a>
                     <ul class="pcoded-submenu"> 
-                        <li><a href="country.php">Country</a></li> 
-                        <li><a href="city.php">City</a></li>   
+                        <li><a href="{{route('admin.country')}}">Country</a></li> 
+                        <li><a href="{{route('admin.city')}}">City</a></li>   
                     </ul>
                 </li>  
 

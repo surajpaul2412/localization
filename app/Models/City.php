@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tour extends Model
+class City extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'price'
+        'name','country_id'
     ];
 
-    public $timestamps = true;
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country');
+    }
 }

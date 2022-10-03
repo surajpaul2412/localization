@@ -7,6 +7,7 @@
     @yield('title')
     @include('layouts.partials.style')
     @yield('css')
+    @livewireStyles
 </head> 
 <body>
     @include('layouts.partials.header')
@@ -19,6 +20,7 @@
     <!-- SPECIFIC SCRIPTS -->
     <script src="{{asset('js/jarallax.min.js')}}"></script>
     <script src="{{asset('js/jarallax-video.min.js')}}"></script>
-    @yield('script')   
+    @yield('script')
+    @livewireScripts 
 </body> 
 </html>

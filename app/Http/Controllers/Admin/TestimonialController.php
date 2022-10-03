@@ -26,7 +26,7 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.testimonial.create');
     }
 
     /**
@@ -37,7 +37,26 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'country' => 'required|string|min:2|max:255',
+            'stars' => 'required|integer',
+            'description' => 'required|string'
+        ]);
+
+        $image = $request->file('avatar');
+        if($image != ''){
+            $image_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/avatar'), $image_name);
+            $image_name = 'uploads/avatar/'.$image_name;
+        }
+
+        $data = $request->all();
+        $data['status'] = 1;
+        $data['avatar'] = $image_name;
+        Testimonial::create($data);
+        return redirect('/admin/testimonials')->with('success','Testimonial created successfully.');
     }
 
     /**
@@ -72,7 +91,29 @@ class TestimonialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'hidden_avatar' => 'nullable|string',
+            'country' => 'required|string|min:2|max:255',
+            'stars' => 'required|integer',
+            'description' => 'required|string'
+        ]);
+
+        // save avatar
+        $image_name = $request->hidden_avatar;
+        $image = $request->file('avatar');
+        if($image != ''){
+            $image_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/avatar'), $image_name);
+            $image_name = 'uploads/avatar/'.$image_name;
+        }
+
+        $testimonial = Testimonial::findOrFail($id);
+        $data = $request->all();
+        $data['avatar'] = $image_name;
+        $testimonial->update($data);
+        return redirect('admin/testimonials')->with('success', 'Testimonial has been successfully updated.');
     }
 
     /**

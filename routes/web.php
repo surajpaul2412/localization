@@ -85,6 +85,42 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::get('city/{id}/edit', [App\Http\Controllers\Admin\CityController::class, 'edit'])->name('city.edit');
     Route::patch('city/{id}', [App\Http\Controllers\Admin\CityController::class, 'update'])->name('city.update');
     Route::delete('city/destroy/{id}', [App\Http\Controllers\Admin\CityController::class, 'destroy'])->name('city.destroy');
+    // Category
+    Route::get('category', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('category');
+    Route::get('category/create', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('category.create');
+    Route::post('category/store', [App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('category.store');
+    Route::get('category/{id}/edit', [App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('category.edit');
+    Route::patch('category/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('category.update');
+    Route::delete('category/destroy/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::get('category/activate/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'activate'])->name('category.activate');
+    Route::get('category/deactivate/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'deactivate'])->name('category.deactivate');
+    // Amenities
+    Route::get('amenities', [App\Http\Controllers\Admin\AmenityController::class, 'index'])->name('amenities');
+    Route::get('amenities/create', [App\Http\Controllers\Admin\AmenityController::class, 'create'])->name('amenities.create');
+    Route::post('amenities/store', [App\Http\Controllers\Admin\AmenityController::class, 'store'])->name('amenities.store');
+    Route::get('amenities/{id}/edit', [App\Http\Controllers\Admin\AmenityController::class, 'edit'])->name('amenities.edit');
+    Route::patch('amenities/{id}', [App\Http\Controllers\Admin\AmenityController::class, 'update'])->name('amenities.update');
+    Route::delete('amenities/destroy/{id}', [App\Http\Controllers\Admin\AmenityController::class, 'destroy'])->name('amenities.destroy');
+    Route::get('amenities/activate/{id}', [App\Http\Controllers\Admin\AmenityController::class, 'activate'])->name('amenities.activate');
+    Route::get('amenities/deactivate/{id}', [App\Http\Controllers\Admin\AmenityController::class, 'deactivate'])->name('amenities.deactivate');
+    // Destinations
+    Route::get('destinations', [App\Http\Controllers\Admin\DestinationController::class, 'index'])->name('destinations');
+    Route::get('destinations/create', [App\Http\Controllers\Admin\DestinationController::class, 'create'])->name('destinations.create');
+    Route::post('destinations/store', [App\Http\Controllers\Admin\DestinationController::class, 'store'])->name('destinations.store');
+    Route::get('destinations/{id}/edit', [App\Http\Controllers\Admin\DestinationController::class, 'edit'])->name('destinations.edit');
+    Route::patch('destinations/{id}', [App\Http\Controllers\Admin\DestinationController::class, 'update'])->name('destinations.update');
+    Route::delete('destinations/destroy/{id}', [App\Http\Controllers\Admin\DestinationController::class, 'destroy'])->name('destinations.destroy');
+    Route::get('destinations/activate/{id}', [App\Http\Controllers\Admin\DestinationController::class, 'activate'])->name('destinations.activate');
+    Route::get('destinations/deactivate/{id}', [App\Http\Controllers\Admin\DestinationController::class, 'deactivate'])->name('destinations.deactivate');
+    // Packages
+    Route::get('packages', [App\Http\Controllers\Admin\PackageController::class, 'index'])->name('packages');
+    Route::get('packages/create', [App\Http\Controllers\Admin\PackageController::class, 'create'])->name('packages.create');
+    Route::post('packages/store', [App\Http\Controllers\Admin\PackageController::class, 'store'])->name('packages.store');
+    Route::get('packages/{id}/edit', [App\Http\Controllers\Admin\PackageController::class, 'edit'])->name('packages.edit');
+    Route::patch('packages/{id}', [App\Http\Controllers\Admin\PackageController::class, 'update'])->name('packages.update');
+    Route::delete('packages/destroy/{id}', [App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('packages.destroy');
+    Route::get('packages/activate/{id}', [App\Http\Controllers\Admin\PackageController::class, 'activate'])->name('packages.activate');
+    Route::get('packages/deactivate/{id}', [App\Http\Controllers\Admin\PackageController::class, 'deactivate'])->name('packages.deactivate');
 });
 
 Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','middleware'=>['auth','customer']], function(){

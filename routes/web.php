@@ -78,6 +78,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::get('country/{id}/edit', [App\Http\Controllers\Admin\CountryController::class, 'edit'])->name('country.edit');
     Route::patch('country/{id}', [App\Http\Controllers\Admin\CountryController::class, 'update'])->name('country.update');
     Route::delete('country/destroy/{id}', [App\Http\Controllers\Admin\CountryController::class, 'destroy'])->name('country.destroy');
+    Route::get('country/activate/{id}', [App\Http\Controllers\Admin\CountryController::class, 'activate'])->name('country.activate');
+    Route::get('country/deactivate/{id}', [App\Http\Controllers\Admin\CountryController::class, 'deactivate'])->name('country.deactivate');
     // City
     Route::get('city', [App\Http\Controllers\Admin\CityController::class, 'index'])->name('city');
     Route::get('city/create', [App\Http\Controllers\Admin\CityController::class, 'create'])->name('city.create');

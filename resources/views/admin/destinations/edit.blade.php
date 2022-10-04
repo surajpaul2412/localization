@@ -1,7 +1,7 @@
 @extends('layouts.backend.app')
 
 @section('title')
-<title>Category Edit | {{$category->name}}</title>
+<title>Destination Edit | {{$destination->name}}</title>
 @endsection
 
 @section('css')
@@ -17,16 +17,16 @@
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Edit Category</h5>
+                            <h5 class="m-b-10">Edit Destination</h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="#!">Manage Category</a></li>
-                            <li class="breadcrumb-item"><a href="#!">Edit Category</a></li>
+                            <li class="breadcrumb-item"><a href="#!">Manage Destination</a></li>
+                            <li class="breadcrumb-item"><a href="#!">Edit Destination</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right"> 
-                        <a href="{{route('admin.category')}}" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
+                        <a href="{{route('admin.destinations')}}" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
         <div class="row"> 
             <div class="col-sm-12">
                 <div class="card"> 
-                    <form class="custom-form" method="post" action="{{ route('admin.category.update', $category->id) }}" enctype="multipart/form-data">
+                    <form class="custom-form" method="post" action="{{ route('admin.destinations.update', $destination->id) }}" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf
                         <div class="card-header"></div>
@@ -49,8 +49,8 @@
                                     <div class="row">   
                                         <div class="col-sm-6">
                                             <div class="form-group fill">  
-                                                <label class="control-label">Category Name<span>*</span></label>
-                                                <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{$category->name}}" required/>
+                                                <label class="control-label">destinations Name<span>*</span></label>
+                                                <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{$destination->name}}" required/>
                                                 @error('name')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -61,7 +61,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="col-form-label">URL Slug<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" value="{{ $category->slug }}"  required/>
+                                                <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" value="{{ $destination->slug }}"  required/>
                                                 @error('slug')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -72,7 +72,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Description:</label> 
-                                                <textarea class="@error('description') is-invalid @enderror" name="description" id="editor1">{{$category->description}}</textarea>
+                                                <textarea class="@error('description') is-invalid @enderror" name="description" id="editor1">{{$destination->description}}</textarea>
                                                 @error('description')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -83,7 +83,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Meta Title:</label>
-                                                <input type="text" class="form-control form-control-sm @error('meta_title') is-invalid @enderror" name="meta_title" value="{{$category->meta_title}}" placeholder="" />
+                                                <input type="text" class="form-control form-control-sm @error('meta_title') is-invalid @enderror" name="meta_title" value="{{$destination->meta_title}}" placeholder="" />
                                                 @error('meta_title')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -94,7 +94,7 @@
                                         <div class="col-sm-6"> 
                                             <div class="form-group">
                                                 <label class="col-form-label">Meta Keywords:</label>
-                                                <textarea class="form-control form-control-sm @error('meta_keywords') is-invalid @enderror" name="meta_keywords" placeholder="">{{$category->meta_keywords}}</textarea>
+                                                <textarea class="form-control form-control-sm @error('meta_keywords') is-invalid @enderror" name="meta_keywords" placeholder="">{{$destination->meta_keywords}}</textarea>
                                                 @error('meta_keywords')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -105,7 +105,7 @@
                                         <div class="col-sm-6">  
                                             <div class="form-group">
                                                 <label class="col-form-label">Meta Description:</label>
-                                                <textarea class="form-control form-control-sm @error('meta_description') is-invalid @enderror" name="meta_description" placeholder="">{{$category->meta_description}}</textarea>
+                                                <textarea class="form-control form-control-sm @error('meta_description') is-invalid @enderror" name="meta_description" placeholder="">{{$destination->meta_description}}</textarea>
                                                 @error('meta_description')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -116,19 +116,35 @@
                                     </div>  
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="row">    
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">City:</label>
+                                                <select name="city_id" class="form-control" required>
+                                                    <option>--Select City--</option>
+                                                    @foreach($cities as $index => $city)
+                                                    <option value="{{$city->id}}" {{ $city->id == $destination->city->id ? 'selected' : '' }}>{{$city->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('city_id')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>   
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Icon Image:</label>
-                                                <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($category->icon)}}" />
-                                                <input type="hidden" name="hidden_icon" value="{{ $category->icon }}">
+                                                <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($destination->icon)}}" />
+                                                <input type="hidden" name="hidden_icon" value="{{ $destination->icon }}">
                                             </div>
                                         </div> 
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Profile Image:</label>
-                                                <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify1" data-max-file-size="2M" data-default-file="{{asset($category->avatar)}}" />
-                                                <input type="hidden" name="hidden_avatar" value="{{ $category->avatar }}">
+                                                <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify1" data-max-file-size="2M" data-default-file="{{asset($destination->avatar)}}" />
+                                                <input type="hidden" name="hidden_avatar" value="{{ $destination->avatar }}">
                                             </div>
                                         </div> 
                                     </div>

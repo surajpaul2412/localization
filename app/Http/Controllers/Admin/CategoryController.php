@@ -140,7 +140,7 @@ class CategoryController extends Controller
         return redirect('/admin/category')->with('success','Category deleted successfully.');
     }
 
-    // Acttive Page
+    // Acttive
     public function activate($id)
     {
         $category = Category::findOrFail($id);
@@ -148,7 +148,7 @@ class CategoryController extends Controller
         return redirect('/admin/category')->with('success', 'Category has been successfully activated.');
     }
 
-    // Deactivate Page
+    // Deactivate
     public function deactivate($id)
     {
         $category = Category::findOrFail($id);

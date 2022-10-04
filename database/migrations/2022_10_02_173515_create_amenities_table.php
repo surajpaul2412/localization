@@ -18,6 +18,7 @@ class CreateAmenitiesTable extends Migration
             $table->string('name');
             $table->string('icon');
             $table->longText('description');
+            $table->integer('status')->comment('1=>Enabled,0=>Disabled');
             $table->timestamps();
         });
     }

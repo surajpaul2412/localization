@@ -58,9 +58,9 @@
                                         <td class="text-wrap">{{$page->name}}</td>
                                         <td>
                                             @if($page->status == 1)
-                                            <a href="{{ route('admin.category.deactivate', $page->id) }}" class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">Active</a>
+                                            <a href="{{ route('admin.category.deactivate', $page->id) }}" class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">Enable</a>
                                             @else
-                                            <a href="{{ route('admin.category.activate', $page->id) }}" class="btn btn-danger font-weight-bold btn-xs btn-block has-ripple text-white">Not Verified</a>
+                                            <a href="{{ route('admin.category.activate', $page->id) }}" class="btn btn-danger font-weight-bold btn-xs btn-block has-ripple text-white">Disable</a>
                                             @endif
                                         </td>
                                         <td class="d-flex">  

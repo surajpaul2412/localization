@@ -20,10 +20,11 @@ class CreateDestinationsTable extends Migration
             $table->integer('city_id');
             $table->longText('description');
             $table->string('icon');
-            $table->string('image');
+            $table->string('avatar');
             $table->longText('meta_title')->nullable();
             $table->longText('meta_keywords')->nullable();
             $table->longText('meta_description')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

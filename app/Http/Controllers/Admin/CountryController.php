@@ -42,6 +42,7 @@ class CountryController extends Controller
         ]);
 
         $data = $request->all();
+        $data['status'] = 1;
         Country::create($data);
         return redirect('/admin/country')->with('success','Country created successfully.');
     }
@@ -87,5 +88,21 @@ class CountryController extends Controller
     {
         Country::findOrFail($id)->delete();
         return redirect('/admin/country')->with('success','Country deleted successfully.');
+    }
+
+    // Acttive
+    public function activate($id)
+    {
+        $country = Country::findOrFail($id);
+        $country->update(['status'=>1]);
+        return redirect('/admin/country')->with('success', 'Country has been successfully activated.');
+    }
+
+    // Deactivate
+    public function deactivate($id)
+    {
+        $country = Country::findOrFail($id);
+        $country->update(['status'=>0]);
+        return redirect('/admin/country')->with('success', 'Country has been successfully deactivated.');
     }
 }

@@ -16,6 +16,7 @@ class CreateCountriesTable extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('status')->comment('1=>Enabled,0=>Disabled');
             $table->timestamps();
         });
     }

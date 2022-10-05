@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Package extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name','slug','category_id','price','capacity','avatar','city_id','destination_id','duration','departure','return','description','status','meta_title','meta_keywords','meta_description'
+    ];
 }

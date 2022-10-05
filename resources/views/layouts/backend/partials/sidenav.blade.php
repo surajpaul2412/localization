@@ -15,10 +15,10 @@
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link"><span class="pcoded-micon"><i class="feather icon-navigation"></i></span><span class="pcoded-mtext">Manage Tours</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="{{route('admin.packages')}}">All Packeges</a></li> 
-                        <li><a href="{{route('admin.destinations')}}">Destinations</a></li>  
+                        <li><a href="{{route('admin.packages')}}">All Packeges</a></li>
+                        <li><a href="{{route('admin.destinations')}}">Destinations</a></li>
                         <li><a href="{{route('admin.amenities')}}">Amenities</a></li>
-                        <li><a href="{{route('admin.category')}}">Category</a></li>   
+                        <li><a href="{{route('admin.category')}}">Category</a></li>
                     </ul>
                 </li>
                 <li class="nav-item pcoded-hasmenu">

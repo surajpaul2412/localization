@@ -4,6 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Package;
+use App\Models\Category;
+use App\Models\Country;
+use App\Models\Destination;
+use App\Models\Amenity;
 
 class PackageController extends Controller
 {
@@ -14,7 +19,8 @@ class PackageController extends Controller
      */
     public function index()
     {
-        //
+        $packages = Package::all();
+        return view('admin.package.index', compact('packages'));
     }
 
     /**
@@ -24,7 +30,11 @@ class PackageController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::whereStatus(1)->get();
+        $countries = Country::whereStatus(1)->get();
+        $destinations = Destination::whereStatus(1)->get();
+        $amenities =  Amenity::whereStatus(1)->get();
+        return view('admin.package.create', compact('categories','countries','destinations','amenities'));
     }
 
     /**
@@ -35,18 +45,15 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'slug' => 'required|string|min:2|max:255|unique:categories,slug',
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|string',
+            'meta_title' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
+            'meta_description' => 'nullable|string'
+        ]);
     }
 
     /**
@@ -57,7 +64,12 @@ class PackageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $package = Package::findOrFail($id);
+        $categories = Category::whereStatus(1)->get();
+        $countries = Country::whereStatus(1)->get();
+        $destinations = Destination::whereStatus(1)->get();
+        $amenities =  Amenity::whereStatus(1)->get();
+        return view('admin.packages.edit', compact('categories','countries','destinations','amenities'));
     }
 
     /**
@@ -80,6 +92,23 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Package::findOrFail($id)->delete();
+        return redirect('/admin/packages')->with('success','Package deleted successfully.');
+    }
+
+    // Acttive
+    public function activate($id)
+    {
+        $package = Package::findOrFail($id);
+        $package->update(['status'=>1]);
+        return redirect('/admin/packages')->with('success', 'Package has been successfully activated.');
+    }
+
+    // Deactivate
+    public function deactivate($id)
+    {
+        $package = Package::findOrFail($id);
+        $package->update(['status'=>0]);
+        return redirect('/admin/packages')->with('success', 'Package has been successfully deactivated.');
     }
 }

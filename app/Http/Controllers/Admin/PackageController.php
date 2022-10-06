@@ -45,6 +45,7 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'slug' => 'required|string|min:2|max:255|unique:categories,slug',

@@ -45,16 +45,28 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'slug' => 'required|string|min:2|max:255|unique:categories,slug',
+            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/|numeric|min:1',
+            'capacity' => 'required|numeric|min:0',
+            'city' => 'required|integer',
+            'destination' => 'required|integer',
+            'duration' => 'required|integer',
+            'departure' => 'required|date_format:Y-m-d\TH:i|after:now',
+            'return' => 'required|date_format:Y-m-d\TH:i|after:departure',
+            'category' => 'required|integer',
+            'amenity' => 'required',
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
             'meta_title' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
-            'meta_description' => 'nullable|string'
+            'meta_description' => 'nullable|string',
+            'images' => 'required',
+            'images.*' => 'mimes:jpg,png,jpeg,gif,svg'
         ]);
+        dd($request->all());
+        $package = Package::createPackage($request->all());
     }
 
     /**

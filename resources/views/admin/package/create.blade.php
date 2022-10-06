@@ -230,7 +230,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Includes Amenities</label>  
-                                                        <select name="amenity" class="form-control form-control-sm js-example-basic-multiple" multiple="multiple" required>
+                                                        <select name="amenity[]" class="form-control form-control-sm js-example-basic-multiple" multiple="multiple" required>
                                                             <option disabled>--Select multiple--</option>
                                                             @foreach($amenities as $amenity)
                                                             <option value="{{$amenity->id}}">{{$amenity->name}}</option>

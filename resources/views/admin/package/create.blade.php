@@ -47,9 +47,6 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-uppercase has-ripple active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="false">General<span class="ripple ripple-animate"></span></a>
                                 </li>
-                                <!-- <li class="nav-item">
-                                    <a class="nav-link text-uppercase has-ripple" id="tourPlan-tab" data-toggle="tab" href="#tourPlan" role="tab" aria-controls="tourPlan" aria-selected="false">Tour Plan<span class="ripple ripple-animate"></span></a>
-                                </li> -->
                                 <li class="nav-item">
                                     <a class="nav-link text-uppercase has-ripple" id="metadata-tab" data-toggle="tab" href="#metadata" role="tab" aria-controls="metadata" aria-selected="false">Meta Data<span class="ripple ripple-animate"></span></a>
                                 </li>  
@@ -291,11 +288,11 @@
                                     <div class="row">
                                         <div class="col-md-12 mb-3">
                                             <div class="form-group">
-                                                <label class="col-form-label">Select Multiple Images (Use Ctrl button)</label> 
-                                                <input type="file" id="input-file-now" class="dropify" />
+                                                <label class="col-form-label">Select Multiple Images (Use Ctrl button)</label>
+                                                <input type="file" id="input-file-now" name="images[]" class="dropify1" multiple/>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <!-- <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-2">
                                                     <div class="upload-image border">
@@ -322,7 +319,7 @@
                                                     </div>
                                                 </div>  
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>  
                             </div>
@@ -345,6 +342,7 @@
 <script>  
     $(document).ready(function(){ 
         $('.dropify').dropify(); 
+        $('.dropify1').dropify(); 
     }); 
 </script>
 @endsection

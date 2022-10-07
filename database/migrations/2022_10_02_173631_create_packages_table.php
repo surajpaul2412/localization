@@ -31,6 +31,11 @@ class CreatePackagesTable extends Migration
             $table->longText('meta_keywords')->nullable();
             $table->longText('meta_description')->nullable();
             $table->integer('status')->default(1);
+            $table->longText('highlights')->nullable();
+            $table->longText('full_description')->nullable();
+            $table->longText('includes')->nullable();
+            $table->longText('meeting_point')->nullable();
+            $table->longText('important_information')->nullable();
             $table->timestamps();
         });
     }

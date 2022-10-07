@@ -53,6 +53,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-uppercase has-ripple" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">Image Gallery<span class="ripple ripple-animate"></span></a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase has-ripple" id="exp-tab" data-toggle="tab" href="#exp" role="tab" aria-controls="exp" aria-selected="false">Experience<span class="ripple ripple-animate"></span></a>
+                                </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade active show" id="general" role="tabpanel" aria-labelledby="general-tab">  
@@ -321,14 +324,83 @@
                                             </div>
                                         </div> -->
                                     </div>
+                                </div>
+                                <div class="tab-pane fade" id="exp" role="tabpanel" aria-labelledby="exp-tab">
+                                    <div class="row">  
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Highlights:</label> 
+                                                <textarea class="@error('highlights') is-invalid @enderror" name="highlights" id="editor2"></textarea>
+                                                @error('highlights')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Full description:</label> 
+                                                <textarea class="@error('full_description') is-invalid @enderror" name="full_description" id="editor3"></textarea>
+                                                @error('full_description')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Includes:</label> 
+                                                <textarea class="@error('includes') is-invalid @enderror" name="includes" id="editor4"></textarea>
+                                                @error('includes')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Meeting point:</label> 
+                                                <textarea class="@error('highlights') is-invalid @enderror" name="highlights" id="editor5"></textarea>
+                                                @error('highlights')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Meeting point:</label> 
+                                                <textarea class="@error('meeting_point') is-invalid @enderror" name="meeting_point" id="editor6"></textarea>
+                                                @error('meeting_point')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Important information:</label> 
+                                                <textarea class="@error('important_information') is-invalid @enderror" name="important_information" id="editor7"></textarea>
+                                                @error('important_information')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div> 
+                                        </div>
+                                    </div>
                                 </div>  
                             </div>
                         </div> 
                         <div class="card-footer text-right"> 
                             <button type="" class="btn btn-warning">Cancel</button>
                             <button type="submit" class="btn btn-success m-0">Submit</button>
-                        </div>  
-                        
+                        </div>
                     </form>  
                 </div>
             </div> 
@@ -342,7 +414,7 @@
 <script>  
     $(document).ready(function(){ 
         $('.dropify').dropify(); 
-        $('.dropify1').dropify(); 
+        $('.dropify1').dropify();
     }); 
 </script>
 @endsection

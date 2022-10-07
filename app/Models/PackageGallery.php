@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PackageGallery extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'package_id','image'
+    ];
 }

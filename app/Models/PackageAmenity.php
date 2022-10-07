@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PackageAmenity extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'package_id','amenity_id'
+    ];
 }

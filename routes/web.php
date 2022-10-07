@@ -38,6 +38,10 @@ Route::get('checkout', [App\Http\Controllers\HomeController::class, 'checkout'])
 Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');
 Route::get('tours/{id}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
 
+// Admin Login
+Route::get('admin/login', [App\Http\Controllers\Admin\LoginController::class, 'adminLogin'])->name('admin.login');
+Route::post('admin/start', [App\Http\Controllers\Admin\LoginController::class, 'postLogin'])->name('admin.postLogin');
+
 // Newsletter
 Route::post('/newsletter/store', [App\Http\Controllers\HomeController::class, 'newsletter'])->name('newsletter.store');
 

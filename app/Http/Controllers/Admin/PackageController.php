@@ -9,6 +9,8 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Destination;
 use App\Models\Amenity;
+use App\Models\PackageAmenity;
+use App\Models\PackageGallery;
 
 class PackageController extends Controller
 {
@@ -63,10 +65,41 @@ class PackageController extends Controller
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'images' => 'required',
-            'images.*' => 'mimes:jpg,png,jpeg,gif,svg'
+            'images.*' => 'mimes:jpg,png,jpeg,gif,svg',
+            'highlights' => 'nullable|string',
+            'full_description' => 'nullable|string',
+            'includes' => 'nullable|string',
+            'meeting_point' => 'nullable|string',
+            'important_information' => 'nullable|string',
         ]);
-        dd($request->all());
+
+        // Add Package
         $package = Package::createPackage($request->all());
+
+        // Add package Amenity
+        $amenityData['package_id'] = $package->id;
+        foreach ($request->get('amenity') as $key => $value) {
+            $amenityData['amenity_id'] = $value;
+            $packageAmenity = PackageAmenity::create($amenityData);
+        }
+
+        // Add packaage gallery
+        $galleryData['package_id'] = $package->id;
+        if($request->hasfile('images')) {
+            foreach ($request->file('images') as $key => $value) {
+                $image = $value;
+                if($image != ''){
+                    $image_name = rand() . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('uploads/avatar'), $image_name);
+                    $image_name = 'uploads/avatar/'.$image_name;
+                }
+
+                $galleryData['image'] = $image_name;
+                $packageGallery = PackageGallery::create($galleryData);
+            }
+        }
+
+        return redirect('/admin/packages')->with('success','Package added successfully.');
     }
 
     /**
@@ -82,7 +115,7 @@ class PackageController extends Controller
         $countries = Country::whereStatus(1)->get();
         $destinations = Destination::whereStatus(1)->get();
         $amenities =  Amenity::whereStatus(1)->get();
-        return view('admin.packages.edit', compact('categories','countries','destinations','amenities'));
+        return view('admin.package.edit', compact('categories','countries','destinations','amenities','package'));
     }
 
     /**
@@ -94,7 +127,7 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd("under dev");
     }
 
     /**

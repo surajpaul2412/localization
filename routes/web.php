@@ -109,15 +109,15 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::delete('amenities/destroy/{id}', [App\Http\Controllers\Admin\AmenityController::class, 'destroy'])->name('amenities.destroy');
     Route::get('amenities/activate/{id}', [App\Http\Controllers\Admin\AmenityController::class, 'activate'])->name('amenities.activate');
     Route::get('amenities/deactivate/{id}', [App\Http\Controllers\Admin\AmenityController::class, 'deactivate'])->name('amenities.deactivate');
-    // Destinations
-    Route::get('destinations', [App\Http\Controllers\Admin\DestinationController::class, 'index'])->name('destinations');
-    Route::get('destinations/create', [App\Http\Controllers\Admin\DestinationController::class, 'create'])->name('destinations.create');
-    Route::post('destinations/store', [App\Http\Controllers\Admin\DestinationController::class, 'store'])->name('destinations.store');
-    Route::get('destinations/{id}/edit', [App\Http\Controllers\Admin\DestinationController::class, 'edit'])->name('destinations.edit');
-    Route::patch('destinations/{id}', [App\Http\Controllers\Admin\DestinationController::class, 'update'])->name('destinations.update');
-    Route::delete('destinations/destroy/{id}', [App\Http\Controllers\Admin\DestinationController::class, 'destroy'])->name('destinations.destroy');
-    Route::get('destinations/activate/{id}', [App\Http\Controllers\Admin\DestinationController::class, 'activate'])->name('destinations.activate');
-    Route::get('destinations/deactivate/{id}', [App\Http\Controllers\Admin\DestinationController::class, 'deactivate'])->name('destinations.deactivate');
+    // Activities
+    Route::get('activities', [App\Http\Controllers\Admin\ActivityController::class, 'index'])->name('activities');
+    Route::get('activities/create', [App\Http\Controllers\Admin\ActivityController::class, 'create'])->name('activities.create');
+    Route::post('activities/store', [App\Http\Controllers\Admin\ActivityController::class, 'store'])->name('activities.store');
+    Route::get('activities/{id}/edit', [App\Http\Controllers\Admin\ActivityController::class, 'edit'])->name('activities.edit');
+    Route::patch('activities/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'update'])->name('activities.update');
+    Route::delete('activities/destroy/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'destroy'])->name('activities.destroy');
+    Route::get('activities/activate/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'activate'])->name('activities.activate');
+    Route::get('activities/deactivate/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'deactivate'])->name('activities.deactivate');
     // Packages
     Route::get('packages', [App\Http\Controllers\Admin\PackageController::class, 'index'])->name('packages');
     Route::get('packages/create', [App\Http\Controllers\Admin\PackageController::class, 'create'])->name('packages.create');

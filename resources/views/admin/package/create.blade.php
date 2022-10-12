@@ -1,7 +1,7 @@
 @extends('layouts.backend.app')
 
 @section('title')
-<title>Package Create</title>
+<title>Add New Tour</title>
 @endsection
 
 @section('css')
@@ -17,12 +17,12 @@
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Create Package</h5>
+                            <h5 class="m-b-10">Add New Tour</h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="#!">Manage Package</a></li>
-                            <li class="breadcrumb-item"><a href="#!">Create Package</a></li>
+                            <li class="breadcrumb-item"><a href="#!">Manage Tours</a></li>
+                            <li class="breadcrumb-item"><a href="#!">Add New Tour</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right">
@@ -48,13 +48,13 @@
                                     <a class="nav-link text-uppercase has-ripple active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="false">General<span class="ripple ripple-animate"></span></a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link text-uppercase has-ripple" id="exp-tab" data-toggle="tab" href="#exp" role="tab" aria-controls="exp" aria-selected="false">Experience<span class="ripple ripple-animate"></span></a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link text-uppercase has-ripple" id="metadata-tab" data-toggle="tab" href="#metadata" role="tab" aria-controls="metadata" aria-selected="false">Meta Data<span class="ripple ripple-animate"></span></a>
                                 </li>  
                                 <li class="nav-item">
                                     <a class="nav-link text-uppercase has-ripple" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="false">Image Gallery<span class="ripple ripple-animate"></span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-uppercase has-ripple" id="exp-tab" data-toggle="tab" href="#exp" role="tab" aria-controls="exp" aria-selected="false">Experience<span class="ripple ripple-animate"></span></a>
                                 </li>
                             </ul>
                             <div class="tab-content" id="myTabContent">
@@ -64,7 +64,7 @@
                                             <div class="row">   
                                                 <div class="col-md-6">
                                                     <div class="form-group">  
-                                                        <label class="col-form-label">Package Name<span>*</span></label>
+                                                        <label class="col-form-label">Tours Name<span>*</span></label>
                                                         <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ old('name') }}" required/>
                                                         @error('name')
                                                             <div class="text-danger">
@@ -83,25 +83,58 @@
                                                             </div>
                                                         @enderror
                                                     </div>
-                                                </div>  
-                                                
-                                                <div class="col-md-6">
+                                                </div>
+                                                <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="col-form-label">Price<span>*</span></label>
+                                                        <label class="col-form-label">Adult Price<span>*</span></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" required/>
+                                                            <input type="text" name="adult_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" required/>
                                                             <div class="input-group-append">
-                                                                <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">USD</span>
+                                                                <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
                                                             </div>
                                                         </div>
-                                                        <small><b>Note: </b>Price/Person</small>
-                                                        @error('price')
+                                                        <small><b>Note: </b>Price/Adult</small>
+                                                        @error('adult_price')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
                                                         @enderror
                                                     </div>
-                                                </div>  
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Child Price<span>*</span></label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="child_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" required/>
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
+                                                            </div>
+                                                        </div>
+                                                        <small><b>Note: </b>Price/Child</small>
+                                                        @error('child_price')
+                                                            <div class="text-danger">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Infant Price<span>*</span></label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="infant_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" required/>
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
+                                                            </div>
+                                                        </div>
+                                                        <small><b>Note: </b>Price/Infant</small>
+                                                        @error('infant_price')
+                                                            <div class="text-danger">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Capacity<span>*</span></label>
@@ -112,8 +145,34 @@
                                                             </div>
                                                         @enderror
                                                     </div>
-                                                </div> 
-                                                
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">  
+                                                        <label class="col-form-label">Duration<span>*</span></label>
+                                                        <input type="text" name="duration" class="form-control form-control-sm " placeholder="Eg: 23.84944" required/>
+                                                        @error('duration')
+                                                            <div class="text-danger">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Category<span>*</span></label>  
+                                                        <select name="category" class="form-control form-control-sm js-example-basic-single" required>
+                                                            <option>--Select Category--</option>
+                                                            @foreach($categories as $category)
+                                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('category')
+                                                            <div class="text-danger">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div> 
+                                                </div>
                                                 <div class="col-md-6"> 
                                                     <div class="form-group">
                                                         <label class="col-form-label">Location<span>*</span></label>  
@@ -134,102 +193,22 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6"> 
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Destinations<span>*</span></label>  
-                                                        <select name="destination" class="form-control form-control-sm js-example-basic-single" required>
-                                                            <option>--Select Destinations--</option>
-                                                            @foreach($destinations as $destination)
-                                                            <option value="{{$destination->id}}">{{$destination->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('destination')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>   
-                                                  
-                                                <div class="col-md-4">
-                                                    <div class="form-group">  
-                                                        <label class="col-form-label">Duration<span>*</span></label>
-                                                        <input type="text" name="duration" class="form-control form-control-sm " placeholder="Eg: 23.84944" required/>
-                                                        @error('duration')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>  
-                                                <div class="col-md-4">
-                                                    <div class="form-group">  
-                                                        <label class="col-form-label">Departure date & Time<span>*</span></label>
-                                                        <input type="datetime-local" name="departure" class="form-control form-control-sm" required/> 
-                                                        @error('departure')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>   
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Return date & Time<span>*</span></label>
-                                                        <input type="datetime-local" name="return" class="form-control form-control-sm" required/>
-                                                        @error('return')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div>  
-                                            </div>  
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="row"> 
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="col-form-label">Category<span>*</span></label>  
-                                                        <select name="category" class="form-control form-control-sm js-example-basic-single" required>
-                                                            <option>--Select Category--</option>
-                                                            @foreach($categories as $category)
-                                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                                        <label class="col-form-label">Activity<span>*</span></label>  
+                                                        <select name="activity" class="form-control form-control-sm js-example-basic-single" required>
+                                                            <option>--Select Activity--</option>
+                                                            @foreach($activities as $activity)
+                                                            <option value="{{$activity->id}}">{{$activity->name}}</option>
                                                             @endforeach
                                                         </select>
-                                                        @error('category')
+                                                        @error('activity')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
                                                         @enderror
                                                     </div> 
-                                                </div>   
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Profile Image:</label>
-                                                        <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
-                                                        @error('avatar')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="row">  
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="col-form-label">Description:</label> 
-                                                        <textarea class="@error('description') is-invalid @enderror" name="description" id="editor1"></textarea>
-                                                        @error('description')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
-                                                    </div> 
-                                                </div> 
+                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Includes Amenities</label>  
@@ -245,6 +224,47 @@
                                                             </div>
                                                         @enderror
                                                     </div>
+                                                </div>
+                                            </div>  
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Icon Image:</label>
+                                                        <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                        @error('icon')
+                                                            <div class="text-danger">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>  
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Profile Image:</label>
+                                                        <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                        @error('avatar')
+                                                            <div class="text-danger">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Description:</label> 
+                                                        <textarea class="@error('description') is-invalid @enderror" name="description" id="editor1"></textarea>
+                                                        @error('description')
+                                                            <div class="text-danger">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div> 
                                                 </div>
                                             </div>
                                         </div>

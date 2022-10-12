@@ -10,7 +10,7 @@ class Package extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name','slug','category_id','price','capacity','avatar','city_id','destination_id','duration','departure','return','description','status','meta_title','meta_keywords','meta_description','highlights','full_description','includes','meeting_point','important_information'
+        'name','slug','category_id','adult_price','child_price','infant_price','capacity','duration','avatar','city_id','activity_id','description','status','meta_title','meta_keywords','meta_description','highlights','full_description','includes','meeting_point','important_information','seal','icon'
     ];
 
     public static function createPackage($data) {
@@ -21,27 +21,37 @@ class Package extends Model
             $image_name = 'uploads/avatar/'.$image_name;
         }
 
+        $icon = $data['icon'];
+        if($icon != ''){
+            $icon_name = rand() . '.' . $icon->getClientOriginalExtension();
+            $icon->move(public_path('uploads/avatar'), $icon_name);
+            $icon_name = 'uploads/avatar/'.$icon_name;
+        }
+
         return Package::create([
             'name'=>$data['name'],
             'slug'=>$data['slug'],
-            'price'=>$data['price'],
+            'adult_price'=>$data['adult_price'],
+            'child_price'=>$data['child_price'],
+            'infant_price'=>$data['infant_price'],
             'capacity'=>$data['capacity'],
-            'city_id'=>$data['city'],
-            'destination_id'=>$data['destination'],
             'duration'=>$data['duration'],
-            'departure'=>$data['departure'],
-            'return'=>$data['return'],
             'category_id'=>$data['category'],
+            'city_id'=>$data['city'],
+            'activity_id'=>$data['activity'],
             'description'=>$data['description'],
             'meta_title'=>$data['meta_title'],
             'meta_keywords'=>$data['meta_keywords'],
             'meta_description'=>$data['meta_description'],
+            'icon'=>$icon_name,
             'avatar'=>$image_name,
             'highlights'=>$data['highlights'],
             'full_description'=>$data['full_description'],
             'includes'=>$data['includes'],
             'meeting_point'=>$data['meeting_point'],
             'important_information'=>$data['important_information'],
+            'status'=>$data['status']??1,
+            'seal'=>$data['seal']??0,
         ]);
     }
 
@@ -55,9 +65,9 @@ class Package extends Model
         return $this->belongsTo('App\Models\City');
     }
 
-    public function destination()
+    public function activity()
     {
-        return $this->belongsTo('App\Models\Destination');
+        return $this->belongsTo('App\Models\Activity');
     }
 
     public function amenities()

@@ -370,17 +370,6 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Meeting point:</label> 
-                                                <textarea class="@error('highlights') is-invalid @enderror" name="highlights" id="editor5">{{$package->highlights}}</textarea>
-                                                @error('highlights')
-                                                    <div class="text-danger">
-                                                        <strong>{{ $message }}</strong>
-                                                    </div>
-                                                @enderror
-                                            </div> 
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="col-form-label">Meeting point:</label> 
                                                 <textarea class="@error('meeting_point') is-invalid @enderror" name="meeting_point" id="editor6">{{$package->meeting_point}}</textarea>
                                                 @error('meeting_point')
                                                     <div class="text-danger">

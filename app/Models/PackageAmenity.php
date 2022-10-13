@@ -12,4 +12,9 @@ class PackageAmenity extends Model
     protected $fillable = [
         'package_id','amenity_id'
     ];
+
+    public function amenity()
+    {
+        return $this->belongsTo('App\Models\Amenity');
+    }
 }

@@ -39,7 +39,7 @@ Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->n
 Route::get('tours/{id}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
 
 // Admin Login
-Route::get('admin/login', [App\Http\Controllers\Admin\LoginController::class, 'adminLogin'])->name('admin.login');
+Route::get('admin', [App\Http\Controllers\Admin\LoginController::class, 'adminLogin'])->name('admin.login');
 Route::post('admin/start', [App\Http\Controllers\Admin\LoginController::class, 'postLogin'])->name('admin.postLogin');
 
 // Newsletter

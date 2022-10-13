@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tour;
+use App\Models\Package;
 
 class FrontendController extends Controller
 {
@@ -12,6 +13,7 @@ class FrontendController extends Controller
     }
 
     public function tourShow($id) {
-        return view('frontend.tour');
+        $tour = Package::findOrFail($id);
+        return view('frontend.tour-details', compact('tour'));
     }
 }

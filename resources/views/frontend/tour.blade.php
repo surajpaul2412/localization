@@ -4,12 +4,11 @@
 @endsection
 
 @php
-use App\Models\Tour;
-$tours = Tour::all();
+use App\Models\Package;
+$tours = Package::all();
 @endphp
 
 @section('content') 
-
 	<main>   
 		<section class="hero_in tours" style="background: url({{asset('images/pattern_1.svg')}});" >
 			<div class="wrapper">
@@ -167,13 +166,13 @@ $tours = Tour::all();
 								<div class="col isotope-item">
 									<div class="box_grid">
 										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
+											<a href="{{route('tour.show', $tour->id)}}" class="wish_bt"></a>
+											<a href="{{route('tour.show', $tour->id)}}">
 												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
 											</a> 
 										</figure>
 										<div class="wrapper">
-											<h3><a href="">{{$tour->name}}</a></h3> 
+											<h3><a href="{{route('tour.show', $tour->id)}}">{{$tour->name}}</a></h3> 
 											<div class="d-flex align-items-center">
 												<div class="rating">
 													<i class="fas fa-star"></i>
@@ -182,7 +181,7 @@ $tours = Tour::all();
 													<i class="fa fa-star-half"></i>
 													<i class="far fa-star"></i>
 												</div> 
-												<a href="#">({{$tour->price}})</a>   
+												<a href="{{route('tour.show', $tour->id)}}">({{$tour->price}})</a>   
 											</div> 
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 
@@ -219,278 +218,7 @@ $tours = Tour::all();
 											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
 										</ul>
 									</div>
-								</div>  
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>  
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>  
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>  
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>  
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>  
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>  
-								
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
 								</div> 
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>  
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>  
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>   
 							</div> 
 						</div> 
 					</div> 

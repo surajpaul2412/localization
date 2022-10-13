@@ -100,7 +100,7 @@ class PackageController extends Controller
             }
         }
 
-        return redirect('/admin/packages')->with('success','Package added successfully.');
+        return redirect('/admin/tours')->with('success','Tour added successfully.');
     }
 
     /**
@@ -128,7 +128,73 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd("under dev");
+        $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'slug' => 'required|string|min:2|max:255',
+            'adult_price' => 'required|regex:/^\d+(\.\d{1,2})?$/|numeric|min:1',
+            'child_price' => 'required|regex:/^\d+(\.\d{1,2})?$/|numeric|min:1',
+            'infant_price' => 'required|regex:/^\d+(\.\d{1,2})?$/|numeric|min:1',
+            'capacity' => 'required|numeric|min:0',
+            'duration' => 'required|integer',
+            'category' => 'required|integer',
+            'city' => 'required|integer',
+            'activity' => 'required|integer',
+            'amenity' => 'required',
+            'description' => 'required|string',
+            'meta_title' => 'nullable|string',
+            'meta_keywords' => 'nullable|string',
+            'meta_description' => 'nullable|string',
+            'highlights' => 'nullable|string',
+            'full_description' => 'nullable|string',
+            'includes' => 'nullable|string',
+            'meeting_point' => 'nullable|string',
+            'important_information' => 'nullable|string',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'hidden_icon' => 'required|string',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'hidden_avatar' => 'required|string',
+            'images' => 'nullable',
+            'images.*' => 'mimes:jpg,png,jpeg,gif,svg',
+            'gallery_images'=>'nullable',
+            'gallery_images.*'=>'nullable|string'
+        ]);
+
+        $package = Package::findOrFail($id);
+
+        // Updating Amenities
+        $package->amenities->each->delete();
+        $amenityData['package_id'] = $package->id;
+        foreach ($request->get('amenity') as $key => $value) {
+            $amenityData['amenity_id'] = $value;
+            $packageAmenity = PackageAmenity::create($amenityData);
+        }
+
+        // Updating Gallery
+        $package->gallery->each->delete();
+        $galleryData['package_id'] = $package->id;
+        if (!empty($request->gallery_images)) {
+            foreach ($request->gallery_images as $key => $value) {
+                $galleryData['image'] = $value;
+                $packageGallery = PackageGallery::create($galleryData);
+            }
+        }
+        if($request->hasfile('images')) {
+            foreach ($request->file('images') as $key => $value) {
+                $image = $value;
+                if($image != ''){
+                    $image_name = rand() . '.' . $image->getClientOriginalExtension();
+                    $image->move(public_path('uploads/avatar'), $image_name);
+                    $image_name = 'uploads/avatar/'.$image_name;
+                }
+
+                $galleryData['image'] = $image_name;
+                $packageGallery = PackageGallery::create($galleryData);
+            }
+        }
+
+        // Update Package
+        $package->updatePackage($request->all(), $package->id);
+        return redirect('admin/tours')->with('success', 'Tour has been successfully updated.');        
     }
 
     /**
@@ -140,7 +206,7 @@ class PackageController extends Controller
     public function destroy($id)
     {
         Package::findOrFail($id)->delete();
-        return redirect('/admin/packages')->with('success','Package deleted successfully.');
+        return redirect('/admin/tours')->with('success','Tour deleted successfully.');
     }
 
     // Acttive
@@ -148,7 +214,7 @@ class PackageController extends Controller
     {
         $package = Package::findOrFail($id);
         $package->update(['status'=>1]);
-        return redirect('/admin/packages')->with('success', 'Package has been successfully activated.');
+        return redirect('/admin/tours')->with('success', 'Tour has been successfully activated.');
     }
 
     // Deactivate
@@ -156,6 +222,6 @@ class PackageController extends Controller
     {
         $package = Package::findOrFail($id);
         $package->update(['status'=>0]);
-        return redirect('/admin/packages')->with('success', 'Package has been successfully deactivated.');
+        return redirect('/admin/tours')->with('success', 'Tour has been successfully deactivated.');
     }
 }

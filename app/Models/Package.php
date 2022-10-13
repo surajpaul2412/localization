@@ -55,6 +55,50 @@ class Package extends Model
         ]);
     }
 
+    public function updatePackage($data, $id) {
+        $icon_name = $data['hidden_icon'];
+        if(!empty($data['icon'])){
+            $icon = $data['icon'];
+            $icon_name = rand() . '.' . $icon->getClientOriginalExtension();
+            $icon->move(public_path('uploads/avatar'), $icon_name);
+            $icon_name = 'uploads/avatar/'.$icon_name;
+        }
+
+        $image_name = $data['hidden_avatar'];
+        if(!empty($data['avatar'])){
+            $image = $data['avatar'];
+            $image_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/avatar'), $image_name);
+            $image_name = 'uploads/avatar/'.$image_name;
+        }
+
+        return Package::whereId($id)->update([
+            'name'=>$data['name'],
+            'slug'=>$data['slug'],
+            'adult_price'=>$data['adult_price'],
+            'child_price'=>$data['child_price'],
+            'infant_price'=>$data['infant_price'],
+            'capacity'=>$data['capacity'],
+            'duration'=>$data['duration'],
+            'category_id'=>$data['category'],
+            'city_id'=>$data['city'],
+            'activity_id'=>$data['activity'],
+            'description'=>$data['description'],
+            'meta_title'=>$data['meta_title']??null,
+            'meta_keywords'=>$data['meta_keywords']??null,
+            'meta_description'=>$data['meta_description']??null,
+            'icon'=>$icon_name,
+            'avatar'=>$image_name,
+            'highlights'=>$data['highlights']??null,
+            'full_description'=>$data['full_description']??null,
+            'includes'=>$data['includes']??null,
+            'meeting_point'=>$data['meeting_point']??null,
+            'important_information'=>$data['important_information']??null,
+            'status'=>$data['status']??Package::findOrFail($id)->status,
+            'seal'=>$data['seal']??Package::findOrFail($id)->seal,
+        ]);
+    }
+
     public function category()
     {
         return $this->belongsTo('App\Models\Category');

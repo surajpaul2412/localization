@@ -215,11 +215,12 @@
                                                         <select name="amenity[]" class="form-control form-control-sm js-example-basic-multiple" multiple="multiple" required>
                                                             <option disabled>--Select multiple--</option>
                                                             @foreach($amenities as $amenity)
-                                                            <option value="{{$amenity->id}}">{{$amenity->name}}</option>
+                                                            <option value="{{$amenity->id}}" 
+                                                                @foreach($package->amenities as $row)
+                                                                    {{ $amenity->id == $row->amenity_id ? 'selected' : '' }}
+                                                                @endforeach>{{$amenity->name}}</option>
                                                             @endforeach
                                                         </select>
-
-                                                        {{$package->amenities}}
                                                         @error('amenity')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -234,7 +235,8 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Icon Image:</label>
-                                                        <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                        <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($package->icon)}}" />
+                                                        <input type="hidden" name="hidden_icon" value="{{ $package->icon }}">
                                                         @error('icon')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -245,7 +247,8 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Profile Image:</label>
-                                                        <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                        <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($package->avatar)}}" />
+                                                        <input type="hidden" name="hidden_avatar" value="{{ $package->avatar }}">
                                                         @error('avatar')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -315,6 +318,8 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Select Multiple Images (Use Ctrl button)</label>
                                                 <input type="file" id="input-file-now" name="images[]" class="dropify1" multiple/>
+
+                                                    {{$package->gallery}}
                                             </div>
                                         </div>
                                     </div>

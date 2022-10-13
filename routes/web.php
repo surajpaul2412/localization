@@ -118,15 +118,15 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::delete('activities/destroy/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'destroy'])->name('activities.destroy');
     Route::get('activities/activate/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'activate'])->name('activities.activate');
     Route::get('activities/deactivate/{id}', [App\Http\Controllers\Admin\ActivityController::class, 'deactivate'])->name('activities.deactivate');
-    // Packages
-    Route::get('packages', [App\Http\Controllers\Admin\PackageController::class, 'index'])->name('packages');
-    Route::get('packages/create', [App\Http\Controllers\Admin\PackageController::class, 'create'])->name('packages.create');
-    Route::post('packages/store', [App\Http\Controllers\Admin\PackageController::class, 'store'])->name('packages.store');
-    Route::get('packages/{id}/edit', [App\Http\Controllers\Admin\PackageController::class, 'edit'])->name('packages.edit');
-    Route::patch('packages/{id}', [App\Http\Controllers\Admin\PackageController::class, 'update'])->name('packages.update');
-    Route::delete('packages/destroy/{id}', [App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('packages.destroy');
-    Route::get('packages/activate/{id}', [App\Http\Controllers\Admin\PackageController::class, 'activate'])->name('packages.activate');
-    Route::get('packages/deactivate/{id}', [App\Http\Controllers\Admin\PackageController::class, 'deactivate'])->name('packages.deactivate');
+    // Packages/Tours
+    Route::get('tours', [App\Http\Controllers\Admin\PackageController::class, 'index'])->name('tours');
+    Route::get('tours/create', [App\Http\Controllers\Admin\PackageController::class, 'create'])->name('tours.create');
+    Route::post('tours/store', [App\Http\Controllers\Admin\PackageController::class, 'store'])->name('tours.store');
+    Route::get('tours/{id}/edit', [App\Http\Controllers\Admin\PackageController::class, 'edit'])->name('tours.edit');
+    Route::patch('tours/{id}', [App\Http\Controllers\Admin\PackageController::class, 'update'])->name('tours.update');
+    Route::delete('tours/destroy/{id}', [App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('tours.destroy');
+    Route::get('tours/activate/{id}', [App\Http\Controllers\Admin\PackageController::class, 'activate'])->name('tours.activate');
+    Route::get('tours/deactivate/{id}', [App\Http\Controllers\Admin\PackageController::class, 'deactivate'])->name('tours.deactivate');
 });
 
 Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','middleware'=>['auth','customer']], function(){

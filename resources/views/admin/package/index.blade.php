@@ -1,7 +1,7 @@
 @extends('layouts.backend.app')
 
 @section('title')
-<title>Package | {{Auth::user()->role->name}}</title>
+<title>Tours | {{Auth::user()->role->name}}</title>
 @endsection
 
 @section('css')
@@ -16,16 +16,16 @@
                 <div class="row align-items-center">
                     <div class="col-md-8">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">All Package</h5>
+                            <h5 class="m-b-10">All Tours</h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="">Manage Package</a></li>
-                            <li class="breadcrumb-item"><a href="">All Package</a></li>
+                            <li class="breadcrumb-item"><a href="">Manage Tours</a></li>
+                            <li class="breadcrumb-item"><a href="">All Tour</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right"> 
-                        <a href="{{route('admin.packages.create')}}" class="btn btn-success" title="Back to List"><i class="feather icon-plus"></i> Add Package</a> 
+                        <a href="{{route('admin.tours.create')}}" class="btn btn-success" title="Back to List"><i class="feather icon-plus"></i> Add Tour</a> 
                     </div>
                 </div>
             </div>
@@ -60,14 +60,14 @@
                                         <td class="text-wrap">{{$package->category->name}}</td>
                                         <td>
                                             @if($package->status == 1)
-                                            <a href="{{ route('admin.packages.deactivate', $package->id) }}" class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">Enable</a>
+                                            <a href="{{ route('admin.tours.deactivate', $package->id) }}" class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">Enable</a>
                                             @else
-                                            <a href="{{ route('admin.packages.activate', $package->id) }}" class="btn btn-danger font-weight-bold btn-xs btn-block has-ripple text-white">Disable</a>
+                                            <a href="{{ route('admin.tours.activate', $package->id) }}" class="btn btn-danger font-weight-bold btn-xs btn-block has-ripple text-white">Disable</a>
                                             @endif
                                         </td>
                                         <td class="d-flex">  
-                                            <a href="{{ route('admin.packages.edit', $package->id) }}" class="btn btn-info btn-xs" title="Edit"><i class="feather icon-edit"></i></a>
-                                            <form method="POST" action="{{ route('admin.packages.destroy', $package->id) }}">
+                                            <a href="{{ route('admin.tours.edit', $package->id) }}" class="btn btn-info btn-xs" title="Edit"><i class="feather icon-edit"></i></a>
+                                            <form method="POST" action="{{ route('admin.tours.destroy', $package->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <button type="submit" class="btn btn-xs btn-danger btn-flat show_confirm" data-toggle="tooltip" title='Delete'><i class="feather icon-trash-2"></i></button>

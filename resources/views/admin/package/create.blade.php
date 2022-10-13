@@ -26,7 +26,7 @@
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right">
-                        <a href="{{route('admin.packages')}}" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
+                        <a href="{{route('admin.tours')}}" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
         <div class="row"> 
             <div class="col-sm-12">
                 <div class="card"> 
-                    <form class="custom-form" method="POST" action="{{ route('admin.packages.store') }}" enctype="multipart/form-data">
+                    <form class="custom-form" method="POST" action="{{ route('admin.tours.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header"></div>
                         <div class="card-body">

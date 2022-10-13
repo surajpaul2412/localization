@@ -26,7 +26,7 @@
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right">
-                        <a href="{{route('admin.packages')}}" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
+                        <a href="{{route('admin.tours')}}" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
                     </div>
                 </div>
             </div>
@@ -39,7 +39,8 @@
         <div class="row"> 
             <div class="col-sm-12">
                 <div class="card"> 
-                    <form class="custom-form" method="POST" action="{{ route('admin.packages.update', $package->id) }}" enctype="multipart/form-data">
+                    <form class="custom-form" method="POST" action="{{ route('admin.tours.update', $package->id) }}" enctype="multipart/form-data">
+                        @method('PATCH')
                         @csrf
                         <div class="card-header"></div>
                         <div class="card-body">
@@ -318,10 +319,17 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Select Multiple Images (Use Ctrl button)</label>
                                                 <input type="file" id="input-file-now" name="images[]" class="dropify1" multiple/>
-
-                                                    {{$package->gallery}}
                                             </div>
                                         </div>
+                                        @foreach($package->gallery as $index => $gallery)
+                                        <div class="col-md-2">
+                                            <div id="image{{$index}}" class="p-3">
+                                                <img src="{{asset($gallery->image)}}" width="100%">
+                                                <input type="hidden" name="gallery_images[]" value="{{$gallery->image}}">
+                                                <a class="removeImage{{$index}} btn btn-danger w-100">Remove</a>
+                                            </div>
+                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="exp" role="tabpanel" aria-labelledby="exp-tab">
@@ -416,4 +424,14 @@
         $('.dropify1').dropify();
     }); 
 </script>
+
+@foreach($package->gallery as $index => $gallery)
+<script>
+    $(document).ready(function(){
+        $(".removeImage{{$index}}").click(function(){
+            $("#image{{$index}}").remove();
+        });
+    });
+</script>
+@endforeach
 @endsection

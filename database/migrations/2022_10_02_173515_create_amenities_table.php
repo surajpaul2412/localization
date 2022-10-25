@@ -15,10 +15,10 @@ class CreateAmenitiesTable extends Migration
     {
         Schema::create('amenities', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('icon');
+            $table->string('name');            
             $table->longText('description');
-            $table->integer('status')->comment('1=>Enabled,0=>Disabled');
+            $table->string('icon')->default('uploads/amenities/default.jpg');
+            $table->integer('status')->default(1)->comment('1=>Enabled,0=>Disabled');
             $table->timestamps();
         });
     }

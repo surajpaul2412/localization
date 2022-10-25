@@ -16,11 +16,11 @@ class CreateTestimonialsTable extends Migration
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('avatar');
+            $table->string('avatar')->default('uploads/testimonials/default.jpg');
             $table->string('country');
             $table->integer('stars');
             $table->longText('description');
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

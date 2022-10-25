@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use File;
 
 class CategoryController extends Controller
 {
@@ -40,8 +41,8 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'slug' => 'required|string|min:2|max:255|unique:categories,slug',
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
             'meta_title' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
@@ -51,21 +52,21 @@ class CategoryController extends Controller
         $image = $request->file('avatar');
         if($image != ''){
             $image_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/avatar'), $image_name);
-            $image_name = 'uploads/avatar/'.$image_name;
+            $image->move(public_path('uploads/categories'), $image_name);
+            $image_name = 'uploads/categories/'.$image_name;
         }
 
         $icon = $request->file('icon');
         if($icon != ''){
             $icon_name = rand() . '.' . $icon->getClientOriginalExtension();
-            $icon->move(public_path('uploads/avatar'), $icon_name);
-            $icon_name = 'uploads/avatar/'.$icon_name;
+            $icon->move(public_path('uploads/categories'), $icon_name);
+            $icon_name = 'uploads/categories/'.$icon_name;
         }
 
         $data = $request->all();
         $data['status'] = 1;
-        $data['icon'] = $icon_name;
-        $data['avatar'] = $image_name;
+        $data['icon'] = $icon_name??'uploads/categories/default-icon.jpg';
+        $data['avatar'] = $image_name??'uploads/categories/default-avatar.jpg';
         Category::create($data);
         return redirect('/admin/category')->with('success','Category created successfully.');
     }
@@ -103,24 +104,35 @@ class CategoryController extends Controller
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string'
         ]);
+        $category = Category::findOrFail($id);
 
         $icon_name = $request->hidden_icon;
         $icon = $request->file('icon');
-        if($icon != ''){
+        if($icon != '') {
+            if ($category->icon != 'uploads/categories/default-icon.jpg') {
+                if(File::exists($category->icon)) {
+                    File::delete($category->icon);
+                }
+            }
             $icon_name = rand() . '.' . $icon->getClientOriginalExtension();
-            $icon->move(public_path('uploads/avatar'), $icon_name);
-            $icon_name = 'uploads/avatar/'.$icon_name;
+            $icon->move(public_path('uploads/categories'), $icon_name);
+            $icon_name = 'uploads/categories/'.$icon_name;
         }
 
         $image_name = $request->hidden_avatar;
         $image = $request->file('avatar');
-        if($image != ''){
+        if($image != '') {
+            if ($category->avatar != 'uploads/categories/default-avatar.jpg') {
+                if(File::exists($category->avatar)) {
+                    File::delete($category->avatar);
+                }
+            }
             $image_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/avatar'), $image_name);
-            $image_name = 'uploads/avatar/'.$image_name;
+            $image->move(public_path('uploads/categories'), $image_name);
+            $image_name = 'uploads/categories/'.$image_name;
         }
 
-        $category = Category::findOrFail($id);
+        
         $data = $request->all();
         $data['icon'] = $icon_name;
         $data['avatar'] = $image_name;
@@ -136,7 +148,18 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::findOrFail($id)->delete();
+        $category = Category::findOrFail($id);
+        if ($category->avatar != 'uploads/categories/default-avatar.jpg') {
+            if(File::exists($category->avatar)) {
+                File::delete($category->avatar);
+            }
+        }
+        if ($category->icon != 'uploads/categories/default-icon.jpg') {
+            if(File::exists($category->icon)) {
+                File::delete($category->icon);
+            }
+        }
+        $category->delete();
         return redirect('/admin/category')->with('success','Category deleted successfully.');
     }
 

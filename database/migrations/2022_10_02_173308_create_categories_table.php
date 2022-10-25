@@ -17,10 +17,10 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('icon');
-            $table->string('avatar');
+            $table->string('icon')->default('uploads/categories/default-icon.jpg');
+            $table->string('avatar')->default('uploads/categories/default-avatar.jpg');
             $table->longText('description');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->longText('meta_title')->nullable();
             $table->longText('meta_keywords')->nullable();
             $table->longText('meta_description')->nullable();

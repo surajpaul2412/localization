@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Activity;
 use App\Models\City;
+use File;
 
 class ActivityController extends Controller
 {
@@ -40,7 +41,7 @@ class ActivityController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:3|max:255',
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
             'meta_title' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
@@ -50,12 +51,12 @@ class ActivityController extends Controller
         $image = $request->file('avatar');
         if($image != ''){
             $image_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/avatar'), $image_name);
-            $image_name = 'uploads/avatar/'.$image_name;
+            $image->move(public_path('uploads/activity'), $image_name);
+            $image_name = 'uploads/activity/'.$image_name;
         }
 
         $data = $request->all();
-        $data['avatar'] = $image_name;
+        $data['avatar'] = $image_name??'uploads/activity/default.jpg';
         $data['status'] = 1;
         Activity::create($data);
         return redirect('/admin/activities')->with('success','Activity created successfully.');
@@ -85,22 +86,27 @@ class ActivityController extends Controller
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'hidden_avatar' => 'required|string',
+            'hidden_avatar' => 'nullable|string',
             'description' => 'required|string',
             'meta_title' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string'
         ]);
+        $activity = Activity::findOrFail($id);
 
         $image_name = $request->hidden_avatar;
         $image = $request->file('avatar');
         if($image != ''){
+            if ($activity->avatar != 'uploads/activity/default.jpg') {
+                if(File::exists($activity->avatar)) {
+                    File::delete($activity->avatar);
+                }
+            }
             $image_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/avatar'), $image_name);
-            $image_name = 'uploads/avatar/'.$image_name;
+            $image->move(public_path('uploads/activity'), $image_name);
+            $image_name = 'uploads/activity/'.$image_name;
         }
-
-        $activity = Activity::findOrFail($id);
+        
         $data = $request->all();
         $data['avatar'] = $image_name;
         $activity->update($data);
@@ -115,7 +121,13 @@ class ActivityController extends Controller
      */
     public function destroy($id)
     {
-        Activity::findOrFail($id)->delete();
+        $activity = Activity::findOrFail($id);
+        if ($activity->avatar != 'uploads/activity/default.jpg') {
+            if(File::exists($activity->avatar)) {
+                File::delete($activity->avatar);
+            }
+        }
+        $activity->delete();
         return redirect('/admin/activities')->with('success','Activity deleted successfully.');
     }
 

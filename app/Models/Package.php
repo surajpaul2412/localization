@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use File;
 
 class Package extends Model
 {
@@ -14,18 +15,22 @@ class Package extends Model
     ];
 
     public static function createPackage($data) {
-        $image = $data['avatar'];
-        if($image != ''){
-            $image_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/avatar'), $image_name);
-            $image_name = 'uploads/avatar/'.$image_name;
+        if (!empty($data['avatar'])) {
+            $image = $data['avatar'];
+            if($image != ''){
+                $image_name = rand() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/tour'), $image_name);
+                $image_name = 'uploads/tour/'.$image_name;
+            }
         }
-
-        $icon = $data['icon'];
-        if($icon != ''){
-            $icon_name = rand() . '.' . $icon->getClientOriginalExtension();
-            $icon->move(public_path('uploads/avatar'), $icon_name);
-            $icon_name = 'uploads/avatar/'.$icon_name;
+        
+        if (!empty($data['icon'])) {
+            $icon = $data['icon'];
+            if($icon != ''){
+                $icon_name = rand() . '.' . $icon->getClientOriginalExtension();
+                $icon->move(public_path('uploads/tour'), $icon_name);
+                $icon_name = 'uploads/tour/'.$icon_name;
+            }
         }
 
         return Package::create([
@@ -43,8 +48,8 @@ class Package extends Model
             'meta_title'=>$data['meta_title'],
             'meta_keywords'=>$data['meta_keywords'],
             'meta_description'=>$data['meta_description'],
-            'icon'=>$icon_name,
-            'avatar'=>$image_name,
+            'icon'=>$icon_name??'uploads/tour/default-icon.jpg',
+            'avatar'=>$image_name??'uploads/tour/default-avatar.jpg',
             'highlights'=>$data['highlights'],
             'full_description'=>$data['full_description'],
             'includes'=>$data['includes'],
@@ -58,18 +63,28 @@ class Package extends Model
     public function updatePackage($data, $id) {
         $icon_name = $data['hidden_icon'];
         if(!empty($data['icon'])){
+            if (Package::findOrFail($id)->icon != 'uploads/tour/default-icon.jpg') {
+                if(File::exists(Package::findOrFail($id)->icon)) {
+                    File::delete(Package::findOrFail($id)->icon);
+                }
+            }
             $icon = $data['icon'];
             $icon_name = rand() . '.' . $icon->getClientOriginalExtension();
-            $icon->move(public_path('uploads/avatar'), $icon_name);
-            $icon_name = 'uploads/avatar/'.$icon_name;
+            $icon->move(public_path('uploads/tour'), $icon_name);
+            $icon_name = 'uploads/tour/'.$icon_name;
         }
 
         $image_name = $data['hidden_avatar'];
         if(!empty($data['avatar'])){
+            if (Package::findOrFail($id)->avatar != 'uploads/tour/default-avatar.jpg') {
+                if(File::exists(Package::findOrFail($id)->avatar)) {
+                    File::delete(Package::findOrFail($id)->avatar);
+                }
+            }
             $image = $data['avatar'];
             $image_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/avatar'), $image_name);
-            $image_name = 'uploads/avatar/'.$image_name;
+            $image->move(public_path('uploads/tour'), $image_name);
+            $image_name = 'uploads/tour/'.$image_name;
         }
 
         return Package::whereId($id)->update([

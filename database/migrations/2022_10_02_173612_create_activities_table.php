@@ -17,11 +17,11 @@ class CreateActivitiesTable extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
-            $table->string('avatar');
+            $table->string('avatar')->default('uploads/activity/default.jpg');
+            $table->integer('status')->default(1);
             $table->longText('meta_title')->nullable();
             $table->longText('meta_keywords')->nullable();
             $table->longText('meta_description')->nullable();
-            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

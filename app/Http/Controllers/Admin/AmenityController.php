@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Amenity;
+use File;
 
 class AmenityController extends Controller
 {
@@ -39,20 +40,20 @@ class AmenityController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:3|max:255',
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string'
         ]);
 
         $icon = $request->file('icon');
         if($icon != ''){
             $icon_name = rand() . '.' . $icon->getClientOriginalExtension();
-            $icon->move(public_path('uploads/avatar'), $icon_name);
-            $icon_name = 'uploads/avatar/'.$icon_name;
+            $icon->move(public_path('uploads/amenities'), $icon_name);
+            $icon_name = 'uploads/amenities/'.$icon_name;
         }
 
         $data = $request->all();
         $data['status'] = 1;
-        $data['icon'] = $icon_name;
+        $data['icon'] = $icon_name??'uploads/amenities/default.jpg';
         Amenity::create($data);
         return redirect('/admin/amenities')->with('success','Amenity created successfully.');
     }
@@ -84,16 +85,21 @@ class AmenityController extends Controller
             'hidden_icon' => 'required|string',
             'description' => 'required|string'
         ]);
+        $amenity = Amenity::findOrFail($id);
 
         $icon_name = $request->hidden_icon;
         $icon = $request->file('icon');
         if($icon != ''){
+            if ($amenity->icon != 'uploads/amenities/default.jpg') {
+                if(File::exists($amenity->icon)) {
+                    File::delete($amenity->icon);
+                }
+            }
             $icon_name = rand() . '.' . $icon->getClientOriginalExtension();
-            $icon->move(public_path('uploads/avatar'), $icon_name);
-            $icon_name = 'uploads/avatar/'.$icon_name;
+            $icon->move(public_path('uploads/amenities'), $icon_name);
+            $icon_name = 'uploads/amenities/'.$icon_name;
         }
-
-        $amenity = Amenity::findOrFail($id);
+        
         $data = $request->all();
         $data['icon'] = $icon_name;
         $amenity->update($data);
@@ -108,7 +114,13 @@ class AmenityController extends Controller
      */
     public function destroy($id)
     {
-        Amenity::findOrFail($id)->delete();
+        $amenity = Amenity::findOrFail($id);
+         if ($amenity->icon != 'uploads/amenities/default.jpg') {
+            if(File::exists($amenity->icon)) {
+                File::delete($amenity->icon);
+            }
+        }
+        $amenity->delete();
         return redirect('/admin/amenities')->with('success','Amenity deleted successfully.');
     }
 

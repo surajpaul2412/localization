@@ -28,8 +28,8 @@ class CreatePackagesTable extends Migration
             $table->longText('description');
             $table->integer('status')->default(1);
             $table->integer('seal')->default(0);
-            $table->string('icon');
-            $table->string('avatar');
+            $table->string('icon')->default('uploads/amenities/default-icon.jpg');
+            $table->string('avatar')->default('uploads/amenities/default-avatar.jpg');
             $table->longText('meta_title')->nullable();
             $table->longText('meta_keywords')->nullable();
             $table->longText('meta_description')->nullable();            

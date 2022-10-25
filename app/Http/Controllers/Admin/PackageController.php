@@ -11,6 +11,7 @@ use App\Models\Amenity;
 use App\Models\Activity;
 use App\Models\PackageAmenity;
 use App\Models\PackageGallery;
+use File;
 
 class PackageController extends Controller
 {
@@ -68,9 +69,9 @@ class PackageController extends Controller
             'includes' => 'nullable|string',
             'meeting_point' => 'nullable|string',
             'important_information' => 'nullable|string',
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'images' => 'required',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'images' => 'nullable',
             'images.*' => 'mimes:jpg,png,jpeg,gif,svg',
         ]);
 
@@ -158,7 +159,6 @@ class PackageController extends Controller
             'gallery_images'=>'nullable',
             'gallery_images.*'=>'nullable|string'
         ]);
-
         $package = Package::findOrFail($id);
 
         // Updating Amenities
@@ -183,8 +183,8 @@ class PackageController extends Controller
                 $image = $value;
                 if($image != ''){
                     $image_name = rand() . '.' . $image->getClientOriginalExtension();
-                    $image->move(public_path('uploads/avatar'), $image_name);
-                    $image_name = 'uploads/avatar/'.$image_name;
+                    $image->move(public_path('uploads/tour'), $image_name);
+                    $image_name = 'uploads/tour/'.$image_name;
                 }
 
                 $galleryData['image'] = $image_name;
@@ -205,7 +205,20 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        Package::findOrFail($id)->delete();
+        $package = Package::findOrFail($id);
+        $package->amenities->each->delete();
+        $package->gallery->each->delete();
+        if ($package->avatar != 'uploads/tour/default-avatar.jpg') {
+            if(File::exists($package->avatar)) {
+                File::delete($package->avatar);
+            }
+        }
+        if ($package->icon != 'uploads/tour/default-icon.jpg') {
+            if(File::exists($package->icon)) {
+                File::delete($package->icon);
+            }
+        }
+        $package->delete();
         return redirect('/admin/tours')->with('success','Tour deleted successfully.');
     }
 

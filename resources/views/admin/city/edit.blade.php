@@ -21,8 +21,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="#!">Manage City</a></li>
-                            <li class="breadcrumb-item"><a href="#!">Edit City</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.city')}}">Manage City</a></li>
+                            <li class="breadcrumb-item"><a href="">Edit City</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right"> 

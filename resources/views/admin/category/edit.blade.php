@@ -21,8 +21,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="#!">Manage Category</a></li>
-                            <li class="breadcrumb-item"><a href="#!">Edit Category</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.category')}}">Manage Category</a></li>
+                            <li class="breadcrumb-item"><a href="">Edit Category</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right"> 
@@ -50,7 +50,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group fill">  
                                                 <label class="control-label">Category Name<span>*</span></label>
-                                                <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{$category->name}}" required/>
+                                                <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{$category->name}}" onkeyup="slug_url(this.value,'init_slug')" required/>
                                                 @error('name')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -61,7 +61,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="col-form-label">URL Slug<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" value="{{ $category->slug }}"  required/>
+                                                <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" id="init_slug" value="{{ $category->slug }}"  required/>
                                                 @error('slug')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>

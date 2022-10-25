@@ -175,6 +175,16 @@
         });
         // [ Transection ] end
     </script>
+    <script>
+        function slug_url(get,id){
+            var  data=$.trim(get);
+            var string = data.replace(/[^A-Z0-9]/ig, '-')
+                .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                .replace(/-+/g, '-'); // collapse dashes;
+            var finalvalue=string.toLowerCase();
+            document.getElementById(id).value=finalvalue;
+        }
+    </script>
     @yield('script')
 </body> 
 </html>

@@ -21,8 +21,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="#!">Manage Testimonial</a></li>
-                            <li class="breadcrumb-item"><a href="#!">Create Testimonial</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.testimonials')}}">Manage Testimonial</a></li>
+                            <li class="breadcrumb-item"><a href="">Create Testimonial</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right">
@@ -86,7 +86,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label class="col-form-label">Upload Avatar<span class="text-danger">*</span></label>
-                                        <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" / required>
+                                        <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
                                     </div>
                                 </div>
                                 <div class="col-sm-12">

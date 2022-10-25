@@ -66,7 +66,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">  
                                                         <label class="col-form-label">Tours Name<span>*</span></label>
-                                                        <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ $package->name }}" required/>
+                                                        <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ $package->name }}" onkeyup="slug_url(this.value,'init_slug')" required/>
                                                         @error('name')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -77,7 +77,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="col-form-label">URL Slug<span>*</span></label>
-                                                        <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" value="{{$package->slug}}"  required/>
+                                                        <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" value="{{$package->slug}}" id="init_slug" required/>
                                                         @error('slug')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>

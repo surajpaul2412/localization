@@ -21,8 +21,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="#!">Manage Tours</a></li>
-                            <li class="breadcrumb-item"><a href="#!">Add New Tour</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.tours')}}">Manage Tours</a></li>
+                            <li class="breadcrumb-item"><a href="">Add New Tour</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right">
@@ -65,7 +65,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">  
                                                         <label class="col-form-label">Tours Name<span>*</span></label>
-                                                        <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ old('name') }}" required/>
+                                                        <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ old('name') }}" onkeyup="slug_url(this.value,'init_slug')" required/>
                                                         @error('name')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -76,7 +76,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="col-form-label">URL Slug<span>*</span></label>
-                                                        <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" value="{{ old('slug') }}"  required/>
+                                                        <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" value="{{ old('slug') }}" id="init_slug" required/>
                                                         @error('slug')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -88,7 +88,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Adult Price<span>*</span></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="adult_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" required/>
+                                                            <input type="text" name="adult_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{ old('adult_price') }}" required/>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
                                                             </div>
@@ -105,7 +105,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Child Price<span>*</span></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="child_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" required/>
+                                                            <input type="text" name="child_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{ old('child_price') }}" required/>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
                                                             </div>
@@ -122,7 +122,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Infant Price<span>*</span></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="infant_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" required/>
+                                                            <input type="text" name="infant_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{ old('infant_price') }}" required/>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
                                                             </div>
@@ -138,7 +138,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Capacity<span>*</span></label>
-                                                        <input type="text" name="capacity" class="form-control form-control-sm " placeholder="Eg: 1, 2, 3, 4 etc" required/>
+                                                        <input type="number" name="capacity" class="form-control form-control-sm " placeholder="Eg: 1, 2, 3, 4 etc" value="{{ old('capacity') }}" required/>
                                                         @error('capacity')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -149,7 +149,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">  
                                                         <label class="col-form-label">Duration<span>*</span></label>
-                                                        <input type="text" name="duration" class="form-control form-control-sm " placeholder="Eg: 23.84944" required/>
+                                                        <input type="text" name="duration" class="form-control form-control-sm " placeholder="Eg: 23.84944" value="{{ old('duration') }}" required/>
                                                         @error('duration')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>

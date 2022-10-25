@@ -21,12 +21,12 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="#!">Manage Testimonial</a></li>
-                            <li class="breadcrumb-item"><a href="#!">Edit Testimonial</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.testimonials')}}">Manage Testimonial</a></li>
+                            <li class="breadcrumb-item"><a href="">Edit Testimonial</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right"> 
-                        <a href="pages.php" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
+                        <a href="{{route('admin.testimonials')}}" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
         <div class="row"> 
             <div class="col-sm-12">
                 <div class="card"> 
-                    <form class="custom-form" method="post" action="{{ route('admin.testimonials.update', $testimonial->id) }}">
+                    <form class="custom-form" method="post" action="{{ route('admin.testimonials.update', $testimonial->id) }}" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf
                         <div class="card-header"></div>

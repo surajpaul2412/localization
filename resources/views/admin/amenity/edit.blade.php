@@ -21,8 +21,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="#!">Manage Amenity</a></li>
-                            <li class="breadcrumb-item"><a href="#!">Edit Amenity</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.amenities')}}">Manage Amenity</a></li>
+                            <li class="breadcrumb-item"><a href="">Edit Amenity</a></li>
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right"> 

@@ -63,7 +63,7 @@
                                             <a href="{{ route('admin.pages.activate', $page->id) }}" class="btn btn-danger font-weight-bold btn-xs btn-block has-ripple text-white">Not Verified</a>
                                             @endif
                                         </td>
-                                        <td>  
+                                        <td class="d-flex">
                                             <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-info btn-xs" title="Edit"><i class="feather icon-edit"></i></a>
                                             <form method="POST" action="{{ route('admin.pages.destroy', $page->id) }}">
                                                 @csrf

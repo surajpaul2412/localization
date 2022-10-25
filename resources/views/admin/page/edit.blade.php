@@ -48,7 +48,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group fill">  
                                         <label class="control-label">Page Name<span>*</span></label>
-                                        <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ $page->name }}" required/>
+                                        <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ $page->name }}" onkeyup="slug_url(this.value,'init_slug')" required/>
                                         @error('name')
                                             <div class="text-danger">
                                                 <strong>{{ $message }}</strong>
@@ -59,7 +59,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label class="col-form-label">URL Slug<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" value="{{ $page->slug }}"  required/>
+                                        <input type="text" class="form-control form-control-sm @error('slug') is-invalid @enderror" Placeholder="Enter Uniqe URL Slug." name="slug" id="init_slug" value="{{ $page->slug }}"  required/>
                                         @error('slug')
                                             <div class="text-danger">
                                                 <strong>{{ $message }}</strong>

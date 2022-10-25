@@ -69,6 +69,7 @@ $tours = Package::all();
 					<section id="tour_experience">  
 						<h3>Experience</h3> 
 						<div class="cbp_experience">
+							@if($tour->highlights)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
 									<h5>Highlights</h5>
@@ -76,7 +77,10 @@ $tours = Package::all();
 								<div class="col-lg-8 cbp_content"> 
 									{!!$tour->highlights!!}
 								</div>
-							</div> 
+							</div>
+							@endif
+
+							@if($tour->full_description)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
 									<h5>Full description</h5>
@@ -85,6 +89,9 @@ $tours = Package::all();
 									{!!$tour->full_description!!}
 								</div>
 							</div> 
+							@endif
+
+							@if($tour->includes)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
 									<h5>Includes</h5>
@@ -93,6 +100,9 @@ $tours = Package::all();
 									{!!$tour->includes!!}
 								</div>
 							</div> 
+							@endif
+
+							@if($tour->meeting_point)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
 									<h5>Meeting point</h5>
@@ -101,6 +111,9 @@ $tours = Package::all();
 									{!!$tour->meeting_point!!}
 								</div>
 							</div> 
+							@endif
+
+							@if($tour->important_information)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
 									<h5>Important information</h5>
@@ -109,6 +122,7 @@ $tours = Package::all();
 									{!!$tour->important_information!!}
 								</div>
 							</div> 
+							@endif
 						</div>  
 					</section>
 					<!-- /section -->
@@ -543,7 +557,7 @@ $tours = Package::all();
 
 
 						<a href="cart.php" class="btn_1 full-width purchase">Purchase</a>
-						<a href="#" class="btn_1 full-width outline wishlist"><i class="icon_heart"></i> Add to wishlist</a>
+						<button type="button" wire:click="addToWishList({{$tour->id}})" class="btn_1 full-width outline wishlist"><i class="icon_heart"></i> Add to wishlist</button>
 						<div class="text-center"><small>No money charged in this step</small></div>
 					</div>
 					<!-- <ul class="share-buttons">

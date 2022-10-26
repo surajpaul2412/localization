@@ -22,7 +22,7 @@ Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controller
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 $pages = Page::all();
 foreach ($pages as $page) {
     Route::get('/'.$page->slug.'', function() use($page) {

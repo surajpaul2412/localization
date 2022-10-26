@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login | GetBeds</title>
+    <title>Register | GetBeds</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('layouts.partials.style')
 </head> 
 <body id="login_bg">

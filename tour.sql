@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2022 at 02:36 PM
+-- Generation Time: Oct 25, 2022 at 09:21 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -31,11 +31,11 @@ CREATE TABLE `activities` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'uploads/activity/default.jpg',
+  `status` int(11) NOT NULL DEFAULT 1,
   `meta_title` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `meta_keywords` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `meta_description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -44,8 +44,10 @@ CREATE TABLE `activities` (
 -- Dumping data for table `activities`
 --
 
-INSERT INTO `activities` (`id`, `name`, `description`, `avatar`, `meta_title`, `meta_keywords`, `meta_description`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Day Trip', '<p>Day Trip</p>', 'uploads/avatar/783923655.jpg', 'Day Trip', 'Day Trip', 'Day Trip', 1, '2022-10-12 05:25:48', '2022-10-12 05:25:48');
+INSERT INTO `activities` (`id`, `name`, `description`, `avatar`, `status`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
+(1, 'Day Trip', '<p>Day Trip</p>', 'uploads/activity/default.jpg', 1, 'Day Trip', 'Day Trip', 'Day Trip', '2022-10-24 05:40:38', '2022-10-24 05:40:38'),
+(2, 'Guided Tour', '<p>Guided Tour</p>', 'uploads/activity/default.jpg', 1, 'Guided Tour', 'Guided Tour', 'Guided Tour', '2022-10-24 05:40:55', '2022-10-24 05:40:55'),
+(3, 'Multi-day Trip', '<p>Multi-day Trip</p>', 'uploads/activity/default.jpg', 1, 'Multi-day Trip', 'Multi-day Trip', 'Multi-day Trip', '2022-10-24 05:41:10', '2022-10-24 05:41:10');
 
 -- --------------------------------------------------------
 
@@ -56,9 +58,9 @@ INSERT INTO `activities` (`id`, `name`, `description`, `avatar`, `meta_title`, `
 CREATE TABLE `amenities` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL COMMENT '1=>Enabled,0=>Disabled',
+  `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'uploads/amenities/default.jpg',
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '1=>Enabled,0=>Disabled',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -67,9 +69,9 @@ CREATE TABLE `amenities` (
 -- Dumping data for table `amenities`
 --
 
-INSERT INTO `amenities` (`id`, `name`, `icon`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Private Transfers', 'uploads/avatar/1079373044.jpg', '<p>Private Transfers</p>', 1, NULL, '2022-10-12 05:27:08'),
-(2, 'Luggage Delivery', 'uploads/avatar/1765899415.jpg', '<p>Luggage Delivery</p>', 1, '2022-10-12 05:27:23', '2022-10-12 05:27:23');
+INSERT INTO `amenities` (`id`, `name`, `description`, `icon`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Private Transfers', '<p>Private Transfers</p>', 'uploads/amenities/default.jpg', 1, '2022-10-24 05:41:25', '2022-10-24 05:41:25'),
+(2, 'Luggage Delivery', '<p>Luggage Delivery</p>', 'uploads/amenities/default.jpg', 1, '2022-10-24 05:41:36', '2022-10-24 05:41:36');
 
 -- --------------------------------------------------------
 
@@ -81,10 +83,10 @@ CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'uploads/categories/default-icon.jpg',
+  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'uploads/categories/default-avatar.jpg',
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 1,
   `meta_title` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `meta_keywords` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `meta_description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -97,8 +99,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `icon`, `avatar`, `description`, `status`, `meta_title`, `meta_keywords`, `meta_description`, `created_at`, `updated_at`) VALUES
-(1, 'Adventure Tour', 'adventure_tour', 'uploads/avatar/396072330.jpg', 'uploads/avatar/227831145.jpg', '<p>Adventure Tour</p>', 1, 'Adventure Tour', 'Adventure Tour', 'Adventure Tour', NULL, '2022-10-12 05:28:09'),
-(2, 'Couple Tour', 'couple_tour', 'uploads/avatar/1088776126.jpg', 'uploads/avatar/1974483138.jpg', '<p>Couple Tour</p>', 1, 'Couple Tour', 'Couple Tour', 'Couple Tour', '2022-10-12 05:28:36', '2022-10-12 05:28:36');
+(1, 'Adventure Tour', 'adventure-tour', 'uploads/categories/default-icon.jpg', 'uploads/categories/default-avatar.jpg', '<p>Adventure Tour</p>', 1, 'Adventure Tour', 'Adventure Tour', 'Adventure Tour', '2022-10-24 05:41:56', '2022-10-24 05:41:56'),
+(2, 'Couple Tour', 'couple-tour', 'uploads/categories/default-icon.jpg', 'uploads/categories/default-avatar.jpg', '<p>Couple Tour</p>', 1, 'Couple Tour', 'Couple Tour', 'Couple Tour', '2022-10-24 05:42:09', '2022-10-24 05:42:09');
 
 -- --------------------------------------------------------
 
@@ -119,8 +121,10 @@ CREATE TABLE `cities` (
 --
 
 INSERT INTO `cities` (`id`, `name`, `country_id`, `created_at`, `updated_at`) VALUES
-(1, 'Delhi', 1, NULL, NULL),
-(2, 'London', 2, NULL, NULL);
+(1, 'Delhi', 1, '2022-10-24 05:35:24', '2022-10-24 05:35:24'),
+(2, 'Mumbai', 1, '2022-10-24 05:35:38', '2022-10-24 05:35:38'),
+(3, 'Kolkata', 1, '2022-10-24 05:35:46', '2022-10-24 05:35:46'),
+(4, 'Chennai', 1, '2022-10-24 05:35:55', '2022-10-24 05:35:55');
 
 -- --------------------------------------------------------
 
@@ -131,7 +135,7 @@ INSERT INTO `cities` (`id`, `name`, `country_id`, `created_at`, `updated_at`) VA
 CREATE TABLE `countries` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL COMMENT '1=>Enabled,0=>Disabled',
+  `status` int(11) NOT NULL DEFAULT 1 COMMENT '1=>Enabled,0=>Disabled',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -141,8 +145,7 @@ CREATE TABLE `countries` (
 --
 
 INSERT INTO `countries` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'India', 1, NULL, NULL),
-(2, 'USA', 1, NULL, NULL);
+(1, 'India', 1, '2022-10-24 05:34:23', '2022-10-24 05:34:31');
 
 -- --------------------------------------------------------
 
@@ -182,19 +185,20 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2014_10_12_100000_create_password_resets_table', 1),
 (4, '2019_08_19_000000_create_failed_jobs_table', 1),
 (5, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(7, '2022_09_27_093009_create_pages_table', 2),
-(10, '2022_09_27_210951_create_testimonials_table', 3),
-(11, '2022_09_27_211208_create_newsletters_table', 3),
-(12, '2022_09_29_114503_create_tours_table', 4),
-(13, '2022_10_02_173308_create_categories_table', 5),
-(14, '2022_10_02_173515_create_amenities_table', 5),
-(15, '2022_10_02_173612_create_destinations_table', 5),
-(17, '2022_10_02_173750_create_countries_table', 5),
-(18, '2022_10_02_173808_create_cities_table', 5),
-(19, '2022_10_05_195647_create_package_amenities_table', 5),
-(20, '2022_10_05_200619_create_package_galleries_table', 5),
-(21, '2022_10_02_173612_create_activities_table', 6),
-(22, '2022_10_02_173631_create_packages_table', 7);
+(6, '2022_09_27_093009_create_pages_table', 1),
+(7, '2022_09_27_210951_create_testimonials_table', 1),
+(8, '2022_09_27_211208_create_newsletters_table', 1),
+(9, '2022_09_29_114503_create_tours_table', 1),
+(10, '2022_10_02_173308_create_categories_table', 1),
+(11, '2022_10_02_173515_create_amenities_table', 1),
+(12, '2022_10_02_173612_create_activities_table', 1),
+(13, '2022_10_02_173631_create_packages_table', 1),
+(14, '2022_10_02_173750_create_countries_table', 1),
+(15, '2022_10_02_173808_create_cities_table', 1),
+(16, '2022_10_05_195647_create_package_amenities_table', 1),
+(17, '2022_10_05_200619_create_package_galleries_table', 1),
+(18, '2022_10_13_202049_create_reviews_table', 1),
+(19, '2022_10_22_230418_create_wishlists_table', 1);
 
 -- --------------------------------------------------------
 
@@ -230,8 +234,8 @@ CREATE TABLE `packages` (
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
   `seal` int(11) NOT NULL DEFAULT 0,
-  `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'uploads/amenities/default-icon.jpg',
+  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'uploads/amenities/default-avatar.jpg',
   `meta_title` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `meta_keywords` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `meta_description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -249,7 +253,7 @@ CREATE TABLE `packages` (
 --
 
 INSERT INTO `packages` (`id`, `name`, `slug`, `adult_price`, `child_price`, `infant_price`, `capacity`, `duration`, `category_id`, `city_id`, `activity_id`, `description`, `status`, `seal`, `icon`, `avatar`, `meta_title`, `meta_keywords`, `meta_description`, `highlights`, `full_description`, `includes`, `meeting_point`, `important_information`, `created_at`, `updated_at`) VALUES
-(1, 'Amphawa Floating Market & Train Market Experience', 'amphawa_floating_market', 101, 51, 21, '3', '11', 1, 1, 1, '<p>Amphawa_floating_market</p>', 1, 0, 'uploads/avatar/874108393.jpg', 'uploads/avatar/77674428.png', 'Amphawa Floating Market & Train Market Experience', 'Amphawa Floating Market & Train Market Experience', 'Amphawa Floating Market & Train Market Experience', NULL, NULL, NULL, NULL, NULL, '2022-10-12 06:46:00', '2022-10-13 06:25:30');
+(1, 'Amphawa Floating Market & Train Market Experience', 'amphawa-floating', 100, 50, 30, '4', '11', 1, 1, 1, '<p>test</p>', 1, 0, 'uploads/tour/default-icon.jpg', 'uploads/tour/default-avatar.jpg', 'Amphawa Floating Market & Train Market Experience', 'Amphawa Floating Market & Train Market Experience', 'Amphawa Floating Market & Train Market Experience', '', '<p>test</p>', '<p>test</p>', '<p>test</p>', '<p>test</p>', '2022-10-24 05:43:35', '2022-10-24 05:43:35');
 
 -- --------------------------------------------------------
 
@@ -270,7 +274,7 @@ CREATE TABLE `package_amenities` (
 --
 
 INSERT INTO `package_amenities` (`id`, `package_id`, `amenity_id`, `created_at`, `updated_at`) VALUES
-(26, 1, 2, '2022-10-13 06:25:30', '2022-10-13 06:25:30');
+(1, 1, 1, '2022-10-24 05:43:35', '2022-10-24 05:43:35');
 
 -- --------------------------------------------------------
 
@@ -286,13 +290,6 @@ CREATE TABLE `package_galleries` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `package_galleries`
---
-
-INSERT INTO `package_galleries` (`id`, `package_id`, `image`, `created_at`, `updated_at`) VALUES
-(32, 1, 'uploads/avatar/488657358.png', '2022-10-13 06:25:30', '2022-10-13 06:25:30');
-
 -- --------------------------------------------------------
 
 --
@@ -302,12 +299,12 @@ INSERT INTO `package_galleries` (`id`, `package_id`, `image`, `created_at`, `upd
 CREATE TABLE `pages` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL COMMENT '1=>Active,0=>Disabled',
   `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_title` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_keywords` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT '1=>Active,0=>Disabled',
+  `meta_title` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_keywords` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -345,6 +342,23 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stars` double NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
@@ -361,8 +375,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin', '2022-09-27 01:23:22', '2022-09-27 01:23:22'),
-(2, 'Customer', 'customer', '2022-09-27 01:23:22', '2022-09-27 01:23:22');
+(1, 'Admin', 'admin', '2022-10-24 05:30:33', '2022-10-24 05:30:33'),
+(2, 'Customer', 'customer', '2022-10-24 05:30:33', '2022-10-24 05:30:33');
 
 -- --------------------------------------------------------
 
@@ -373,14 +387,21 @@ INSERT INTO `roles` (`id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `testimonials` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'uploads/testimonials/default.jpg',
   `country` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stars` int(11) NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `testimonials`
+--
+
+INSERT INTO `testimonials` (`id`, `name`, `avatar`, `country`, `stars`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'test', 'uploads/testimonials/default.jpg', 'India', 5, '<p>test</p>', 1, '2022-10-24 05:45:47', '2022-10-24 05:45:47');
 
 -- --------------------------------------------------------
 
@@ -395,15 +416,6 @@ CREATE TABLE `tours` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `tours`
---
-
-INSERT INTO `tours` (`id`, `name`, `price`, `created_at`, `updated_at`) VALUES
-(1, '1', '1', NULL, NULL),
-(2, '2', '2', NULL, NULL),
-(3, '3', '3', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -434,8 +446,22 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `username`, `email`, `mobile`, `dob`, `gender`, `email_verified_at`, `password`, `status`, `avatar`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Admin', 'admin', 'admin@test.com', '1234567891', NULL, NULL, NULL, '$2y$10$zyk21izHTwhNNoVyDgfbQuui5PVbYlbYWacZD34xysb3oemzLehQ2', 1, NULL, NULL, '2022-09-27 01:23:22', '2022-09-27 01:23:22'),
-(2, 2, 'Customer', 'customer', 'customer@test.com', '1234567892', '2022-09-20', 'male', NULL, '$2y$10$VIemANHhN3Ax.mk/c/hChO3u6UkIDCPThhH56YTbCG5M98zZFUN3i', 1, NULL, NULL, '2022-09-27 01:23:22', '2022-10-07 00:46:34');
+(1, 1, 'Admin', 'admin', 'admin@test.com', '1234567891', NULL, NULL, NULL, '$2y$10$LfU/3PC2T3uVlEpNCO8YmuBnHH9.rD6d7tAVJgM9t6C.BAnYbsAXO', 1, NULL, NULL, '2022-10-24 05:30:33', '2022-10-24 05:30:33'),
+(2, 2, 'Customer', 'customer', 'customer@test.com', '1234567892', NULL, NULL, NULL, '$2y$10$C.qUae1uSdb.shCUnB.3Te2oigzay2FDpfRNrgSR4OfK8auDdt1jm', 1, NULL, NULL, '2022-10-24 05:30:33', '2022-10-24 05:43:55');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlists`
+--
+
+CREATE TABLE `wishlists` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `package_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -533,6 +559,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -560,6 +592,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_mobile_unique` (`mobile`);
 
 --
+-- Indexes for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -567,7 +605,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `amenities`
@@ -585,13 +623,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -603,7 +641,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `newsletters`
@@ -621,24 +659,30 @@ ALTER TABLE `packages`
 -- AUTO_INCREMENT for table `package_amenities`
 --
 ALTER TABLE `package_amenities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `package_galleries`
 --
 ALTER TABLE `package_galleries`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pages`
 --
 ALTER TABLE `pages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -657,13 +701,19 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `tours`
 --
 ALTER TABLE `tours`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

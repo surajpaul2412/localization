@@ -114,6 +114,10 @@ class Package extends Model
         ]);
     }
 
+    public function presentPrice($price){
+        return number_format($price, 2);
+    }
+
     public function category()
     {
         return $this->belongsTo('App\Models\Category');

@@ -33,9 +33,6 @@ $testimonials = Testimonial::whereStatus(1)->get();
                                 @foreach(range(1, $testimonial->stars) as $index)
                                 <i class="fas fa-star"></i>
                                 @endforeach
-                                @foreach(range(1, 5-$testimonial->stars) as $index)
-                                <i class="far fa-star"></i>
-                                @endforeach
                             </div>
                         </div>
                     </div> 

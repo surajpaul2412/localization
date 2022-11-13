@@ -7,6 +7,14 @@
 @section('css')
 @endsection
 
+@php
+use App\Models\Amenity;
+use App\Models\Package;
+
+$amenities = Amenity::inRandomOrder()->whereStatus(1)->get();
+$tours = Package::inRandomOrder()->whereStatus(1)->get();
+@endphp
+
 @section('content')
 <main> 
     <!-- Background YouTube Parallax -->

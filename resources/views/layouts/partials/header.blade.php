@@ -13,16 +13,10 @@
                     </div>
                     <ul class="top-right-area m-0 d-flex justify-content-between align-items-center">  
                         <li>
-                            <a href="{{route('wishlist')}}" class="wishlist_bt_top" title="Your wishlist">
-                                <span class="icon me-lg-1"><i class="icon_heart_alt"></i></span>
-                                <span class="text d-none d-lg-block">Wishlist</span> 
-                            </a>
+                            @livewire('wishlist')
                         </li>
                         <li>
-                            <a href="{{route('cart')}}" class="cart-menu-btn" title="Cart">
-                                <span class="icon me-lg-1"><i class="icon_cart_alt"></i></span>
-                                <span class="text d-none d-lg-block">Cart</span>
-                            </a>
+                            @livewire('cart')
                         </li>
                         @guest
                         <li>

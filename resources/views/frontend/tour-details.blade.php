@@ -5,7 +5,8 @@
 
 @php
 use App\Models\Package;
-$tours = Package::all();
+
+$mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRandomOrder()->take(5)->get();
 @endphp
 
 @section('content')
@@ -137,7 +138,7 @@ $tours = Package::all();
 							</div> 
 							
 							<div id="you_might_also_like" class="owl-carousel owl-theme">
-
+								@foreach($mightAlsoLike as $element)
 								<div class="item"> 
 									<div class="box_grid">
 										<figure>
@@ -147,7 +148,7 @@ $tours = Package::all();
 											</a> 
 										</figure>
 										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
+											<h3><a href="tour-details.php">{{$element->name}}</a></h3> 
 											<div class="d-flex align-items-center">
 												<div class="rating">
 													<i class="fas fa-star"></i>
@@ -165,124 +166,7 @@ $tours = Package::all();
 										</ul>
 									</div>
 								</div>
-								<!-- /item -->
-
-								<div class="item"> 
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="assets/images/destination/2.jpg" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>
-								<!-- /item --> 
-								
-								<div class="item"> 
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="assets/images/destination/3.jpg" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>
-								<!-- /item --> 
-								
-								<div class="item"> 
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="assets/images/destination/4.jpg" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>
-								<!-- /item --> 
-								
-								<div class="item"> 
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="assets/images/destination/5.jpg" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div>
-								<!-- /item -->          
-
+								@endforeach
 							</div>  
 
 						</div>
@@ -530,6 +414,10 @@ $tours = Package::all();
 									<label>Childrens</label>
 									<input type="text" name="qtyInput" value="0">
 								</div>
+								<div class="qtyButtons">
+									<label>Infant</label>
+									<input type="text" name="qtyInput" value="0">
+								</div>
 							</div>
 						</div>
 
@@ -543,8 +431,9 @@ $tours = Package::all();
 						</div>  -->
 						<div class="booking-box-details">
 							<ul class="cart_details">
-								<li>$45 x 2 Adults <span>$90</span></li>
-								<li>$45 x 2 Childrens <span>$90</span></li>
+								<li>${{$tour->presentPrice($tour->adult_price)}} x 1 Adults <span>$90</span></li>
+								<li>${{$tour->presentPrice($tour->child_price)}} x 1 Childrens <span>$90</span></li>
+								<li>${{$tour->presentPrice($tour->infant_price)}} x 1 Infant <span>$90</span></li>
 								<li>Tax <i class="ti-info-alt"></i> <span>$40</span></li>
 								<!-- <li>Accident Insurance <span class="text-success">Free</span></li>  -->
 							</ul> 
@@ -573,4 +462,29 @@ $tours = Package::all();
 	</div>
 	<!-- /bg_color_1 -->
 </main> 
+@endsection
+
+@section('script')
+<script src="{{asset('js/input_qty.js')}}"></script>
+
+<!-- DATEPICKER  -->
+<script>
+	$(function() {
+		$('input[name="dates"]').daterangepicker({
+			autoUpdateInput: false,
+			parentEl:'.scroll-fix',
+			minDate:new Date(),
+			opens: 'left',
+			locale: {
+				cancelLabel: 'Clear'
+			}
+		});
+		$('input[name="dates"]').on('apply.daterangepicker', function(ev, picker) {
+			$(this).val(picker.startDate.format('MM-DD-YY') + ' > ' + picker.endDate.format('MM-DD-YY'));
+		});
+		$('input[name="dates"]').on('cancel.daterangepicker', function(ev, picker) {
+			$(this).val('');
+		});
+	});
+</script>
 @endsection

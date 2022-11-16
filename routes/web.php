@@ -36,7 +36,8 @@ Route::get('wishlist', [App\Http\Controllers\HomeController::class, 'wishlist'])
 Route::get('cart', [App\Http\Controllers\HomeController::class, 'cart'])->name('cart')->middleware('auth');
 Route::get('checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout')->middleware('auth');
 Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');
-Route::get('tours/{id}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
+Route::get('tours/{slug}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
+Route::post('search', [App\Http\Controllers\FrontendController::class, 'search'])->name('search');
 
 // Admin Login
 Route::get('admin', [App\Http\Controllers\Admin\LoginController::class, 'adminLogin'])->name('admin.login');

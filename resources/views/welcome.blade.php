@@ -10,9 +10,11 @@
 @php
 use App\Models\Amenity;
 use App\Models\Package;
+use App\Models\City;
 
 $amenities = Amenity::inRandomOrder()->whereStatus(1)->get();
 $tours = Package::inRandomOrder()->whereStatus(1)->get();
+$cities = City::inRandomOrder()->get();
 @endphp
 
 @section('content')
@@ -34,17 +36,18 @@ $tours = Package::inRandomOrder()->whereStatus(1)->get();
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
-                        <div class="row g-0 custom-search-input-2">
+                        <form action="{{route('search')}}" method="POST" class="row g-0 custom-search-input-2">
+                            @csrf
                             <div class="col-lg-10">
                                 <div class="form-group">
-                                    <input class="form-control" type="text" placeholder="Where are you going?">
+                                    <input class="form-control" type="text" name="search" placeholder="Where are you going?">
                                     <i class="icon_pin_alt"></i>
                                 </div>
                             </div> 
                             <div class="col-lg-2">
                                 <input type="submit" class="btn_search" value="Search">
                             </div>
-                        </div> 
+                        </form> 
                     </div>
                 </div> 
             </div>

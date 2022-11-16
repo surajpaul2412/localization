@@ -5,7 +5,16 @@
 
 @php
 use App\Models\Package;
-$tours = Package::all();
+use App\Models\City;
+use App\Models\Activity;
+use App\Models\Amenity;
+use App\Models\Category;
+
+$tours = Package::whereStatus(1)->get();
+$cities = City::all();
+$activities = Activity::whereStatus(1)->get();
+$amenities = Amenity::whereStatus(1)->get();
+$categories = Category::whereStatus(1)->get();
 @endphp
 
 @section('content') 
@@ -28,7 +37,7 @@ $tours = Package::all();
 							</div> 
 						</div>
 					</div>
-					<h1 class="my-4 ">Tours Page</h1>
+					<h1 class="my-4">Tours Page</h1>
 				</div>
 			</div>
 		</section>
@@ -50,35 +59,19 @@ $tours = Package::all();
 									<h6>Destinations</h6>
 									<ul>
 										<li>
-											<label class="container_check">All <small>(945)</small>
+											<label class="container_check">All <small>({{$cities->count()}})</small>
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
 										</li>
+										@foreach($cities as $city)
 										<li>
-											<label class="container_check">Singapore <small>(45)</small>
+											<label class="container_check">{{$city->name}} <large>, {{$city->country->name}}</large>
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
 										</li>
-										<li>
-											<label class="container_check">Singapore Zoo <small>(30)</small>
-												<input type="checkbox">
-												<span class="checkmark"></span>
-											</label>
-										</li>
-										<li>
-											<label class="container_check">Sentosa <small>(25)</small>
-												<input type="checkbox">
-												<span class="checkmark"></span>
-											</label>
-										</li>
-										<li>
-											<label class="container_check">Jurong Bird Park <small>(56)</small>
-												<input type="checkbox">
-												<span class="checkmark"></span>
-											</label>
-										</li>
+										@endforeach
 									</ul>
 								</div>
 
@@ -90,40 +83,46 @@ $tours = Package::all();
 								<div class="filter_type">
 									<h6>Category</h6>
 									<ul>
+										@foreach($categories as $category)
 										<li>
-											<label class="container_check">All <small>(945)</small>
+											<label class="container_check">{{$category->name}}
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
 										</li>
-										<li>
-											<label class="container_check">Entry tickets <small>(45)</small>
-												<input type="checkbox">
-												<span class="checkmark"></span>
-											</label>
-										</li>
-										<li>
-											<label class="container_check">Hop-on hop-off tours <small>(30)</small>
-												<input type="checkbox">
-												<span class="checkmark"></span>
-											</label>
-										</li>
-										<li>
-											<label class="container_check">Adventures <small>(25)</small>
-												<input type="checkbox">
-												<span class="checkmark"></span>
-											</label>
-										</li>
-										<li>
-											<label class="container_check">Water activities <small>(56)</small>
-												<input type="checkbox">
-												<span class="checkmark"></span>
-											</label>
-										</li>
+										@endforeach
 									</ul>
 								</div>
 
-								<div class="filter_type d-none">
+								<div class="filter_type">
+									<h6>Activity</h6>
+									<ul>
+										@foreach($activities as $activity)
+										<li>
+											<label class="container_check">{{$activity->name}}
+												<input type="checkbox">
+												<span class="checkmark"></span>
+											</label>
+										</li>
+										@endforeach
+									</ul>
+								</div>
+
+								<div class="filter_type">
+									<h6>Amenity</h6>
+									<ul>
+										@foreach($amenities as $amenity)
+										<li>
+											<label class="container_check">{{$amenity->name}}
+												<input type="checkbox">
+												<span class="checkmark"></span>
+											</label>
+										</li>
+										@endforeach
+									</ul>
+								</div>
+
+								<div class="filter_type">
 									<h6>Rating</h6>
 									<ul>
 										<li>
@@ -166,13 +165,13 @@ $tours = Package::all();
 								<div class="col isotope-item">
 									<div class="box_grid">
 										<figure>
-											<a href="{{route('tour.show', $tour->id)}}" class="wish_bt"></a>
-											<a href="{{route('tour.show', $tour->id)}}">
+											<a href="{{route('tour.show', $tour->slug)}}" class="wish_bt"></a>
+											<a href="{{route('tour.show', $tour->slug)}}">
 												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
 											</a> 
 										</figure>
 										<div class="wrapper">
-											<h3><a href="{{route('tour.show', $tour->id)}}">{{$tour->name}}</a></h3> 
+											<h3><a href="{{route('tour.show', $tour->slug)}}">{{$tour->name}}</a></h3> 
 											<div class="d-flex align-items-center">
 												<div class="rating">
 													<i class="fas fa-star"></i>
@@ -181,7 +180,7 @@ $tours = Package::all();
 													<i class="fa fa-star-half"></i>
 													<i class="far fa-star"></i>
 												</div> 
-												<a href="{{route('tour.show', $tour->id)}}">({{$tour->price}})</a>   
+												<a href="{{route('tour.show', $tour->slug)}}">({{$tour->price}})</a>   
 											</div> 
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 

@@ -11,10 +11,12 @@
 use App\Models\Amenity;
 use App\Models\Package;
 use App\Models\City;
+use App\Models\Category;
 
 $amenities = Amenity::inRandomOrder()->whereStatus(1)->get();
 $tours = Package::inRandomOrder()->whereStatus(1)->get();
 $cities = City::inRandomOrder()->get();
+$categories = Category::whereStatus(1)->get();
 @endphp
 
 @section('content')
@@ -40,7 +42,7 @@ $cities = City::inRandomOrder()->get();
                             @csrf
                             <div class="col-lg-10">
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="search" placeholder="Where are you going?">
+                                    <input class="form-control" type="text" name="search" placeholder="Where are you going?" required />
                                     <i class="icon_pin_alt"></i>
                                 </div>
                             </div> 
@@ -64,6 +66,7 @@ $cities = City::inRandomOrder()->get();
                 </div>  
             </div>
             <div id="get-inspired" class="owl-carousel owl-theme">
+                @foreach($categories as $category)
                 <div class="item"> 
                     <a href="#0" class="box-item relative"> 
                         <figure> 
@@ -71,6 +74,7 @@ $cities = City::inRandomOrder()->get();
                         </figure> 
                     </a>
                 </div>
+                @endforeach
                 <!-- /item -->  
 
                 <div class="item"> 
@@ -359,13 +363,15 @@ $cities = City::inRandomOrder()->get();
                         <p>Private Tuk-Tuk Rides</p>
                     </a> 
                 </div>
-                <!-- /item -->    
+                <!-- /item -->
+                @foreach($amenities as $amenity)
                 <div class="item"> 
                     <a href="#0" class="box-item style-2"> 
                         <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/chao-phraya.svg" alt="" />
-                        <p>Chao Phraya Boat Pass</p>
+                        <p>{{$amenity->name}}</p>
                     </a> 
                 </div>
+                @endforeach
                 <!-- /item -->    
             </div>  
         </div>
@@ -383,6 +389,7 @@ $cities = City::inRandomOrder()->get();
             </div>
             
             <div id="popular-destinations" class="owl-carousel owl-theme">
+                @foreach($cities as $city)
                 <div class="item"> 
                     <a href="#0" class="grid_item relative">
                         <div class="ribbon">
@@ -391,87 +398,12 @@ $cities = City::inRandomOrder()->get();
                         <figure> 
                             <img src="{{asset('images/destination/1.jpg')}}" class="img-fluid" alt="" />
                             <div class="info"> 
-                                <h3>Phuket</h3>
+                                <h3>{{$city->name}}, {{$city->country->name}}</h3>
                             </div>
                         </figure>
                     </a> 
                 </div>
-                <!-- /item -->  
-
-                <div class="item"> 
-                    <a href="#0" class="grid_item relative">
-                        <figure> 
-                            <img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="">
-                            <div class="info"> 
-                                <h3>Siem Reap </h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /item --> 
-
-                <div class="item"> 
-                    <a href="#0" class="grid_item relative">
-                        <div class="ribbon top">
-                            <span>Saigon</span>
-                        </div>
-                        <figure> 
-                            <img src="{{asset('images/destination/3.jpg')}}" class="img-fluid" alt="">
-                            <div class="info"> 
-                                <h3>Bali</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /item --> 
-
-                <div class="item">  
-                    <a href="#0" class="grid_item relative">
-                        <figure> 
-                            <img src="{{asset('images/destination/4.jpg')}}" class="img-fluid" alt="">
-                            <div class="info"> 
-                                <h3>Manila</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /item --> 
-
-                <div class="item"> 
-                    <a href="#0" class="grid_item relative">
-                        <figure> 
-                            <img src="{{asset('images/destination/5.jpg')}}" class="img-fluid" alt="">
-                            <div class="info"> 
-                                <h3>Bangkok</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /item --> 
-
-                <div class="item"> 
-                    <a href="#0" class="grid_item relative">
-                        <figure> 
-                            <img src="{{asset('images/destination/6.jpg')}}" class="img-fluid" alt="">
-                            <div class="info"> 
-                                <h3>Bali</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /item -->  
-
-                <div class="item"> 
-                    <a href="#0" class="grid_item relative">
-                        <figure> 
-                            <img src="{{asset('images/destination/7.jpg')}}" class="img-fluid" alt="">
-                            <div class="info"> 
-                                <h3>Chiang Mai</h3>
-                            </div>
-                        </figure>
-                    </a>
-                </div>
-                <!-- /item -->  
+                @endforeach
             </div>  
         </div>
     </section> 

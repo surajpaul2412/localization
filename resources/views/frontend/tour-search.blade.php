@@ -4,13 +4,11 @@
 @endsection
 
 @php
-use App\Models\Package;
 use App\Models\City;
 use App\Models\Activity;
 use App\Models\Amenity;
 use App\Models\Category;
 
-$tours = Package::whereStatus(1)->get();
 $cities = City::all();
 $activities = Activity::whereStatus(1)->get();
 $amenities = Amenity::whereStatus(1)->get();
@@ -24,17 +22,18 @@ $categories = Category::whereStatus(1)->get();
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8">
-							<div class="row g-0 custom-search-input-2">
+							<form action="{{route('search')}}" method="POST" class="row g-0 custom-search-input-2">
+                            	@csrf
 								<div class="col-lg-10">
 									<div class="form-group">
-										<input class="form-control" type="text" placeholder="Where are you going?">
+										<input class="form-control" type="text" name="search" placeholder="Where are you going?" required />
 										<i class="icon_pin_alt"></i>
 									</div>
 								</div> 
 								<div class="col-lg-2">
 									<input type="submit" class="btn_search" value="Search">
 								</div>
-							</div> 
+							</form> 
 						</div>
 					</div>
 					<h1 class="my-4">Tours Page</h1>
@@ -159,6 +158,14 @@ $categories = Category::whereStatus(1)->get();
 
 					<div class="col-lg-9">
 						<div id="loadContent" class="isotope-wrapper">
+							<div class="row">
+								<div class="col-12 pb-3">
+									<strong>Search Term :</strong> <small class="text-black">{{$search}}</small>
+								</div>
+								<div class="col-12 pb-3">
+									<strong>{{$tours->count()}} tour found.</strong>
+								</div>
+							</div>
 							<div class="row row-cols-1 row-cols-lg-3">
 								@if($tours->count())
 								@foreach($tours as $index => $tour)
@@ -191,33 +198,6 @@ $categories = Category::whereStatus(1)->get();
 								</div>
 								@endforeach
 								@endif
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="#0" class="wish_bt"></a>
-											<a href="tour-details.php">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-										</ul>
-									</div>
-								</div> 
 							</div> 
 						</div> 
 					</div> 
@@ -227,7 +207,7 @@ $categories = Category::whereStatus(1)->get();
 				<p class="text-center"><a href="#0" id="loadMore" class="btn_1 rounded add_top_30">Load more</a></p>
 			</div>
 		</div> 
-		<!-- /isotope-wrapper --> 
+		<!-- /isotope-wrapper -->
 
         @include('layouts.frontend.partials.ads') 
 		

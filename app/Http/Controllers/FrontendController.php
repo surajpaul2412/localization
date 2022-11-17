@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Tour;
 use App\Models\Package;
 use App\Models\City;
 
@@ -19,15 +18,19 @@ class FrontendController extends Controller
     }
 
     public function search(Request $request) {
-        // $tours = Package::
-        $query = Package::query();
-        if (request('search')) {
-            $query
-                ->where('name', 'like', '%' . request('search') . '%')
-                ->whereStatus(1);
+        $search = $request->search;
+        $tours = [];
+        if ($search) {
+            $tours = Package::whereStatus(1)
+                    ->where('name', 'like', '%' . request('search') . '%')
+                    ->orWhereHas('city', function($q) {
+                        $q->where('name', 'like', '%' . request('search') . '%')
+                            ->orWhereHas('country', function($q1) {
+                            $q1->where('name', 'like', '%' . request('search') . '%')
+                               ->whereStatus(1);
+                        });
+                    })->get();
         }
-        $tours = $query->withQueryString();
-        dd($tours);
-        return view('frontend.tour-search', compact('tours'));
+        return view('frontend.tour-search', compact('tours','search'));
     }
 }

@@ -33,10 +33,17 @@ foreach ($pages as $page) {
 // Frontend
 Route::get('success', [App\Http\Controllers\HomeController::class, 'success'])->name('success');
 Route::get('wishlist', [App\Http\Controllers\HomeController::class, 'wishlist'])->name('wishlist')->middleware('auth');
+Route::get('wishlist/add/{productId}', [App\Http\Controllers\HomeController::class, 'wishlistAdd'])->name('wishlist.add')->middleware('auth');
+Route::get('wishlist/remove/{id}', [App\Http\Controllers\HomeController::class, 'wishlistRemove'])->name('wishlist.remove')->middleware('auth');
+Route::get('wishlist/moveToCart/{id}', [App\Http\Controllers\HomeController::class, 'wishlistMoveToCart'])->name('wishlist.moveToCart')->middleware('auth');
+
 Route::get('cart', [App\Http\Controllers\HomeController::class, 'cart'])->name('cart')->middleware('auth');
 Route::get('checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout')->middleware('auth');
 Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');
 Route::get('tours/{slug}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
+Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 'searchCity'])->name('search.city');
+Route::get('search/category/{id}', [App\Http\Controllers\FrontendController::class, 'searchCategory'])->name('search.category');
+Route::get('search/activity/{id}', [App\Http\Controllers\FrontendController::class, 'searchActivity'])->name('search.activity');
 Route::post('search', [App\Http\Controllers\FrontendController::class, 'search'])->name('search');
 
 // Admin Login
@@ -44,7 +51,7 @@ Route::get('admin', [App\Http\Controllers\Admin\LoginController::class, 'adminLo
 Route::post('admin/start', [App\Http\Controllers\Admin\LoginController::class, 'postLogin'])->name('admin.postLogin');
 
 // Newsletter
-Route::post('/newsletter/store', [App\Http\Controllers\HomeController::class, 'newsletter'])->name('newsletter.store');
+Route::post('/newsletter/store', [App\Http\Controllers\FrontendController::class, 'newsletter'])->name('newsletter.store');
 
 Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admin']], function(){
     // Dashboard

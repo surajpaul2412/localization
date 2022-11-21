@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\City;
+use App\Models\Category;
+use App\Models\Newsletter;
 
 class FrontendController extends Controller
 {
@@ -29,6 +31,64 @@ class FrontendController extends Controller
                             $q1->where('name', 'like', '%' . request('search') . '%')
                                ->whereStatus(1);
                         });
+                    })->get();
+        }
+        return view('frontend.tour-search', compact('tours','search'));
+    }
+
+    public function newsletter(Request $req) {
+        $req->validate([
+            'email' => 'required|email|unique:newsletters,email',
+        ]);
+
+        Newsletter::create($req->all());
+        return redirect(url()->previous().'#newsletter');
+    }
+
+    public function searchCity($id) {
+        $city = City::findOrFail($id);
+        $search = $city->name??'';
+        $tours = [];
+
+        if ($search) {
+            $tours = Package::whereStatus(1)
+                    ->where('name', 'like', '%' . $search . '%')
+                    ->orWhereHas('city', function($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%')
+                            ->orWhereHas('country', function($q1) use ($search) {
+                            $q1->where('name', 'like', '%' . $search . '%')
+                               ->whereStatus(1);
+                        });
+                    })->get();
+        }
+        return view('frontend.tour-search', compact('tours','search'));
+    }
+
+    public function searchCategory($id){
+        $category = Category::findOrFail($id);
+        $search = $category->name??'';
+        $tours = [];
+
+        if ($search) {
+            $tours = Package::whereStatus(1)
+                    ->where('name', 'like', '%' . $search . '%')
+                    ->orWhereHas('category', function($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    })->get();
+        }
+        return view('frontend.tour-search', compact('tours','search'));
+    }
+
+    public function searchActivity($id){
+        $activity = Activity::findOrFail($id);
+        $search = $activity->name??'';
+        $tours = [];
+
+        if ($search) {
+            $tours = Package::whereStatus(1)
+                    ->where('name', 'like', '%' . $search . '%')
+                    ->orWhereHas('activity', function($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
                     })->get();
         }
         return view('frontend.tour-search', compact('tours','search'));

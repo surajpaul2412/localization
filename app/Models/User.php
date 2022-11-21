@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Package;
+use App\Models\Wishlist;
 
 class User extends Authenticatable
 {
@@ -44,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Role');
     }
+
+    // public function wishlists()
+    // {
+    //     return $this->belongsToMany(Package::class, 'wishlists', 'user_id', 'package_id')->using(Wishlist::class);
+    // }
 }

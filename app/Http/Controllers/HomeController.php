@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Newsletter;
+use App\Models\WishList;
+use App\Models\Package;
 use Auth;
 
 class HomeController extends Controller
@@ -28,16 +30,6 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function newsletter(Request $req) {
-        $req->validate([
-            'email' => 'required|email|unique:newsletters,email',
-        ]);
-
-        $data = $req->all();
-        Newsletter::create($data);
-        return redirect(url()->previous().'#newsletter');
-    }
-
     public function success()
     {
         return view('frontend.success');
@@ -46,9 +38,30 @@ class HomeController extends Controller
     public function wishlist()
     {
         if (Auth::user()) {
-            return view('frontend.wishlist');
+            $userWishlistItems = WishList::userWishListItems();
+            return view('frontend.wishlist', compact('userWishlistItems'));
         }
         return redirect()->back();
+    }
+
+    public function wishlistAdd($productId) {
+        if (Auth::user()) {
+            $tour = Package::findOrFail($productId);
+            // wishlist exists check
+            $wishlist = WishList::whereUserId(Auth::user()->id)->wherePackageId($productId)->first();
+            if (isset($wishlist)) {
+                return redirect()->back()->with('failure','Tour already added to wishlist.');
+            }
+            WishList::create(['user_id'=>Auth::user()->id, 'package_id'=>$tour->id]);
+            return redirect()->back()->with('success','Tour added successfully.');
+        }
+        return redirect()->back();
+    }
+
+    public function wishlistRemove($id){
+        $wishlist = WishList::findOrFail($id)->delete();
+        $userWishlistItems = WishList::userWishListItems();
+        return view('frontend.wishlist', compact('userWishlistItems'));
     }
 
     public function cart()

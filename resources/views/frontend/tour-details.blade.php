@@ -446,7 +446,10 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 
 
 						<a href="cart.php" class="btn_1 full-width purchase">Purchase</a>
-						<button type="button" wire:click="addToWishList({{$tour->id}})" class="btn_1 full-width outline wishlist"><i class="icon_heart"></i> Add to wishlist</button>
+
+						<a type="button" href="{{route('wishlist.add', $tour->id)}}" class="btn_1 full-width outline wishlist">
+							<i class="icon_heart"></i> Add to wishlist
+						</a>
 						<div class="text-center"><small>No money charged in this step</small></div>
 					</div>
 					<!-- <ul class="share-buttons">

@@ -68,7 +68,7 @@ $categories = Category::whereStatus(1)->get();
             <div id="get-inspired" class="owl-carousel owl-theme">
                 @foreach($categories as $category)
                 <div class="item"> 
-                    <a href="#0" class="box-item relative"> 
+                    <a href="{{route('search.category',$category->id)}}" class="box-item relative"> 
                         <figure> 
                             <img src="{{asset('images/get-inspired/1.jpg')}}" class="img-fluid" alt="" /> 
                         </figure> 
@@ -391,7 +391,7 @@ $categories = Category::whereStatus(1)->get();
             <div id="popular-destinations" class="owl-carousel owl-theme">
                 @foreach($cities as $city)
                 <div class="item"> 
-                    <a href="#0" class="grid_item relative">
+                    <a href="{{route('search.city',$city->id)}}" class="grid_item relative">
                         <div class="ribbon">
                             <span>Popular</span>
                         </div>

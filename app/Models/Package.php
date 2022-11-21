@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use File;
+use App\Models\User;
 
 class Package extends Model
 {
@@ -142,4 +143,9 @@ class Package extends Model
     {
         return $this->hasMany('App\Models\PackageGallery');
     }
+
+    // public function wishlistee()
+    // {
+    //     return $this->belongsToMany(User::class, 'wishlists', 'package_id', 'user_id')->using(Wishlist::class);
+    // }
 }

@@ -31,7 +31,7 @@
 									<div class="row g-0">
 										<div class="col-lg-5">
 											<figure> 
-												<a href="#"><img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" /></a>
+												<a href="#"><img src="{{asset($row['package']['avatar'])}}" class="img-fluid" /></a>
 											</figure>
 										</div>
 										<div class="col-lg-7">
@@ -48,7 +48,7 @@
 													</div> 
 													<a href="#">(56)</a>   
 												</div> 
-												<span class="price">From <strong>$54</strong> /per person</span>
+												<span class="price">Price: <strong>₹{{$row['package']['adult_price']}}</strong> /per person</span>
 											</div>
 											<ul>
 												<li><a href="{{route('wishlist.remove',$row['id'])}}">Remove</a></li>

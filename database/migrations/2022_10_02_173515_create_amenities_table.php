@@ -17,7 +17,7 @@ class CreateAmenitiesTable extends Migration
             $table->id();
             $table->string('name');            
             $table->longText('description');
-            $table->string('icon')->default('uploads/amenities/default.jpg');
+            $table->string('icon')->default('uploads/amenities/default.png');
             $table->integer('status')->default(1)->comment('1=>Enabled,0=>Disabled');
             $table->timestamps();
         });

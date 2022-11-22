@@ -65,7 +65,7 @@ class CategoryController extends Controller
 
         $data = $request->all();
         $data['status'] = 1;
-        $data['icon'] = $icon_name??'uploads/categories/default-icon.jpg';
+        $data['icon'] = $icon_name??'uploads/categories/default-icon.png';
         $data['avatar'] = $image_name??'uploads/categories/default-avatar.jpg';
         Category::create($data);
         return redirect('/admin/category')->with('success','Category created successfully.');
@@ -109,7 +109,7 @@ class CategoryController extends Controller
         $icon_name = $request->hidden_icon;
         $icon = $request->file('icon');
         if($icon != '') {
-            if ($category->icon != 'uploads/categories/default-icon.jpg') {
+            if ($category->icon != 'uploads/categories/default-icon.png') {
                 if(File::exists($category->icon)) {
                     File::delete($category->icon);
                 }
@@ -154,7 +154,7 @@ class CategoryController extends Controller
                 File::delete($category->avatar);
             }
         }
-        if ($category->icon != 'uploads/categories/default-icon.jpg') {
+        if ($category->icon != 'uploads/categories/default-icon.png') {
             if(File::exists($category->icon)) {
                 File::delete($category->icon);
             }

@@ -71,6 +71,21 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Display Image:</label>
+                                                <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                @error('avatar')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
                             </div>  
                         </div>  
                         <div class="card-footer text-right"> 
@@ -85,4 +100,12 @@
         <!-- [ Main Content ] end -->
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>  
+    $(document).ready(function(){ 
+        $('.dropify').dropify(); 
+    }); 
+</script>
 @endsection

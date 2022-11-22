@@ -53,7 +53,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 									@foreach($tour->amenities as $amenity)
 									<li> 
 										<a href="#0" class="box-item style-4"> 
-											<img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/ticket.svg" alt="" />
+											<img src="{{asset($amenity->amenity->icon)}}" alt="{{$amenity->amenity->name}}" />
 											<p>{{$amenity->amenity->name}}</p>
 										</a> 
 									</li>
@@ -394,10 +394,10 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							</div>
 						</div> -->
 
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<input class="form-control" type="date" name="date" placeholder="From..">
-							<!-- <i class="icon_calendar"></i> -->
-						</div>  
+							<i class="icon_calendar"></i>
+						</div>   -->
 						<div class="form-group">
 							<input class="form-control" type="date" name="date" placeholder="To..">
 							<!-- <i class="icon_calendar"></i> -->

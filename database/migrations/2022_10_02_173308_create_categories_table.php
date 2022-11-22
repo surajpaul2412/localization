@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('icon')->default('uploads/categories/default-icon.jpg');
+            $table->string('icon')->default('uploads/categories/default-icon.png');
             $table->string('avatar')->default('uploads/categories/default-avatar.jpg');
             $table->longText('description');
             $table->integer('status')->default(1);

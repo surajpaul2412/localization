@@ -41,10 +41,19 @@ class CityController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:3|max:255',
-            'country_id' => 'required|integer'
+            'country_id' => 'required|integer',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        $image = $request->file('avatar');
+        if($image != ''){
+            $image_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/city'), $image_name);
+            $image_name = 'uploads/city/'.$image_name;
+        }
+
         $data = $request->all();
+        $data['avatar'] = $image_name??'uploads/city/default.jpg';
         City::create($data);
         return redirect('/admin/city')->with('success','City created successfully.');
     }
@@ -72,11 +81,27 @@ class CityController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|min:3|max:255'
+            'name' => 'required|string|min:3|max:255',
+            'country_id' => 'required|integer',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
         $city = City::findOrFail($id);
+
+        $image_name = $request->hidden_avatar;
+        $image = $request->file('avatar');
+        if($image != ''){
+            if ($city->avatar != 'uploads/city/default.jpg') {
+                if(File::exists($city->avatar)) {
+                    File::delete($city->avatar);
+                }
+            }
+            $image_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/city'), $image_name);
+            $image_name = 'uploads/city/'.$image_name;
+        }
+
         $data = $request->all();
+        $data['avatar'] = $image_name;
         $city->update($data);
         return redirect('admin/city')->with('success', 'City name has been successfully updated.');
     }

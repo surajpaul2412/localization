@@ -70,72 +70,14 @@ $categories = Category::whereStatus(1)->get();
                 <div class="item"> 
                     <a href="{{route('search.category',$category->id)}}" class="box-item relative"> 
                         <figure> 
-                            <img src="{{asset('images/get-inspired/1.jpg')}}" class="img-fluid" alt="" /> 
-                        </figure> 
-                    </a>
-                </div>
-                @endforeach
-                <!-- /item -->  
-
-                <div class="item"> 
-                    <a href="#0" class="box-item relative"> 
-                        <figure> 
-                            <img src="{{asset('images/get-inspired/2.jpg')}}" class="img-fluid" alt="" /> 
+                            <img src="{{asset($category->avatar)}}" class="img-fluid" alt="" /> 
                         </figure>
                         <div class="box-icon text-center">
-                            <img src="https://d2d3n9ufwugv3m.cloudfront.net/w400-h300-cfill-75/topics/hubL2-title.png" class="img-fluid" /> 
+                            <img src="{{asset($category->icon)}}" class="img-fluid" /> 
                         </div>
                     </a>
                 </div>
-                <!-- /item --> 
-
-                <div class="item">
-                    <a href="#0" class="box-item relative"> 
-                        <figure> 
-                            <img src="{{asset('images/get-inspired/3.jpg')}}" class="img-fluid" alt="" /> 
-                        </figure>
-                        <div class="box-icon text-center">
-                            <img src="https://d2d3n9ufwugv3m.cloudfront.net/w400-h300-cfill-75/topics/Ey55T-Cover_Homepage-07.png" class="img-fluid" /> 
-                        </div>
-                    </a> 
-                </div>
-                <!-- /item --> 
-
-                <div class="item"> 
-                    <a href="#0" class="box-item relative"> 
-                        <figure> 
-                            <img src="{{asset('images/get-inspired/4.jpg')}}" class="img-fluid" alt="" /> 
-                        </figure>
-                        <div class="box-icon text-center">
-                            <img src="https://d2d3n9ufwugv3m.cloudfront.net/w400-h300-cfill-75/topics/8F2DW-Cover_Homepage-08.png" class="img-fluid" /> 
-                        </div>
-                    </a>
-                </div>
-                <!-- /item --> 
-
-                <div class="item">
-                    <a href="#0" class="box-item relative"> 
-                        <figure> 
-                            <img src="{{asset('images/get-inspired/5.jpg')}}" class="img-fluid" alt="" /> 
-                        </figure>
-                        <div class="box-icon text-center">
-                            <img src="https://d2d3n9ufwugv3m.cloudfront.net/w400-h300-cfill-75/topics/p2KH3-Cover_Homepage-11.png" class="img-fluid" /> 
-                        </div>
-                    </a> 
-                </div>
-                <!-- /item --> 
-
-                <div class="item">
-                    <a href="#0" class="box-item relative"> 
-                        <figure> 
-                            <img src="{{asset('images/get-inspired/6.jpg')}}" class="img-fluid" alt="" /> 
-                        </figure>
-                        <div class="box-icon text-center">
-                            <img src="https://d2d3n9ufwugv3m.cloudfront.net/w400-h300-cfill-75/topics/kXHYF-Cover_Homepage-12.png" class="img-fluid" /> 
-                        </div>
-                    </a> 
-                </div>
-                <!-- /item -->  
+                @endforeach  
             </div> 
         </div>
     </section> 
@@ -152,13 +94,13 @@ $categories = Category::whereStatus(1)->get();
             </div> 
             
             <div id="popular-activities" class="owl-carousel owl-theme">
-
+                @foreach($tours as $tour)
                 <div class="item"> 
                     <div class="box_grid">
                         <figure>
-                            <a href="tour-details.php" class="wish_bt"></a>
-                            <a href="#0">
-                                <img src="{{asset('images/destination/1.jpg')}}" class="img-fluid" alt="" /> 
+                            <a href="{{route('tour.show', $tour->slug)}}" class="wish_bt"></a>
+                            <a href="{{route('tour.show', $tour->slug)}}">
+                                <img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
                             </a> 
                         </figure>
                         <div class="wrapper">
@@ -176,128 +118,16 @@ $categories = Category::whereStatus(1)->get();
                         </div> 
                         <ul class="d-flex justify-content-between align-items-center"> 
                             <!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-                            <li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
+                            <li>
+                                <span><b>Price: </b><small>
+                                    <!-- <del><b>$314.31</b></del> -->
+                                </small> 
+                                ₹{{$tour->adult_price}}</b><small>/person</small></span>
+                            </li> 
                         </ul>
                     </div>
                 </div>
-                <!-- /item -->
-
-                <div class="item"> 
-                    <div class="box_grid">
-                        <figure>
-                            <a href="#0" class="wish_bt"></a>
-                            <a href="tour-details.php">
-                                <img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
-                            </a> 
-                        </figure>
-                        <div class="wrapper">
-                            <h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-                            <div class="d-flex align-items-center">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fa fa-star-half"></i>
-                                    <i class="far fa-star"></i>
-                                </div> 
-                                <a href="#">(56)</a>   
-                            </div> 
-                        </div> 
-                        <ul class="d-flex justify-content-between align-items-center"> 
-                            <!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-                            <li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-                        </ul>
-                    </div>
-                </div>
-                <!-- /item --> 
-                
-                <div class="item"> 
-                    <div class="box_grid">
-                        <figure>
-                            <a href="#0" class="wish_bt"></a>
-                            <a href="tour-details.php">
-                                <img src="{{asset('images/destination/3.jpg')}}" class="img-fluid" alt="" /> 
-                            </a> 
-                        </figure>
-                        <div class="wrapper">
-                            <h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-                            <div class="d-flex align-items-center">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fa fa-star-half"></i>
-                                    <i class="far fa-star"></i>
-                                </div> 
-                                <a href="#">(56)</a>   
-                            </div> 
-                        </div> 
-                        <ul class="d-flex justify-content-between align-items-center"> 
-                            <!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-                            <li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-                        </ul>
-                    </div>
-                </div>
-                <!-- /item --> 
-                
-                <div class="item"> 
-                    <div class="box_grid">
-                        <figure>
-                            <a href="#0" class="wish_bt"></a>
-                            <a href="tour-details.php">
-                                <img src="{{asset('images/destination/4.jpg')}}" class="img-fluid" alt="" /> 
-                            </a> 
-                        </figure>
-                        <div class="wrapper">
-                            <h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-                            <div class="d-flex align-items-center">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fa fa-star-half"></i>
-                                    <i class="far fa-star"></i>
-                                </div> 
-                                <a href="#">(56)</a>   
-                            </div> 
-                        </div> 
-                        <ul class="d-flex justify-content-between align-items-center"> 
-                            <!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-                            <li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-                        </ul>
-                    </div>
-                </div>
-                <!-- /item --> 
-                
-                <div class="item"> 
-                    <div class="box_grid">
-                        <figure>
-                            <a href="#0" class="wish_bt"></a>
-                            <a href="tour-details.php">
-                                <img src="{{asset('images/destination/5.jpg')}}" class="img-fluid" alt="" /> 
-                            </a> 
-                        </figure>
-                        <div class="wrapper">
-                            <h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
-                            <div class="d-flex align-items-center">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fa fa-star-half"></i>
-                                    <i class="far fa-star"></i>
-                                </div> 
-                                <a href="#">(56)</a>   
-                            </div> 
-                        </div> 
-                        <ul class="d-flex justify-content-between align-items-center"> 
-                            <!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-                            <li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
-                        </ul>
-                    </div>
-                </div>
-                <!-- /item -->          
-
+                @endforeach
             </div>  
 
         </div>
@@ -315,59 +145,10 @@ $categories = Category::whereStatus(1)->get();
             </div>
             
             <div id="travel-products" class="owl-carousel owl-theme">
-                <!-- <div class="item"> 
-                    <a href="#0" class="box-item style-2"> 
-                        <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/hop-on-hop-off.svg" alt="" />
-                        <p>Hop-on Hop-off Bus Tour</p>
-                    </a> 
-                </div> -->
-                <!-- /item -->    
-                <div class="item"> 
-                    <a href="#0" class="box-item style-2"> 
-                        <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/ticket.svg" alt="" />
-                        <p>Attraction Ticket</p>
-                    </a> 
-                </div>
-                <!-- /item -->    
-                <div class="item"> 
-                    <a href="#0" class="box-item style-2"> 
-                        <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/fast-track.svg" alt="" />
-                        <p>Airport Fast-Track</p>
-                    </a> 
-                </div>
-                <!-- /item -->    
-                <div class="item"> 
-                    <a href="#0" class="box-item style-2"> 
-                        <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/car-rental.svg" alt="" />
-                        <p>Private Transfers</p>
-                    </a> 
-                </div>
-                <!-- /item -->    
-                <div class="item"> 
-                    <a href="#0" class="box-item style-2"> 
-                        <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/luggage.svg" alt="" />
-                        <p>Luggage Delivery</p>
-                    </a> 
-                </div>
-                <!-- /item -->    
-                <!-- <div class="item"> 
-                    <a href="#0" class="box-item style-2"> 
-                        <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/spa.svg" alt="" />
-                        <p>Spa Treatment / Massage</p>
-                    </a> 
-                </div> -->
-                <!-- /item -->    
-                <div class="item"> 
-                    <a href="#0" class="box-item style-2"> 
-                        <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/tuk-tuk.svg" alt="" />
-                        <p>Private Tuk-Tuk Rides</p>
-                    </a> 
-                </div>
-                <!-- /item -->
                 @foreach($amenities as $amenity)
                 <div class="item"> 
                     <a href="#0" class="box-item style-2"> 
-                        <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/icon/travel-product/chao-phraya.svg" alt="" />
+                        <img src="{{$amenity->icon}}" alt="{{$amenity->name}}" />
                         <p>{{$amenity->name}}</p>
                     </a> 
                 </div>
@@ -392,11 +173,11 @@ $categories = Category::whereStatus(1)->get();
                 @foreach($cities as $city)
                 <div class="item"> 
                     <a href="{{route('search.city',$city->id)}}" class="grid_item relative">
-                        <div class="ribbon">
+                        <!-- <div class="ribbon">
                             <span>Popular</span>
-                        </div>
+                        </div> -->
                         <figure> 
-                            <img src="{{asset('images/destination/1.jpg')}}" class="img-fluid" alt="" />
+                            <img src="{{asset($city->avatar)}}" class="img-fluid" alt="{{$city->name}}" />
                             <div class="info"> 
                                 <h3>{{$city->name}}, {{$city->country->name}}</h3>
                             </div>

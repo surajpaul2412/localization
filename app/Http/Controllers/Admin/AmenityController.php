@@ -53,7 +53,7 @@ class AmenityController extends Controller
 
         $data = $request->all();
         $data['status'] = 1;
-        $data['icon'] = $icon_name??'uploads/amenities/default.jpg';
+        $data['icon'] = $icon_name??'uploads/amenities/default.png';
         Amenity::create($data);
         return redirect('/admin/amenities')->with('success','Amenity created successfully.');
     }
@@ -90,7 +90,7 @@ class AmenityController extends Controller
         $icon_name = $request->hidden_icon;
         $icon = $request->file('icon');
         if($icon != ''){
-            if ($amenity->icon != 'uploads/amenities/default.jpg') {
+            if ($amenity->icon != 'uploads/amenities/default.png') {
                 if(File::exists($amenity->icon)) {
                     File::delete($amenity->icon);
                 }
@@ -115,7 +115,7 @@ class AmenityController extends Controller
     public function destroy($id)
     {
         $amenity = Amenity::findOrFail($id);
-         if ($amenity->icon != 'uploads/amenities/default.jpg') {
+         if ($amenity->icon != 'uploads/amenities/default.png') {
             if(File::exists($amenity->icon)) {
                 File::delete($amenity->icon);
             }

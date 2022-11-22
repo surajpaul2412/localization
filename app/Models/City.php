@@ -10,7 +10,7 @@ class City extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name','country_id'
+        'name','country_id','avatar'
     ];
 
     public function country()

@@ -379,61 +379,37 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 				<!-- /col -->
 				
 				<aside class="col-lg-4" id="sidebar">
-					<div class="box_detail booking">
-						<!-- <div class="price">
-							<span>45$ <small>person</small></span>
-							<div class="score"><span>
-								<div class="rating mb-1">
-									<i class="icon-star voted"></i>
-									<i class="icon_star voted"></i>
-									<i class="icon_star voted"></i>
-									<i class="icon_star voted"></i>
-									<i class="icon_star"></i>
-								</div>
-								<em>350 Reviews</em></span><strong>5.0</strong>
-							</div>
-						</div> -->
-
-						<!-- <div class="form-group">
-							<input class="form-control" type="date" name="date" placeholder="From..">
-							<i class="icon_calendar"></i>
-						</div>   -->
+					<form action="" method="" class="box_detail booking">
+						@method('POST')
+						@csrf
 						<div class="form-group">
 							<input class="form-control" type="date" name="date" placeholder="To..">
 							<!-- <i class="icon_calendar"></i> -->
 						</div>  
 						
-						<div class="panel-dropdown">
-							<a href="#">Guests <span class="qtyTotal">1</span></a>
-							<div class="panel-dropdown-content right">
-								<div class="qtyButtons">
-									<label>Adults</label>
-									<input type="text" name="qtyInput" value="1">
-								</div>
-								<div class="qtyButtons">
-									<label>Childrens</label>
-									<input type="text" name="qtyInput" value="0">
-								</div>
-								<div class="qtyButtons">
-									<label>Infant</label>
-									<input type="text" name="qtyInput" value="0">
-								</div>
-							</div>
+						<div class="my-4">
+							<a href="#">Total seats <span class="qtyTotal">1</span></a>
 						</div>
-
-						<!-- <div class="guest-inc-box d-flex justify-content-between align-items-center">
-							<a href="#">Guests</a>
-							<div class="counter">
-								<span class="down" onClick='decreaseCount(event, this)'>-</span>
-								<input type="text" value="1">
-								<span class="up" onClick='increaseCount(event, this)'>+</span>
-							</div>
-						</div>  -->
+							
 						<div class="booking-box-details">
 							<ul class="cart_details">
-								<li>${{$tour->presentPrice($tour->adult_price)}} x 1 Adults <span>$90</span></li>
-								<li>${{$tour->presentPrice($tour->child_price)}} x 1 Childrens <span>$90</span></li>
-								<li>${{$tour->presentPrice($tour->infant_price)}} x 1 Infant <span>$90</span></li>
+								<li>
+									<div class="qtyButtons">
+										<label>${{$tour->presentPrice($tour->adult_price)}} / Adults</label>
+										<input type="text" name="qtyInput" value="1">
+									</div>
+								</li>
+								<li>
+									<div class="qtyButtons">
+										<label>${{$tour->presentPrice($tour->child_price)}} / Childrens</label>
+										<input type="text" name="qtyInput" value="0">
+									</div>
+								<li>
+									<div class="qtyButtons">
+										<label>${{$tour->presentPrice($tour->infant_price)}} / Infant</label>
+										<input type="text" name="qtyInput" value="0">
+									</div>
+								</li>
 								<li>Tax <i class="ti-info-alt"></i> <span>$40</span></li>
 								<!-- <li>Accident Insurance <span class="text-success">Free</span></li>  -->
 							</ul> 
@@ -445,13 +421,13 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 
 
 
-						<a href="cart.php" class="btn_1 full-width purchase">Purchase</a>
+						<a type="submit" class="btn_1 full-width purchase">Purchase</a>
 
 						<a type="button" href="{{route('wishlist.add', $tour->id)}}" class="btn_1 full-width outline wishlist">
 							<i class="icon_heart"></i> Add to wishlist
 						</a>
 						<div class="text-center"><small>No money charged in this step</small></div>
-					</div>
+					</form>
 					<!-- <ul class="share-buttons">
 						<li><a class="fb-share" href="#0"><i class="social_facebook"></i> Share</a></li>
 						<li><a class="twitter-share" href="#0"><i class="social_twitter"></i> Tweet</a></li>

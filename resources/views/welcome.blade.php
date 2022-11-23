@@ -98,7 +98,7 @@ $categories = Category::whereStatus(1)->get();
                 <div class="item"> 
                     <div class="box_grid">
                         <figure>
-                            <a href="{{route('tour.show', $tour->slug)}}" class="wish_bt"></a>
+                            <a href="{{route('wishlist.add',$tour->id)}}" class="wish_bt"></a>
                             <a href="{{route('tour.show', $tour->slug)}}">
                                 <img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
                             </a> 

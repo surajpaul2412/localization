@@ -421,7 +421,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 
 
 
-						<a type="submit" class="btn_1 full-width purchase">Purchase</a>
+						<a type="submit" href="{{route('cart.add',$tour->id)}}" class="btn_1 full-width purchase">Purchase</a>
 
 						<a type="button" href="{{route('wishlist.add', $tour->id)}}" class="btn_1 full-width outline wishlist">
 							<i class="icon_heart"></i> Add to wishlist

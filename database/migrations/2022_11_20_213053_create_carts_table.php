@@ -17,11 +17,7 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('package_id');
-            $table->double('qty');
-            $table->double('discount');
-            $table->string('couponCode');
-            $table->double('couponAmount');
-            $table->integer('coupon_id');
+            // $table->double('discount');
             $table->timestamps();
         });
     }

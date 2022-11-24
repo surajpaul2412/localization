@@ -7,6 +7,9 @@ use App\Models\Package;
 use App\Models\City;
 use App\Models\Category;
 use App\Models\Newsletter;
+use App\Models\Cart;
+use Auth;
+use Session;
 
 class FrontendController extends Controller
 {
@@ -92,5 +95,51 @@ class FrontendController extends Controller
                     })->get();
         }
         return view('frontend.tour-search', compact('tours','search'));
+    }
+
+
+
+
+    public function cart()
+    {
+        if (Auth::user()) {
+            $cartItems = Cart::whereUserId(Auth::user()->id)->get();
+            return view('frontend.cart', compact('cartItems'));
+        } else {
+            $cartItems = Cart::whereUserId(session()->getId())->get();
+            return view('frontend.cart', compact('cartItems'));
+        }
+        return redirect()->back();
+    }
+
+    public function cartAdd($id){
+        if (Auth::user()) {
+            $data['user_id'] = Auth::user()->id;
+            $data['package_id'] = $id;
+
+            Cart::create($data);
+            $cartItems = Cart::whereUserId(Auth::user()->id)->get();
+            return view('frontend.cart', compact('cartItems'));
+        } else {
+            $data['user_id'] = session()->getId();
+            $data['package_id'] = $id;
+
+            Cart::create($data);
+            $cartItems = Cart::whereUserId(session()->getId())->get();
+            return view('frontend.cart', compact('cartItems'));
+        }
+        
+        
+    }
+
+    public function cartRemove($id){
+        Cart::findOrFail($id)->delete();
+        if (Auth::user()) {            
+            $cartItems = Cart::whereUserId(Auth::user()->id)->get();
+            return view('frontend.cart', compact('cartItems'))->with('success','Removed from Cart.');
+        } else {
+            $cartItems = Cart::whereUserId(session()->getId())->get();
+            return view('frontend.cart', compact('cartItems'))->with('success','Removed from Cart.');
+        }
     }
 }

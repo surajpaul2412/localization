@@ -14,7 +14,7 @@
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
-						<a href="#0" class="bs-wizard-dot"></a>
+						<a href="{{route('cart')}}" class="bs-wizard-dot"></a>
 					</div>
 
 					<div class="bs-wizard-step disabled">
@@ -43,38 +43,44 @@
 		<div class="container margin_60_35">
 			<div class="row">
 				<div class="col-lg-8">
-					<div class="box_cart">
-						<div class="box_list">
-							<div class="row g-0">
-								<div class="col-lg-5">
-									<figure> 
-										<a href="#"><img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" /></a>
-									</figure>
-								</div>
-								<div class="col-lg-7">
-									<div class="wrapper"> 
-										<h3><a href="#">Singapore: S.E.A. Aquarium Entrance Ticket</a></h3>
-										<p>S.E.A. Aquarium Standard Admission (GT QR Code)</p> 
-										<div class="d-flex align-items-center">
-											<div class="rating">
-												<i class="fas fa-star"></i>
-												<i class="fas fa-star"></i>
-												<i class="fas fa-star"></i>
-												<i class="fa fa-star-half"></i>
-												<i class="far fa-star"></i>
-											</div> 
-											<a href="#">(56)</a>   
-										</div> 
-										<span class="price">From <strong>$54</strong> /per person</span>
+					@if($cartItems->count())
+						@foreach($cartItems as $item)
+						<div class="box_cart">
+							<div class="box_list">
+								<div class="row g-0">
+									<div class="col-lg-5">
+										<figure> 
+											<a href="#"><img src="{{asset($item->package->avatar)}}" class="img-fluid" /></a>
+										</figure>
 									</div>
-									<ul>
-										<li><a href="#">Remove</a></li>
-										<li><a href="#">Move to Wishlist</a></li>
-									</ul>
+									<div class="col-lg-7">
+										<div class="wrapper"> 
+											<h3><a href="{{route('tour.show',$item->package->id)}}">{{$item->package->name}}</a></h3>
+											<p>S.E.A. Aquarium Standard Admission (GT QR Code)</p> 
+											<div class="d-flex align-items-center">
+												<div class="rating">
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fas fa-star"></i>
+													<i class="fa fa-star-half"></i>
+													<i class="far fa-star"></i>
+												</div> 
+												<a href="#">(56)</a>   
+											</div> 
+											<span class="price">Price: <strong>${{$item->package->adult_price}}</strong> /per person</span>
+										</div>
+										<ul>
+											<li><a href="{{route('cart.remove',$item->id)}}">Remove</a></li>
+											<li><a href="#">Move to Wishlist</a></li>
+										</ul>
+									</div>
 								</div>
-							</div>
-						</div>  
-					</div>
+							</div>  
+						</div>
+						@endforeach
+					@else
+					<div>No items in your cart.</div>
+					@endif
 				</div>
 				<!-- /col --> 
 

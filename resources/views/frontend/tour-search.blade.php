@@ -174,7 +174,7 @@ $categories = Category::whereStatus(1)->get();
 										<figure>
 											<a href="{{route('tour.show', $tour->slug)}}" class="wish_bt"></a>
 											<a href="{{route('tour.show', $tour->slug)}}">
-												<img src="{{asset('images/destination/2.jpg')}}" class="img-fluid" alt="" /> 
+												<img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
 											</a> 
 										</figure>
 										<div class="wrapper">
@@ -192,7 +192,12 @@ $categories = Category::whereStatus(1)->get();
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 
 											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>${{$tour->price}}</b></del></small> ${{$tour->price}}</b><small>/person</small></span></li> 
+											<li>
+												<span><b>Price: </b><small>
+				                                    <!-- <del><b>$314.31</b></del> -->
+				                                </small> 
+				                                ₹{{$tour->adult_price}}</b><small>/person</small></span>
+											</li> 
 										</ul>
 									</div>
 								</div>

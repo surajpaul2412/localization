@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Newsletter;
 use App\Models\WishList;
 use App\Models\Package;
+use App\Models\Cart;
 use Auth;
+use Session;
 
 class HomeController extends Controller
 {
@@ -61,15 +63,21 @@ class HomeController extends Controller
     public function wishlistRemove($id){
         $wishlist = WishList::findOrFail($id)->delete();
         $userWishlistItems = WishList::userWishListItems();
-        return view('frontend.wishlist', compact('userWishlistItems'));
+        return view('frontend.wishlist', compact('userWishlistItems'))->with('success','Removed from wishlist.');
     }
 
-    public function cart()
-    {
-        if (Auth::user()) {
-            return view('frontend.cart');
+    public function wishlistMoveToCart($id){
+        $wishlist = WishList::findOrFail($id);
+
+        if ($wishlist) {
+            // $sessionId = session()->getId();
+            $data['user_id'] = $wishlist->user_id;
+            $data['package_id'] = $wishlist->package_id;
+            
+            Cart::create($data);
+            $wishlist->delete();
         }
-        return redirect()->back();
+        return redirect()->back()->with('success','Moved into Cart Successfully.');
     }
 
     public function checkout()

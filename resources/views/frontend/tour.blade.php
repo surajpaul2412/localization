@@ -181,7 +181,7 @@ $categories = Category::whereStatus(1)->get();
 														<i class="fa fa-star-half"></i>
 														<i class="far fa-star"></i>
 													</div> 
-													<a href="{{route('tour.show', $tour->slug)}}">(4.5)</a>   
+													<a href="{{route('tour.show', $tour->slug)}}">(4.5)</a>
 												</div> 
 											</div> 
 											<ul class="d-flex justify-content-between align-items-center"> 

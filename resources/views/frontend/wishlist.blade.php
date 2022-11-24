@@ -36,7 +36,7 @@
 										</div>
 										<div class="col-lg-7">
 											<div class="wrapper"> 
-												<p><b><a href="#" class="fs-6">{{$row['package']['name']}}</a></b></p>
+												<p><b><a href="{{route('tour.show',$row['package']['slug'])}}" class="fs-6">{{$row['package']['name']}}</a></b></p>
 												<!-- <p>S.E.A. Aquarium Standard Admission (GT QR Code)</p>  -->
 												<div class="d-flex align-items-center">
 													<div class="rating">

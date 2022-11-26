@@ -379,12 +379,11 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 				<!-- /col -->
 				
 				<aside class="col-lg-4" id="sidebar">
-					<form action="" method="" class="box_detail booking">
+					<form action="{{route('cart.add',$tour->id)}}" method="POST" class="box_detail booking">
 						@method('POST')
 						@csrf
 						<div class="form-group">
-							<input class="form-control" type="date" name="date" placeholder="To..">
-							<!-- <i class="icon_calendar"></i> -->
+							<input class="form-control" type="date" name="date" required />
 						</div>  
 						
 						<div class="my-4">
@@ -396,36 +395,35 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 								<li>
 									<div class="qtyButtons">
 										<label>${{$tour->presentPrice($tour->adult_price)}} / Adults</label>
-										<input type="text" name="qtyInput" value="1">
+										<input type="text" name="qtyInput[]" class="qtyInput" value="1">
 									</div>
 								</li>
 								<li>
 									<div class="qtyButtons">
 										<label>${{$tour->presentPrice($tour->child_price)}} / Childrens</label>
-										<input type="text" name="qtyInput" value="0">
+										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								<li>
 									<div class="qtyButtons">
 										<label>${{$tour->presentPrice($tour->infant_price)}} / Infant</label>
-										<input type="text" name="qtyInput" value="0">
+										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								</li>
-								<li>Tax <i class="ti-info-alt"></i> <span>$40</span></li>
+								<!-- <li>Tax <i class="ti-info-alt"></i> <span>$40</span></li> -->
 								<!-- <li>Accident Insurance <span class="text-success">Free</span></li>  -->
 							</ul> 
 						</div>
 						
-						<div id="total_cart">
+						<!-- <div id="total_cart">
 							Total <span class="float-end">$69.00</span>
-						</div>
+						</div> -->
 
-
-
-						<a type="submit" href="{{route('cart.add',$tour->id)}}" class="btn_1 full-width purchase">Purchase</a>
+						<button type="submit" class="btn_1 full-width purchase">Purchase</button>
 
 						<a type="button" href="{{route('wishlist.add', $tour->id)}}" class="btn_1 full-width outline wishlist">
 							<i class="icon_heart"></i> Add to wishlist
 						</a>
+						@include('layouts.backend.partials.alert')
 						<div class="text-center"><small>No money charged in this step</small></div>
 					</form>
 					<!-- <ul class="share-buttons">

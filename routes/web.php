@@ -37,9 +37,13 @@ Route::get('wishlist/add/{productId}', [App\Http\Controllers\HomeController::cla
 Route::get('wishlist/remove/{id}', [App\Http\Controllers\HomeController::class, 'wishlistRemove'])->name('wishlist.remove')->middleware('auth');
 Route::get('wishlist/moveToCart/{id}', [App\Http\Controllers\HomeController::class, 'wishlistMoveToCart'])->name('wishlist.moveToCart')->middleware('auth');
 
-Route::get('cart', [App\Http\Controllers\FrontendController::class, 'cart'])->name('cart');
-Route::get('cart/add/{packageId}', [App\Http\Controllers\FrontendController::class, 'cartAdd'])->name('cart.add');
+Route::get('cart', [App\Http\Controllers\FrontendController::class, 'cart'])->name('cart')->middleware('auth');
+Route::post('cart/add/{packageId}', [App\Http\Controllers\FrontendController::class, 'cartAdd'])->name('cart.add');
 Route::get('cart/remove/{id}', [App\Http\Controllers\FrontendController::class, 'cartRemove'])->name('cart.remove');
+Route::get('cart/moveToWishlist/{id}', [App\Http\Controllers\HomeController::class, 'cartMoveToWishlist'])->name('cart.moveToWishlist')->middleware('auth');
+Route::get('cart/edit/{id}', [App\Http\Controllers\FrontendController::class, 'cartEdit'])->name('cart.edit');
+Route::patch('cart/{id}', [App\Http\Controllers\FrontendController::class, 'cartUpdate'])->name('cart.update');
+
 
 Route::get('checkout', [App\Http\Controllers\HomeController::class, 'checkout'])->name('checkout')->middleware('auth');
 Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');

@@ -104,42 +104,82 @@ class FrontendController extends Controller
     {
         if (Auth::user()) {
             $cartItems = Cart::whereUserId(Auth::user()->id)->get();
-            return view('frontend.cart', compact('cartItems'));
         } else {
             $cartItems = Cart::whereUserId(session()->getId())->get();
-            return view('frontend.cart', compact('cartItems'));
         }
-        return redirect()->back();
+        $cartAmount = Cart::cartAmount();
+        return view('frontend.cart', compact('cartItems','cartAmount'));
     }
 
-    public function cartAdd($id){
-        if (Auth::user()) {
-            $data['user_id'] = Auth::user()->id;
-            $data['package_id'] = $id;
+    public function cartEdit($id){
+        $cart = Cart::findOrFail($id);
+        $tour = Package::findOrFail($cart->package_id);
+        return view('frontend.cart-edit', compact('cart','tour'));
+    }
 
-            Cart::create($data);
-            $cartItems = Cart::whereUserId(Auth::user()->id)->get();
-            return view('frontend.cart', compact('cartItems'));
+    public function cartUpdate(Request $request, $id){
+        $request->validate([
+            'date' => 'required|date|after:today'
+        ]);
+
+        if (array_sum($request->qtyInput) > 0){
+            $data['date'] = $request->date;
+            $data['qty_adult'] = $request->qtyInput[0];
+            $data['qty_child'] = $request->qtyInput[1];
+            $data['qty_infant'] = $request->qtyInput[2];
+
+            Cart::whereId($id)->update($data);
+            return redirect()->route('cart')->with('success','Cart item updated successfully.');
         } else {
-            $data['user_id'] = session()->getId();
-            $data['package_id'] = $id;
-
-            Cart::create($data);
-            $cartItems = Cart::whereUserId(session()->getId())->get();
-            return view('frontend.cart', compact('cartItems'));
+            return redirect()->back()->with('error','Please select atleast one seat.');
         }
-        
-        
+    }
+
+    public function cartAdd(Request $request, $id){
+        $request->validate([
+            'date' => 'required|date|after:today'
+        ]);
+
+        if (array_sum($request->qtyInput) > 0){
+            if (Auth::user()) {
+                $cartCount = Cart::whereUserId(Auth::user()->id)->wherePackageId($id)->count();
+
+                if ($cartCount == 0) {
+                    $data['user_id'] = Auth::user()->id;
+                    $data['package_id'] = $id;
+                    $data['date'] = $request->date;
+                    $data['qty_adult'] = $request->qtyInput[0];
+                    $data['qty_child'] = $request->qtyInput[1];
+                    $data['qty_infant'] = $request->qtyInput[2];
+
+                    Cart::create($data);
+                    return redirect()->route('cart')->with('success','Tour added to cart successfully.');
+                } else {
+                    return redirect()->back()->with('error','Already added to cart.');
+                }
+            } else {
+                $cartCount = Cart::whereUserId(session()->getId())->wherePackageId($id)->count();
+                if ($cartCount == 0) {
+                    $data['user_id'] = session()->getId();
+                    $data['package_id'] = $id;
+                    $data['date'] = $request->date;
+                    $data['qty_adult'] = $request->qtyInput[0];
+                    $data['qty_child'] = $request->qtyInput[1];
+                    $data['qty_infant'] = $request->qtyInput[2];
+
+                    Cart::create($data);
+                    return redirect()->route('cart')->with('success','Tour added to cart successfully.');
+                } else {
+                    return redirect()->back()->with('error','Already added to cart.');
+                }
+            }
+        } else {
+            return redirect()->back()->with('error','Please select atleast one seat.');
+        }
     }
 
     public function cartRemove($id){
         Cart::findOrFail($id)->delete();
-        if (Auth::user()) {            
-            $cartItems = Cart::whereUserId(Auth::user()->id)->get();
-            return view('frontend.cart', compact('cartItems'))->with('success','Removed from Cart.');
-        } else {
-            $cartItems = Cart::whereUserId(session()->getId())->get();
-            return view('frontend.cart', compact('cartItems'))->with('success','Removed from Cart.');
-        }
+        return redirect()->route('cart')->with('success','Removed from cart successfully.');
     }
 }

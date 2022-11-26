@@ -20,6 +20,8 @@
 	</div>
 	<!--/hero_in-->
 
+	@include('layouts.backend.partials.alert')
+
 	<div class="section-sm wishlist-area">
 		<div class="container margin_60_35">
 			<div class="row">
@@ -60,6 +62,8 @@
 							</div>
 						</div>
 					@endforeach
+				@else
+					<div>No items in your wishlist.</div>
 				@endif
 			</div>
 			<!-- /row -->

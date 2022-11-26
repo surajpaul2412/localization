@@ -56,8 +56,7 @@
 									<div class="col-lg-7">
 										<div class="wrapper"> 
 											<h3><a href="{{route('tour.show',$item->package->id)}}">{{$item->package->name}}</a></h3>
-											<p>S.E.A. Aquarium Standard Admission (GT QR Code)</p> 
-											<div class="d-flex align-items-center">
+											<div class="d-flex align-items-center pb-3">
 												<div class="rating">
 													<i class="fas fa-star"></i>
 													<i class="fas fa-star"></i>
@@ -67,11 +66,15 @@
 												</div> 
 												<a href="#">(56)</a>   
 											</div> 
-											<span class="price">Price: <strong>${{$item->package->adult_price}}</strong> /per person</span>
+											<div class="price">Date selected: <strong>{{$item->date??'Not Selected'}}</strong></div><br/>
+											<div class="price">Adult: <strong>₹ {{$item->package->adult_price}} x {{$item->qty_adult??'Not Selected'}}</strong></div><br/>
+											<div class="price">Child: <strong>₹ {{$item->package->child_price}} x {{$item->qty_child??'Not Selected'}}</strong></div><br/>
+											<div class="price">Infant: <strong>₹ {{$item->package->infant_price}} x {{$item->qty_infant??'Not Selected'}}</strong></div>
 										</div>
 										<ul>
-											<li><a href="{{route('cart.remove',$item->id)}}">Remove</a></li>
-											<li><a href="#">Move to Wishlist</a></li>
+											<li><a class="text-info" href="{{route('cart.edit',$item->id)}}">Edit cart item</a></li>
+											<li><a class="text-danger" href="{{route('cart.remove',$item->id)}}">Remove</a></li>
+											<li><a href="{{route('cart.moveToWishlist',$item->id)}}">Move to Wishlist</a></li>
 										</ul>
 									</div>
 								</div>
@@ -87,15 +90,20 @@
 				<aside class="col-lg-4">
 					<div class="box_detail">
 						<div id="total_cart">
-							Total <span class="float-end">69.00$</span>
+							Total <span class="float-end">₹ {{$cartAmount}}.00</span>
 						</div>
 						<ul class="cart_details">
-							<li>From <span>02-11-18</span></li>
-							<li>To <span>04-11-18</span></li>
-							<li>Adults <span>2</span></li>
-							<li>Childs <span>1</span></li>
+							<!-- <li>From <span>02-11-18</span></li> -->
+							<!-- <li>To <span>04-11-18</span></li> -->
+							<!-- <li>Adults <span>2</span></li> -->
+							<!-- <li>Childs <span>1</span></li> -->
 						</ul>
-						<a href="checkout.php" class="btn_1 full-width purchase">Checkout</a>
+						<button href="" class="btn w-100 btn-success" 
+							@foreach($cartItems as $cart)
+								@if($cart->date == null) disabled @endif
+							@endforeach
+						>
+						Checkout</button>
 						<div class="text-center"><small>No money charged in this step</small></div>
 					</div>
 				</aside>

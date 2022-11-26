@@ -62,26 +62,42 @@ class HomeController extends Controller
 
     public function wishlistRemove($id){
         $wishlist = WishList::findOrFail($id)->delete();
-        $userWishlistItems = WishList::userWishListItems();
-        return view('frontend.wishlist', compact('userWishlistItems'))->with('success','Removed from wishlist.');
+        return redirect()->route('wishlist')->with('success','Removed from wishlist successfully.');
     }
 
     public function wishlistMoveToCart($id){
         $wishlist = WishList::findOrFail($id);
 
         if ($wishlist) {
-            // $sessionId = session()->getId();
-            $data['user_id'] = $wishlist->user_id;
-            $data['package_id'] = $wishlist->package_id;
-            
-            Cart::create($data);
-            $wishlist->delete();
+            $cartCount = Cart::whereUserId($wishlist->user_id)->wherePackageId($wishlist->package_id)->count();
+            if ($cartCount == 0) {
+                $data['user_id'] = $wishlist->user_id;
+                $data['package_id'] = $wishlist->package_id;
+                
+                Cart::create($data);
+                $wishlist->delete();
+            } else {
+                return redirect()->route('wishlist')->with('failure','Already added in the Cart.');
+            }
         }
-        return redirect()->back()->with('success','Moved into Cart Successfully.');
+        return redirect()->route('wishlist')->with('success','Moved into Cart Successfully.');
     }
 
-    public function checkout()
-    {
+    public function cartMoveToWishlist($id){
+        $cart = Cart::findOrFail($id);
+        if ($cart){
+            $wishlistCount = Wishlist::whereUserId($cart->user_id)->wherePackageId($cart->package_id)->count();
+            if($wishlistCount != 1){
+                $data['user_id'] = $cart->user_id;
+                $data['package_id'] = $cart->package_id;
+                Wishlist::create($data);
+            }
+        }
+        $cart->delete();
+        return redirect()->route('cart')->with('success','Moved to Wishlist Successfully.');
+    }
+
+    public function checkout(){
         if (Auth::user()) {
             return view('frontend.checkout');
         }

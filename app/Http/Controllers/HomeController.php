@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Newsletter;
-use App\Models\WishList;
+use App\Models\Wishlist;
 use App\Models\Package;
 use App\Models\Cart;
 use Auth;
@@ -40,7 +40,7 @@ class HomeController extends Controller
     public function wishlist()
     {
         if (Auth::user()) {
-            $userWishlistItems = WishList::userWishListItems();
+            $userWishlistItems = Wishlist::userWishlistItems();
             return view('frontend.wishlist', compact('userWishlistItems'));
         }
         return redirect()->back();
@@ -50,23 +50,23 @@ class HomeController extends Controller
         if (Auth::user()) {
             $tour = Package::findOrFail($productId);
             // wishlist exists check
-            $wishlist = WishList::whereUserId(Auth::user()->id)->wherePackageId($productId)->first();
+            $wishlist = Wishlist::whereUserId(Auth::user()->id)->wherePackageId($productId)->first();
             if (isset($wishlist)) {
                 return redirect()->back()->with('failure','Tour already added to wishlist.');
             }
-            WishList::create(['user_id'=>Auth::user()->id, 'package_id'=>$tour->id]);
+            Wishlist::create(['user_id'=>Auth::user()->id, 'package_id'=>$tour->id]);
             return redirect()->back()->with('success','Tour added successfully.');
         }
         return redirect()->back();
     }
 
     public function wishlistRemove($id){
-        $wishlist = WishList::findOrFail($id)->delete();
+        $wishlist = Wishlist::findOrFail($id)->delete();
         return redirect()->route('wishlist')->with('success','Removed from wishlist successfully.');
     }
 
     public function wishlistMoveToCart($id){
-        $wishlist = WishList::findOrFail($id);
+        $wishlist = Wishlist::findOrFail($id);
 
         if ($wishlist) {
             $cartCount = Cart::whereUserId($wishlist->user_id)->wherePackageId($wishlist->package_id)->count();

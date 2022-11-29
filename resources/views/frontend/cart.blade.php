@@ -55,7 +55,7 @@
 									</div>
 									<div class="col-lg-7">
 										<div class="wrapper"> 
-											<h3><a href="{{route('tour.show',$item->package->id)}}">{{$item->package->name}}</a></h3>
+											<h3><a href="{{route('tour.show',$item->package->slug)}}">{{$item->package->name}}</a></h3>
 											<div class="d-flex align-items-center pb-3">
 												<div class="rating">
 													<i class="fas fa-star"></i>
@@ -88,7 +88,8 @@
 				<!-- /col --> 
 
 				<aside class="col-lg-4">
-					<div class="box_detail">
+					<form method="GET" action="{{route('checkout')}}" class="box_detail">
+						@csrf
 						<div id="total_cart">
 							Total <span class="float-end">₹ {{$cartAmount}}.00</span>
 						</div>
@@ -98,14 +99,14 @@
 							<!-- <li>Adults <span>2</span></li> -->
 							<!-- <li>Childs <span>1</span></li> -->
 						</ul>
-						<button href="" class="btn w-100 btn-success" 
+						<button type="submit" class="btn w-100 btn-success" 
 							@foreach($cartItems as $cart)
 								@if($cart->date == null) disabled @endif
 							@endforeach
 						>
 						Checkout</button>
 						<div class="text-center"><small>No money charged in this step</small></div>
-					</div>
+					</form>
 				</aside>
 			</div>
 			<!-- /row -->

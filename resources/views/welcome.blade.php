@@ -120,7 +120,7 @@ $categories = Category::whereStatus(1)->get();
                             <!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
                             <li>
                                 <span><b>Price: </b><small>
-                                    <!-- <del><b>$314.31</b></del> -->
+                                    <!-- <del><b>₹314.31</b></del> -->
                                 </small> 
                                 ₹{{$tour->adult_price}}</b><small>/person</small></span>
                             </li> 

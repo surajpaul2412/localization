@@ -17,7 +17,7 @@ class CustomerMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->role->id == 2 && Auth::user()->status != 0)
+        if(Auth::check() && Auth::user()->role->id == 2 && Auth::user()->status == 1)
         {
             return $next($request);
         } else {

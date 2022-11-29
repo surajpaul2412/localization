@@ -162,7 +162,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 
 											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>$314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
+											<li><span><b>From <small><del><b>₹314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
 										</ul>
 									</div>
 								</div>
@@ -394,28 +394,28 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							<ul class="cart_details">
 								<li>
 									<div class="qtyButtons">
-										<label>${{$tour->presentPrice($tour->adult_price)}} / Adults</label>
+										<label>₹{{$tour->presentPrice($tour->adult_price)}} / Adults</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="1">
 									</div>
 								</li>
 								<li>
 									<div class="qtyButtons">
-										<label>${{$tour->presentPrice($tour->child_price)}} / Childrens</label>
+										<label>₹{{$tour->presentPrice($tour->child_price)}} / Childrens</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								<li>
 									<div class="qtyButtons">
-										<label>${{$tour->presentPrice($tour->infant_price)}} / Infant</label>
+										<label>₹{{$tour->presentPrice($tour->infant_price)}} / Infant</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								</li>
-								<!-- <li>Tax <i class="ti-info-alt"></i> <span>$40</span></li> -->
+								<!-- <li>Tax <i class="ti-info-alt"></i> <span>₹40</span></li> -->
 								<!-- <li>Accident Insurance <span class="text-success">Free</span></li>  -->
 							</ul> 
 						</div>
 						
 						<!-- <div id="total_cart">
-							Total <span class="float-end">$69.00</span>
+							Total <span class="float-end">₹69.00</span>
 						</div> -->
 
 						<button type="submit" class="btn_1 full-width purchase">Purchase</button>

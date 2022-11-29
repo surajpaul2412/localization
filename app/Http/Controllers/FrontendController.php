@@ -135,7 +135,7 @@ class FrontendController extends Controller
         }
     }
 
-    public function cartAdd(Request $request, $id){
+    public function cartAdd(Request $request, $id) {
         $request->validate([
             'date' => 'required|date|after:today'
         ]);
@@ -181,5 +181,14 @@ class FrontendController extends Controller
     public function cartRemove($id){
         Cart::findOrFail($id)->delete();
         return redirect()->route('cart')->with('success','Removed from cart successfully.');
+    }
+
+    public function checkout(){
+        if (Auth::user()) {
+            return view('frontend.checkout');
+        } else {
+            return view('frontend.checkout');
+        }
+        return redirect()->back();
     }
 }

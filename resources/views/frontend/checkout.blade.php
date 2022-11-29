@@ -45,7 +45,7 @@
 				<div class="col-lg-8">
 					<div class="box_cart">
 						<div class="message">
-							<p>Exisitng Customer? <a href="login.php">Click here to login</a></p>
+							<p>Exisitng Customer? <a href="{{route('login')}}">Click here to login</a></p>
 						</div>
 						<div class="form_title">
 							<h3>Your Details</h3>
@@ -111,15 +111,15 @@
 				<aside class="col-lg-4">
 					<div class="box_detail">
 						<div id="total_cart">
-							Total <span class="float-end">69.00$</span>
+							Total <span class="float-end">₹69.00</span>
 						</div>
-						<ul class="cart_details">
+						<!-- <ul class="cart_details">
 							<li>From <span>02-11-18</span></li>
 							<li>To <span>04-11-18</span></li>
 							<li>Adults <span>2</span></li>
 							<li>Childs <span>1</span></li>
-						</ul>
-						<a href="success.php" class="btn_1 full-width purchase">Checkout</a>
+						</ul> -->
+						<a href="success.php" class="btn_1 full-width purchase">Payment</a>
 						<div class="text-center"><small>No money charged in this step</small></div>
 					</div>
 				</aside>

@@ -96,11 +96,4 @@ class HomeController extends Controller
         $cart->delete();
         return redirect()->route('cart')->with('success','Moved to Wishlist Successfully.');
     }
-
-    public function checkout(){
-        if (Auth::user()) {
-            return view('frontend.checkout');
-        }
-        return redirect()->back();
-    }
 }

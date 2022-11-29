@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use Session;
 
 class LoginController extends Controller
 {
@@ -36,10 +37,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        if(Auth::check() && Auth::user()->role->id == 1)
+        if(Auth::check() && Auth::user()->role->id == 1 && Auth::user()->status == 1)
         {
             $this->redirectTo = route('admin.dashboard');
-        } elseif(Auth::check() && Auth::user()->role->id == 2) {
+        } elseif(Auth::check() && Auth::user()->role->id == 2 && Auth::user()->status == 1) {
             $this->redirectTo = route('customer.dashboard');
         }
         $this->middleware('guest')->except('logout');

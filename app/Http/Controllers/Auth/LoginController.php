@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
+use App\Models\User;
+use App\Models\Cart;
+use Illuminate\Http\Request;
 use Session;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -44,5 +47,22 @@ class LoginController extends Controller
             $this->redirectTo = route('customer.dashboard');
         }
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request) {
+        $request->validate([
+            'email'=>'required',
+            'password'=>'required'
+        ]);
+        $cartItems = Cart::whereUserId(session()->getId())->get();
+        $credentials = $request->only('email','password');
+        if (Auth::attempt($credentials)) {
+            foreach ($cartItems as $key => $item) {
+                $data['user_id'] = Auth::user()->id;
+                Cart::whereId($item->id)->update($data);
+            }
+            return redirect('login');
+        }
+        return redirect('login')->with('failure','Please check your credentials.');
     }
 }

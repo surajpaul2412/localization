@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Role');
     }
 
+    public function addresses()
+    {
+        return $this->hasMany('App\Models\UserAddress');
+    }
+
     // public function wishlists()
     // {
     //     return $this->belongsToMany(Package::class, 'wishlists', 'user_id', 'package_id')->using(Wishlist::class);

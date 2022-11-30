@@ -183,12 +183,22 @@ class FrontendController extends Controller
         return redirect()->route('cart')->with('success','Removed from cart successfully.');
     }
 
-    public function checkout(){
-        if (Auth::user()) {
-            return view('frontend.checkout');
-        } else {
-            return view('frontend.checkout');
+    public function checkout() {
+        $cartAmount = Cart::cartAmount();
+        if ($cartAmount == 0) {
+            return redirect()->route('cart')->with('failure','Add tour to cart first.');
         }
-        return redirect()->back();
+        return view('frontend.checkout', compact('cartAmount'));
+    }
+
+    public function payment(Request $request) {
+        if (Auth::user()) {
+            $cartItems = Cart::whereUserId(Auth::user()->id);
+            $cartItems->delete();
+        } else {
+            $cartItems = Cart::whereUserId(session()->getId());
+            $cartItems->delete();
+        }
+        return view('frontend.success');
     }
 }

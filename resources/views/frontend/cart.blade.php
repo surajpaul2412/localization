@@ -89,7 +89,6 @@
 
 				<aside class="col-lg-4">
 					<form method="GET" action="{{route('checkout')}}" class="box_detail">
-						@csrf
 						<div id="total_cart">
 							Total <span class="float-end">₹ {{$cartAmount}}.00</span>
 						</div>

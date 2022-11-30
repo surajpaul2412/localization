@@ -44,8 +44,10 @@ Route::get('cart/moveToWishlist/{id}', [App\Http\Controllers\HomeController::cla
 Route::get('cart/edit/{id}', [App\Http\Controllers\FrontendController::class, 'cartEdit'])->name('cart.edit');
 Route::patch('cart/{id}', [App\Http\Controllers\FrontendController::class, 'cartUpdate'])->name('cart.update');
 
-
 Route::get('checkout', [App\Http\Controllers\FrontendController::class, 'checkout'])->name('checkout');
+Route::post('payment', [App\Http\Controllers\FrontendController::class, 'payment'])->name('payment');
+
+
 Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');
 Route::get('tours/{slug}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
 Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 'searchCity'])->name('search.city');

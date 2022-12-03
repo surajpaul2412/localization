@@ -224,7 +224,7 @@ class FrontendController extends Controller
             $cartItems = Cart::whereUserId(session()->getId())->get();
             // $cartItems->delete();
         }
-        $cartItems->delete();
+        $cartItems->each->delete();
         return view('frontend.success');
     }
 }

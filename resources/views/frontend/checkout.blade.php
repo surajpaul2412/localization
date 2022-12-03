@@ -50,7 +50,7 @@
 								@if(Auth::user()->addresses->count())
 									@foreach(Auth::user()->addresses as $index => $address)
 									<div class="card col-md-6 bg-white p-4 border">
-										<input type="radio" class="float-left" name="radio_address" value="{{$address->id}}">
+										<input type="radio" class="float-left" name="radio_address" value="{{$address->id}}" @if($address->default == 1) checked @else @endif>
 										<h5 class="font-weight-bold">Address {{$index+1}}:</h5>
 										<div>Country: <span class="bold">{{$address->country}}</span></div>
 										<div>
@@ -143,6 +143,7 @@
 					<div class="box_detail">
 						<div id="total_cart">
 							Total <span class="float-end">₹{{$cartAmount}}.00</span>
+							<input type="hidden" name="tax" value="40">
 						</div>
 						<!-- <ul class="cart_details">
 							<li>From <span>02-11-18</span></li>

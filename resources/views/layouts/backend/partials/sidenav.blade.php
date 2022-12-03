@@ -56,15 +56,19 @@
                 @endif
 
                 @if(Request::is('customer*'))
-                <li class="nav-item {{ Request::is('customer/dashboard') ? 'active' : '' }}"><a href="index.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a></li>  
+                <li class="nav-item {{ Request::is('customer/dashboard') ? 'active' : '' }}"><a href="" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a></li>  
 
                 <li class="nav-item">
                     <a href="bookings.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-package"></i></span><span class="pcoded-mtext">Bookings</span></a> 
                 </li>
                 
                 <li class="nav-item">
-                    <a href="../wishlist.php" class="nav-link"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Favourite</span></a> 
-                </li>  
+                    <a href="{{route('wishlist')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Wishlist</span></a> 
+                </li>
+
+                <li class="nav-item {{ Request::is('customer/address') ? 'active' : '' }}">
+                    <a href="{{route('customer.address')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Address</span></a> 
+                </li>
 
                 <li class="nav-item">
                     <a href="ratings.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-star"></i></span><span class="pcoded-mtext">Ratings & Reviews</span></a> 

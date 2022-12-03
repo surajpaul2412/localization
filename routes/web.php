@@ -148,6 +148,16 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
 
 Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','middleware'=>['auth','customer']], function(){
     Route::get('dashboard', [App\Http\Controllers\Customer\DashboardController::class, 'index'])->name('dashboard');
+    // profile
     Route::get('profile', [App\Http\Controllers\Customer\UserController::class, 'index'])->name('profile');
     Route::patch('profile/{id}', [App\Http\Controllers\Customer\UserController::class, 'update'])->name('profile.update');
+    // address
+    Route::get('address', [App\Http\Controllers\Customer\AddressController::class, 'index'])->name('address');
+    Route::get('address/create', [App\Http\Controllers\Customer\AddressController::class, 'create'])->name('address.create');
+    Route::post('address/store', [App\Http\Controllers\Customer\AddressController::class, 'store'])->name('address.store');
+    Route::get('address/{id}/edit', [App\Http\Controllers\Customer\AddressController::class, 'edit'])->name('address.edit');
+    Route::patch('address/{id}', [App\Http\Controllers\Customer\AddressController::class, 'update'])->name('address.update');
+    Route::delete('address/destroy/{id}', [App\Http\Controllers\Customer\AddressController::class, 'destroy'])->name('address.destroy');
+    Route::get('address/default/{id}', [App\Http\Controllers\Customer\AddressController::class, 'default'])->name('address.default');
+    // Orders
 });

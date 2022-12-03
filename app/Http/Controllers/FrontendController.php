@@ -8,6 +8,8 @@ use App\Models\City;
 use App\Models\Category;
 use App\Models\Newsletter;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Auth;
 use Session;
 
@@ -192,13 +194,37 @@ class FrontendController extends Controller
     }
 
     public function payment(Request $request) {
+        // $request->validate([
+        //     'country' => 'nullable|string|min:3',
+        //     'city' => 'nullable|string|min:3',
+        //     'pincode' => 'nullable|string',
+        //     'address' => 'nullable|string|min:3'
+        // ]);
+        // dd($request->all());
+
+
+
         if (Auth::user()) {
-            $cartItems = Cart::whereUserId(Auth::user()->id);
-            $cartItems->delete();
+            $cartItems = Cart::whereUserId(Auth::user()->id)->get();
+            // if ($request->radio_address) {
+            //     $orderData['user_id'] = Auth::user()->id;
+            //     $orderData['user_address_id'] = $request->radio_address;
+            //     $orderData['total_amount'] = Cart::cartAmount();
+            //     $orderData['tax'] = $request->tax;
+            //     $orderData['order_status'] = 'pending';
+            //     Order::create($orderData);
+
+            //     foreach ($cartItems as $key => $item) {
+            //         $orderItemData['user_id'] = Auth::user()->id;
+            //     }
+            // } else {
+            //     dd("no address default");
+            // }
         } else {
-            $cartItems = Cart::whereUserId(session()->getId());
-            $cartItems->delete();
+            $cartItems = Cart::whereUserId(session()->getId())->get();
+            // $cartItems->delete();
         }
+        $cartItems->delete();
         return view('frontend.success');
     }
 }

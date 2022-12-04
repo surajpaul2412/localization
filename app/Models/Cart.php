@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Package;
 use Auth;
 
 class Cart extends Model
@@ -37,5 +38,10 @@ class Cart extends Model
             $totAmt = $totAmt + ($adultPrice + $childPrice + $infantPrice);
         }
         return $totAmt;
+    }
+
+    public static function itemPrice($item){
+        $package = Package::findOrFail($item->package_id);
+        return ($package->adult_price*$item->qty_adult)+($package->child_price*$item->qty_child)+($package->infant_price*$item->qty_infant);
     }
 }

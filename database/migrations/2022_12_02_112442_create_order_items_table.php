@@ -17,8 +17,10 @@ class CreateOrderItemsTable extends Migration
             $table->id();
             $table->integer('order_id');
             $table->integer('package_id');
-            $table->integer('qty');
-            $table->double('price');
+            $table->integer('adult_qty');
+            $table->integer('child_qty');
+            $table->integer('infant_qty');
+            $table->double('total_price');
             $table->timestamps();
         });
     }

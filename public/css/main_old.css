@@ -765,54 +765,6 @@ textarea.form-control {
     background-color: var(--bs-white);
 }
 
-
-/* user admin */
-.text-muted {
-    color: #636872 !important;
-}
-.ft-medium {
-    font-weight: 500;
-}
-.fs-sm {
-    font-size: 14px !important;
-}
-.gray {
-    background: #f4f5f7;
-}
-ul.dahs_navbar {
-    margin: 0;
-    padding: 0;
-}
-ul.dahs_navbar li {
-    display: flex;
-    align-items: center;
-    list-style: none;
-}
-ul.dahs_navbar li a {
-    display: flex;
-    font-size: 15px;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    border-bottom: 1px solid #e7e9eb;
-    width: 100%;
-    color: #151515;
-    font-weight: 500;
-}
-ul.dahs_navbar li a.active {
-    color: var(--primary-color);
-}
-
-.select2-container .select2-selection--single { 
-    height: 42px; 
-    padding: 6px;
-}
-.select2-container--default .select2-selection--single { 
-    border: 1px solid #d2d8dd; 
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 42px; 
-}
-
 /* // X-Small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap */
 

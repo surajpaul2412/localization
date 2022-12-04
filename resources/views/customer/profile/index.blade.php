@@ -1,4 +1,4 @@
-@extends('layouts.backend.app')
+@extends('layouts.frontend.customerapp')
 
 @section('title')
 <title>Profile | {{Auth::user()->name}}</title>
@@ -8,35 +8,31 @@
 @endsection
 
 @section('content')
-<div class="pcoded-main-container">
-    <div class="pcoded-content">
-        <!-- [ breadcrumb ] start -->
-        <div class="page-header">
-            <div class="page-block">
-                <div class="row align-items-center">
-                    <div class="col-md-12">
-                        <div class="page-header-title">
-                            <h5 class="m-b-10">Profile</h5>
-                        </div>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('customer.dashboard')}}"><i class="feather icon-home"></i></a></li> 
-                            <li class="breadcrumb-item"><a href="">Profile</a></li>
-                        </ul>
-                    </div>
+<main>
+    <!-- [ Top Breadcrubms ] start --> 
+    <div class="hero_in cart_section" style="background: #0054a6 url({{asset('images/pattern_1.svg')}}) center bottom repeat-x;">
+        <div class="wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span> Profile Info</h1></div>
                 </div>
+                <!-- End bs-wizard -->
             </div>
         </div>
-        <!-- [ breadcrumb ] end -->
+    </div> 
 
-        @include('layouts.backend.partials.alert')
+    <!--[ Profile Detail ] start -->
+    <section class="section dashboard-detail">
+        <div class="container-fluid">
+            <div class="row justify-content-center justify-content-between">
+                <div class="col-lg-3 text-center d-none d-lg-block">
+                    @include('layouts.frontend.partials.customerSidebar')
+                </div>
 
-        <!-- [ Main Content ] start --> 
-        <div class="row"> 
-            <div class="col-md-12"> 
-                <div class="card">
+                <div class="col-lg-9">
                     <form class="custom-form" method="post" action="{{ route('customer.profile.update', $user->id) }}" enctype="multipart/form-data">
-                    	@method('PATCH')
-                    	@csrf
+                        @method('PATCH')
+                        @csrf
                         <div class="card-header"></div>
                         <div class="card-body">
                             <div class="row mb-4">
@@ -93,13 +89,12 @@
                                 </div>
                             </div>
                         </div> 
-                    </form>  
+                    </form>
                 </div>
             </div>
-        </div> 
-        <!-- [ Main Content ] end -->
-    </div>
-</div>
+        </div>
+    </section>
+</main>
 @endsection
 
 @section('script')

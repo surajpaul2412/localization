@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItem extends Model
 {
     protected $fillable = [
-        'order_id','package_id','qty','price'
+        'order_id','package_id','adult_qty','child_qty','infant_qty','total_price'
     ];
 
     use HasFactory;

@@ -1,4 +1,4 @@
-@extends('layouts.backend.app')
+@extends('layouts.frontend.customerapp')
 
 @section('title')
 <title>Dashboard | {{Auth::user()->name}}</title>
@@ -8,36 +8,43 @@
 @endsection
 
 @section('content')
-<div class="pcoded-main-container">
-    <div class="pcoded-content">
-
-        <!-- [ breadcrumb ] start -->
-        <div class="page-header">
-            <div class="page-block">
-                <div class="row align-items-center">
-                    <div class="col-md-12">
-                        <div class="page-header-title">
-                            <h5 class="m-b-10">Dashboard</h5>
-                        </div>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="./"><i class="feather icon-home"></i></a></li> 
-                            <li class="breadcrumb-item"><a href="#!">Dashboard</a></li>
-                        </ul>
-                    </div>
+<main>
+    <!-- [ Top Breadcrubms ] start -->  
+    <div class="hero_in cart_section" style="background: #0054a6 url({{asset('images/pattern_1.svg')}}) center bottom repeat-x;">
+        <div class="wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span> Dashboard</h1></div>
                 </div>
+                <!-- End bs-wizard -->
             </div>
         </div>
-        <!-- [ breadcrumb ] end -->
-
-        <!-- [ Main Content ] start -->
-        <div class="row justify-content-center">  
-            <div class="col-sm-4">
-                <div class="card widget-visitor-card">
-                    <h3 class="text-center">You are Login</h3> 
-                </div>
-            </div> 
-        </div> 
-        <!-- [ Main Content ] end --> 
     </div>
-</div>
+
+    <!-- [ My Orders ] start --> 
+    <section class="section dashboard-detail">
+        <div class="container-fluid">
+            <div class="row align-items-start justify-content-center">
+
+                <div class="col-lg-3 text-center d-none d-lg-block">
+                    @include('layouts.frontend.partials.customerSidebar')
+                </div> 
+                        
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <h3 class="mb-0">My Dashboard</h3>
+                            <hr class="mt-1">
+                        </div> 
+                    </div>
+                    
+                    <div class="row">
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>   
+</main>
 @endsection

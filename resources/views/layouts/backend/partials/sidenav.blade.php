@@ -29,8 +29,8 @@
                     </ul>
                 </li>  
 
-                <li class="nav-item">
-                    <a href="bookings.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-package"></i></span><span class="pcoded-mtext">Manage Bookings</span></a> 
+                <li class="nav-item {{ Request::is('admin/bookings') ? 'active' : '' }}">
+                    <a href="{{route('admin.bookings')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-package"></i></span><span class="pcoded-mtext">Manage Bookings</span></a> 
                 </li>
                 
                 <li class="nav-item {{ Request::is('admin/pages') ? 'active' : '' }}">

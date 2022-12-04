@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check() && Auth::user()->role->id == 1 && Auth::user()->status == 1) {
             return redirect()->route('admin.dashboard');
         } elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 2 && Auth::user()->status == 1) {
-            return redirect()->route('customer.dashboard');
+            return redirect()->route('customer.order');
         } else {
             return $next($request);
         }

@@ -11,6 +11,7 @@
 </head> 
 <body>
     @include('layouts.partials.header')
+    @include('layouts.frontend.partials.alert')    
 
     @yield('content')
     

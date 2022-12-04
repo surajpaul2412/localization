@@ -212,6 +212,7 @@ class FrontendController extends Controller
                 foreach ($cartItems as $key => $item) {
                     $orderItemData['order_id'] = $order->id;
                     $orderItemData['package_id'] = $item->package_id;
+                    $orderItemData['date'] = $item->date;
                     $orderItemData['adult_qty'] = $item->qty_adult;
                     $orderItemData['child_qty'] = $item->qty_child;
                     $orderItemData['infant_qty'] = $item->qty_infant;
@@ -244,6 +245,7 @@ class FrontendController extends Controller
                 foreach ($cartItems as $key => $item) {
                     $orderItemData['order_id'] = $order->id;
                     $orderItemData['package_id'] = $item->package_id;
+                    $orderItemData['date'] = $item->date;
                     $orderItemData['adult_qty'] = $item->qty_adult;
                     $orderItemData['child_qty'] = $item->qty_child;
                     $orderItemData['infant_qty'] = $item->qty_infant;
@@ -271,6 +273,7 @@ class FrontendController extends Controller
             foreach ($cartItems as $key => $item) {
                 $orderItemData['order_id'] = $order->id;
                 $orderItemData['package_id'] = $item->package_id;
+                $orderItemData['date'] = $item->date;
                 $orderItemData['adult_qty'] = $item->qty_adult;
                 $orderItemData['child_qty'] = $item->qty_child;
                 $orderItemData['infant_qty'] = $item->qty_infant;

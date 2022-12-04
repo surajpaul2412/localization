@@ -47,7 +47,6 @@ Route::patch('cart/{id}', [App\Http\Controllers\FrontendController::class, 'cart
 Route::get('checkout', [App\Http\Controllers\FrontendController::class, 'checkout'])->name('checkout');
 Route::post('payment', [App\Http\Controllers\FrontendController::class, 'payment'])->name('payment');
 
-
 Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');
 Route::get('tours/{slug}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
 Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 'searchCity'])->name('search.city');
@@ -61,6 +60,10 @@ Route::post('admin/start', [App\Http\Controllers\Admin\LoginController::class, '
 
 // Newsletter
 Route::post('/newsletter/store', [App\Http\Controllers\FrontendController::class, 'newsletter'])->name('newsletter.store');
+
+// Razorpay
+Route::get('razorpay-payment', [App\Http\Controllers\RazorpayPaymentController::class, 'index']);
+Route::post('razorpay-payment', [App\Http\Controllers\RazorpayPaymentController::class, 'store'])->name('razorpay.payment.store');
 
 Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth','admin']], function(){
     // Dashboard
@@ -144,6 +147,13 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::delete('tours/destroy/{id}', [App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('tours.destroy');
     Route::get('tours/activate/{id}', [App\Http\Controllers\Admin\PackageController::class, 'activate'])->name('tours.activate');
     Route::get('tours/deactivate/{id}', [App\Http\Controllers\Admin\PackageController::class, 'deactivate'])->name('tours.deactivate');
+    // Booking
+    Route::get('bookings', [App\Http\Controllers\Admin\BookingController::class, 'index'])->name('bookings');
+    Route::get('bookings/create', [App\Http\Controllers\Admin\BookingController::class, 'create'])->name('bookings.create');
+    Route::post('bookings/store', [App\Http\Controllers\Admin\BookingController::class, 'store'])->name('bookings.store');
+    Route::get('bookings/{id}/edit', [App\Http\Controllers\Admin\BookingController::class, 'edit'])->name('bookings.edit');
+    Route::patch('bookings/{id}', [App\Http\Controllers\Admin\BookingController::class, 'update'])->name('bookings.update');
+    Route::delete('bookings/destroy/{id}', [App\Http\Controllers\Admin\BookingController::class, 'destroy'])->name('bookings.destroy');
 });
 
 Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','middleware'=>['auth','customer']], function(){

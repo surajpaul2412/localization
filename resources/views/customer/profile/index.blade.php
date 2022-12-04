@@ -36,13 +36,13 @@
                         <div class="card-header"></div>
                         <div class="card-body">
                             <div class="row mb-4">
-                                <div class="col-md-3">
+                                <!-- <div class="col-md-3">
                                     <div class="form-group">
                                         <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($user->avatar)}}" />
                                         <input type="hidden" name="hidden_avatar" value="{{ $user->avatar }}">
                                     </div>
-                                </div>
-                                <div class="col-md-9">
+                                </div> -->
+                                <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
@@ -55,7 +55,7 @@
                                                 @enderror
                                             </div>
                                         </div> 
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="col-form-label">Email Id:</label>
                                                 <input type="email" class="form-control form-control-sm" Placeholder="Enter Email." required name="email" value="{{ $user->email }}" />
@@ -66,7 +66,7 @@
                                                 @enderror
                                             </div>
                                         </div> 
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="col-form-label">Contact Number:</label>
                                                 <input type="text" class="form-control form-control-sm" Placeholder="Enter Mobile Number." name="mobile" value="{{$user->mobile}}" />

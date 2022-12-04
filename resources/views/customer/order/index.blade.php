@@ -47,7 +47,7 @@
                                             <div class="card-header">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <div class="d-flex align-items-center justify-content-start">
-                                                        <img src="assets/images/icons/tour.png" class="img-fluid rounded-circle shadow" width="40px">
+                                                        <img src="{{asset('images/tour.png')}}" class="img-fluid rounded-circle shadow" width="40px">
                                                         <div class="media-body ms-2">
                                                             <h6 class="mb-0 ft-medium">#1250004123</h6>
                                                             <p class="m-0 fs-sm ft-normal">Total Amount - <b>₹</b>{{$order->total_amount}}.00</p>
@@ -79,9 +79,10 @@
                                 </li>   
 
                             </ul> 
-                            
                         </div>
                         @endforeach
+                        @else
+                        <div>No Bookings yet.</div>
                         @endif
                     </div>
                 </div>

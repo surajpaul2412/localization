@@ -64,7 +64,7 @@
                                             @endif
                                         </td>
                                         <td class="d-flex">
-                                            <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-info btn-xs" title="Edit"><i class="feather icon-edit"></i></a>
+                                            <a href="{{ route('admin.pages.edit', $page->id) }}" class="btn btn-info btn-xs mr-1" title="Edit"><i class="feather icon-edit"></i></a>
                                             <form method="POST" action="{{ route('admin.pages.destroy', $page->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">

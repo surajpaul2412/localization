@@ -3,7 +3,9 @@
 <script src="{{asset('js/main.js')}}"></script> 
 <script src="{{asset('js/custom.js')}}"></script>
 <script src="https://ableproadmin.com/bootstrap/default/assets/js/plugins/bootstrap-notify.min.js"></script>
+
 <!-- <script src="https://ableproadmin.com/bootstrap/default/assets/js/pages/ac-notification.js"></script> -->
+
 <!-- <script>
 'use strict';
 $(window).on('load', function() {

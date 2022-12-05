@@ -92,11 +92,11 @@
 						<div id="total_cart">
 							Total <span class="float-end">₹ {{$cartAmount}}.00</span>
 						</div>
-						<ul class="cart_details">
-							<!-- <li>From <span>02-11-18</span></li> -->
-							<!-- <li>To <span>04-11-18</span></li> -->
-							<!-- <li>Adults <span>2</span></li> -->
-							<!-- <li>Childs <span>1</span></li> -->
+						<ul class="cart_details"> 
+							<li>Tours Date <span>04-11-18</span></li>
+							<li>Adults <span>2</span></li>
+							<li>Childs <span>1</span></li>
+							<li>Infant <span>2</span></li>
 						</ul>
 						<button type="submit" class="btn w-100 btn-success" 
 							@foreach($cartItems as $cart)

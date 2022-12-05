@@ -21,6 +21,7 @@ $categories = Category::whereStatus(1)->get();
 
 @section('content')
 <main>
+    
     <!-- Background YouTube Parallax -->
     <div class="hero_single hero_single_videos jarallax" data-jarallax-video="mp4:{{asset('video/banner-short.mp4')}}">
        <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">

@@ -171,7 +171,8 @@ Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','mi
     Route::get('address/default/{id}', [App\Http\Controllers\Customer\AddressController::class, 'default'])->name('address.default');
     // Orders
     Route::get('my-booking', [App\Http\Controllers\Customer\OrderController::class, 'index'])->name('order');
-    // Profile
+    Route::get('booking-details', [App\Http\Controllers\Customer\OrderController::class, 'bookings'])->name('booking'); 
+
     // Profile
     Route::get('profile', [App\Http\Controllers\Customer\UserController::class, 'index'])->name('profile');
     Route::patch('profile/{id}', [App\Http\Controllers\Customer\UserController::class, 'update'])->name('profile.update');

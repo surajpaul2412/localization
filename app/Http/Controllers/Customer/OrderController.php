@@ -21,6 +21,15 @@ class OrderController extends Controller
     }
 
     /**
+     * Display a listing Details of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function bookings() {   
+        return view('customer.order.booking');   
+    } 
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

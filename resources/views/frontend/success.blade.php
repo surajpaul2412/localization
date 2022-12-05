@@ -39,7 +39,7 @@
 				<!-- End bs-wizard -->
 				<div id="confirm">
 					<h4>Order completed!</h4>
-					<p>You'll receive a confirmation email at {{ $email }}</p>
+					<p>Order placed successfully</p>
 				</div>
 			</div>
 		</div>

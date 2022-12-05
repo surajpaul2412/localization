@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Package;
+use App\Models\User;
 use App\Models\City;
 use App\Models\Category;
 use App\Models\Newsletter;
@@ -12,6 +13,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\UserAddress;
 use Auth;
+use Hash;
 use Session;
 
 class FrontendController extends Controller
@@ -192,6 +194,11 @@ class FrontendController extends Controller
     }
 
     public function payment(Request $request) {
+        $data = $request->all();
+        return view('razorpayView',compact('data'));
+    }
+
+    public function orderFinal(Request $request) {
         $request->validate([
             'country' => 'nullable|string|min:3',
             'city' => 'nullable|string|min:3',
@@ -256,15 +263,42 @@ class FrontendController extends Controller
             $email = Auth::user()->email;
         } else {
             $request->validate([
+                'name' => 'required|string|min:3',
                 'country' => 'required|string|min:3',
                 'city' => 'required|string|min:3',
                 'pincode' => 'required|string',
                 'address' => 'required|string|min:3'
             ]);
 
+            // user existance check
+            $emailCheck = User::whereEmail($request->email)->count();
+            $mobileCheck = User::whereMobile($request->mobile)->count();
+            if($emailCheck != 0){
+                return redirect()->back()->with('failure','Email is already registered. Try login');
+            }elseif($mobileCheck != 0){
+                return redirect()->back()->with('failure','Mobile is already registered. Try login');
+            }else{
+                $userData['name'] = $request->name;
+                $userData['email'] = $request->email;
+                $userData['mobile'] = $request->mobile;
+                $userData['password'] = Hash::make('test1234');
+                $user = User::create($userData);
+
+                // email the user after registration
+                // Email template
+
+                $addressData['user_id'] = $user->id;
+                $addressData['default'] = 0;
+                $addressData['country'] = $request->country;
+                $addressData['city'] = $request->city;
+                $addressData['pincode'] = $request->pincode;
+                $addressData['address'] = $request->address;
+                $userAddress = UserAddress::create($addressData);
+            }
+
             $cartItems = Cart::whereUserId(session()->getId())->get();
-            $orderData['user_id'] = session()->getId();
-            $orderData['user_address_id'] = null;
+            $orderData['user_id'] = $user->id;
+            $orderData['user_address_id'] = $userAddress->id;
             $orderData['total_amount'] = Cart::cartAmount();
             $orderData['tax'] = $request->tax;
             $orderData['order_status'] = 'In Progress';

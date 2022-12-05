@@ -20,6 +20,6 @@ class Order extends Model
 
     public function address()
     {
-        return $this->belongsTo('App\Models\UserAddress','user_address_id');
+        return $this->belongsTo('App\Models\UserAddress','user_address_id','id');
     }
 }

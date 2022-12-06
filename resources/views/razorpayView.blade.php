@@ -63,8 +63,6 @@
 
                         <div class="card-body text-center">
                             <form action="{{ route('razorpay.payment.store') }}" method="POST">
-                                @php
-                                @endphp
                                 @csrf
                                 <script src="https://checkout.razorpay.com/v1/checkout.js"
                                         data-key="{{ env('RAZORPAY_KEY') }}"

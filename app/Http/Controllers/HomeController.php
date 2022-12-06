@@ -32,11 +32,6 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function success()
-    {
-        return view('frontend.success');
-    }
-
     public function wishlist()
     {
         if (Auth::user()) {

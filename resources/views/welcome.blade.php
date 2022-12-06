@@ -1,7 +1,7 @@
 @extends('layouts.frontend.app')
 
 @section('title')
-<title>Home | GetBeds</title>
+<title>GetBeds</title>
 @endsection
 
 @section('css')
@@ -105,17 +105,17 @@ $categories = Category::whereStatus(1)->get();
                             </a> 
                         </figure>
                         <div class="wrapper">
-                            <h3><a href="tour-details.php">Street Food Tour in Bangkok Chinatown</a></h3> 
+                            <h3><a href="{{route('tour.show', $tour->slug)}}">{{$tour->name}}</a></h3>
+                            @if($tour->rating > 0)
                             <div class="d-flex align-items-center">
                                 <div class="rating">
+                                    @foreach(range(1, $tour->rating) as $index)
                                     <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fa fa-star-half"></i>
-                                    <i class="far fa-star"></i>
+                                    @endforeach
                                 </div> 
-                                <a href="#">(56)</a>   
+                                <a href="#">({{$tour->reviews->count()}})</a>
                             </div> 
+                            @endif
                         </div> 
                         <ul class="d-flex justify-content-between align-items-center"> 
                             <!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 

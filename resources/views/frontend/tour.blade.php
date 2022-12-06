@@ -199,8 +199,7 @@ $categories = Category::whereStatus(1)->get();
 								@endif
 							</div> 
 						</div> 
-					</div> 
-
+					</div>
 				</div> 
 			
 				<p class="text-center"><a href="#0" id="loadMore" class="btn_1 rounded add_top_30">Load more</a></p>

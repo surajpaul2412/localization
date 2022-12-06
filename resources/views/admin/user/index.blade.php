@@ -58,7 +58,7 @@
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->mobile}}</td>
                                         <td>
-                                            @if($user->status == 1)
+                                            @if($user->email_verified_at != null)
                                             <a href="{{ route('admin.users.deactivate', $user->id) }}" class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">Active</a>
                                             @else
                                             <a href="{{ route('admin.users.activate', $user->id) }}" class="btn btn-danger font-weight-bold btn-xs btn-block has-ripple text-white">Not Verified</a>

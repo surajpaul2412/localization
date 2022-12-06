@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 $pages = Page::all();
@@ -31,7 +31,7 @@ foreach ($pages as $page) {
 }
 
 // Frontend
-Route::get('success', [App\Http\Controllers\HomeController::class, 'success'])->name('success');
+Route::get('success', [App\Http\Controllers\FrontendController::class, 'success'])->name('success');
 Route::get('wishlist', [App\Http\Controllers\HomeController::class, 'wishlist'])->name('wishlist')->middleware('auth');
 Route::get('wishlist/add/{productId}', [App\Http\Controllers\HomeController::class, 'wishlistAdd'])->name('wishlist.add')->middleware('auth');
 Route::get('wishlist/remove/{id}', [App\Http\Controllers\HomeController::class, 'wishlistRemove'])->name('wishlist.remove')->middleware('auth');
@@ -154,6 +154,10 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::get('bookings/{id}/edit', [App\Http\Controllers\Admin\BookingController::class, 'edit'])->name('bookings.edit');
     Route::patch('bookings/{id}', [App\Http\Controllers\Admin\BookingController::class, 'update'])->name('bookings.update');
     Route::delete('bookings/destroy/{id}', [App\Http\Controllers\Admin\BookingController::class, 'destroy'])->name('bookings.destroy');
+    // Review
+    Route::get('reviews', [App\Http\Controllers\Admin\UserController::class, 'review'])->name('review');
+    Route::get('reviews/activate/{id}', [App\Http\Controllers\Admin\UserController::class, 'activateReview'])->name('review.activate');
+    Route::get('reviews/deactivate/{id}', [App\Http\Controllers\Admin\UserController::class, 'deactivateReview'])->name('review.deactivate');
 });
 
 Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','middleware'=>['auth','customer']], function(){

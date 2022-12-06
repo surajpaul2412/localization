@@ -13,10 +13,10 @@ use App\Models\Category;
 use App\Models\Newsletter;
 use App\Models\Cart;
 use App\Models\Order;
-use App\Models\OrderItem;
 use App\Models\UserAddress;
 use Auth;
 use Hash;
+use DB;
 
 class RazorpayPaymentController extends Controller
 {
@@ -37,13 +37,6 @@ class RazorpayPaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'country' => 'nullable|string|min:3',
-            'city' => 'nullable|string|min:3',
-            'pincode' => 'nullable|string',
-            'address' => 'nullable|string|min:3'
-        ]);
-
         $input = $request->all();
   
         $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
@@ -52,26 +45,24 @@ class RazorpayPaymentController extends Controller
   
         if(count($input)  && !empty($input['razorpay_payment_id'])) {
             try {
-                // $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment['amount']));
+                $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount'=>$payment['amount']));
                 if (Auth::user()) {
                     $cartItems = Cart::whereUserId(Auth::user()->id)->get();
                     if ($request->radio_address) {
-                        $orderData['user_id'] = Auth::user()->id;
-                        $orderData['user_address_id'] = $request->radio_address;
-                        $orderData['total_amount'] = Cart::cartAmount();
-                        $orderData['tax'] = $request->tax;
-                        $orderData['order_status'] = 'In Progress';
-                        $order = Order::create($orderData);
-
                         foreach ($cartItems as $key => $item) {
-                            $orderItemData['order_id'] = $order->id;
-                            $orderItemData['package_id'] = $item->package_id;
-                            $orderItemData['date'] = $item->date;
-                            $orderItemData['adult_qty'] = $item->qty_adult;
-                            $orderItemData['child_qty'] = $item->qty_child;
-                            $orderItemData['infant_qty'] = $item->qty_infant;
-                            $orderItemData['total_price'] = Cart::itemPrice($item);
-                            $orderItem = OrderItem::create($orderItemData);
+                            $orderData['order_no'] = '12345'+rand(1,100000);
+                            $orderData['user_id'] = Auth::user()->id;
+                            $orderData['package_id'] = $item->package_id;
+                            $orderData['user_address_id'] = $request->radio_address;
+                            $orderData['date'] = $item->date;
+                            $orderData['adult_qty'] = $item->qty_adult;
+                            $orderData['child_qty'] = $item->qty_child;
+                            $orderData['infant_qty'] = $item->qty_infant;
+                            $orderData['price'] = Cart::itemPrice($item);
+                            $orderData['tax'] = $request->tax;
+                            $orderData['order_status'] = 'In Progress';
+                            $orderData['razorpay_payment_id'] = $response->id;
+                            $order = Order::create($orderData);
                         }
                     } else {
                         $request->validate([
@@ -89,22 +80,20 @@ class RazorpayPaymentController extends Controller
                         $addressData['address'] = $request->address;
                         $userAddress = UserAddress::create($addressData);
 
-                        $orderData['user_id'] = Auth::user()->id;
-                        $orderData['user_address_id'] = $userAddress->id;
-                        $orderData['total_amount'] = Cart::cartAmount();
-                        $orderData['tax'] = $request->tax;
-                        $orderData['order_status'] = 'In Progress';
-                        $order = Order::create($orderData);
-
                         foreach ($cartItems as $key => $item) {
-                            $orderItemData['order_id'] = $order->id;
-                            $orderItemData['package_id'] = $item->package_id;
-                            $orderItemData['date'] = $item->date;
-                            $orderItemData['adult_qty'] = $item->qty_adult;
-                            $orderItemData['child_qty'] = $item->qty_child;
-                            $orderItemData['infant_qty'] = $item->qty_infant;
-                            $orderItemData['total_price'] = Cart::itemPrice($item);
-                            $orderItem = OrderItem::create($orderItemData);
+                            $orderData['order_no'] = '12345'+rand(1,100000);
+                            $orderData['user_id'] = Auth::user()->id;
+                            $orderData['package_id'] = $item->package_id;
+                            $orderData['user_address_id'] = $userAddress->id;
+                            $orderData['date'] = $item->date;
+                            $orderData['adult_qty'] = $item->qty_adult;
+                            $orderData['child_qty'] = $item->qty_child;
+                            $orderData['infant_qty'] = $item->qty_infant;
+                            $orderData['price'] = Cart::itemPrice($item);
+                            $orderData['tax'] = $request->tax;
+                            $orderData['order_status'] = 'In Progress';
+                            $orderData['razorpay_payment_id'] = $response->id;
+                            $order = Order::create($orderData);
                         }
                     }
                     $email = Auth::user()->email;
@@ -131,9 +120,6 @@ class RazorpayPaymentController extends Controller
                         $userData['password'] = Hash::make('test1234');
                         $user = User::create($userData);
 
-                        // email the user after registration
-                        // Email template
-
                         $addressData['user_id'] = $user->id;
                         $addressData['default'] = 0;
                         $addressData['country'] = $request->country;
@@ -144,22 +130,20 @@ class RazorpayPaymentController extends Controller
                     }
 
                     $cartItems = Cart::whereUserId(session()->getId())->get();
-                    $orderData['user_id'] = $user->id;
-                    $orderData['user_address_id'] = $userAddress->id;
-                    $orderData['total_amount'] = Cart::cartAmount();
-                    $orderData['tax'] = $request->tax;
-                    $orderData['order_status'] = 'In Progress';
-                    $order = Order::create($orderData);
-
                     foreach ($cartItems as $key => $item) {
-                        $orderItemData['order_id'] = $order->id;
-                        $orderItemData['package_id'] = $item->package_id;
-                        $orderItemData['date'] = $item->date;
-                        $orderItemData['adult_qty'] = $item->qty_adult;
-                        $orderItemData['child_qty'] = $item->qty_child;
-                        $orderItemData['infant_qty'] = $item->qty_infant;
-                        $orderItemData['total_price'] = Cart::itemPrice($item);
-                        $orderItem = OrderItem::create($orderItemData);
+                        $orderData['order_no'] = '12345'+rand(1,100000);
+                        $orderData['user_id'] = $user->id;
+                        $orderData['package_id'] = $item->package_id;
+                        $orderData['user_address_id'] = $userAddress->id;
+                        $orderData['date'] = $item->date;
+                        $orderData['adult_qty'] = $item->qty_adult;
+                        $orderData['child_qty'] = $item->qty_child;
+                        $orderData['infant_qty'] = $item->qty_infant;
+                        $orderData['price'] = Cart::itemPrice($item);
+                        $orderData['tax'] = $request->tax;
+                        $orderData['order_status'] = 'In Progress';
+                        $orderData['razorpay_payment_id'] = $response->id;
+                        $order = Order::create($orderData);
                     }
                     $email = $request->email;
                 }

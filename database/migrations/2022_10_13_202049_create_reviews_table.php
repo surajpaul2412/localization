@@ -17,6 +17,7 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('order_id');
+            $table->integer('package_id');
             $table->longText('content');
             $table->double('stars');
             $table->integer('status')->default(0);

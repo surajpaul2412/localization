@@ -2,9 +2,22 @@
 @section('title')
 @endsection
 
-@section('content') 
+@section('css')
+<style>
+	.razorpay-payment-button{
+		width: 100%;
+		background-color: #ff7a68;
+		border:none;
+		color:#fff;
+		padding: 15px 0;
+	}
+</style>
+@endsection
 
+@section('content')
 <main>
+	@include('layouts.backend.partials.alert')
+	
 	<div class="hero_in cart_section" style="background: #0295a9 url({{asset('images/pattern_1.svg')}}) center bottom repeat-x;">
 		<div class="wrapper">
 			<div class="container">
@@ -41,7 +54,7 @@
 
 	<div class="bg_color_1">
 		<div class="container margin_60_35">
-			<form action="{{route('payment')}}" method="POST" class="row">
+			<form action="{{route('razorpay.payment.store')}}" method="POST" class="row">
 				@csrf
 				<div class="col-lg-8">
 					<div class="box_cart">
@@ -130,31 +143,48 @@
 							</div>  
 						</div> 
 
-						<div id="policy">
+						<!-- <div id="policy">
 							<h5>Cancellation policy</h5>
 							<p class="nomargin">Lorem ipsum dolor sit amet, vix <a href="#0">cu justo blandit deleniti</a>, discere omittantur consectetuer per eu. Percipit repudiare similique ad sed, vix ad decore nullam ornatus.</p>
-						</div>
+						</div> -->
 						
 					</div>
 				</div>
-				<!-- /col -->
 
-				<aside class="col-lg-4">
+				<div class="col-lg-4">
 					<div class="box_detail">
 						<div id="total_cart">
 							Total <span class="float-end">₹{{$cartAmount}}.00</span>
 							<input type="hidden" name="tax" value="40">
 						</div>
-						<!-- <ul class="cart_details">
-							<li>From <span>02-11-18</span></li>
-							<li>To <span>04-11-18</span></li>
-							<li>Adults <span>2</span></li>
-							<li>Childs <span>1</span></li>
-						</ul> -->
-						<button type="submit" class="btn_1 full-width purchase">Payment</button>
+						<!-- <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                data-key="{{ env('RAZORPAY_KEY') }}"
+                                data-amount="1000"
+                                data-buttontext="payment"
+                                data-name="GetBeds"
+                                data-description="Rozerpay"
+                                data-image="http://getbeds.starklikes.com/images/logo.png"
+                                data-prefill.name="name"
+                                data-prefill.email="email"
+                                data-theme.color="#ff7529">
+                        </script> -->
+
+						<!-- <button type="submit" class="btn_1 full-width purchase">Payment</button> -->
 						<div class="text-center"><small>No money charged in this step</small></div>
 					</div>
-				</aside>
+				</div>
+
+				<script src="https://checkout.razorpay.com/v1/checkout.js"
+                        data-key="{{ env('RAZORPAY_KEY') }}"
+                        data-amount="{{$cartAmount*100}}"
+                        data-buttontext="Make Payment"
+                        data-name="GetBeds"
+                        data-description="Rozerpay"
+                        data-image="http://getbeds.starklikes.com/images/logo.png"
+                        data-prefill.name="name"
+                        data-prefill.email="email"
+                        data-theme.color="#ff7529">
+                </script>
 			</form>
 			<!-- /row -->
 		</div>
@@ -162,5 +192,4 @@
 	</div>
 	<!-- /bg_color_1 -->
 </main>
-
 @endsection

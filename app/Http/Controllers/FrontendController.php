@@ -10,7 +10,6 @@ use App\Models\Category;
 use App\Models\Newsletter;
 use App\Models\Cart;
 use App\Models\Order;
-use App\Models\OrderItem;
 use App\Models\UserAddress;
 use Auth;
 use Hash;
@@ -24,7 +23,10 @@ class FrontendController extends Controller
 
     public function tourShow($slug) {
         $tour = Package::whereSlug($slug)->first();
-        return view('frontend.tour-details', compact('tour'));
+        if ($tour) {
+            return view('frontend.tour-details', compact('tour'));
+        }
+        return view('errors.404');
     }
 
     public function search(Request $request) {
@@ -198,127 +200,8 @@ class FrontendController extends Controller
         return view('razorpayView',compact('data'));
     }
 
-    public function orderFinal(Request $request) {
-        $request->validate([
-            'country' => 'nullable|string|min:3',
-            'city' => 'nullable|string|min:3',
-            'pincode' => 'nullable|string',
-            'address' => 'nullable|string|min:3'
-        ]);
-
-        if (Auth::user()) {
-            $cartItems = Cart::whereUserId(Auth::user()->id)->get();
-            if ($request->radio_address) {
-                $orderData['user_id'] = Auth::user()->id;
-                $orderData['user_address_id'] = $request->radio_address;
-                $orderData['total_amount'] = Cart::cartAmount();
-                $orderData['tax'] = $request->tax;
-                $orderData['order_status'] = 'In Progress';
-                $order = Order::create($orderData);
-
-                foreach ($cartItems as $key => $item) {
-                    $orderItemData['order_id'] = $order->id;
-                    $orderItemData['package_id'] = $item->package_id;
-                    $orderItemData['date'] = $item->date;
-                    $orderItemData['adult_qty'] = $item->qty_adult;
-                    $orderItemData['child_qty'] = $item->qty_child;
-                    $orderItemData['infant_qty'] = $item->qty_infant;
-                    $orderItemData['total_price'] = Cart::itemPrice($item);
-                    $orderItem = OrderItem::create($orderItemData);
-                }
-            } else {
-                $request->validate([
-                    'country' => 'required|string|min:3',
-                    'city' => 'required|string|min:3',
-                    'pincode' => 'required|string',
-                    'address' => 'required|string|min:3'
-                ]);
-
-                $addressData['user_id'] = Auth::user()->id;
-                $addressData['default'] = 0;
-                $addressData['country'] = $request->country;
-                $addressData['city'] = $request->city;
-                $addressData['pincode'] = $request->pincode;
-                $addressData['address'] = $request->address;
-                $userAddress = UserAddress::create($addressData);
-
-                $orderData['user_id'] = Auth::user()->id;
-                $orderData['user_address_id'] = $userAddress->id;
-                $orderData['total_amount'] = Cart::cartAmount();
-                $orderData['tax'] = $request->tax;
-                $orderData['order_status'] = 'In Progress';
-                $order = Order::create($orderData);
-
-                foreach ($cartItems as $key => $item) {
-                    $orderItemData['order_id'] = $order->id;
-                    $orderItemData['package_id'] = $item->package_id;
-                    $orderItemData['date'] = $item->date;
-                    $orderItemData['adult_qty'] = $item->qty_adult;
-                    $orderItemData['child_qty'] = $item->qty_child;
-                    $orderItemData['infant_qty'] = $item->qty_infant;
-                    $orderItemData['total_price'] = Cart::itemPrice($item);
-                    $orderItem = OrderItem::create($orderItemData);
-                }
-            }
-            $email = Auth::user()->email;
-        } else {
-            $request->validate([
-                'name' => 'required|string|min:3',
-                'country' => 'required|string|min:3',
-                'city' => 'required|string|min:3',
-                'pincode' => 'required|string',
-                'address' => 'required|string|min:3'
-            ]);
-
-            // user existance check
-            $emailCheck = User::whereEmail($request->email)->count();
-            $mobileCheck = User::whereMobile($request->mobile)->count();
-            if($emailCheck != 0){
-                return redirect()->back()->with('failure','Email is already registered. Try login');
-            }elseif($mobileCheck != 0){
-                return redirect()->back()->with('failure','Mobile is already registered. Try login');
-            }else{
-                $userData['name'] = $request->name;
-                $userData['email'] = $request->email;
-                $userData['mobile'] = $request->mobile;
-                $userData['password'] = Hash::make('test1234');
-                $user = User::create($userData);
-
-                // email the user after registration
-                // Email template
-
-                $addressData['user_id'] = $user->id;
-                $addressData['default'] = 0;
-                $addressData['country'] = $request->country;
-                $addressData['city'] = $request->city;
-                $addressData['pincode'] = $request->pincode;
-                $addressData['address'] = $request->address;
-                $userAddress = UserAddress::create($addressData);
-            }
-
-            $cartItems = Cart::whereUserId(session()->getId())->get();
-            $orderData['user_id'] = $user->id;
-            $orderData['user_address_id'] = $userAddress->id;
-            $orderData['total_amount'] = Cart::cartAmount();
-            $orderData['tax'] = $request->tax;
-            $orderData['order_status'] = 'In Progress';
-            $order = Order::create($orderData);
-
-            foreach ($cartItems as $key => $item) {
-                $orderItemData['order_id'] = $order->id;
-                $orderItemData['package_id'] = $item->package_id;
-                $orderItemData['date'] = $item->date;
-                $orderItemData['adult_qty'] = $item->qty_adult;
-                $orderItemData['child_qty'] = $item->qty_child;
-                $orderItemData['infant_qty'] = $item->qty_infant;
-                $orderItemData['total_price'] = Cart::itemPrice($item);
-                $orderItem = OrderItem::create($orderItemData);
-            }
-            $email = $request->email;
-        }
-        $cartItems->each->delete();
-        // email confirmation 
-        // email template here
-        return view('frontend.success', compact('email'));
+    public function success()
+    {
+        return view('frontend.success');
     }
 }

@@ -10,7 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Package;
 use App\Models\Wishlist;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -20,7 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'role_id', 'name', 'email', 'mobile', 'dob', 'gender', 'password', 'status', 'avatar'
+        'role_id', 'name', 'email', 'email_verified_at', 'mobile', 'dob', 'gender', 'password', 'avatar'
     ];
 
     /**
@@ -50,6 +50,11 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->hasMany('App\Models\UserAddress');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review');
     }
 
     // public function wishlists()

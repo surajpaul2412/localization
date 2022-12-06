@@ -148,17 +148,17 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 											</a> 
 										</figure>
 										<div class="wrapper">
-											<h3><a href="tour-details.php">{{$element->name}}</a></h3> 
+											<h3><a href="tour-details.php">{{$element->name}}</a></h3>
+											@if($element->rating > 0) 
 											<div class="d-flex align-items-center">
 												<div class="rating">
+													@foreach(range(1, $element->rating) as $index)
 													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
+													@endforeach
 												</div> 
-												<a href="#">(56)</a>   
+												<a href="#">({{$element->reviews->count()}})</a>   
 											</div> 
+											@endif
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 
 											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
@@ -179,9 +179,8 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							<div class="row">
 								<div class="col-lg-3">
 									<div id="review_summary">
-										<strong>8.5</strong>
-										<em>Superb</em>
-										<small>Based on 4 reviews</small>
+										<strong>{{$tour->rating}}</strong>
+										<small>Based on {{$tour->reviews->count()}} reviews</small>
 									</div>
 								</div>
 								<div class="col-lg-9">
@@ -238,78 +237,46 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 						<hr>
 
 						<div class="reviews-container">
-
+							@if($tour->reviews->count())
+							@foreach($tour->reviews as $review)
 							<div class="review-box clearfix">
-								<figure class="rev-thumb"><img src="assets/images/avatar1.jpg" alt="">
+								<figure class="rev-thumb"><img src="{{asset($review->user->avatar)}}" alt="">
 								</figure>
 								<div class="rev-content">
 									<div class="rating">
-										<i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
+										@foreach(range(1, $review->stars) as $index)
+	                                    <i class="icon_star"></i>
+	                                    @endforeach
 									</div>
 									<div class="rev-info">
-										Admin – April 03, 2016:
+										{{$review->user->name}} – {{$review->created_at->format('Y-M-d')}}:
 									</div>
 									<div class="rev-text">
 										<p>
-											Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
+											{{$review->content}}
 										</p>
 									</div>
 								</div>
 							</div>
-							<!-- /review-box -->
-							<div class="review-box clearfix">
-								<figure class="rev-thumb"><img src="assets/images/avatar2.jpg" alt="">
-								</figure>
-								<div class="rev-content">
-									<div class="rating">
-										<i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
-									</div>
-									<div class="rev-info">
-										Ahsan – April 01, 2016:
-									</div>
-									<div class="rev-text">
-										<p>
-											Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-										</p>
-									</div>
-								</div>
-							</div>
-							<!-- /review-box -->
-							<div class="review-box clearfix">
-								<figure class="rev-thumb"><img src="assets/images/avatar3.jpg" alt="">
-								</figure>
-								<div class="rev-content">
-									<div class="rating">
-										<i class="icon-star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i>
-									</div>
-									<div class="rev-info">
-										Sara – March 31, 2016:
-									</div>
-									<div class="rev-text">
-										<p>
-											Sed eget turpis a pede tempor malesuada. Vivamus quis mi at leo pulvinar hendrerit. Cum sociis natoque penatibus et magnis dis
-										</p>
-									</div>
-								</div>
-							</div>
-							<!-- /review-box -->
+							@endforeach
+							@endif
 						</div>
-						<!-- /review-container -->
 					</section>
 					<!-- /section -->
 					<hr>
 
+					@if(Auth::user())
 					<div id="add_review" class="add-review">
 						<h5>Leave a Review</h5>
 						<form>
 							<div class="row">
 								<div class="form-group col-md-6">
 									<label>Full Name*</label>
-									<input type="text" name="name_review" id="name_review" placeholder="" class="form-control">
+									<input type="text" name="name" id="name_review" value="{{Auth::user()->name}}" placeholder="" class="form-control">
 								</div>
 								<div class="form-group col-md-6">
 									<label>Email *</label>
-									<input type="email" name="email_review" id="email_review" class="form-control">
+									<input type="email" name="email" id="email_review" class="form-control"  value="{{Auth::user()->email}}">
 								</div>
 								<div class="form-group col-md-6">
 									<label>Rating </label>
@@ -333,6 +300,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							</div>
 						</form>
 					</div>
+					@endif
 
 					<section id="we-served" class="also-likes-contain"> 
 							<div class="main_title_3 d-flex justify-content-between align-items-center">
@@ -373,8 +341,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 								</div>
 							</div>  
 					</section> 
-					<!-- /You might also likes. --> 
-
+					<!-- /You might also likes. -->
 				</div>
 				<!-- /col -->
 				

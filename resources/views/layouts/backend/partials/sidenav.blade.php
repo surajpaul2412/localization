@@ -37,8 +37,8 @@
                     <a href="{{route('admin.pages')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Static Pages</span></a> 
                 </li>  
 
-                <li class="nav-item">
-                    <a href="ratings.php" class="nav-link "><span class="pcoded-micon"><i class="feather icon-star"></i></span><span class="pcoded-mtext">Manage Ratings</span></a> 
+                <li class="nav-item {{ Request::is('admin/reviews') ? 'active' : '' }}">
+                    <a href="{{route('admin.review')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-star"></i></span><span class="pcoded-mtext">Manage Ratings</span></a> 
                 </li>    
 
                 <li class="nav-item pcoded-hasmenu">

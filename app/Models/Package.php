@@ -144,6 +144,24 @@ class Package extends Model
         return $this->hasMany('App\Models\PackageGallery');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review')->whereStatus(1);
+    }
+
+    public function getRatingAttribute()
+    {
+        $reviews = $this->hasMany('App\Models\Review')->whereStatus(1)->get();
+        $stars = 0;
+        if ($reviews->count()) {
+            foreach ($reviews as $key => $review) {
+                $stars = $stars+$review->stars;
+            }
+            return $stars/$reviews->count();
+        }
+        return $stars;
+    }
+
     // public function wishlistee()
     // {
     //     return $this->belongsToMany(User::class, 'wishlists', 'package_id', 'user_id')->using(Wishlist::class);

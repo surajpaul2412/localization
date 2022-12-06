@@ -17,8 +17,13 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('order_no')->unique();
             $table->string('user_id');
+            $table->string('package_id');
             $table->integer('user_address_id')->nullable();
-            $table->double('total_amount');
+            $table->date('date');
+            $table->integer('adult_qty');
+            $table->integer('child_qty');
+            $table->integer('infant_qty');
+            $table->double('price');
             $table->string('tax');
             $table->string('order_status');
             $table->string('razorpay_payment_id');

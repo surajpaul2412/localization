@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Review;
+use Carbon\carbon;
 use Auth;
 use File;
 use Hash;
@@ -37,7 +39,7 @@ class UserController extends Controller
     public function activate($id)
     {
         $user = User::findOrFail($id);
-        $user->update(['status'=>1]);
+        $user->update(['email_verified_at'=>carbon::now()]);
         return redirect('/admin/users')->with('success', 'Your user has been successfully activated.');
     }
 
@@ -45,7 +47,7 @@ class UserController extends Controller
     public function deactivate($id)
     {
         $user = User::findOrFail($id);
-        $user->update(['status'=>0]);
+        $user->update(['email_verified_at'=>null]);
         return redirect('/admin/users')->with('success', 'Your user has been successfully deactivated.');
     }
 
@@ -155,5 +157,26 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function review(){
+        $reviews = Review::latest()->get();
+        return view('admin.review.index', compact('reviews'));
+    }
+
+    // Active review
+    public function activateReview($id)
+    {
+        $review = Review::findOrFail($id);
+        $review->update(['status'=>1]);
+        return redirect('/admin/reviews')->with('success', 'Review has been successfully activated.');
+    }
+
+    // Deactivate review
+    public function deactivateReview($id)
+    {
+        $review = Review::findOrFail($id);
+        $review->update(['status'=>0]);
+        return redirect('/admin/reviews')->with('success', 'Review has been successfully deactivated.');
     }
 }

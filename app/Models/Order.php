@@ -10,12 +10,17 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id','user_address_id','total_amount','tax','order_status'
+        'order_no','user_id','package_id','user_address_id','date','adult_qty','child_qty','infant_qty','price','tax','order_status','razorpay_payment_id'
     ];
 
     public function user()
     {
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function package()
+    {
+        return $this->belongsTo('App\Models\Package');
     }
 
     public function address()

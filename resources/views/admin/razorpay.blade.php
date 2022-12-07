@@ -1,7 +1,7 @@
 @extends('layouts.backend.app')
 
 @section('title')
-<title>Update Booking</title>
+<title>Razorpay</title>
 @endsection
 
 @section('css')
@@ -21,12 +21,8 @@
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"><i class="feather icon-home"></i></a></li>  
-                            <li class="breadcrumb-item"><a href="{{route('admin.bookings')}}">Manage Bookings</a></li>
-                            <li class="breadcrumb-item"><a href="">Update Booking</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.razorpay')}}">Manage Razorpay</a></li>
                         </ul>
-                    </div>
-                    <div class="col-md-4 text-md-right"> 
-                        <a href="{{route('admin.bookings')}}" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
                     </div>
                 </div>
             </div>
@@ -38,34 +34,29 @@
         <!-- [ Main Content ] start -->  
         <div class="row"> 
             <div class="col-sm-12">
-                <div class="card">
-                    <form class="custom-form" method="post" action="{{ route('admin.booking.update', $booking->id) }}">
+                <div class="card"> 
+                    <form class="custom-form" method="post" action="{{ route('admin.razorpay.update', $cred->id) }}">
                         @method('PATCH')
                         @csrf
                         <div class="card-header"></div>
                         <div class="card-body">
-                            <div class="row">
-                            	<div class="col-sm-6">
+                            <div class="row">   
+                                <div class="col-sm-6">
                                     <div class="form-group fill">  
-                                        <label class="control-label">Add Comment<span>*</span></label>
-                                        <input class="form-control" name="order_comment" value="" required/>
-                                        @error('order_status')
+                                        <label class="control-label">Razorpay Key<span>*</span></label>
+                                        <input type="text" class="form-control form-control-sm @error('key') is-invalid @enderror" placeholder="Enter key..." name="key" value="{{ $cred->key }}" required/>
+                                        @error('key')
                                             <div class="text-danger">
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-sm-6">
                                     <div class="form-group fill">  
-                                        <label class="control-label">Update Status<span>*</span></label>
-                                        <select name="order_status" class="form-control" required>
-                                        	<option {{ $booking->order_status == "In Progress" ? 'selected' : '' }} value="In Progress">In Progress</option>
-                                        	<option {{ $booking->order_status == "Confirmed" ? 'selected' : '' }} value="Confirmed">Confirmed</option>
-                                        	<option {{ $booking->order_status == "Completed" ? 'selected' : '' }} value="Completed">Completed</option>
-                                        	<option {{ $booking->order_status == "Cancelled By Admin" ? 'selected' : '' }} value="Cancelled">Cancelled By Admin</option>
-                                        </select>
-                                        @error('order_status')
+                                        <label class="control-label">Razorpay Secret Key<span>*</span></label>
+                                        <input type="text" class="form-control form-control-sm @error('secret_key') is-invalid @enderror" placeholder="Enter Secret Key..." name="secret_key" value="{{ $cred->secret_key }}" required/>
+                                        @error('secret_key')
                                             <div class="text-danger">
                                                 <strong>{{ $message }}</strong>
                                             </div>
@@ -78,7 +69,7 @@
                             <button type="" class="btn btn-warning">Cancel</button>
                             <button type="submit" class="btn btn-success m-0">Submit</button>
                         </div>
-                    </form> 
+                    </form>  
                 </div>
             </div> 
         </div>  

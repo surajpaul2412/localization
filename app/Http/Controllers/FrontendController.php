@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Newsletter;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Review;
 use App\Models\UserAddress;
 use Auth;
 use Hash;
@@ -203,5 +204,20 @@ class FrontendController extends Controller
     public function success()
     {
         return view('frontend.success');
+    }
+
+    public function reviewSubmit(Request $request)
+    {
+        $order = Order::whereUserId(Auth::user()->id)->wherePackageId($request->package_id)->whereOrderStatus('Completed')->latest()->first();
+        if ($order) {
+            $data = $request->all();
+            $data['user_id'] = Auth::user()->id;
+            $data['order_id'] = $order->id;
+            $data['status'] = 0;
+            Review::create($data);
+
+            return redirect()->back()->with('success','Review successfully submitted.');
+        }
+        return redirect()->back();
     }
 }

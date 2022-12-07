@@ -48,7 +48,8 @@
                                         <th>Country</th>   
                                         <th>City</th>   
                                         <th>Amount</th>   
-                                        <th class="col-1">Status</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -61,8 +62,13 @@
                                         <td class="text-wrap">{{$booking->user->mobile}}</td>
                                         <td class="text-wrap">{{$booking->address->country}}</td>
                                         <td class="text-wrap">{{$booking->address->city}}</td>
-                                        <td class="text-wrap">{{$booking->total_amount}}</td>
-                                        <td></td>
+                                        <td class="text-wrap">{{$booking->price}}.00</td>
+                                        <td class="text-wrap">
+                                            <a class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">{{$booking->order_status}}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.bookings.show', $booking->id) }}" class="btn btn-info btn-xs mr-1" title="Edit"><i class="feather icon-edit"></i></a>
+                                        </td>
                                     </tr>
                                     @endforeach
                                     @endif

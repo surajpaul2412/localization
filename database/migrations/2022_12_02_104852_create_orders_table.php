@@ -25,7 +25,7 @@ class CreateOrdersTable extends Migration
             $table->integer('infant_qty');
             $table->double('price');
             $table->string('tax');
-            $table->string('order_status');
+            $table->string('order_status')->comment('In Progress, Cancelled, Completed, Confirmed');
             $table->string('razorpay_payment_id');
             $table->timestamps();
         });

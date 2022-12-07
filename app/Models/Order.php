@@ -27,4 +27,9 @@ class Order extends Model
     {
         return $this->belongsTo('App\Models\UserAddress','user_address_id','id');
     }
+
+    public function statuses()
+    {
+        return $this->hasMany('App\Models\Orderstatus','order_id','id');
+    }
 }

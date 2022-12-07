@@ -173,16 +173,16 @@ $categories = Category::whereStatus(1)->get();
 											</figure>
 											<div class="wrapper">
 												<h3><a href="{{route('tour.show', $tour->slug)}}">{{$tour->name}}</a></h3> 
-												<div class="d-flex align-items-center">
-													<div class="rating">
-														<i class="fas fa-star"></i>
-														<i class="fas fa-star"></i>
-														<i class="fas fa-star"></i>
-														<i class="fa fa-star-half"></i>
-														<i class="far fa-star"></i>
-													</div> 
-													<a href="{{route('tour.show', $tour->slug)}}">(4.5)</a>
-												</div> 
+												@if($tour->rating > 0)
+					                            <div class="d-flex align-items-center">
+					                                <div class="rating">
+					                                    @foreach(range(1, $tour->rating) as $index)
+					                                    <i class="fas fa-star"></i>
+					                                    @endforeach
+					                                </div> 
+					                                <a href="#">({{$tour->reviews->count()}})</a>
+					                            </div> 
+					                            @endif
 											</div> 
 											<ul class="d-flex justify-content-between align-items-center"> 
 												<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 

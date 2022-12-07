@@ -149,16 +149,16 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 										</figure>
 										<div class="wrapper">
 											<h3><a href="tour-details.php">{{$element->name}}</a></h3> 
-											<div class="d-flex align-items-center">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
+											@if($element->rating > 0)
+				                            <div class="d-flex align-items-center">
+				                                <div class="rating">
+				                                    @foreach(range(1, $element->rating) as $index)
+				                                    <i class="fas fa-star"></i>
+				                                    @endforeach
+				                                </div> 
+				                                <a href="#">({{$element->reviews->count()}})</a>
+				                            </div> 
+				                            @endif
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 
 											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 

@@ -49,7 +49,7 @@
                         <li><a href="{{route('admin.testimonials')}}">Testimonials</a></li> 
                         <li><a href="#">Currency</a></li> 
                         <li><a href="#">Language</a></li>  
-                        <li><a href="#">Payment Methods (Razorpay)</a></li> 
+                        <li><a href="{{route('admin.razorpay')}}">Payment Methods (Razorpay)</a></li> 
                         <li><a href="#">Social Links</a></li> 
                     </ul>
                 </li>

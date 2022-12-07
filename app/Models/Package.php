@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use File;
+use Auth;
 use App\Models\User;
 
 class Package extends Model
@@ -160,6 +161,18 @@ class Package extends Model
             return $stars/$reviews->count();
         }
         return $stars;
+    }
+
+    public function getAbleToReviewAttribute()
+    {
+        $reviews = $this->hasMany('App\Models\Review')->whereUserId(Auth::user()->id)->count();
+        if ($reviews == 0) {
+            $orders = $this->hasMany('App\Models\Order')->whereUserId(Auth::user()->id)->whereOrderStatus('Completed')->count();
+            if ($orders > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // public function wishlistee()

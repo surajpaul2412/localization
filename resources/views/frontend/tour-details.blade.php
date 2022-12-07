@@ -266,22 +266,25 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 					<hr>
 
 					@if(Auth::user())
+					@if($tour->able_to_review)
 					<div id="add_review" class="add-review">
 						<h5>Leave a Review</h5>
-						<form>
+						<form action="{{route('reviewSubmit')}}" method="POST">
+							@csrf
 							<div class="row">
 								<div class="form-group col-md-6">
 									<label>Full Name*</label>
-									<input type="text" name="name" id="name_review" value="{{Auth::user()->name}}" placeholder="" class="form-control">
+									<input type="text" name="name" id="name_review" value="{{Auth::user()->name}}" placeholder="" class="form-control" disabled>
 								</div>
 								<div class="form-group col-md-6">
 									<label>Email *</label>
-									<input type="email" name="email" id="email_review" class="form-control"  value="{{Auth::user()->email}}">
+									<input type="email" name="email" id="email_review" class="form-control"  value="{{Auth::user()->email}}" disabled>
 								</div>
+								<input type="hidden" name="package_id" value="{{$tour->id}}" required>
 								<div class="form-group col-md-6">
 									<label>Rating </label>
 									<div class="custom-select-form">
-									<select name="rating_review" id="rating_review" class="wide">
+									<select name="stars" id="rating_review" class="wide" required>
 										<option value="1">1 (lowest)</option>
 										<option value="2">2</option>
 										<option value="3">3 (medium)</option>
@@ -292,7 +295,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 								</div>
 								<div class="form-group col-md-12">
 									<label>Your Review</label>
-									<textarea name="review_text" id="review_text" class="form-control" style="height:130px;"></textarea>
+									<textarea name="content" id="review_text" class="form-control" style="height:130px;"></textarea>
 								</div>
 								<div class="form-group col-md-12 add_top_20">
 									<input type="submit" value="Submit" class="btn_1" id="submit-review">
@@ -300,6 +303,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							</div>
 						</form>
 					</div>
+					@endif
 					@endif
 
 					<section id="we-served" class="also-likes-contain"> 

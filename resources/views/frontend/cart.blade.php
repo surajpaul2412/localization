@@ -56,16 +56,16 @@
 									<div class="col-lg-7">
 										<div class="wrapper"> 
 											<h3><a href="{{route('tour.show',$item->package->slug)}}">{{$item->package->name}}</a></h3>
-											<div class="d-flex align-items-center pb-3">
-												<div class="rating">
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fas fa-star"></i>
-													<i class="fa fa-star-half"></i>
-													<i class="far fa-star"></i>
-												</div> 
-												<a href="#">(56)</a>   
-											</div> 
+											@if($item->package->rating > 0)
+				                            <div class="d-flex align-items-center">
+				                                <div class="rating">
+				                                    @foreach(range(1, $item->package->rating) as $index)
+				                                    <i class="fas fa-star"></i>
+				                                    @endforeach
+				                                </div> 
+				                                <a href="#">({{$item->package->reviews->count()}})</a>
+				                            </div> 
+				                            @endif
 											<div class="price">Date selected: <strong>{{$item->date??'Not Selected'}}</strong></div><br/>
 											<div class="price">Adult: <strong>₹ {{$item->package->adult_price}} x {{$item->qty_adult??'Not Selected'}}</strong></div><br/>
 											<div class="price">Child: <strong>₹ {{$item->package->child_price}} x {{$item->qty_child??'Not Selected'}}</strong></div><br/>

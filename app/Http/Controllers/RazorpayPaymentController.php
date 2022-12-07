@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Newsletter;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\UserAddress;
 use Auth;
 use Hash;
@@ -50,7 +51,7 @@ class RazorpayPaymentController extends Controller
                     $cartItems = Cart::whereUserId(Auth::user()->id)->get();
                     if ($request->radio_address) {
                         foreach ($cartItems as $key => $item) {
-                            $orderData['order_no'] = '12345'+rand(1,100000);
+                            $orderData['order_no'] = 'ORD'.rand(1,100000);
                             $orderData['user_id'] = Auth::user()->id;
                             $orderData['package_id'] = $item->package_id;
                             $orderData['user_address_id'] = $request->radio_address;
@@ -63,6 +64,11 @@ class RazorpayPaymentController extends Controller
                             $orderData['order_status'] = 'In Progress';
                             $orderData['razorpay_payment_id'] = $response->id;
                             $order = Order::create($orderData);
+
+                            $orderStatusData['order_id'] = $order->id;
+                            $orderStatusData['comment'] = 'Order Placed';
+                            $orderStatusData['order_status'] = 'In Progress';
+                            $orderStatus = OrderStatus::create($orderStatusData);
                         }
                     } else {
                         $request->validate([
@@ -81,7 +87,7 @@ class RazorpayPaymentController extends Controller
                         $userAddress = UserAddress::create($addressData);
 
                         foreach ($cartItems as $key => $item) {
-                            $orderData['order_no'] = '12345'+rand(1,100000);
+                            $orderData['order_no'] = 'ORD'.rand(1,100000);
                             $orderData['user_id'] = Auth::user()->id;
                             $orderData['package_id'] = $item->package_id;
                             $orderData['user_address_id'] = $userAddress->id;
@@ -94,6 +100,11 @@ class RazorpayPaymentController extends Controller
                             $orderData['order_status'] = 'In Progress';
                             $orderData['razorpay_payment_id'] = $response->id;
                             $order = Order::create($orderData);
+
+                            $orderStatusData['order_id'] = $order->id;
+                            $orderStatusData['comment'] = 'Order Placed';
+                            $orderStatusData['order_status'] = 'In Progress';
+                            $orderStatus = OrderStatus::create($orderStatusData);
                         }
                     }
                     $email = Auth::user()->email;
@@ -131,7 +142,7 @@ class RazorpayPaymentController extends Controller
 
                     $cartItems = Cart::whereUserId(session()->getId())->get();
                     foreach ($cartItems as $key => $item) {
-                        $orderData['order_no'] = '12345'+rand(1,100000);
+                        $orderData['order_no'] = 'ORD'.rand(1,100000);
                         $orderData['user_id'] = $user->id;
                         $orderData['package_id'] = $item->package_id;
                         $orderData['user_address_id'] = $userAddress->id;
@@ -144,6 +155,11 @@ class RazorpayPaymentController extends Controller
                         $orderData['order_status'] = 'In Progress';
                         $orderData['razorpay_payment_id'] = $response->id;
                         $order = Order::create($orderData);
+
+                        $orderStatusData['order_id'] = $order->id;
+                        $orderStatusData['comment'] = 'Order Placed';
+                        $orderStatusData['order_status'] = 'In Progress';
+                        $orderStatus = OrderStatus::create($orderStatusData);
                     }
                     $email = $request->email;
                 }

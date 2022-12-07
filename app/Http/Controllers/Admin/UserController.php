@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Review;
+use App\Models\Razorpay;
 use Carbon\carbon;
 use Auth;
 use File;
@@ -178,5 +179,22 @@ class UserController extends Controller
         $review = Review::findOrFail($id);
         $review->update(['status'=>0]);
         return redirect('/admin/reviews')->with('success', 'Review has been successfully deactivated.');
+    }
+
+    public function razorpay(){
+        $cred = Razorpay::first();
+        return view('admin.razorpay', compact('cred'));
+    }
+
+    public function razorpayUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'key' => 'required|string|min:3|max:255',
+            'secret_key' => 'required|string|min:3|max:255',
+        ]);
+
+        $razorpay = Razorpay::findOrFail($id);
+        $razorpay->update($request->all());
+        return redirect('admin/razorpay')->with('success','Razorpay credentials updated successfully.');
     }
 }

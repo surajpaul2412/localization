@@ -49,8 +49,8 @@
                                                         <div class="d-flex align-items-center justify-content-start">
                                                             <img src="{{asset('images/tour.png')}}" class="img-fluid rounded-circle shadow" width="40px">
                                                             <div class="media-body ms-2">
-                                                                <h6 class="mb-0 ft-medium">#1250004123</h6>
-                                                                <p class="m-0 fs-sm ft-normal">Total Amount - <b>₹</b>{{$order->total_amount}}.00</p>
+                                                                <h6 class="mb-0 ft-medium">#{{$order->order_no}}</h6>
+                                                                <p class="m-0 fs-sm ft-normal">Total Amount - <b>₹</b>{{$order->price}}.00</p>
                                                             </div>
                                                         </div> 
                                                         <div class="delv_status"><span class="ft-medium small text-warning bg-light-warning rounded px-2 py-1 border">{{$order->order_status}}</span></div>
@@ -58,12 +58,19 @@
                                                 </div>
                                                 <div class="card-body"> 
                                                     <ul class="booking_list">
-                                                        <li><strong>Tours Date:</strong> 25 Dec 2022</li> 
-                                                        <!-- <li><strong>Booking details:</strong> 2 People</li> -->
-                                                        <li><strong>Client:</strong> Mark Twain</li>
-                                                        <li><strong>Client Contacts:</strong> <a href="#0">98432983242</a> - <a href="#0">mark@hotmail.com</a></li>
-                                                        <li><strong>Payment:</strong>Online (Paied)</li>
-                                                        <li class="text-success"><strong>1+</strong> Booking</li>
+                                                        <li><strong>Tours Date:</strong> {{$order->date}}</li> 
+                                                        <li><strong>Tour Details:</strong> <a href="{{route('tour.show',$order->package->slug)}}">{{$order->package->name}}</a></li>
+                                                        <li><strong>{{$order->address->country}} </strong>,{{$order->address->city}} - {{$order->address->pincode}}</li>
+                                                        <li><strong>Address:</strong> {{$order->address->address}}</li>
+                                                        <li>
+                                                            <strong>Payment:</strong>
+                                                            Online 
+                                                            @if($order->razorpay_payment_id != null)
+                                                            <span class="text-success">(Paid)</span>
+                                                            @else
+                                                            <span class="text-danger">(Failed)</span>
+                                                            @endif
+                                                        </li>
                                                     </ul>
                                                 </div>
                                                 <div class="card-footer d-flex justify-content-between"> 
@@ -71,7 +78,10 @@
                                                         <p class="m-0"><strong>Booking Date:</strong> {{$order->created_at->format('d M Y')}}</p>
                                                     </div>
                                                     <div class="more-links text-end"> 
-                                                        <a href="{{route('customer.booking')}}"><small>View Booking</small></a> | <a href="#"><small>Cancel Order</small></a>  
+                                                        <!-- <a href="{{route('customer.booking')}}"><small>View Booking</small></a>  --> 
+                                                        @if($order->order_status == "In Progress")
+                                                        | <a href="{{route('customer.booking.cancel',$order->id)}}"><small>Cancel Order</small></a>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div> 

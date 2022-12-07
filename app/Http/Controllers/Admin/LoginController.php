@@ -37,6 +37,6 @@ class LoginController extends Controller
                 }
             }
         }
-        return redirect('admin/login')->with('error','Admin credentials incorrect');        
+        return redirect('admin')->with('error','Admin credentials incorrect');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use Auth;
 
 class OrderController extends Controller
@@ -93,5 +94,18 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cancelBooking($id)
+    {
+        $order = Order::whereId($id)->whereUserId(Auth::user()->id)->first();
+        $order->update(['order_status'=>'Cancelled']);
+
+        $orderStatus = OrderStatus::whereOrderId($id)->first();
+        $orderStatusdata['order_id'] = $order->id;
+        $orderStatusdata['comment'] = "Cancelled By Customer";
+        $orderStatusdata['order_status'] = "Cancelled";
+        $orderStatus->create($orderStatusdata);
+        return redirect('customer/my-booking')->with('success','Order Cancelled successfully.');
     }
 }

@@ -51,8 +51,7 @@
 														<div class="col-lg-7">
 															<div class="wrapper"> 
 																<p><b><a href="{{route('tour.show',$row['package']['slug'])}}" class="fs-6">{{$row['package']['name']}}</a></b></p>
-																<!-- <p>S.E.A. Aquarium Standard Admission (GT QR Code)</p>  -->
-																<div class="d-flex align-items-center">
+																<!-- <div class="d-flex align-items-center">
 																	<div class="rating">
 																		<i class="fas fa-star"></i>
 																		<i class="fas fa-star"></i>
@@ -61,7 +60,7 @@
 																		<i class="far fa-star"></i>
 																	</div> 
 																	<a href="#">(56)</a>   
-																</div> 
+																</div>  -->
 																<span class="price">Price: <strong>₹{{$row['package']['adult_price']}}</strong> /per person</span>
 															</div>
 															<ul>

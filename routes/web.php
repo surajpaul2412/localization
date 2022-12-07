@@ -43,16 +43,15 @@ Route::get('cart/remove/{id}', [App\Http\Controllers\FrontendController::class, 
 Route::get('cart/moveToWishlist/{id}', [App\Http\Controllers\HomeController::class, 'cartMoveToWishlist'])->name('cart.moveToWishlist')->middleware('auth');
 Route::get('cart/edit/{id}', [App\Http\Controllers\FrontendController::class, 'cartEdit'])->name('cart.edit');
 Route::patch('cart/{id}', [App\Http\Controllers\FrontendController::class, 'cartUpdate'])->name('cart.update');
-
 Route::get('checkout', [App\Http\Controllers\FrontendController::class, 'checkout'])->name('checkout');
 Route::post('payment', [App\Http\Controllers\FrontendController::class, 'payment'])->name('payment');
-
 Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');
 Route::get('tours/{slug}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
 Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 'searchCity'])->name('search.city');
 Route::get('search/category/{id}', [App\Http\Controllers\FrontendController::class, 'searchCategory'])->name('search.category');
 Route::get('search/activity/{id}', [App\Http\Controllers\FrontendController::class, 'searchActivity'])->name('search.activity');
 Route::post('search', [App\Http\Controllers\FrontendController::class, 'search'])->name('search');
+Route::post('reviewSubmit', [App\Http\Controllers\FrontendController::class, 'reviewSubmit'])->name('reviewSubmit');
 
 // Admin Login
 Route::get('admin', [App\Http\Controllers\Admin\LoginController::class, 'adminLogin'])->name('admin.login');
@@ -152,12 +151,16 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::get('bookings/create', [App\Http\Controllers\Admin\BookingController::class, 'create'])->name('bookings.create');
     Route::post('bookings/store', [App\Http\Controllers\Admin\BookingController::class, 'store'])->name('bookings.store');
     Route::get('bookings/{id}/edit', [App\Http\Controllers\Admin\BookingController::class, 'edit'])->name('bookings.edit');
-    Route::patch('bookings/{id}', [App\Http\Controllers\Admin\BookingController::class, 'update'])->name('bookings.update');
+    Route::patch('bookings/{id}', [App\Http\Controllers\Admin\BookingController::class, 'update'])->name('booking.update');
     Route::delete('bookings/destroy/{id}', [App\Http\Controllers\Admin\BookingController::class, 'destroy'])->name('bookings.destroy');
+    Route::get('bookings/show/{id}', [App\Http\Controllers\Admin\BookingController::class, 'show'])->name('bookings.show');
     // Review
     Route::get('reviews', [App\Http\Controllers\Admin\UserController::class, 'review'])->name('review');
     Route::get('reviews/activate/{id}', [App\Http\Controllers\Admin\UserController::class, 'activateReview'])->name('review.activate');
     Route::get('reviews/deactivate/{id}', [App\Http\Controllers\Admin\UserController::class, 'deactivateReview'])->name('review.deactivate');
+    // razorpay creds
+    Route::get('razorpay', [App\Http\Controllers\Admin\UserController::class, 'razorpay'])->name('razorpay');
+    Route::patch('razorpay/{id}', [App\Http\Controllers\Admin\UserController::class, 'razorpayUpdate'])->name('razorpay.update');
 });
 
 Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','middleware'=>['auth','customer']], function(){
@@ -176,6 +179,7 @@ Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','mi
     // Orders
     Route::get('my-booking', [App\Http\Controllers\Customer\OrderController::class, 'index'])->name('order');
     Route::get('booking-details', [App\Http\Controllers\Customer\OrderController::class, 'bookings'])->name('booking'); 
+    Route::get('booking-cancel/{id}', [App\Http\Controllers\Customer\OrderController::class, 'cancelBooking'])->name('booking.cancel'); 
 
     // Profile
     Route::get('profile', [App\Http\Controllers\Customer\UserController::class, 'index'])->name('profile');

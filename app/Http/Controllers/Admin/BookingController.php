@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderStatus;
 
 class BookingController extends Controller
 {
@@ -15,7 +16,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings = order::latest()->get();
+        $bookings = Order::latest()->get();
         return view('admin.bookings.index', compact('bookings'));
     }
 
@@ -48,7 +49,8 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        //
+        $booking = Order::findOrFail($id);
+        return view('admin.bookings.show', compact('booking'));
     }
 
     /**
@@ -71,7 +73,20 @@ class BookingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'order_comment' => 'required',
+            'order_status' => 'required'
+        ]);
+
+        $order = Order::findOrFail($id);
+        $order->update(['order_status'=>$request->order_status]);
+
+        $orderStatus = OrderStatus::whereOrderId($id)->first();
+        $orderStatusdata['order_id'] = $order->id;
+        $orderStatusdata['comment'] = $request->order_comment;
+        $orderStatusdata['order_status'] = $request->order_status;
+        $orderStatus->create($orderStatusdata);
+        return redirect('admin/bookings')->with('success','Order status updated successfully.');
     }
 
     /**

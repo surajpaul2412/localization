@@ -552,7 +552,7 @@ section.cta-sec .content-image img {
     width: 100%;
     height: 250px;
     position: relative;
-    overflow: hidden;
+    overflow:unset;
     text-align: center;
     color: #fff;
 }
@@ -830,6 +830,87 @@ ul.dahs_navbar li a.active {
     border-radius: 50px;
 }
 
+/* Advance Search auto complete  */
+.advance-seach-box {
+    position: relative; 
+}
+.custom-search-input-2 i { 
+    background-color: transparent; 
+    color: #12adc1;
+}
+.advance-seach-box-inner {position: relative;}
+
+.advance-seach-box .autocomplete {
+    position: absolute;
+    top: -80px;
+    width: 100%;
+}
+.autocomplete { 
+    width: 100%;
+}
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* .autocomplete input[type=text] {
+  background-color: #f1f1f1;
+  width: 100%;
+}
+
+.autocomplete input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+  cursor: pointer;
+} */
+
+.autocomplete .autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.autocomplete .autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  color: #000;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete .autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete .autocomplete-active {
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+
+
+
+
+
+
+
 /* // X-Small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap */
 
@@ -881,6 +962,12 @@ ul.dahs_navbar li a.active {
     }
     .secondary_nav ul li:nth-child(2) {
         display: none;
+    }
+    .advance-seach-box .autocomplete { 
+        top: -160px; 
+    }
+    .custom-search-input-2 input[type=submit] {
+        margin: 5px 0 0 0; 
     }
 }
 

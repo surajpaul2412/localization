@@ -50,8 +50,41 @@
                                     @csrf
                                     <div class="card-header"></div>
                                     <div class="card-body">
-                                        <div class="row">   
+                                        <div class="row">
                                             <div class="col-sm-12">
+                                                <div class="form-group mb-3">
+                                                    <label class="text-dark ft-medium">Full Name *</label>
+                                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="First Name..." value="{{$address->name}}" required>
+                                                    @error('name')
+                                                        <div class="text-danger">
+                                                            <strong>{{ $message }}</strong>
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group mb-3">
+                                                    <label class="text-dark ft-medium">Email ID *</label>
+                                                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email..." value="{{$address->email}}" required>
+                                                    @error('email')
+                                                        <div class="text-danger">
+                                                            <strong>{{ $message }}</strong>
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group mb-3">
+                                                    <label class="text-dark ft-medium">Mobile Number *</label>
+                                                    <input type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" placeholder="Mobile number..." value="{{ $address->mobile }}" required>
+                                                    @error('mobile')
+                                                        <div class="text-danger">
+                                                            <strong>{{ $message }}</strong>
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
                                                 <div class="form-group fill">  
                                                     <label class="control-label">Country<span>*</span></label>
                                                     <input type="text" class="form-control form-control-sm @error('country') is-invalid @enderror" placeholder="Enter country..." name="country" value="{{ $address->country }}" required/>
@@ -61,7 +94,9 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-                                                <div class="form-group fill mt-3">  
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group fill">  
                                                     <label class="control-label">City<span>*</span></label>
                                                     <input type="text" class="form-control form-control-sm @error('city') is-invalid @enderror" placeholder="Enter city..." name="city" value="{{ $address->city }}" required/>
                                                     @error('city')
@@ -70,7 +105,9 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-                                                <div class="form-group fill mt-3">  
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group fill">  
                                                     <label class="control-label">Pincode<span>*</span></label>
                                                     <input type="text" class="form-control form-control-sm @error('pincode') is-invalid @enderror" placeholder="Enter pincode..." name="pincode" value="{{ $address->pincode }}" required/>
                                                     @error('pincode')
@@ -79,7 +116,9 @@
                                                         </div>
                                                     @enderror
                                                 </div>
-                                                <div class="form-group fill mt-3">  
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group fill">  
                                                     <label class="control-label">Address<span>*</span></label>
                                                     <textarea class="form-control form-control-sm @error('address') is-invalid @enderror" name="address" required>{{$address->address}}</textarea>
                                                     @error('address')
@@ -87,6 +126,12 @@
                                                             <strong>{{ $message }}</strong>
                                                         </div>
                                                     @enderror
+                                                </div>
+                                                <div class="">
+                                                    <div class="form-group mb-3 form-check">
+                                                        <input type="checkbox" name="default" class="form-check-input" id="exampleCheck1" @if($address->default == 1) checked @endif>
+                                                        <label class="form-check-label" for="exampleCheck1">Mark as Default</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

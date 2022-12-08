@@ -71,12 +71,12 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        <div class="card-wrap-body px-3 py-3"> 
-                                            <h5 class="ft-medium mb-1">{{$address->city}}</h5>
-                                            <p>{{$address->country}}, {{$address->country}} - {{$address->pincode}}</p>
-                                            <p>{{$address->address}}</p>
-                                            <p class="lh-1"><strong>Email:</strong> {{Auth::user()->email}}</p>
-                                            <p><strong>Call:</strong> {{Auth::user()->mobile}}</p>
+                                        <div class="card-wrap-body px-3 py-3">
+                                            <h4 class="ft-medium mb-1">Name: {{$address->name}}</h4>
+                                            <h5 class="ft-medium mb-1">{{$address->address}}</h5>
+                                            <p>{{$address->city}}, {{$address->country}} -- {{$address->pincode}}</p>
+                                            <p class="lh-1"><strong>Email:</strong> {{$address->email}}</p>
+                                            <p><strong>Call:</strong> {{$address->mobile}}</p>
                                         </div>
                                     </div>
                                 </div> 

@@ -14,6 +14,14 @@
 </style>
 @endsection
 
+@php
+use App\Models\Razorpay;
+
+$razorpay = Razorpay::findOrFail(1);
+$key = $razorpay['key'];
+$secret_key = $razorpay['secret_key'];
+@endphp
+
 @section('content')
 <main>
 	@include('layouts.backend.partials.alert')
@@ -80,6 +88,8 @@
 							<p>Exisitng Customer? <a href="{{route('login')}}">Click here to login</a></p>
 						</div>
 						@endif
+
+						@Guest
 						<div class="form_title">
 							<h3>Add New Address Details</h3>
 						</div>
@@ -88,31 +98,19 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label>Full name</label>
-										@if(Auth::user())
-										<input type="text" class="form-control" name="name" value="{{Auth::user()->name}}" />
-										@else
 										<input type="text" class="form-control" name="name" value="" />
-										@endif
 									</div>
 								</div>  
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label>Email</label>
-										@if(Auth::user())
-										<input type="email" class="form-control" name="email" value="{{Auth::user()->email}}" />
-										@else
 										<input type="email" class="form-control" name="email" value="" />
-										@endif
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label>Telephone</label>
-										@if(Auth::user())
-										<input type="text" class="form-control" name="mobile" value="{{Auth::user()->mobile}}" />
-										@else
 										<input type="text" class="form-control" name="mobile" value="" />
-										@endif
 									</div>
 								</div>
 								
@@ -141,13 +139,12 @@
 									</div>
 								</div>  
 							</div>  
-						</div> 
-
-						<!-- <div id="policy">
-							<h5>Cancellation policy</h5>
-							<p class="nomargin">Lorem ipsum dolor sit amet, vix <a href="#0">cu justo blandit deleniti</a>, discere omittantur consectetuer per eu. Percipit repudiare similique ad sed, vix ad decore nullam ornatus.</p>
-						</div> -->
-						
+						</div>
+						@else
+						<div>
+							<p>Add New Address? <a class="text-info" href="{{route('customer.address.create')}}">Click here to add address</a></p>
+						</div>
+						@endGuest						
 					</div>
 				</div>
 
@@ -157,25 +154,13 @@
 							Total <span class="float-end">₹{{$cartAmount}}.00</span>
 							<input type="hidden" name="tax" value="40">
 						</div>
-						<!-- <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                data-key="{{ env('RAZORPAY_KEY') }}"
-                                data-amount="1000"
-                                data-buttontext="payment"
-                                data-name="GetBeds"
-                                data-description="Rozerpay"
-                                data-image="http://getbeds.starklikes.com/images/logo.png"
-                                data-prefill.name="name"
-                                data-prefill.email="email"
-                                data-theme.color="#ff7529">
-                        </script> -->
-
 						<!-- <button type="submit" class="btn_1 full-width purchase">Payment</button> -->
 						<div class="text-center"><small>No money charged in this step</small></div>
 					</div>
 				</div>
 
 				<script src="https://checkout.razorpay.com/v1/checkout.js"
-                        data-key="{{ env('RAZORPAY_KEY') }}"
+                        data-key="{{ $key }}"
                         data-amount="{{$cartAmount*100}}"
                         data-buttontext="Make Payment"
                         data-name="GetBeds"

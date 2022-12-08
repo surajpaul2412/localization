@@ -5,6 +5,8 @@
 <script src="https://ableproadmin.com/bootstrap/default/assets/js/plugins/bootstrap-notify.min.js"></script>
 
 <!-- <script src="https://ableproadmin.com/bootstrap/default/assets/js/pages/ac-notification.js"></script> -->
+<script type="text/javascript" src="https://say2yes.com/assets/admin/js/pages/ac-alert.js"></script>
+<script type="text/javascript" src="https://say2yes.com/assets/admin/js/plugins/sweetalert.min.js"></script>
 
 <!-- <script>
 'use strict';

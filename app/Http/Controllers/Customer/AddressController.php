@@ -40,6 +40,9 @@ class AddressController extends Controller
     {
         $request->validate([
             'default' => 'nullable',
+            'name' => 'required|string|min:2|max:255',
+            'email' => 'required|email',
+            'mobile' => 'required|string',
             'country' => 'required|string|min:2|max:255',
             'city' => 'required|min:3|string|max:255',
             'pincode' => 'required|min:3',
@@ -47,10 +50,18 @@ class AddressController extends Controller
         ]);
 
         $data = $request->all();
+        $data['default'] = 0;
+        if ($request->default == "on") {
+            $userAddress = UserAddress::whereUserId(Auth::user()->id)->get();
+            foreach ($userAddress as $key => $value) {
+                $value->update(['default'=>0]);
+            }
+            $data['default'] = 1;
+        }
+
         $data['user_id'] = Auth::user()->id;
-        $data['default'] = $request->default??0;
         UserAddress::create($data);
-        return redirect('/customer/address')->with('success','Address added successfully.');
+        return redirect()->back()->with('success','Address added successfully.');
     }
 
     /**
@@ -76,6 +87,9 @@ class AddressController extends Controller
     {
         $request->validate([
             'default' => 'nullable',
+            'name' => 'required|string|min:2|max:255',
+            'email' => 'required|email',
+            'mobile' => 'required|string',
             'country' => 'required|string|min:2|max:255',
             'city' => 'required|min:3|string|max:255',
             'pincode' => 'required|min:3',
@@ -84,8 +98,16 @@ class AddressController extends Controller
 
         $address = UserAddress::findOrFail($id);
         $data = $request->all();
+        $data['default'] = 0;
+        if ($request->default == "on") {
+            $userAddress = UserAddress::whereUserId(Auth::user()->id)->get();
+            foreach ($userAddress as $key => $value) {
+                $value->update(['default'=>0]);
+            }
+            $data['default'] = 1;
+        }
+
         $data['user_id'] = Auth::user()->id;
-        $data['default'] = $request->default??0;
         $address->update($data);
         return redirect('customer/address')->with('success', 'Address has been successfully updated.');
     }

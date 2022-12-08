@@ -15,12 +15,20 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\UserAddress;
+use App\Models\Razorpay;
 use Auth;
 use Hash;
 use DB;
 
 class RazorpayPaymentController extends Controller
 {
+    public function __construct()
+    {
+        $razorpay = Razorpay::findOrFail(1);
+        $this->key = $razorpay['key'];
+        $this->secret_key = $razorpay['secret_key'];
+    }
+
     /**
      * Write code on Method
      *
@@ -40,7 +48,7 @@ class RazorpayPaymentController extends Controller
     {
         $input = $request->all();
   
-        $api = new Api(env('RAZORPAY_KEY'), env('RAZORPAY_SECRET'));
+        $api = new Api($this->key, $this->secret_key);
   
         $payment = $api->payment->fetch($input['razorpay_payment_id']);
   
@@ -72,6 +80,9 @@ class RazorpayPaymentController extends Controller
                         }
                     } else {
                         $request->validate([
+                            'name' => 'required|string|min:2|max:255',
+                            'email' => 'required|email',
+                            'mobile' => 'required|string',
                             'country' => 'required|string|min:3',
                             'city' => 'required|string|min:3',
                             'pincode' => 'required|string',
@@ -80,6 +91,9 @@ class RazorpayPaymentController extends Controller
 
                         $addressData['user_id'] = Auth::user()->id;
                         $addressData['default'] = 0;
+                        $addressData['name'] = $request->name;
+                        $addressData['email'] = $request->email;
+                        $addressData['mobile'] = $request->mobile;
                         $addressData['country'] = $request->country;
                         $addressData['city'] = $request->city;
                         $addressData['pincode'] = $request->pincode;
@@ -110,6 +124,9 @@ class RazorpayPaymentController extends Controller
                     $email = Auth::user()->email;
                 } else {
                     $request->validate([
+                        'name' => 'required|string|min:2|max:255',
+                        'email' => 'required|email',
+                        'mobile' => 'required|string',
                         'name' => 'required|string|min:3',
                         'country' => 'required|string|min:3',
                         'city' => 'required|string|min:3',
@@ -133,6 +150,9 @@ class RazorpayPaymentController extends Controller
 
                         $addressData['user_id'] = $user->id;
                         $addressData['default'] = 0;
+                        $addressData['name'] = $request->name;
+                        $addressData['email'] = $request->email;
+                        $addressData['mobile'] = $request->mobile;
                         $addressData['country'] = $request->country;
                         $addressData['city'] = $request->city;
                         $addressData['pincode'] = $request->pincode;

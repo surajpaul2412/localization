@@ -47,19 +47,34 @@
                                 <div class="col-sm-12">
 									<div class="form-group mb-3">
 										<label class="text-dark ft-medium">Full Name *</label>
-										<input type="text" class="form-control" placeholder="First Name...">
+										<input type="text" class="form-control" name="name" placeholder="First Name..." value="{{Auth::user()->name}}" required>
+                                        @error('name')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
 									</div>
 								</div>
                                 <div class="col-sm-6">
 									<div class="form-group mb-3">
 										<label class="text-dark ft-medium">Email ID *</label>
-										<input type="text" class="form-control" placeholder="Email...">
+										<input type="email" class="form-control" name="email" placeholder="Email..." value="{{Auth::user()->email}}" required>
+                                        @error('email')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
 									</div>
 								</div>
                                 <div class="col-sm-6">
 									<div class="form-group mb-3">
 										<label class="text-dark ft-medium">Mobile Number *</label>
-										<input type="text" class="form-control" placeholder="Mobile number...">
+										<input type="text" class="form-control" name="mobile" placeholder="Mobile number..." value="{{Auth::user()->mobile}}" required>
+                                        @error('mobile')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror
 									</div>
 								</div>
                                 <div class="col-sm-4">
@@ -109,7 +124,7 @@
                                 </div>
                                 <div class="">
                                     <div class="form-group mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                        <input type="checkbox" name="default" class="form-check-input" id="exampleCheck1">
                                         <label class="form-check-label" for="exampleCheck1">Mark as Default</label>
                                     </div>
                                 </div>

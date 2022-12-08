@@ -17,6 +17,9 @@ class CreateUserAddressesTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('default')->default(0);
+            $table->string('name');
+            $table->string('email');
+            $table->string('mobile');
             $table->string('country');
             $table->string('city');
             $table->string('pincode');

@@ -20,7 +20,7 @@ $cities = City::inRandomOrder()->get();
 $categories = Category::whereStatus(1)->get();
 @endphp
 
-@section('content')
+@section('content')  
 <main>
     
     <!-- Background YouTube Parallax -->
@@ -94,7 +94,7 @@ $categories = Category::whereStatus(1)->get();
                     <h2>Get Inspired</h2> 
                 </div>  
             </div>
-            <div id="get-inspired" class="owl-carousel owl-theme">
+            <div class="slick-get-inspired">
                 @foreach($categories as $category)
                 <div class="item"> 
                     <a href="{{route('search.category',$category->id)}}" class="box-item relative"> 
@@ -122,7 +122,7 @@ $categories = Category::whereStatus(1)->get();
                 <!-- <a href="#0"><strong>View all (57) <i class="arrow_carrot-right"></i></strong></a>  -->
             </div> 
             
-            <div id="popular-activities" class="owl-carousel owl-theme">
+            <div class="slick-slider">
                 @foreach($tours as $tour)
                 <div class="item"> 
                     <div class="box_grid">
@@ -173,7 +173,7 @@ $categories = Category::whereStatus(1)->get();
                 </div>  
             </div>
             
-            <div id="travel-products" class="owl-carousel owl-theme">
+            <div class="slick-travel-product">
                 @foreach($amenities as $amenity)
                 <div class="item"> 
                     <a href="#0" class="box-item style-2"> 
@@ -198,7 +198,7 @@ $categories = Category::whereStatus(1)->get();
                 <!-- <a href="#0"><strong>View all (57) <i class="arrow_carrot-right"></i></strong></a>  -->
             </div>
             
-            <div id="popular-destinations" class="owl-carousel owl-theme">
+            <div class="slick-popular-destination">
                 @foreach($cities as $city)
                 <div class="item"> 
                     <a href="{{route('search.city',$city->id)}}" class="grid_item relative">
@@ -223,7 +223,7 @@ $categories = Category::whereStatus(1)->get();
 </main>
 @endsection
 
-@section('script')
+@section('script') 
 <script>
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,

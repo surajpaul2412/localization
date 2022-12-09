@@ -20,6 +20,7 @@
     <!-- [ Pre-loader ] End -->  
     @include('layouts.backend.partials.sidenav')
     @include('layouts.backend.partials.header')
+    @include('layouts.backend.partials.alert')
 
     <!-- [ Main Content ] start --> 
     @yield('content')
@@ -184,6 +185,9 @@
             var finalvalue=string.toLowerCase();
             document.getElementById(id).value=finalvalue;
         }
+        setTimeout(function () { 
+            $(".alert").fadeOut();
+        }, 3000); 
     </script>
     @yield('script')
 </body> 

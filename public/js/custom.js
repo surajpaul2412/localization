@@ -40,4 +40,65 @@ jQuery( function ( $ ) {
 
     };loadMoreButton()  
 
+    // item Slide
+	$('.slick-slider').slick({
+        slidesToShow:4,
+        arrows: true,
+        dots: false,
+        infinite: true,
+        speed: 500,
+        cssEase: 'linear',
+        autoplaySpeed: 2000,
+        autoplay:true,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              arrows: true,
+              dots: false,
+              slidesToShow:3
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              arrows: true,
+              dots: false,
+              slidesToShow:1
+            }
+          }
+        ]
+    }); 
+
+    // item Slide
+	$('.slick-travel-product, .slick-popular-destination, .slick-get-inspired').slick({
+        slidesToShow:5,
+        arrows: true,
+        dots: false,
+        infinite: true,
+        speed: 500,
+        cssEase: 'linear',
+        autoplaySpeed: 2000,
+        autoplay:true,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              arrows: true,
+              dots: false,
+              slidesToShow:3
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              arrows: true,
+              dots: false,
+              slidesToShow:2
+            }
+          }
+        ]
+    });
+    
+
 });

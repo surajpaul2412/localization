@@ -71,12 +71,11 @@
                                                 </form>
                                             </div>
                                         </div>
-                                        <div class="card-wrap-body px-3 py-3">
-                                            <h4 class="ft-medium mb-1">Name: {{$address->name}}</h4>
-                                            <h5 class="ft-medium mb-1">{{$address->address}}</h5>
-                                            <p>{{$address->city}}, {{$address->country}} -- {{$address->pincode}}</p>
-                                            <p class="lh-1"><strong>Email:</strong> {{$address->email}}</p>
-                                            <p><strong>Call:</strong> {{$address->mobile}}</p>
+                                        <div class="card-wrap-body px-3 py-3"> 
+                                            <p class="m-0"><strong>Name:</strong> {{$address->name}}</p>
+                                            <p class="m-0"><strong>Address:</strong> {{$address->address}}, {{$address->city}}, {{$address->country}} -- {{$address->pincode}}</p>
+                                            <p class="m-0"><strong>Email:</strong> {{$address->email}}</p>
+                                            <p class="m-0"><strong>Call:</strong> {{$address->mobile}}</p>
                                         </div>
                                     </div>
                                 </div> 
@@ -87,7 +86,7 @@
                                     <div>No Saved Address in your Account.</div>
                                 </div> 
                                 @endif
-                                
+                                 
                             </div>
 
                         </div>

@@ -552,9 +552,23 @@ section.cta-sec .content-image img {
     width: 100%;
     height: 250px;
     position: relative;
-    overflow:unset;
     text-align: center;
     color: #fff;
+    overflow: hidden;
+}
+section.hero_in.tours{ 
+    overflow:unset;
+}
+.hero_in:before {
+    animation: pop-in 5s .3s cubic-bezier(0,.5,0,1) forwards;
+    content: "";
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: unset;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
 }
 
 
@@ -906,8 +920,15 @@ ul.dahs_navbar li a.active {
 }
 
 
-
-
+.br-bottom {
+    border-bottom: 1px solid #eef2f5;
+}
+.bg-gray{ 
+    background-color: #f8f8f8;
+}
+.slick-initialized .slick-slide {
+    padding: 10px;
+}
 
 
 

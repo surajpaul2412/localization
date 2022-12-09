@@ -29,7 +29,7 @@
         </div>
         <!-- [ breadcrumb ] end -->
 
-        @include('layouts.backend.partials.alert')
+        <!-- @include('layouts.backend.partials.alert') -->
 
         <!-- [ Main Content ] start --> 
         <div class="row"> 

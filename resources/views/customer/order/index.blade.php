@@ -78,9 +78,9 @@
                                                         <p class="m-0"><strong>Booking Date:</strong> {{$order->created_at->format('d M Y')}}</p>
                                                     </div>
                                                     <div class="more-links text-end"> 
-                                                        <!-- <a href="{{route('customer.booking')}}"><small>View Booking</small></a>  --> 
+                                                        <!-- <a href="{{route('customer.booking')}}"><small>View Booking</small></a> | --> 
                                                         @if($order->order_status == "In Progress")
-                                                        | <a href="{{route('customer.booking.cancel',$order->id)}}"><small>Cancel Order</small></a>
+                                                        <a href="{{route('customer.booking.cancel',$order->id)}}"><small>Cancel Order</small></a>
                                                         @endif
                                                     </div>
                                                 </div>

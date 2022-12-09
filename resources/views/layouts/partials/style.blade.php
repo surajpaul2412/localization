@@ -7,6 +7,8 @@
 
 <!-- BASE CSS -->
 <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" /> 
+<link rel="stylesheet" href="{{asset('css/slick.css')}}" /> 
+<link rel="stylesheet" href="{{asset('css/slick-theme.css')}}" />
 <link rel="stylesheet" href="{{asset('css/style.css')}}" />
 <link rel="stylesheet" href="{{asset('css/vendors.css')}}" />
 <link rel="stylesheet" href="{{asset('css/main.css')}}" />

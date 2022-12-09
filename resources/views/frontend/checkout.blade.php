@@ -65,12 +65,38 @@ $secret_key = $razorpay['secret_key'];
 			<form action="{{route('razorpay.payment.store')}}" method="POST" class="row">
 				@csrf
 				<div class="col-lg-8">
-					<div class="box_cart">
+					<div class="box_cart bg-gray p-2 border">
 						@if(Auth::user())
-							<div class="message bg-dark row">
+							<div class="row row-cols-1 row-cols-lg-2">
 								@if(Auth::user()->addresses->count())
 									@foreach(Auth::user()->addresses as $index => $address)
-									<div class="card col-md-6 bg-white p-4 border">
+									<div class="col">
+										<div class="card-wrap border rounded mb-4 bg-white">
+											<div class="card-wrap-header px-3 py-2 br-bottom d-flex align-items-center justify-content-between">
+												<div class="card-header-flex d-flex align-items-center">  
+													<h4 class="fs-md ft-bold mb-0 me-1"> 
+														<input type="radio" id="select-address-{{$index+1}}" class="float-left" name="radio_address" value="{{$address->id}}" @if($address->default == 1) checked @else @endif>
+														<label for="select-address-{{$index+1}}" class="radio-custom-label">Address-{{$index+1}}</label>
+													</h4>
+													@if($address->default == 1) 
+													<p class="m-0 p-0"><span class="text-success bg-success bg-opacity-25 small px-2 py-1 rounded">Default</span></p>
+													@else
+													<p class="m-0 p-0"><a href="{{ route('customer.address.default', $address->id) }}" class="text-primary bg-primary bg-opacity-25 small px-2 py-1 rounded">Saved</a></p> 
+													@endif 
+												</div>
+												<div class="card-head-last-flex"> 
+												</div>
+											</div>
+											<div class="card-wrap-body px-3 py-3"> 
+												<p class="m-0"><strong>Name:</strong> {{$address->name}}</p>
+												<p class="m-0"><strong>Address:</strong> {{$address->address}}, {{$address->city}}, {{$address->country}} -- {{$address->pincode}}</p>
+												<p class="m-0"><strong>Email:</strong> {{$address->email}}</p>
+												<p class="m-0"><strong>Call:</strong> {{$address->mobile}}</p>
+											</div>
+										</div>
+									</div> 
+
+									<!-- <div class="col">
 										<input type="radio" class="float-left" name="radio_address" value="{{$address->id}}" @if($address->default == 1) checked @else @endif>
 										<h5 class="font-weight-bold">Address {{$index+1}}:</h5>
 										<div>Country: <span class="bold">{{$address->country}}</span></div>
@@ -79,7 +105,8 @@ $secret_key = $razorpay['secret_key'];
 											Pincode: <span class="bold">{{$address->pincode}}</span>
 										</div>
 										<div>Address: <span class="bold">{{$address->address}}</span></div>
-									</div>
+									</div> -->
+									
 									@endforeach
 								@endif
 							</div>
@@ -142,7 +169,7 @@ $secret_key = $razorpay['secret_key'];
 						</div>
 						@else
 						<div>
-							<p>Add New Address? <a class="text-info" href="{{route('customer.address.create')}}">Click here to add address</a></p>
+							<p class="m-0"><a class="text-success" href="{{route('customer.address.create')}}">Click here to add address</a></p>
 						</div>
 						@endGuest						
 					</div>
@@ -170,6 +197,7 @@ $secret_key = $razorpay['secret_key'];
                         data-prefill.email="email"
                         data-theme.color="#ff7529">
                 </script>
+				
 			</form>
 			<!-- /row -->
 		</div>

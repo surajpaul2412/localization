@@ -14,7 +14,7 @@
         <div class="wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span> My Address</h1></div>
+                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span> {{dynamicLang('My Address')}}</h1></div>
                 </div>
                 <!-- End bs-wizard -->
             </div>
@@ -35,8 +35,8 @@
                     <div class="card border">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
-                                <h3 class="mb-0">My Address</h3>
-                                <a class="btn btn-success btn-sm" href="{{route('customer.address.create')}}">Add address</a>
+                                <h3 class="mb-0">{{dynamicLang('My Address')}}</h3>
+                                <a class="btn btn-success btn-sm" href="{{route('customer.address.create')}}">{{dynamicLang('Add address')}}</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -52,7 +52,7 @@
                                         <div class="card-wrap-header px-3 py-2 br-bottom d-flex align-items-center justify-content-between">
                                             <div class="card-header-flex d-flex align-items-center">  
                                                 <h4 class="fs-md ft-bold mb-0 me-1"> 
-                                                    <label class="radio-custom-label">Address-{{$index+1}}</label>
+                                                    <label class="radio-custom-label">{{dynamicLang('Address')}}-{{$index+1}}</label>
                                                 </h4>
                                                 @if($address->default == 1) 
                                                 <p class="m-0 p-0"><span class="text-success bg-success bg-opacity-25 small px-2 py-1 rounded">Default</span></p>
@@ -72,10 +72,10 @@
                                             </div>
                                         </div>
                                         <div class="card-wrap-body px-3 py-3"> 
-                                            <p class="m-0"><strong>Name:</strong> {{$address->name}}</p>
-                                            <p class="m-0"><strong>Address:</strong> {{$address->address}}, {{$address->city}}, {{$address->country}} -- {{$address->pincode}}</p>
-                                            <p class="m-0"><strong>Email:</strong> {{$address->email}}</p>
-                                            <p class="m-0"><strong>Call:</strong> {{$address->mobile}}</p>
+                                            <p class="m-0"><strong>{{dynamicLang('Name')}}:</strong> {{$address->name}}</p>
+                                            <p class="m-0"><strong>{{dynamicLang('Address')}}:</strong> {{$address->address}}, {{$address->city}}, {{$address->country}} -- {{$address->pincode}}</p>
+                                            <p class="m-0"><strong>{{dynamicLang('Email')}}:</strong> {{$address->email}}</p>
+                                            <p class="m-0"><strong>{{dynamicLang('Call')}}:</strong> {{$address->mobile}}</p>
                                         </div>
                                     </div>
                                 </div> 
@@ -83,7 +83,7 @@
                                 @endforeach
                                 @else
                                 <div class="col-12">
-                                    <div>No Saved Address in your Account.</div>
+                                    <div>{{dynamicLang('No Saved Address in your Account')}}.</div>
                                 </div> 
                                 @endif
                                  

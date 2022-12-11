@@ -3,9 +3,9 @@
         <div class="row justify-content-between align-items-center"> 
             <div class="col-lg-8">
                 <div class="content-block">  
-                    <h3 class="text-white">Enjoy a GREAT travel with us</h3>
-                    <p class="text-white">Ius cu tamquam persequeris, eu veniam apeirian platonem qui, id aliquip voluptatibus pri. Ei mea primis ornatus disputationi. Menandri erroribus cu per, duo solet congue ut. </p>
-                    <a href="#0" class="btn_1 rounded">Read more</a> 
+                    <h3 class="text-white">{{dynamicLang('Enjoy a GREAT travel with us')}}</h3>
+                    <p class="text-white">{{dynamicLang('Ius cu tamquam persequeris, eu veniam apeirian platonem qui, id aliquip voluptatibus pri. Ei mea primis ornatus disputationi. Menandri erroribus cu per, duo solet congue ut.')}} </p>
+                    <a href="#0" class="btn_1 rounded">{{dynamicLang('Read more')}}</a> 
                 </div>
             </div> 
             <div class="col-lg-4">  

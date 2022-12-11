@@ -13,7 +13,7 @@
 			<div class="container">
 				<div class="bs-wizard clearfix">
 					<div class="bs-wizard-step">
-						<div class="text-center bs-wizard-stepnum">Your cart</div>
+						<div class="text-center bs-wizard-stepnum">{{dynamicLang('Your cart')}}</div>
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
@@ -21,7 +21,7 @@
 					</div>
 
 					<div class="bs-wizard-step">
-						<div class="text-center bs-wizard-stepnum">Payment</div>
+						<div class="text-center bs-wizard-stepnum">{{dynamicLang('Payment')}}</div>
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
@@ -29,7 +29,7 @@
 					</div>
 
 					<div class="bs-wizard-step active">
-						<div class="text-center bs-wizard-stepnum">Finish!</div>
+						<div class="text-center bs-wizard-stepnum">{{dynamicLang('Finish')}}!</div>
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
@@ -38,8 +38,8 @@
 				</div>
 				<!-- End bs-wizard -->
 				<div id="confirm">
-					<h4>Order completed!</h4>
-					<p>Order placed successfully</p>
+					<h4>{{dynamicLang('Order completed')}}!</h4>
+					<p>{{dynamicLang('Order placed successfully')}}</p>
 				</div>
 			</div>
 		</div>

@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchLang']);
+Route::get('curr/{id}', ['as' => 'curr.switch', 'uses' => 'App\Http\Controllers\LanguageController@switchCurr']);
 
 Auth::routes(['verify' => true]);
 

@@ -12,7 +12,7 @@
 		<div class="wrapper">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-12"><h1 class="my-4 animated"> <span></span>	Wishlist</h1></div>
+					<div class="col-lg-12"><h1 class="my-4 animated"> <span></span>	{{dynamicLang('Wishlist')}}</h1></div>
 				</div>
 				<!-- End bs-wizard -->
 			</div>
@@ -33,7 +33,7 @@
 					<form action="#">
 						<div class="card border">
 							<div class="card-header">
-								<h4 class="mb-0">My Wishlist</h4>
+								<h4 class="mb-0">{{dynamicLang('My Wishlist')}}</h4>
 							</div>
 							<div class="card-body">
 								<div class="row">
@@ -50,7 +50,7 @@
 														</div>
 														<div class="col-lg-7">
 															<div class="wrapper"> 
-																<p><b><a href="{{route('tour.show',$row['package']['slug'])}}" class="fs-6">{{$row['package']['name']}}</a></b></p>
+																<p><b><a href="{{route('tour.show',$row['package']['slug'])}}" class="fs-6">{{dynamicLang($row['package']['name'])}}</a></b></p>
 																<!-- <div class="d-flex align-items-center">
 																	<div class="rating">
 																		<i class="fas fa-star"></i>
@@ -61,11 +61,11 @@
 																	</div> 
 																	<a href="#">(56)</a>   
 																</div>  -->
-																<span class="price">Price: <strong>₹{{$row['package']['adult_price']}}</strong> /per person</span>
+																<span class="price">{{dynamicLang('Price')}}: <strong>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($row['package']['adult_price'])}}</strong> /{{dynamicLang('per person')}}</span>
 															</div>
 															<ul>
-																<li><a href="{{route('wishlist.remove',$row['id'])}}">Remove</a></li>
-																<li><a href="{{route('wishlist.moveToCart',$row['id'])}}">Move to Cart</a></li>
+																<li><a class="text-danger" href="{{route('wishlist.remove',$row['id'])}}">{{dynamicLang('Remove')}}</a></li>
+																<li><a href="{{route('wishlist.moveToCart',$row['id'])}}">{{dynamicLang('Move to Cart')}}</a></li>
 															</ul>
 														</div>
 													</div>
@@ -74,7 +74,7 @@
 										</div>
 									@endforeach
 								@else
-									<div>No items in your wishlist.</div>
+									<div>{{dynamicLang('No items in your wishlist')}}.</div>
 								@endif
 								</div>  
 								<!-- [ row ] end -->

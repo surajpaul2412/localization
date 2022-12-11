@@ -9,7 +9,7 @@ $testimonials = Testimonial::whereStatus(1)->get();
         <div class="main_title_3 d-flex justify-content-between align-items-center">
             <div> 
                 <span><em></em></span>
-                <h2>Traveler's Reviews</h2> 
+                <h2>{{dynamicLang("Traveler's Reviews")}}</h2> 
             </div> 
             <!-- <a href="#0"><strong>View all (57) <i class="arrow_carrot-right"></i></strong></a>  -->
         </div>
@@ -22,9 +22,9 @@ $testimonials = Testimonial::whereStatus(1)->get();
                         <div class="left d-flex justify-content-start align-items-center">
                             <img src="{{asset($testimonial->avatar)}}" class="img-fluid" alt="avatar" />
                             <div class="tit">
-                                <h4>{{$testimonial->name}}</h4>
+                                <h4>{{dynamicLang($testimonial->name)}}</h4>
                                 <p class="d-flex justify-content-start align-items-center">
-                                    Country: {{$testimonial->country}}
+                                    {{dynamicLang('Country')}}: {{dynamicLang($testimonial->country)}}
                                 </p>
                             </div>
                         </div>

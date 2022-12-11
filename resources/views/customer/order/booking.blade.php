@@ -12,7 +12,7 @@
         <div class="wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span>	Booking Details</h1></div>
+                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span>	{{dynamicLang('Booking Details')}}</h1></div>
                 </div>
                 <!-- End bs-wizard -->
             </div>
@@ -37,7 +37,7 @@
                                     <img src="{{asset('images/tour.png')}}" class="img-fluid rounded-circle shadow" width="40px">
                                     <div class="media-body ms-2">
                                         <h6 class="mb-0 ft-medium">#1250004123</h6>
-                                        <p class="m-0 fs-sm ft-normal">Total Amount - <b>₹</b>260.00</p>
+                                        <p class="m-0 fs-sm ft-normal">{{dynamicLang('Total Amount')}} - <b>₹</b>260.00</p>
                                     </div>
                                 </div> 
                                 <a href="{{route('customer.order')}}" class="btn btn-success btn-sm">Back to Order List</a>

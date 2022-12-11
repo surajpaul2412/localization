@@ -86,6 +86,20 @@
                                 </div>
                             </li>
                             <!-- lang end -->
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Session::get('currency')?? 'INR' }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                @foreach (currencies() as $curr)
+                                    <a class="dropdown-item" href="{{ route('curr.switch', $curr->id) }}">
+                                        {{$curr->currency_symbol}} {{$curr->currency_code}}
+                                    </a>
+                                @endforeach
+                                </div>
+                            </li>
                     </ul>
                 </div>
             </div>

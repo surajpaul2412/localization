@@ -61,7 +61,7 @@ class AddressController extends Controller
 
         $data['user_id'] = Auth::user()->id;
         UserAddress::create($data);
-        return redirect()->back()->with('success','Address added successfully.');
+        return redirect('/customer/address')->with('success','Address added successfully.');
     }
 
     /**
@@ -134,6 +134,6 @@ class AddressController extends Controller
         }
         $address = UserAddress::findOrFail($id);
         $address->update(['default'=>1]);
-        return redirect('/customer/address')->with('success', 'Default address updated.');
+        return redirect()->back()->with('success', 'Default address updated.');
     }
 }

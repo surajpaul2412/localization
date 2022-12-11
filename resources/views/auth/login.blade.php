@@ -19,7 +19,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group">
-                    <label>{{ __('Email') }}</label>
+                    <label>{{ dynamicLang('Email') }}</label>
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" id="email" autofocus>
                     <i class="icon_mail_alt"></i>
 
@@ -30,7 +30,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>{{ __('Password') }}</label>
+                    <label>{{ dynamicLang('Password') }}</label>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" id="password">
                     <i class="icon_lock_alt"></i>
                     @error('password')
@@ -41,7 +41,7 @@
                 </div>
                 <div class="clearfix add_bottom_30">
                     <div class="checkboxes float-start">
-                        <label class="container_check">{{ __('auth.RememberMe') }}
+                        <label class="container_check">{{ dynamicLang('Remember Me') }}
                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                           <span class="checkmark"></span>
                         </label>
@@ -49,13 +49,13 @@
                     <div class="float-end mt-1">
                         @if (Route::has('password.request'))
                             <a class="btn btn-link" id="forgot" href="{{ route('password.request') }}">
-                                {{ __('Forgot Password?') }}
+                                {{ dynamicLang('Forgot Password?') }}
                             </a>
                         @endif
                     </div>
                 </div>
-                <button type="submit" class="btn_1 rounded full-width">{{ __('Login to GetBeds') }}</button>
-                <div class="text-center add_top_10">New to GetBeds? <strong><a href="{{route('register')}}">Sign up!</a></strong></div>
+                <button type="submit" class="btn_1 rounded full-width">{{ dynamicLang('Login to GetBeds') }}</button>
+                <div class="text-center add_top_10">{{dynamicLang('New to')}} GetBeds? <strong><a href="{{route('register')}}">{{dynamicLang('Sign up')}}!</a></strong></div>
             </form> 
         </aside>
     </div>

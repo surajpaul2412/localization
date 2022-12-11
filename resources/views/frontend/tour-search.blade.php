@@ -8,11 +8,16 @@ use App\Models\City;
 use App\Models\Activity;
 use App\Models\Amenity;
 use App\Models\Category;
+use App\Models\Country;
 
 $cities = City::all();
 $activities = Activity::whereStatus(1)->get();
 $amenities = Amenity::whereStatus(1)->get();
 $categories = Category::whereStatus(1)->get();
+$countries = Country::whereStatus(1)->pluck('name')->toArray();
+$searchCity = City::pluck('name')->toArray();
+$suggestions = json_encode(array_merge($countries, $searchCity));
+
 @endphp
 
 @section('content') 
@@ -39,18 +44,18 @@ $categories = Category::whereStatus(1)->get();
 									@csrf 
 									<div class="col-lg-10">
 										<div class="form-group">
-											<input id="myInput" class="form-control" type="text" name="search" placeholder="Where are you going?" required />
+											<input id="myInput" class="form-control" type="text" name="search" placeholder="{{dynamicLang('Where are you going?')}}" required />
 											<i class="icon_pin_alt"></i>
 										</div>
 									</div> 
 									<div class="col-lg-2">
-										<input type="submit" class="btn_search" value="Search">
+										<input type="submit" class="btn_search" value="{{dynamicLang('Search')}}">
 									</div> 
 								</form>
 							</div>
 						</div>
 					</div>
-					<h1 class="my-4">Tours Page</h1>
+					<h1 class="my-4">{{dynamicLang('Tours Page')}}</h1>
 				</div>
 			</div>
 		</section>
@@ -69,17 +74,11 @@ $categories = Category::whereStatus(1)->get();
 							<div class="collapse show" id="collapseFilters">
 
 								<div class="filter_type">
-									<h6>Destinations</h6>
+									<h6>{{dynamicLang('Destinations')}}</h6>
 									<ul>
-										<li>
-											<label class="container_check">All <small>({{$cities->count()}})</small>
-												<input type="checkbox">
-												<span class="checkmark"></span>
-											</label>
-										</li>
 										@foreach($cities as $city)
 										<li>
-											<label class="container_check">{{$city->name}} <large>, {{$city->country->name}}</large>
+											<label class="container_check">{{dynamicLang($city->name)}} <large>, {{dynamicLang($city->country->name)}}</large>
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
@@ -89,16 +88,16 @@ $categories = Category::whereStatus(1)->get();
 								</div>
 
 								<div class="filter_type">
-									<h6>Price</h6>
+									<h6>{{dynamicLang('Price')}}</h6>
 									<input type="text" id="range" name="range" value="">
 								</div>
 
 								<div class="filter_type">
-									<h6>Category</h6>
+									<h6>{{dynamicLang('Category')}}</h6>
 									<ul>
 										@foreach($categories as $category)
 										<li>
-											<label class="container_check">{{$category->name}}
+											<label class="container_check">{{dynamicLang($category->name)}}
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
@@ -108,11 +107,11 @@ $categories = Category::whereStatus(1)->get();
 								</div>
 
 								<div class="filter_type">
-									<h6>Activity</h6>
+									<h6>{{dynamicLang('Activity')}}</h6>
 									<ul>
 										@foreach($activities as $activity)
 										<li>
-											<label class="container_check">{{$activity->name}}
+											<label class="container_check">{{dynamicLang($activity->name)}}
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
@@ -122,11 +121,11 @@ $categories = Category::whereStatus(1)->get();
 								</div>
 
 								<div class="filter_type">
-									<h6>Amenity</h6>
+									<h6>{{dynamicLang('Amenity')}}</h6>
 									<ul>
 										@foreach($amenities as $amenity)
 										<li>
-											<label class="container_check">{{$amenity->name}}
+											<label class="container_check">{{dynamicLang($amenity->name)}}
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
@@ -136,28 +135,28 @@ $categories = Category::whereStatus(1)->get();
 								</div>
 
 								<div class="filter_type">
-									<h6>Rating</h6>
+									<h6>{{dynamicLang('Rating')}}</h6>
 									<ul>
 										<li>
-											<label class="container_check">Superb 9+ <small>(25)</small>
+											<label class="container_check">{{dynamicLang('Superb')}} 9+ <small>(25)</small>
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
 										</li>
 										<li>
-											<label class="container_check">Very Good 8+ <small>(26)</small>
+											<label class="container_check">{{dynamicLang('Very Good')}} 8+ <small>(26)</small>
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
 										</li>
 										<li>
-											<label class="container_check">Good 7+ <small>(25)</small>
+											<label class="container_check">{{dynamicLang('Good')}} 7+ <small>(25)</small>
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
 										</li>
 										<li>
-											<label class="container_check">Pleasant 6+ <small>(12)</small>
+											<label class="container_check">{{dynamicLang('Pleasant')}} 6+ <small>(12)</small>
 												<input type="checkbox">
 												<span class="checkmark"></span>
 											</label>
@@ -174,10 +173,10 @@ $categories = Category::whereStatus(1)->get();
 						<div id="loadContent" class="isotope-wrapper">
 							<div class="row">
 								<div class="col-12 pb-3">
-									<strong>Search Term :</strong> <small class="text-black">{{$search}}</small>
+									<strong>{{dynamicLang('Search Term')}} :</strong> <small class="text-black">{{$search}}</small>
 								</div>
 								<div class="col-12 pb-3">
-									<strong>{{$tours->count()}} tour found.</strong>
+									<strong>{{$tours->count()}} {{dynamicLang('tour found')}}.</strong>
 								</div>
 							</div>
 							<div class="row row-cols-1 row-cols-lg-3">
@@ -192,7 +191,7 @@ $categories = Category::whereStatus(1)->get();
 											</a> 
 										</figure>
 										<div class="wrapper">
-											<h3><a href="{{route('tour.show', $tour->slug)}}">{{$tour->name}}</a></h3> 
+											<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang($tour->name)}}</a></h3> 
 											@if($tour->rating > 0)
 				                            <div class="d-flex align-items-center">
 				                                <div class="rating">
@@ -207,10 +206,10 @@ $categories = Category::whereStatus(1)->get();
 										<ul class="d-flex justify-content-between align-items-center"> 
 											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
 											<li>
-												<span><b>Price: </b><small>
+												<span><b>{{dynamicLang('Price')}}: </b><small>
 				                                    <!-- <del><b>₹314.31</b></del> -->
 				                                </small> 
-				                                ₹{{$tour->adult_price}}</b><small>/person</small></span>
+				                                {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->adult_price)}}</b><small>/{{dynamicLang('person')}}</small></span>
 											</li> 
 										</ul>
 									</div>
@@ -223,7 +222,7 @@ $categories = Category::whereStatus(1)->get();
 
 				</div> 
 			
-				<p class="text-center"><a href="#0" id="loadMore" class="btn_1 rounded add_top_30">Load more</a></p>
+				<p class="text-center"><a href="#0" id="loadMore" class="btn_1 rounded add_top_30">{{dynamicLang('Load more')}}</a></p>
 			</div>
 		</div> 
 		<!-- /isotope-wrapper -->
@@ -347,7 +346,7 @@ function autocomplete(inp, arr) {
 }
 
 /*An array containing all the country names in the world:*/
-var countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
+var countries = <?php echo $suggestions; ?>;
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 autocomplete(document.getElementById("myInput"), countries);

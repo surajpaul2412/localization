@@ -14,12 +14,12 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 	<section class="hero_in tours_detail" style="background: url({{asset('images/home_section_1.jpg')}});">
 		<div class="wrapper">
 			<div class="container">
-				<h1><span></span>Tour detail page</h1>
+				<h1><span></span>{{dynamicLang('Tour detail page')}}</h1>
 			</div>
 			<span class="magnific-gallery">
 				@if($tour->gallery->count())
 				@foreach($tour->gallery as $gallery)
-				<a href="{{asset($gallery->image)}}" class="btn_photos" title="Photo title" data-effect="mfp-zoom-in">View photos</a>
+				<a href="{{asset($gallery->image)}}" class="btn_photos" title="Photo title" data-effect="mfp-zoom-in">{{dynamicLang('View photos')}}</a>
 				@endforeach
 				@endif
 			</span>
@@ -31,10 +31,10 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 		<nav class="secondary_nav sticky_horizontal">
 			<div class="container">
 				<ul class="clearfix">
-					<li><a href="#description" class="active">Description</a></li>
-					<li><a href="#tour_experience">Experience</a></li>
-					<li><a href="#reviews">Reviews</a></li>
-					<li><a href="#sidebar">Booking</a></li> 
+					<li><a href="#description" class="active">{{dynamicLang('Description')}}</a></li>
+					<li><a href="#tour_experience">{{dynamicLang('Experience')}}</a></li>
+					<li><a href="#reviews">{{dynamicLang('Reviews')}}</a></li>
+					<li><a href="#sidebar">{{dynamicLang('Booking')}}</a></li> 
 				</ul>
 			</div>
 		</nav>
@@ -42,8 +42,8 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 			<div class="row">
 				<div class="col-lg-8">
 					<section id="description">
-						<h2>Description</h2>
-						{!!$tour->description!!}
+						<h2>{{dynamicLang('Description')}}</h2>
+						{!!dynamicLang($tour->description)!!}
 						<hr>
 						<h3>Amenities</h3>
 						<div class="row">
@@ -54,7 +54,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 									<li> 
 										<a href="#0" class="box-item style-4"> 
 											<img src="{{asset($amenity->amenity->icon)}}" alt="{{$amenity->amenity->name}}" />
-											<p>{{$amenity->amenity->name}}</p>
+											<p>{{dynamicLang($amenity->amenity->name)}}</p>
 										</a> 
 									</li>
 									@endforeach
@@ -68,15 +68,15 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 					<!-- /section -->
 					
 					<section id="tour_experience">  
-						<h3>Experience</h3> 
+						<h3>{{dynamicLang('Experience')}}</h3> 
 						<div class="cbp_experience">
 							@if($tour->highlights)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
-									<h5>Highlights</h5>
+									<h5>{{dynamicLang('Highlights')}}</h5>
 								</div>
 								<div class="col-lg-8 cbp_content"> 
-									{!!$tour->highlights!!}
+									{!!dynamicLang($tour->highlights)!!}
 								</div>
 							</div>
 							@endif
@@ -84,10 +84,10 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							@if($tour->full_description)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
-									<h5>Full description</h5>
+									<h5>{{dynamicLang('Full description')}}</h5>
 								</div>
 								<div class="col-lg-8 cbp_content">
-									{!!$tour->full_description!!}
+									{!!dynamicLang($tour->full_description)!!}
 								</div>
 							</div> 
 							@endif
@@ -95,10 +95,10 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							@if($tour->includes)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
-									<h5>Includes</h5>
+									<h5>{{dynamicLang('Includes')}}</h5>
 								</div>
 								<div class="col-lg-8 cbp_content"> 
-									{!!$tour->includes!!}
+									{!!dynamicLang($tour->includes)!!}
 								</div>
 							</div> 
 							@endif
@@ -106,10 +106,10 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							@if($tour->meeting_point)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
-									<h5>Meeting point</h5>
+									<h5>{{dynamicLang('Meeting point')}}</h5>
 								</div>
 								<div class="col-lg-8 cbp_content"> 
-									{!!$tour->meeting_point!!}
+									{!!dynamicLang($tour->meeting_point)!!}
 								</div>
 							</div> 
 							@endif
@@ -117,10 +117,10 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							@if($tour->important_information)
 							<div class="row cbp_experience_list"> 
 								<div class="col-lg-4 cbp_title">
-									<h5>Important information</h5>
+									<h5>{{dynamicLang('Important information')}}</h5>
 								</div>
 								<div class="col-lg-8 cbp_content"> 
-									{!!$tour->important_information!!}
+									{!!dynamicLang($tour->important_information)!!}
 								</div>
 							</div> 
 							@endif
@@ -133,7 +133,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							<div class="main_title_3 d-flex justify-content-between align-items-center">
 								<div> 
 									<span><em></em></span>
-									<h2>You might also likes...</h2> 
+									<h2>{{dynamicLang('You might also likes')}}...</h2> 
 								</div>  
 							</div> 
 							
@@ -148,7 +148,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 											</a> 
 										</figure>
 										<div class="wrapper">
-											<h3><a href="tour-details.php">{{$element->name}}</a></h3>
+											<h3><a href="tour-details.php">{{dynamicLang($element->name)}}</a></h3>
 											@if($element->rating > 0) 
 											<div class="d-flex align-items-center">
 												<div class="rating">
@@ -161,8 +161,11 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 											@endif
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 
-											<!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
-											<li><span><b>From <small><del><b>₹314.31</b></del></small> $314.31</b><small>/person</small></span></li> 
+											<li>
+				                                <span><b>{{dynamicLang('Price')}}: </b><small>
+				                                </small> 
+				                                {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($element->adult_price)}}</b><small>/{{dynamicLang('person')}}</small></span>
+				                            </li>
 										</ul>
 									</div>
 								</div>
@@ -174,13 +177,13 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 					<!-- /You might also likes. -->   
 				
 					<section id="reviews">
-						<h2>Reviews</h2>
+						<h2>{{dynamicLang('Reviews')}}</h2>
 						<div class="reviews-container">
 							<div class="row">
 								<div class="col-lg-3">
 									<div id="review_summary">
 										<strong>{{$tour->rating}}</strong>
-										<small>Based on {{$tour->reviews->count()}} reviews</small>
+										<small>{{dynamicLang('Based on')}} {{$tour->reviews->count()}} {{dynamicLang('reviews')}}</small>
 									</div>
 								</div>
 								<div class="col-lg-9">
@@ -268,21 +271,21 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 					@if(Auth::user())
 					@if($tour->able_to_review)
 					<div id="add_review" class="add-review">
-						<h5>Leave a Review</h5>
+						<h5>{{dynamicLang('Leave a Review')}}</h5>
 						<form action="{{route('reviewSubmit')}}" method="POST">
 							@csrf
 							<div class="row">
 								<div class="form-group col-md-6">
-									<label>Full Name*</label>
+									<label>{{dynamicLang('Full Name')}}*</label>
 									<input type="text" name="name" id="name_review" value="{{Auth::user()->name}}" placeholder="" class="form-control" disabled>
 								</div>
 								<div class="form-group col-md-6">
-									<label>Email *</label>
+									<label>{{dynamicLang('Email')}} *</label>
 									<input type="email" name="email" id="email_review" class="form-control"  value="{{Auth::user()->email}}" disabled>
 								</div>
 								<input type="hidden" name="package_id" value="{{$tour->id}}" required>
 								<div class="form-group col-md-6">
-									<label>Rating </label>
+									<label>{{dynamicLang('Rating')}} </label>
 									<div class="custom-select-form">
 									<select name="stars" id="rating_review" class="wide" required>
 										<option value="1">1 (lowest)</option>
@@ -294,7 +297,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 									</div>
 								</div>
 								<div class="form-group col-md-12">
-									<label>Your Review</label>
+									<label>{{dynamicLang('Your Review')}}</label>
 									<textarea name="content" id="review_text" class="form-control" style="height:130px;"></textarea>
 								</div>
 								<div class="form-group col-md-12 add_top_20">
@@ -310,7 +313,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							<div class="main_title_3 d-flex justify-content-between align-items-center">
 								<div> 
 									<span><em></em></span>
-									<h2><small>We've served 15 million+ guest and we are here for you</small></h2> 
+									<h2><small>{{dynamicLang("We've served 15 million+ guest and we are here for you")}}</small></h2> 
 								</div>  
 							</div> 
 							
@@ -318,29 +321,29 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 								<div class="col">
 									<div class="trust-box">
 										<img src="{{asset('images/icons/1.png')}}" alt="icon" />
-										<h3>15 million+</h3>
-										<p>Sed ut perspiciatis unde omnis iste natus.</p>
+										<h3>15 {{dynamicLang('million')}}+</h3>
+										<p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p>
 									</div>
 								</div>
 								<div class="col">
 									<div class="trust-box">
 										<img src="{{asset('images/icons/2.png')}}" alt="icon" />
 										<h3>4/5</h3>
-										<p>Sed ut perspiciatis unde omnis iste natus.</p>
+										<p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p>
 									</div>
 								</div>
 								<div class="col">
 									<div class="trust-box">
 										<img src="{{asset('images/icons/3.png')}}" alt="icon" />
-										<h3>In the Media</h3>
-										<p>Sed ut perspiciatis unde omnis iste natus.</p>
+										<h3>{{dynamicLang('In the Media')}}</h3>
+										<p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p>
 									</div>
 								</div>
 								<div class="col">
 									<div class="trust-box">
 										<img src="{{asset('images/icons/4.png')}}" alt="icon" />
-										<h3>24x7 Help Center</h3>
-										<p>Sed ut perspiciatis unde omnis iste natus.</p>
+										<h3>24x7 {{dynamicLang('Help Center')}}</h3>
+										<p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p>
 									</div>
 								</div>
 							</div>  
@@ -358,25 +361,25 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 						</div>  
 						
 						<div class="my-4">
-							<a href="#">Total seats <span class="qtyTotal">1</span></a>
+							<a href="#">{{dynamicLang('Total seats')}} <span class="qtyTotal">1</span></a>
 						</div>
 							
 						<div class="booking-box-details">
 							<ul class="cart_details">
 								<li>
 									<div class="qtyButtons">
-										<label>₹{{$tour->presentPrice($tour->adult_price)}} / Adults</label>
+										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->presentPrice($tour->adult_price))}} / {{dynamicLang('Adults')}}</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="1">
 									</div>
 								</li>
 								<li>
 									<div class="qtyButtons">
-										<label>₹{{$tour->presentPrice($tour->child_price)}} / Childrens</label>
+										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->presentPrice($tour->child_price))}} / {{dynamicLang('Childrens')}}</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								<li>
 									<div class="qtyButtons">
-										<label>₹{{$tour->presentPrice($tour->infant_price)}} / Infant</label>
+										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->presentPrice($tour->infant_price))}} / {{dynamicLang('Infant')}}</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								</li>
@@ -389,13 +392,13 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							Total <span class="float-end">₹69.00</span>
 						</div> -->
 
-						<button type="submit" class="btn_1 full-width purchase">Purchase</button>
+						<button type="submit" class="btn_1 full-width purchase">{{dynamicLang('Purchase')}}</button>
 
 						<a type="button" href="{{route('wishlist.add', $tour->id)}}" class="btn_1 full-width outline wishlist">
-							<i class="icon_heart"></i> Add to wishlist
+							<i class="icon_heart"></i> {{dynamicLang('Add to wishlist')}}
 						</a>
 						@include('layouts.backend.partials.alert')
-						<div class="text-center"><small>No money charged in this step</small></div>
+						<div class="text-center"><small>{{dynamicLang('No money charged in this step')}}</small></div>
 					</form>
 					<!-- <ul class="share-buttons">
 						<li><a class="fb-share" href="#0"><i class="social_facebook"></i> Share</a></li>

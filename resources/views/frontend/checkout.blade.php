@@ -31,7 +31,7 @@ $secret_key = $razorpay['secret_key'];
 			<div class="container">
 				<div class="bs-wizard clearfix">
 					<div class="bs-wizard-step disabled">
-						<div class="text-center bs-wizard-stepnum">Your cart</div>
+						<div class="text-center bs-wizard-stepnum">{{dynamicLang('Your cart')}}</div>
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
@@ -39,7 +39,7 @@ $secret_key = $razorpay['secret_key'];
 					</div>
 
 					<div class="bs-wizard-step active">
-						<div class="text-center bs-wizard-stepnum">Payment</div>
+						<div class="text-center bs-wizard-stepnum">{{dynamicLang('Payment')}}</div>
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
@@ -47,7 +47,7 @@ $secret_key = $razorpay['secret_key'];
 					</div>
 
 					<div class="bs-wizard-step disabled">
-						<div class="text-center bs-wizard-stepnum">Finish!</div>
+						<div class="text-center bs-wizard-stepnum">{{dynamicLang('Finish')}}!</div>
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
@@ -76,22 +76,22 @@ $secret_key = $razorpay['secret_key'];
 												<div class="card-header-flex d-flex align-items-center">  
 													<h4 class="fs-md ft-bold mb-0 me-1"> 
 														<input type="radio" id="select-address-{{$index+1}}" class="float-left" name="radio_address" value="{{$address->id}}" @if($address->default == 1) checked @else @endif>
-														<label for="select-address-{{$index+1}}" class="radio-custom-label">Address-{{$index+1}}</label>
+														<label for="select-address-{{$index+1}}" class="radio-custom-label">{{dynamicLang('Address')}}-{{$index+1}}</label>
 													</h4>
 													@if($address->default == 1) 
-													<p class="m-0 p-0"><span class="text-success bg-success bg-opacity-25 small px-2 py-1 rounded">Default</span></p>
+													<p class="m-0 p-0"><span class="text-success bg-success bg-opacity-25 small px-2 py-1 rounded">{{dynamicLang('Default')}}</span></p>
 													@else
-													<p class="m-0 p-0"><a href="{{ route('customer.address.default', $address->id) }}" class="text-primary bg-primary bg-opacity-25 small px-2 py-1 rounded">Saved</a></p> 
+													<p class="m-0 p-0"><a href="{{ route('customer.address.default', $address->id) }}" class="text-primary bg-primary bg-opacity-25 small px-2 py-1 rounded">{{dynamicLang('Saved')}}</a></p> 
 													@endif 
 												</div>
 												<div class="card-head-last-flex"> 
 												</div>
 											</div>
 											<div class="card-wrap-body px-3 py-3"> 
-												<p class="m-0"><strong>Name:</strong> {{$address->name}}</p>
-												<p class="m-0"><strong>Address:</strong> {{$address->address}}, {{$address->city}}, {{$address->country}} -- {{$address->pincode}}</p>
-												<p class="m-0"><strong>Email:</strong> {{$address->email}}</p>
-												<p class="m-0"><strong>Call:</strong> {{$address->mobile}}</p>
+												<p class="m-0"><strong>{{dynamicLang('Name')}}:</strong> {{$address->name}}</p>
+												<p class="m-0"><strong>{{dynamicLang('Address')}}:</strong> {{$address->address}}, {{$address->city}}, {{$address->country}} -- {{$address->pincode}}</p>
+												<p class="m-0"><strong>{{dynamicLang('Email')}}:</strong> {{$address->email}}</p>
+												<p class="m-0"><strong>{{dynamicLang('Call')}}:</strong> {{$address->mobile}}</p>
 											</div>
 										</div>
 									</div> 
@@ -112,56 +112,56 @@ $secret_key = $razorpay['secret_key'];
 							</div>
 						@else
 						<div class="message">
-							<p>Exisitng Customer? <a href="{{route('login')}}">Click here to login</a></p>
+							<p>{{dynamicLang('Exisitng Customer')}}? <a href="{{route('login')}}">{{dynamicLang('Click here to login')}}</a></p>
 						</div>
 						@endif
 
 						@Guest
 						<div class="form_title">
-							<h3>Add New Address Details</h3>
+							<h3>{{dynamicLang('Add New Address Details')}}</h3>
 						</div>
 						<div class="step">
 							<div class="row">
 								<div class="col-sm-12">
 									<div class="form-group">
-										<label>Full name</label>
+										<label>{{dynamicLang('Full name')}}</label>
 										<input type="text" class="form-control" name="name" value="" />
 									</div>
 								</div>  
 								<div class="col-sm-6">
 									<div class="form-group">
-										<label>Email</label>
+										<label>{{dynamicLang('Email')}}</label>
 										<input type="email" class="form-control" name="email" value="" />
 									</div>
 								</div>
 								<div class="col-sm-6">
 									<div class="form-group">
-										<label>Telephone</label>
+										<label>{{dynamicLang('Telephone')}}</label>
 										<input type="text" class="form-control" name="mobile" value="" />
 									</div>
 								</div>
 								
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label>Country</label>
+										<label>{{dynamicLang('Country')}}</label>
 										<input type="text" name="country" class="form-control">
 									</div>
 								</div>
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label>City</label>
+										<label>{{dynamicLang('City')}}</label>
 										<input type="text" name="city" class="form-control">
 									</div>
 								</div>
 								<div class="col-sm-4">
 									<div class="form-group">
-										<label>PinCode</label>
+										<label>{{dynamicLang('PinCode')}}</label>
 										<input type="text" name="pincode" class="form-control">
 									</div>
 								</div>
 								<div class="col-sm-12">
 									<div class="form-group">
-										<label>Building Address</label>
+										<label>{{dynamicLang('Building Address')}}</label>
 										<textarea class="form-control" name="address"></textarea> 
 									</div>
 								</div>  
@@ -169,7 +169,7 @@ $secret_key = $razorpay['secret_key'];
 						</div>
 						@else
 						<div>
-							<p class="m-0"><a class="text-success" href="{{route('customer.address.create')}}">Click here to add address</a></p>
+							<p class="m-0"><a class="text-success" href="{{route('customer.address.create')}}">{{dynamicLang('Click here to add address')}}</a></p>
 						</div>
 						@endGuest						
 					</div>
@@ -178,18 +178,17 @@ $secret_key = $razorpay['secret_key'];
 				<div class="col-lg-4">
 					<div class="box_detail">
 						<div id="total_cart">
-							Total <span class="float-end">₹{{$cartAmount}}.00</span>
+							{{dynamicLang('Total')}} <span class="float-end">{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($cartAmount)}}</span>
 							<input type="hidden" name="tax" value="40">
 						</div>
-						<!-- <button type="submit" class="btn_1 full-width purchase">Payment</button> -->
-						<div class="text-center"><small>No money charged in this step</small></div>
+						<div class="text-center"><small>{{dynamicLang('No money charged in this step')}}</small></div>
 					</div>
 				</div>
 
 				<script src="https://checkout.razorpay.com/v1/checkout.js"
                         data-key="{{ $key }}"
                         data-amount="{{$cartAmount*100}}"
-                        data-buttontext="Make Payment"
+                        data-buttontext="{{dynamicLang('Make Payment')}}"
                         data-name="GetBeds"
                         data-description="Rozerpay"
                         data-image="http://getbeds.starklikes.com/images/logo.png"

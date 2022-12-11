@@ -4,13 +4,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-5 col-md-12 pe-5">
-                        <h5>Contact with Us</h5>
+                        <h5>{{dynamicLang('Contact with Us')}}</h5>
                         <ul class="contacts">
                             <li><a href="tel://919999585812"><i class="ti-mobile"></i> + 61 23 8093 3400</a></li>
                             <li><a href="mailto:info@getbeds.in"><i class="ti-email"></i> info@getbeds.in</a></li>
                         </ul>
                         <div id="newsletter">
-                            <h6>Newsletter</h6>
+                            <h6>{{dynamicLang('Newsletter')}}</h6>
                             <div id="message-newsletter"></div>
                             <form method="post" action="{{route('newsletter.store')}}" name="newsletter_form" id="newsletter_form">
                                 @csrf
@@ -21,13 +21,13 @@
                                             <strong>{{ $message }}</strong>
                                         </div>
                                     @enderror
-                                    <input type="submit" value="Submit" id="submit-newsletter">
+                                    <input type="submit" value="{{dynamicLang('Submit')}}" id="submit-newsletter">
                                 </div>
                             </form>
                         </div>
                         <div class="follow_us">
                             <ul>
-                                <li>Follow us</li>
+                                <li>{{dynamicLang('Follow us')}}</li>
                                 <li><a href="#0"><i class="ti-facebook"></i></a></li>
                                 <li><a href="#0"><i class="ti-instagram"></i></a></li>
                                 <li><a href="#0"><i class="ti-twitter-alt"></i></a></li>
@@ -36,17 +36,17 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 ms-lg-auto">
-                        <h5>Useful links</h5>
+                        <h5>{{dynamicLang('Useful links')}}</h5>
                         <ul class="links">
-                            <li><a href="#0">About</a></li> 
-                            <li><a href="#0">Contacts</a></li>
-                            <li><a href="#0">Register</a></li> 
-                            <li><a href="#0">Privacy Policy</a></li> 
-                            <li><a href="#0">Terms of Use</a></li> 
+                            <li><a href="#0">{{dynamicLang('About')}}</a></li> 
+                            <li><a href="#0">{{dynamicLang('Contacts')}}</a></li>
+                            <li><a href="#0">{{dynamicLang('Register')}}</a></li> 
+                            <li><a href="#0">{{dynamicLang('Privacy Policy')}}</a></li> 
+                            <li><a href="#0">{{dynamicLang('Terms of Use')}}</a></li> 
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6"> 
-                        <h5>Ways You Can Pay</h5>
+                        <h5>{{dynamicLang('Ways You Can Pay')}}</h5>
                         <p><img src="{{asset('images/payments.png')}}" alt="Footer Logo" /></p>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 <div class="row justify-content-center"> 
                     <div class="col-lg-6">
                         <div class="copy-right text-center">
-                            <p class="m-0">Copyright © 2022 | <a href="{{URL('/')}}">GetBeds</a> | All Rights Reserved.</p>
+                            <p class="m-0">{{dynamicLang('Copyright © 2022')}} | <a href="{{URL('/')}}">GetBeds</a> | {{dynamicLang('All Rights Reserved.')}}</p>
                         </div>
                     </div>
                 </div>

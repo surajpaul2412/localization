@@ -15,7 +15,7 @@
         <div class="wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span> Profile Info</h1></div>
+                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span> {{dynamicLang('Profile Info')}}</h1></div>
                 </div>
                 <!-- End bs-wizard -->
             </div>
@@ -36,7 +36,7 @@
                             @method('PATCH')
                             @csrf
                             <div class="card-header">
-                                <h4 class="mb-0">Profile Information</h4> 
+                                <h4 class="mb-0">{{dynamicLang('Profile Information')}}</h4> 
                             </div>
                             <div class="card-body">
                                 <div class="row mb-4">
@@ -50,7 +50,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label class="col-form-label">Full Name:</label>
+                                                    <label class="col-form-label">{{dynamicLang('Full Name')}}:</label>
                                                     <input type="text" id="name" class="form-control form-control-sm @error('email') is-invalid @enderror" Placeholder="Enter Name." required value="{{ $user->name }}" name="name" />
                                                     @error('name')
                                                         <div class="text-danger">
@@ -61,7 +61,7 @@
                                             </div> 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="col-form-label">Email Id:</label>
+                                                    <label class="col-form-label">{{dynamicLang('Email Id')}}:</label>
                                                     <input type="email" class="form-control form-control-sm" Placeholder="Enter Email." required name="email" value="{{ $user->email }}" />
                                                     @error('email')
                                                         <span class="text-danger">
@@ -72,7 +72,7 @@
                                             </div> 
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label class="col-form-label">Contact Number:</label>
+                                                    <label class="col-form-label">{{dynamicLang('Contact Number')}}:</label>
                                                     <input type="text" class="form-control form-control-sm" Placeholder="Enter Mobile Number." name="mobile" value="{{$user->mobile}}" />
                                                     @error('mobile')
                                                         <span class="text-danger">
@@ -89,7 +89,7 @@
                                 <div class="row"> 
                                     <div class="col-sm-12 text-end">  
                                         <!-- <a href="users.php" class="btn btn-secondary">Back To List</a>   -->
-                                        <button type="submit" class="btn btn-success btn-sm">Save Change</button>  
+                                        <button type="submit" class="btn btn-success btn-sm">{{dynamicLang('Save Change')}}</button>  
                                     </div>
                                 </div>
                             </div> 

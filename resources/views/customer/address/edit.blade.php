@@ -14,7 +14,7 @@
         <div class="wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span> Edit address </h1></div>
+                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span> {{dynamicLang('Edit address')}} </h1></div>
                 </div>
                 <!-- End bs-wizard -->
             </div>
@@ -37,8 +37,8 @@
                         <div class="card border"> 
                             <div class="card-header">
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="mb-0">Edit Address</h4>
-                                    <a class="btn btn-success btn-sm" href="{{route('customer.address')}}">Back to Address List</a>
+                                    <h4 class="mb-0">{{dynamicLang('Edit Address')}}</h4>
+                                    <a class="btn btn-success btn-sm" href="{{route('customer.address')}}">{{dynamicLang('Back to Address List')}}</a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -47,7 +47,7 @@
                                 <div class="row">   
                                     <div class="col-sm-12">
                                         <div class="form-group mb-3">
-                                            <label class="text-dark ft-medium">Full Name *</label>
+                                            <label class="text-dark ft-medium">{{dynamicLang('Full Name')}} *</label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="First Name..." value="{{$address->name}}" required>
                                             @error('name')
                                                 <div class="text-danger">
@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="text-dark ft-medium">Email ID *</label>
+                                            <label class="text-dark ft-medium">{{dynamicLang('Email ID')}} *</label>
                                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email..." value="{{$address->email}}" required>
                                             @error('email')
                                                 <div class="text-danger">
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
-                                            <label class="text-dark ft-medium">Mobile Number *</label>
+                                            <label class="text-dark ft-medium">{{dynamicLang('Mobile Number')}} *</label>
                                             <input type="text" class="form-control @error('mobile') is-invalid @enderror" name="mobile" placeholder="Mobile number..." value="{{ $address->mobile }}" required>
                                             @error('mobile')
                                                 <div class="text-danger">
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group fill">  
-                                            <label class="control-label">Country<span>*</span></label>
+                                            <label class="control-label">{{dynamicLang('Country')}}<span>*</span></label>
                                             <input type="text" class="form-control form-control-sm @error('country') is-invalid @enderror" placeholder="Enter country..." name="country" value="{{ $address->country }}" required/>
                                             @error('country')
                                                 <div class="text-danger">
@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group fill">  
-                                            <label class="control-label">City<span>*</span></label>
+                                            <label class="control-label">{{dynamicLang('City')}}<span>*</span></label>
                                             <input type="text" class="form-control form-control-sm @error('city') is-invalid @enderror" placeholder="Enter city..." name="city" value="{{ $address->city }}" required/>
                                             @error('city')
                                                 <div class="text-danger">
@@ -102,7 +102,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group fill">  
-                                            <label class="control-label">Pincode<span>*</span></label>
+                                            <label class="control-label">{{dynamicLang('Pincode')}}<span>*</span></label>
                                             <input type="text" class="form-control form-control-sm @error('pincode') is-invalid @enderror" placeholder="Enter pincode..." name="pincode" value="{{ $address->pincode }}" required/>
                                             @error('pincode')
                                                 <div class="text-danger">
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="form-group fill">  
-                                            <label class="control-label">Address<span>*</span></label>
+                                            <label class="control-label">{{dynamicLang('Address')}}<span>*</span></label>
                                             <textarea class="form-control form-control-sm @error('address') is-invalid @enderror" name="address" required>{{$address->address}}</textarea>
                                             @error('address')
                                                 <div class="text-danger">
@@ -125,15 +125,15 @@
                                         <div class="">
                                             <div class="form-group mb-3 form-check">
                                                 <input type="checkbox" name="default" class="form-check-input" id="exampleCheck1" @if($address->default == 1) checked @endif>
-                                                <label class="form-check-label" for="exampleCheck1">Mark as Default</label>
+                                                <label class="form-check-label" for="exampleCheck1">{{dynamicLang('Mark as Default')}}</label>
                                             </div>
                                         </div>
                                 </div>  
                                     
                             </div>
                             <div class="card-footer text-end">
-                                <button type="" class="btn btn-danger">Cancel</button>
-                                <button type="submit" class="btn btn-success m-0">Submit</button>
+                                <button type="" class="btn btn-danger">{{dynamicLang('Cancel')}}</button>
+                                <button type="submit" class="btn btn-success m-0">{{dynamicLang('Submit')}}</button>
                             </div>
                         </div> 
                     </form> 

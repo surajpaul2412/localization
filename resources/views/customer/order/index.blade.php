@@ -12,7 +12,7 @@
         <div class="wrapper">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span>	My Bookings</h1></div>
+                    <div class="col-lg-12"><h1 class="my-4 animated"> <span></span>	{{dynamicLang('My Bookings')}}</h1></div>
                 </div>
                 <!-- End bs-wizard -->
             </div>
@@ -32,7 +32,7 @@
 
                     <div class="card border">
                         <div class="card-header">
-                            <h4 class="mb-0">My Bookings</h4>
+                            <h4 class="mb-0">{{dynamicLang('My Bookings')}}</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -50,7 +50,7 @@
                                                             <img src="{{asset('images/tour.png')}}" class="img-fluid rounded-circle shadow" width="40px">
                                                             <div class="media-body ms-2">
                                                                 <h6 class="mb-0 ft-medium">#{{$order->order_no}}</h6>
-                                                                <p class="m-0 fs-sm ft-normal">Total Amount - <b>₹</b>{{$order->price}}.00</p>
+                                                                <p class="m-0 fs-sm ft-normal">{{dynamicLang('Total Amount')}} - <b>₹</b>{{$order->price}}.00</p>
                                                             </div>
                                                         </div> 
                                                         <div class="delv_status"><span class="ft-medium small text-warning bg-light-warning rounded px-2 py-1 border">{{$order->order_status}}</span></div>
@@ -58,29 +58,29 @@
                                                 </div>
                                                 <div class="card-body"> 
                                                     <ul class="booking_list">
-                                                        <li><strong>Tours Date:</strong> {{$order->date}}</li> 
-                                                        <li><strong>Tour Details:</strong> <a href="{{route('tour.show',$order->package->slug)}}">{{$order->package->name}}</a></li>
+                                                        <li><strong>{{dynamicLang('Tours Date')}}:</strong> {{$order->date}}</li> 
+                                                        <li><strong>{{dynamicLang('Tour Details')}}:</strong> <a href="{{route('tour.show',$order->package->slug)}}">{{$order->package->name}}</a></li>
                                                         <li><strong>{{$order->address->country}} </strong>,{{$order->address->city}} - {{$order->address->pincode}}</li>
-                                                        <li><strong>Address:</strong> {{$order->address->address}}</li>
+                                                        <li><strong>{{dynamicLang('Address')}}:</strong> {{$order->address->address}}</li>
                                                         <li>
-                                                            <strong>Payment:</strong>
+                                                            <strong>{{dynamicLang('Payment')}}:</strong>
                                                             Online 
                                                             @if($order->razorpay_payment_id != null)
-                                                            <span class="text-success">(Paid)</span>
+                                                            <span class="text-success">({{dynamicLang('Paid')}})</span>
                                                             @else
-                                                            <span class="text-danger">(Failed)</span>
+                                                            <span class="text-danger">({{dynamicLang('Failed')}})</span>
                                                             @endif
                                                         </li>
                                                     </ul>
                                                 </div>
                                                 <div class="card-footer d-flex justify-content-between"> 
                                                     <div class="cf-left">
-                                                        <p class="m-0"><strong>Booking Date:</strong> {{$order->created_at->format('d M Y')}}</p>
+                                                        <p class="m-0"><strong>{{dynamicLang('Booking Date')}}:</strong> {{$order->created_at->format('d M Y')}}</p>
                                                     </div>
                                                     <div class="more-links text-end"> 
                                                         <!-- <a href="{{route('customer.booking')}}"><small>View Booking</small></a> | --> 
                                                         @if($order->order_status == "In Progress")
-                                                        <a href="{{route('customer.booking.cancel',$order->id)}}"><small>Cancel Order</small></a>
+                                                        <a href="{{route('customer.booking.cancel',$order->id)}}"><small>{{dynamicLang('Cancel Order')}}</small></a>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -92,7 +92,7 @@
                             </div>
                             @endforeach
                             @else
-                            <div>No Bookings yet.</div>
+                            <div>{{dynamicLang('No Bookings yet')}}.</div>
                             @endif
                         </div>
                         </div>

@@ -10,7 +10,7 @@
 			<div class="container">
 				<div class="bs-wizard clearfix">
 					<div class="bs-wizard-step active">
-						<div class="text-center bs-wizard-stepnum">Your cart</div>
+						<div class="text-center bs-wizard-stepnum">{{dynamicLang('Your cart')}}</div>
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
@@ -18,7 +18,7 @@
 					</div>
 
 					<div class="bs-wizard-step disabled">
-						<div class="text-center bs-wizard-stepnum">Payment</div>
+						<div class="text-center bs-wizard-stepnum">{{dynamicLang('Payment')}}</div>
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
@@ -26,7 +26,7 @@
 					</div>
 
 					<div class="bs-wizard-step disabled">
-						<div class="text-center bs-wizard-stepnum">Finish!</div>
+						<div class="text-center bs-wizard-stepnum">{{dynamicLang('Finish')}}!</div>
 						<div class="progress">
 							<div class="progress-bar"></div>
 						</div>
@@ -55,7 +55,7 @@
 									</div>
 									<div class="col-lg-7">
 										<div class="wrapper"> 
-											<h3><a href="{{route('tour.show',$item->package->slug)}}">{{$item->package->name}}</a></h3>
+											<h3><a href="{{route('tour.show',$item->package->slug)}}">{{dynamicLang($item->package->name)}}</a></h3>
 											@if($item->package->rating > 0)
 				                            <div class="d-flex align-items-center">
 				                                <div class="rating">
@@ -66,15 +66,15 @@
 				                                <a href="#">({{$item->package->reviews->count()}})</a>
 				                            </div> 
 				                            @endif
-											<div class="price">Date selected: <strong>{{$item->date??'Not Selected'}}</strong></div><br/>
-											<div class="price">Adult: <strong>₹ {{$item->package->adult_price}} x {{$item->qty_adult??'Not Selected'}}</strong></div><br/>
-											<div class="price">Child: <strong>₹ {{$item->package->child_price}} x {{$item->qty_child??'Not Selected'}}</strong></div><br/>
-											<div class="price">Infant: <strong>₹ {{$item->package->infant_price}} x {{$item->qty_infant??'Not Selected'}}</strong></div>
+											<div class="price">{{dynamicLang('Date selected')}}: <strong>{{$item->date??'Not Selected'}}</strong></div><br/>
+											<div class="price">{{dynamicLang('Adult')}}: <strong>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($item->package->adult_price)}} x {{$item->qty_adult??'Not Selected'}}</strong></div><br/>
+											<div class="price">{{dynamicLang('Child')}}: <strong>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($item->package->child_price)}} x {{$item->qty_child??'Not Selected'}}</strong></div><br/>
+											<div class="price">{{dynamicLang('Infant')}}: <strong>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($item->package->infant_price)}} x {{$item->qty_infant??'Not Selected'}}</strong></div>
 										</div>
 										<ul>
-											<li><a class="text-info" href="{{route('cart.edit',$item->id)}}">Edit cart item</a></li>
-											<li><a class="text-danger" href="{{route('cart.remove',$item->id)}}">Remove</a></li>
-											<li><a href="{{route('cart.moveToWishlist',$item->id)}}">Move to Wishlist</a></li>
+											<li><a class="text-info" href="{{route('cart.edit',$item->id)}}">{{dynamicLang('Edit cart item')}}</a></li>
+											<li><a class="text-danger" href="{{route('cart.remove',$item->id)}}">{{dynamicLang('Remove')}}</a></li>
+											<li><a href="{{route('cart.moveToWishlist',$item->id)}}">{{dynamicLang('Move to Wishlist')}}</a></li>
 										</ul>
 									</div>
 								</div>
@@ -82,7 +82,7 @@
 						</div>
 						@endforeach
 					@else
-					<div>No items in your cart.</div>
+					<div>{{dynamicLang('No items in your cart')}}.</div>
 					@endif
 				</div>
 				<!-- /col --> 
@@ -90,18 +90,18 @@
 				<aside class="col-lg-4">
 					<form method="GET" action="{{route('checkout')}}" class="box_detail">
 						<div id="total_cart">
-							Total <span class="float-end">₹ {{$cartAmount}}.00</span>
+							{{dynamicLang('Total')}} <span class="float-end">{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($cartAmount)}}</span>
 						</div>
 						<ul class="cart_details"> 
-							<li>Total Packages <span>x {{$cartItems->count()}}</span></li>
+							<li>{{dynamicLang('Total Packages')}} <span>x {{$cartItems->count()}}</span></li>
 						</ul>
 						<button type="submit" class="btn w-100 btn-success" 
 							@foreach($cartItems as $cart)
 								@if($cart->date == null) disabled @endif
 							@endforeach
 						>
-						Checkout</button>
-						<div class="text-center"><small>No money charged in this step</small></div>
+						{{dynamicLang('Checkout')}}</button>
+						<div class="text-center"><small>{{dynamicLang('No money charged in this step')}}</small></div>
 					</form>
 				</aside>
 			</div>

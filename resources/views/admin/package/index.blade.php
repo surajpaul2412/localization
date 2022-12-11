@@ -32,8 +32,6 @@
         </div>
         <!-- [ breadcrumb ] end -->
 
-        <!-- @include('layouts.backend.partials.alert') -->
-
         <!-- [ Main Content ] start --> 
         <div class="row"> 
             <div class="col-md-12">

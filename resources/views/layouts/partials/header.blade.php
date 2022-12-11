@@ -22,10 +22,10 @@
                         <li>
                             <a href="{{route('login')}}" class="login" title="Sign In">
                                 <span class="icon me-lg-1"><i class="icon_lock_alt"></i></span>
-                                <span class="text d-none d-lg-block">Sign In</span>  
+                                <span class="text d-none d-lg-block">{{dynamicLang('Sign In')}}</span>  
                             </a>
                         </li> 
-                        <li class="d-none d-lg-block"><a href="{{route('register')}}" class="btn_1 btn-sm">Sign Up</a></li>
+                        <li class="d-none d-lg-block"><a href="{{route('register')}}" class="btn_1 btn-sm">{{dynamicLang('Sign Up')}}</a></li>
                         @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -35,17 +35,17 @@
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 @if(Auth::user()->role->name == 'Admin')
                                 <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                    {{ __('Dashboard') }}
+                                    {{ dynamicLang('Dashboard') }}
                                 </a>
                                 @else
                                 <a class="dropdown-item" href="{{ route('customer.order') }}">
-                                    {{ __('Dashboard') }}
+                                    {{ dynamicLang('Dashboard') }}
                                 </a>
                                 @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ dynamicLang('Logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -54,14 +54,35 @@
                             </div>
                         </li>
                         @endif
-                        <li class="d-none d-lg-block">
-                            <select class="form-currency form-control">
-                                <option value="inr" selected>₹ INR</option>
-                                <option value="usd">$ USD</option>
-                                <option value="euro">€ EURO</option>
-                                <option value="RUB">₽ RUB</option>
-                            </select>
-                        </li> 
+                        <!-- lang -->
+                        <li class="d-none d-lg-block nav-item dropdown">
+                            <a class="form-currency form-control nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <span class="flag-icon flag-icon-{{Config::get('languages')[App::getLocale()]['flag-icon']}}"></span> {{ Config::get('languages')[App::getLocale()]['display'] }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            @foreach (Config::get('languages') as $lang => $language)
+                                @if ($lang != App::getLocale())
+                                        <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"><span class="flag-icon flag-icon-{{$language['flag-icon']}}"></span> {{$language['display']}}</a>
+                                @endif
+                            @endforeach
+                            </div>
+                        </li>
+
+                        <!-- currency -->
+                        <li class="d-none d-lg-block nav-item dropdown">
+                            <a class="form-currency form-control nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Session::get('currency')?? 'INR' }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            @foreach (currencies() as $curr)
+                                <a class="dropdown-item" href="{{ route('curr.switch', $curr->id) }}">
+                                    {{$curr->currency_symbol}} {{$curr->currency_code}}
+                                </a>
+                            @endforeach
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

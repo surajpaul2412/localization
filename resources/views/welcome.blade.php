@@ -149,14 +149,12 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                                 <a href="#">({{$tour->reviews->count()}})</a>
                             </div> 
                             @endif
-                        </div> 
+                        </div>
                         <ul class="d-flex justify-content-between align-items-center"> 
-                            <!-- <li><i class="icon_clock_alt"></i> 18:30 - 21:30</li> --> 
                             <li>
-                                <span><b>{{dynamicLang('Price')}}: </b><small>
-                                    <!-- <del><b>₹314.31</b></del> -->
-                                </small> 
-                                {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->adult_price)}}</b><small>/{{dynamicLang('person')}}</small></span>
+                                <span><b>{{dynamicLang('Price')}}: </b>
+                                {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->adult_price)}}<small>/{{dynamicLang('person')}}</small>
+                                </span>
                             </li> 
                         </ul>
                     </div>

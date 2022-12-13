@@ -52,6 +52,7 @@ Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 
 Route::get('search/category/{id}', [App\Http\Controllers\FrontendController::class, 'searchCategory'])->name('search.category');
 Route::get('search/activity/{id}', [App\Http\Controllers\FrontendController::class, 'searchActivity'])->name('search.activity');
 Route::post('search', [App\Http\Controllers\FrontendController::class, 'search'])->name('search');
+Route::post('search/filter', [App\Http\Controllers\FrontendController::class, 'searchFilter'])->name('searchFilter');
 Route::post('reviewSubmit', [App\Http\Controllers\FrontendController::class, 'reviewSubmit'])->name('reviewSubmit');
 
 // Admin Login

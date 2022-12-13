@@ -19,7 +19,12 @@ use Session;
 class FrontendController extends Controller
 {
     public function tour() {
-        return view('frontend.tour');
+        $packages = json_encode(Package::whereStatus(1)->get()->toArray());
+        return view('frontend.tour', compact('packages'));
+    }
+
+    public function searchFilter(Request $request){
+        dd($request->all());
     }
 
     public function tourShow($slug) {

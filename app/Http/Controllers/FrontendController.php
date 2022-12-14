@@ -19,11 +19,39 @@ use Session;
 class FrontendController extends Controller
 {
     public function tour() {
-        $packages = json_encode(Package::whereStatus(1)->get()->toArray());
-        return view('frontend.tour', compact('packages'));
+        $tours = Package::whereStatus(1)->get();
+        return view('frontend.tour', compact('tours'));
     }
 
     public function searchFilter(Request $request){
+        $tours = [];
+        // dd($request->all());
+        if ($request->city) {
+            $cityToursArray = [];
+            foreach ($request->city as $key => $value) {
+                $cityToursArray[] = Package::whereStatus(1)->where('city_id',$value)->get()->toArray();
+            }
+            $cityTours = $cityToursArray;
+            dd($cityTours);
+        }
+
+        dd($tours);
+
+        if ($request->range) {
+            // code...
+        }
+
+        if ($request->category) {
+            // code...
+        }
+
+        if ($request->activity) {
+            // code...
+        }
+
+        if ($request->amenity) {
+            // code...
+        }
         dd($request->all());
     }
 

@@ -4,14 +4,12 @@
 @endsection
 
 @php
-use App\Models\Package;
 use App\Models\City;
 use App\Models\Activity;
 use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Country;
 
-$tours = Package::whereStatus(1)->get();
 $cities = City::all();
 $activities = Activity::whereStatus(1)->get();
 $amenities = Amenity::whereStatus(1)->get();
@@ -31,7 +29,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 						<div class="col-lg-8">
 							<div class="autocomplete">
 								<form action="{{route('search')}}" method="POST" class="row g-0 custom-search-input-2">
-	                            	@csrf
+	                @csrf
 									<div class="col-lg-10">
 										<div class="form-group">
 											<input id="myInput" class="form-control" type="text" name="search" placeholder="{{dynamicLang('Where are you going?')}}" required />
@@ -69,7 +67,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 										@foreach($cities as $index => $city)
 										<li>
 											<label class="container_check">{{dynamicLang($city->name)}} <large>, {{dynamicLang($city->country->name)}}</large>
-												<input type="checkbox" name="{{$city->name}}" >
+												<input type="checkbox" name="city[]" value="{{$city->id}}">
 												<span class="checkmark"></span>
 											</label>
 										</li>
@@ -88,7 +86,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 										@foreach($categories as $index => $category)
 										<li>
 											<label class="container_check">{{dynamicLang($category->name)}}
-												<input type="checkbox" name="{{$category->name}}">
+												<input type="checkbox" name="category[{{$category->name}}]">
 												<span class="checkmark"></span>
 											</label>
 										</li>
@@ -102,7 +100,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 										@foreach($activities as $index => $activity)
 										<li>
 											<label class="container_check">{{dynamicLang($activity->name)}}
-												<input type="checkbox" name="{{$activity->name}}">
+												<input type="checkbox" name="activity[{{$activity->name}}]">
 												<span class="checkmark"></span>
 											</label>
 										</li>
@@ -116,7 +114,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 										@foreach($amenities as $index => $amenity)
 										<li>
 											<label class="container_check">{{dynamicLang($amenity->name)}}
-												<input type="checkbox" name="{{$amenity->name}}">
+												<input type="checkbox" name="amenity[{{$amenity->name}}]">
 												<span class="checkmark"></span>
 											</label>
 										</li>

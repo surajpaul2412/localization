@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Package;
+use App\Models\PackageAmenity;
 use App\Models\User;
 use App\Models\City;
 use App\Models\Category;
@@ -19,40 +20,87 @@ use Session;
 class FrontendController extends Controller
 {
     public function tour() {
-        $tours = Package::whereStatus(1)->get();
-        return view('frontend.tour', compact('tours'));
+        $packages = Package::whereStatus(1)->get();
+        return view('frontend.tour', compact('packages'));
     }
 
     public function searchFilter(Request $request){
-        $tours = [];
-        // dd($request->all());
+        $requests = $request->all();
+        $cityArray = $categoryArray = $activityArray = $amenityArray = [];
         if ($request->city) {
-            $cityToursArray = [];
-            foreach ($request->city as $key => $value) {
-                $cityToursArray[] = Package::whereStatus(1)->where('city_id',$value)->get()->toArray();
+            foreach ($request->city as $key => $cityId) {
+                $cityTemp = Package::whereStatus(1)->whereCityId($cityId)->pluck('id')->toArray();
+                if(!empty($cityTemp)) {
+                    foreach ($cityTemp as $index => $value) {
+                        $cityArray[] = $value;
+                    }
+                }
             }
-            $cityTours = $cityToursArray;
-            dd($cityTours);
+            $tours['city'] = $cityArray;
         }
 
-        dd($tours);
-
         if ($request->range) {
-            // code...
+            $range = explode(';',$request->range);
+            $rangeArray = Package::whereStatus(1)->whereBetween('adult_price',[$range[0],$range[1]])->pluck('id')->toArray();
+            $tours['range']=$rangeArray;
         }
 
         if ($request->category) {
-            // code...
+            foreach ($request->category as $key => $categoryId) {
+                $categoryTemp = Package::whereStatus(1)->whereCategoryId($categoryId)->pluck('id')->toArray();
+                if(!empty($categoryTemp)) {
+                    foreach ($categoryTemp as $index => $value) {
+                        $categoryArray[] = $value;
+                    }
+                }
+            }
+            $tours['category']=$categoryArray;
         }
 
         if ($request->activity) {
-            // code...
+            foreach ($request->activity as $key => $activityId) {
+                $activityTemp = Package::whereStatus(1)->whereActivityId($activityId)->pluck('id')->toArray();
+                if(!empty($activityTemp)) {
+                    foreach ($activityTemp as $index => $value) {
+                        $activityArray[] = $value;
+                    }
+                }
+            }
+            $tours['activity']=$activityArray;
         }
 
         if ($request->amenity) {
-            // code...
+            foreach ($request->amenity as $key => $amenityId) {
+                $amenityTemp = PackageAmenity::whereAmenityId($amenityId)->pluck('package_id')->toArray();
+                if(!empty($amenityTemp)) {
+                    foreach ($amenityTemp as $index => $value) {
+                        $amenityArray[] = $value;
+                    }
+                }
+            }
+            $tours['amenity']=$amenityArray;
         }
-        dd($request->all());
+
+        $try = [];
+        foreach ($tours as $key => $tour) {
+            if (!empty($tour)) {
+                $try[$key] = $tour;
+            }
+        }
+
+        $result = array_intersect($try['city']??$try['range'],
+                                $try['category']??$try['range'],
+                                $try['activity']??$try['range'],
+                                $try['amenity']??$try['range'],
+                                $try['range']);
+
+        if (!empty($result)) {
+            $packages = Package::findOrFail($result);
+        } else {
+            $packages = Package::whereStatus(2)->get();
+        }
+        // dd($requests);
+        return view('frontend.tour', compact('packages','requests'));
     }
 
     public function tourShow($slug) {

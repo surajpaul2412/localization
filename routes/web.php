@@ -51,7 +51,7 @@ Route::get('tours/{slug}', [App\Http\Controllers\FrontendController::class, 'tou
 Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 'searchCity'])->name('search.city');
 Route::get('search/category/{id}', [App\Http\Controllers\FrontendController::class, 'searchCategory'])->name('search.category');
 Route::get('search/activity/{id}', [App\Http\Controllers\FrontendController::class, 'searchActivity'])->name('search.activity');
-Route::post('search', [App\Http\Controllers\FrontendController::class, 'search'])->name('search');
+Route::any('search', [App\Http\Controllers\FrontendController::class, 'search'])->name('search');
 Route::post('tours/filter', [App\Http\Controllers\FrontendController::class, 'searchFilter'])->name('searchFilter');
 Route::post('reviewSubmit', [App\Http\Controllers\FrontendController::class, 'reviewSubmit'])->name('reviewSubmit');
 

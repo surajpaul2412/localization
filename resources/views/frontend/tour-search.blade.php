@@ -70,16 +70,26 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 
 					<aside class="col-lg-3" id="sidebar">
 						<div id="filters_col">
-							<a data-bs-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt">Filters </a>
-							<div class="collapse show" id="collapseFilters">
-
+							<a data-bs-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt">{{dynamicLang('Filters')}} </a>
+							<form action="{{route('searchFilter')}}" method="POST" class="collapse show" id="collapseFilters">
+								@csrf
 								<div class="filter_type">
 									<h6>{{dynamicLang('Destinations')}}</h6>
 									<ul>
-										@foreach($cities as $city)
+										@foreach($cities as $index => $city)
 										<li>
 											<label class="container_check">{{dynamicLang($city->name)}} <large>, {{dynamicLang($city->country->name)}}</large>
-												<input type="checkbox">
+												<input type="checkbox" 
+															name="city[]" 
+															value="{{$city->id}}"
+															@if(isset($requests['city']))
+																@foreach($requests['city'] as $cityArray)
+																	@if($cityArray == $city->id)
+																		checked
+																	@endif
+																@endforeach
+															@endif
+												>
 												<span class="checkmark"></span>
 											</label>
 										</li>
@@ -89,16 +99,26 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 
 								<div class="filter_type">
 									<h6>{{dynamicLang('Price')}}</h6>
-									<input type="text" id="range" name="range" value="">
+									<input type="text" id="range" name="range">
 								</div>
 
 								<div class="filter_type">
 									<h6>{{dynamicLang('Category')}}</h6>
 									<ul>
-										@foreach($categories as $category)
+										@foreach($categories as $index => $category)
 										<li>
 											<label class="container_check">{{dynamicLang($category->name)}}
-												<input type="checkbox">
+												<input type="checkbox" 
+															name="category[]" 
+															value="{{$category->id}}"
+															@if(isset($requests['category']))
+																@foreach($requests['category'] as $categoryArray)
+																	@if($categoryArray == $category->id)
+																		checked
+																	@endif
+																@endforeach
+															@endif
+												>
 												<span class="checkmark"></span>
 											</label>
 										</li>
@@ -109,10 +129,20 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 								<div class="filter_type">
 									<h6>{{dynamicLang('Activity')}}</h6>
 									<ul>
-										@foreach($activities as $activity)
+										@foreach($activities as $index => $activity)
 										<li>
 											<label class="container_check">{{dynamicLang($activity->name)}}
-												<input type="checkbox">
+												<input type="checkbox" 
+															name="activity[]" 
+															value="{{$activity->id}}"
+															@if(isset($requests['activity']))
+																@foreach($requests['activity'] as $activityArray)
+																	@if($activityArray == $activity->id)
+																		checked
+																	@endif
+																@endforeach
+															@endif
+												>
 												<span class="checkmark"></span>
 											</label>
 										</li>
@@ -123,10 +153,20 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 								<div class="filter_type">
 									<h6>{{dynamicLang('Amenity')}}</h6>
 									<ul>
-										@foreach($amenities as $amenity)
+										@foreach($amenities as $index => $amenity)
 										<li>
 											<label class="container_check">{{dynamicLang($amenity->name)}}
-												<input type="checkbox">
+												<input type="checkbox" 
+															name="amenity[]" 
+															value="{{$amenity->id}}"
+															@if(isset($requests['amenity']))
+																@foreach($requests['amenity'] as $amenityArray)
+																	@if($amenityArray == $amenity->id)
+																		checked
+																	@endif
+																@endforeach
+															@endif
+												>
 												<span class="checkmark"></span>
 											</label>
 										</li>
@@ -134,7 +174,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 									</ul>
 								</div>
 
-								<div class="filter_type">
+								<!-- <div class="filter_type">
 									<h6>{{dynamicLang('Rating')}}</h6>
 									<ul>
 										<li>
@@ -162,8 +202,9 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 											</label>
 										</li>
 									</ul>
-								</div>
-							</div>
+								</div> -->
+								<button class="btn btn-primary w-100 mt-3" type="submit">Filter</button>
+							</form>
 							<!--/collapse -->
 						</div> 
 					</aside>
@@ -176,43 +217,45 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 									<strong>{{dynamicLang('Search Term')}} :</strong> <small class="text-black">{{$search}}</small>
 								</div>
 								<div class="col-12 pb-3">
-									<strong>{{$tours->count()}} {{dynamicLang('tour found')}}.</strong>
+									<strong>{{$packages->count()}} {{dynamicLang('tour found')}}.</strong>
 								</div>
 							</div>
 							<div class="row row-cols-1 row-cols-lg-3">
-								@if($tours->count())
-								@foreach($tours as $index => $tour)
-								<div class="col isotope-item">
-									<div class="box_grid">
-										<figure>
-											<a href="{{route('tour.show', $tour->slug)}}" class="wish_bt"></a>
-											<a href="{{route('tour.show', $tour->slug)}}">
-												<img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
-											</a> 
-										</figure>
-										<div class="wrapper">
-											<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang($tour->name)}}</a></h3> 
-											@if($tour->rating > 0)
-				                            <div class="d-flex align-items-center">
-				                                <div class="rating">
-				                                    @foreach(range(1, $tour->rating) as $index)
-				                                    <i class="fas fa-star"></i>
-				                                    @endforeach
-				                                </div> 
-				                                <a href="#">({{$tour->reviews->count()}})</a>
-				                            </div> 
-				                            @endif
-										</div> 
-										<ul class="d-flex justify-content-between align-items-center"> 
-                      <li>
-                          <span><b>{{dynamicLang('Price')}}: </b>
-                          {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->adult_price)}}<small>/{{dynamicLang('person')}}</small>
-                          </span>
-                      </li> 
-                  	</ul>
+								@if($packages->count())
+									@foreach($packages as $index => $tour)
+									<div class="col isotope-item">
+										<div class="box_grid">
+											<figure>
+												<a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+												<a href="{{route('tour.show', $tour->slug)}}">
+													<img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
+												</a> 
+											</figure>
+											<div class="wrapper">
+												<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang($tour->name)}}</a></h3> 
+												@if($tour->rating > 0)
+	                        <div class="d-flex align-items-center">
+	                            <div class="rating">
+	                                @foreach(range(1, $tour->rating) as $index)
+	                                <i class="fas fa-star"></i>
+	                                @endforeach
+	                            </div> 
+	                            <a href="#">({{$tour->reviews->count()}})</a>
+	                        </div> 
+                        @endif
+											</div> 
+											<ul class="d-flex justify-content-between align-items-center"> 
+												<li>
+													<span><b>{{dynamicLang('Price')}}: </b>
+					                  {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->adult_price)}}<small>/{{dynamicLang('person')}}</small>
+					                </span>
+												</li> 
+											</ul>
+										</div>
 									</div>
-								</div>
-								@endforeach
+									@endforeach
+								@else
+									<div class="col">No Items found according to filters.</div>
 								@endif
 							</div> 
 						</div> 
@@ -235,10 +278,10 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 	 $("#range").ionRangeSlider({
         hide_min_max: true,
         keyboard: true,
-        min: 30,
-        max: 180,
-        from: 60,
-        to: 130,
+        min: 10,
+        max: 2000,
+        from: 10,
+        to: 1000,
         type: 'double',
         step: 1,
         prefix: "Min. ",

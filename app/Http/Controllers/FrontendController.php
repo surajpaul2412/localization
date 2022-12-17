@@ -112,20 +112,27 @@ class FrontendController extends Controller
     }
 
     public function search(Request $request) {
-        $search = $request->search;
-        $tours = [];
-        if ($search) {
-            $tours = Package::whereStatus(1)
-                    ->where('name', 'like', '%' . request('search') . '%')
-                    ->orWhereHas('city', function($q) {
-                        $q->where('name', 'like', '%' . request('search') . '%')
-                            ->orWhereHas('country', function($q1) {
-                            $q1->where('name', 'like', '%' . request('search') . '%')
-                               ->whereStatus(1);
-                        });
-                    })->get();
+        try {
+            if ($request->method() == 'POST') {
+                $search = $request->search;
+                $packages = [];
+                if ($search) {
+                    $packages = Package::whereStatus(1)
+                            ->where('name', 'like', '%' . request('search') . '%')
+                            ->orWhereHas('city', function($q) {
+                                $q->where('name', 'like', '%' . request('search') . '%')
+                                    ->orWhereHas('country', function($q1) {
+                                    $q1->where('name', 'like', '%' . request('search') . '%')
+                                       ->whereStatus(1);
+                                });
+                            })->get();
+                }
+                return view('frontend.tour-search', compact('packages','search'));
+            }
+            return redirect('/tours');
+        } catch(\Exception $e){
+            return redirect('/tours');
         }
-        return view('frontend.tour-search', compact('tours','search'));
     }
 
     public function newsletter(Request $req) {

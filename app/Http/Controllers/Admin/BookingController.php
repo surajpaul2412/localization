@@ -86,6 +86,20 @@ class BookingController extends Controller
         $orderStatusdata['comment'] = $request->order_comment;
         $orderStatusdata['order_status'] = $request->order_status;
         $orderStatus->create($orderStatusdata);
+
+        if ($orderStatus){
+            $mailDetails['title'] = 'Order update from GetBeds';
+            if ($orderStatusdata['order_status'] == 'Confirmed'){
+                $mailDetails['body'] = 'Your order has been confirmed.';
+                \Mail::to($order->user->email)->send(new \App\Mail\ConfirmedMail($mailDetails));
+            } elseif($orderStatusdata['order_status'] == 'Completed'){
+                $mailDetails['body'] = 'Your order has been Completed.';
+                \Mail::to($order->user->email)->send(new \App\Mail\ConfirmedMail($mailDetails));
+            } elseif($orderStatusdata['order_status'] == 'Cancelled By Admin') {
+                $mailDetails['body'] = 'Your order has been Cancelled.';
+                \Mail::to($order->user->email)->send(new \App\Mail\ConfirmedMail($mailDetails));
+            }
+        }
         return redirect('admin/bookings')->with('success','Order status updated successfully.');
     }
 

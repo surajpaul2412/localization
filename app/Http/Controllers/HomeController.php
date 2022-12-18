@@ -57,7 +57,7 @@ class HomeController extends Controller
 
     public function wishlistRemove($id){
         $wishlist = Wishlist::findOrFail($id)->delete();
-        return redirect()->route('wishlist')->with('success','Removed from wishlist successfully.');
+        return redirect()->back()->with('success','Removed from wishlist successfully.');
     }
 
     public function wishlistMoveToCart($id){

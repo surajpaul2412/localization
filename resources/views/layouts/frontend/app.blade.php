@@ -12,7 +12,8 @@
 </head> 
 <body>
     @include('layouts.partials.header')
-    @include('layouts.frontend.partials.alert')    
+    {{-- @include('layouts.frontend.partials.alert') --}} 
+    @include('layouts.backend.partials.alert')
 
     @yield('content')
     

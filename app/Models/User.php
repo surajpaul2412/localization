@@ -57,6 +57,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\Review');
     }
 
+    public function wishlist(){
+        return $this->hasMany('App\Models\Wishlist');
+    }
+
     // public function wishlists()
     // {
     //     return $this->belongsToMany(Package::class, 'wishlists', 'user_id', 'package_id')->using(Wishlist::class);

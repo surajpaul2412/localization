@@ -139,12 +139,24 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							
 							<div id="you_might_also_like" class="owl-carousel owl-theme">
 								@foreach($mightAlsoLike as $element)
-								<div class="item"> 
+								<div class="item">
 									<div class="box_grid">
 										<figure>
-											<a href="tour-details.php" class="wish_bt"></a>
-											<a href="#0">
-												<img src="assets/images/destination/1.jpg" class="img-fluid" alt="" /> 
+											<a 
+												@if(Auth::user())
+													@foreach(Auth::user()->wishlist as $wishlist)
+														@if($wishlist->package_id == $tour->id)
+															href="{{route('wishlist.remove', $wishlist->id)}}" class="wish_bt liked"
+														@else
+															href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
+														@endif
+													@endforeach
+												@else
+													href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
+												@endif
+											></a>
+											<a href="{{route('tour.show', $tour->slug)}}">
+												<img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
 											</a> 
 										</figure>
 										<div class="wrapper">
@@ -162,9 +174,9 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 
 											<li>
-				                                <span><b>{{dynamicLang('Price')}}: </b><small>
-				                                </small> 
-				                                {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($element->adult_price)}}</b><small>/{{dynamicLang('person')}}</small></span>
+				                                <span>
+				                                	<b>{{dynamicLang('Price')}}: </b> <b>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($element->adult_price)}}</b><small>/{{dynamicLang('person')}}</small>
+				                                </span>
 				                            </li>
 										</ul>
 									</div>

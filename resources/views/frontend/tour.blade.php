@@ -21,6 +21,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 @endphp
 
 @section('content') 
+	@include('layouts.backend.partials.alert')
 	<main>   
 		<section class="hero_in tours" style="background: url({{asset('images/pattern_1.svg')}});" >
 			<div class="wrapper">
@@ -29,7 +30,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 						<div class="col-lg-8">
 							<div class="autocomplete">
 								<form action="{{route('search')}}" method="POST" class="row g-0 custom-search-input-2">
-	                @csrf
+	                				@csrf
 									<div class="col-lg-10">
 										<div class="form-group">
 											<input id="myInput" class="form-control" type="text" name="search" placeholder="{{dynamicLang('Where are you going?')}}" required />
@@ -59,7 +60,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 					<aside class="col-lg-3" id="sidebar">
 						<div id="filters_col">
 							<a data-bs-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt">{{dynamicLang('Filters')}} </a>
-							<form action="{{route('searchFilter')}}" method="POST" class="collapse show" id="collapseFilters">
+							<form action="{{route('searchFilter')}}" method="GET" class="collapse show" id="collapseFilters">
 								@csrf
 								<div class="filter_type">
 									<h6>{{dynamicLang('Destinations')}}</h6>
@@ -68,15 +69,15 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 										<li>
 											<label class="container_check">{{dynamicLang($city->name)}} <large>, {{dynamicLang($city->country->name)}}</large>
 												<input type="checkbox" 
-															name="city[]" 
-															value="{{$city->id}}"
-															@if(isset($requests['city']))
-																@foreach($requests['city'] as $cityArray)
-																	@if($cityArray == $city->id)
-																		checked
-																	@endif
-																@endforeach
+													name="city[]" 
+													value="{{$city->id}}"
+													@if(isset($requests['city']))
+														@foreach($requests['city'] as $cityArray)
+															@if($cityArray == $city->id)
+																checked
 															@endif
+														@endforeach
+													@endif
 												>
 												<span class="checkmark"></span>
 											</label>
@@ -206,7 +207,19 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 									<div class="col isotope-item">
 										<div class="box_grid">
 											<figure>
-												<a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+												<a 
+													@if(Auth::user())
+														@foreach(Auth::user()->wishlist as $wishlist)
+															@if($wishlist->package_id == $tour->id)
+																href="{{route('wishlist.remove', $wishlist->id)}}" class="wish_bt liked"
+															@else
+																href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
+															@endif
+														@endforeach
+													@else
+														href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
+													@endif
+												></a>
 												<a href="{{route('tour.show', $tour->slug)}}">
 													<img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
 												</a> 
@@ -214,21 +227,21 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 											<div class="wrapper">
 												<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang($tour->name)}}</a></h3> 
 												@if($tour->rating > 0)
-	                        <div class="d-flex align-items-center">
-	                            <div class="rating">
-	                                @foreach(range(1, $tour->rating) as $index)
-	                                <i class="fas fa-star"></i>
-	                                @endforeach
-	                            </div> 
-	                            <a href="#">({{$tour->reviews->count()}})</a>
-	                        </div> 
-                        @endif
+							                        <div class="d-flex align-items-center">
+							                            <div class="rating">
+							                                @foreach(range(1, $tour->rating) as $index)
+							                                <i class="fas fa-star"></i>
+							                                @endforeach
+							                            </div> 
+							                            <a href="#">({{$tour->reviews->count()}})</a>
+							                        </div> 
+						                        @endif
 											</div> 
 											<ul class="d-flex justify-content-between align-items-center"> 
 												<li>
-													<span><b>{{dynamicLang('Price')}}: </b>
-					                  {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->adult_price)}}<small>/{{dynamicLang('person')}}</small>
-					                </span>
+													<span>
+														<b>{{dynamicLang('Price')}}: </b> {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->adult_price)}}<small>/{{dynamicLang('person')}}</small>
+													</span>
 												</li> 
 											</ul>
 										</div>

@@ -135,9 +135,9 @@
         })
     }), 
     
-    i(".wish_bt").on("click", function (e) {
-        e.preventDefault(), i(this).toggleClass("liked")
-    }), 
+    // i(".wish_bt").on("click", function (e) {
+    //     e.preventDefault(), i(this).toggleClass("liked")
+    // }), 
     
     i(window).bind("load resize", function () {
         i(window).width();

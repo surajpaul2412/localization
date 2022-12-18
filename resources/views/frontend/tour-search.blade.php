@@ -71,7 +71,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 					<aside class="col-lg-3" id="sidebar">
 						<div id="filters_col">
 							<a data-bs-toggle="collapse" href="#collapseFilters" aria-expanded="false" aria-controls="collapseFilters" id="filters_col_bt">{{dynamicLang('Filters')}} </a>
-							<form action="{{route('searchFilter')}}" method="POST" class="collapse show" id="collapseFilters">
+							<form action="{{route('searchFilter')}}" method="GET" class="collapse show" id="collapseFilters">
 								@csrf
 								<div class="filter_type">
 									<h6>{{dynamicLang('Destinations')}}</h6>
@@ -226,7 +226,19 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 									<div class="col isotope-item">
 										<div class="box_grid">
 											<figure>
-												<a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+												<a 
+													@if(Auth::user())
+														@foreach(Auth::user()->wishlist as $wishlist)
+															@if($wishlist->package_id == $tour->id)
+																href="{{route('wishlist.remove', $wishlist->id)}}" class="wish_bt liked"
+															@else
+																href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
+															@endif
+														@endforeach
+													@else
+														href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
+													@endif
+												></a>
 												<a href="{{route('tour.show', $tour->slug)}}">
 													<img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
 												</a> 

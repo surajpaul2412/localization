@@ -19,8 +19,6 @@
 		</div>
 	</div>
 	<!--/hero_in-->
-
-	@include('layouts.backend.partials.alert')
 	
 	<section class="section dashboard-detail">
 		<div class="container-fluid">

@@ -426,23 +426,26 @@ header ul.top-right-area li select.form-currency.form-control, header ul.top-rig
 
 
 /* box item style-2 */ 
-#travel-products .item {
+.travel-products .item {
     padding: 10px 0;
 }
 .box-item.style-2 {
     background-color: #fff;
-    display: block;
     position: relative;
-    text-align: center;
     padding: 20px;
     box-shadow: 1px 1px 10px 1px rgb(0 0 0 / 10%);
     border-radius: 15px;
-}
-#travel-products .item .box-item.style-2 img {
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+} 
+.travel-products .item .box-item.style-2 img {
     width: 60px;
     margin: 0 auto;
 }
-#travel-products .item .box-item.style-2 p { 
+.travel-products .item .box-item.style-2 p { 
     margin: 0 ;
 }
 

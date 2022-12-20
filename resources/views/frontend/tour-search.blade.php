@@ -286,6 +286,22 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 @endsection
 
 @section('script')
+@if(isset($requests['range']))
+<script>
+	 $("#range").ionRangeSlider({
+        hide_min_max: true,
+        keyboard: true,
+        min: 10,
+        max: 2000,
+        from: <?php $rangeJs = explode(';',$requests['range']); echo $rangeJs[0]??10; ?>,
+        to: <?php $rangeJs = explode(';',$requests['range']); echo $rangeJs[1]??1000; ?>,
+        type: 'double',
+        step: 1,
+        prefix: "Min. ",
+        grid: false
+    });
+</script>
+@else
 <script>
 	 $("#range").ionRangeSlider({
         hide_min_max: true,
@@ -300,6 +316,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
         grid: false
     });
 </script>
+@endif
 <script>
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,

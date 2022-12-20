@@ -36,13 +36,13 @@ class FrontendController extends Controller
                     }
                 }
             }
-            $tours['city'] = $cityArray;
+            $tours[] = $cityArray;
         }
 
         if ($request->range) {
             $range = explode(';',$request->range);
             $rangeArray = Package::whereStatus(1)->whereBetween('adult_price',[$range[0],$range[1]])->pluck('id')->toArray();
-            $tours['range']=$rangeArray;
+            $tours[]=$rangeArray;
         }
 
         if ($request->category) {
@@ -54,7 +54,7 @@ class FrontendController extends Controller
                     }
                 }
             }
-            $tours['category']=$categoryArray;
+            $tours[]=$categoryArray;
         }
 
         if ($request->activity) {
@@ -66,7 +66,7 @@ class FrontendController extends Controller
                     }
                 }
             }
-            $tours['activity']=$activityArray;
+            $tours[]=$activityArray;
         }
 
         if ($request->amenity) {
@@ -78,21 +78,16 @@ class FrontendController extends Controller
                     }
                 }
             }
-            $tours['amenity']=$amenityArray;
+            $tours[]=$amenityArray;
         }
 
-        $try = [];
-        foreach ($tours as $key => $tour) {
-            if (!empty($tour)) {
-                $try[$key] = $tour;
-            }
-        }
 
-        $result = array_intersect($try['city']??$try['range'],
-                                $try['category']??$try['range'],
-                                $try['activity']??$try['range'],
-                                $try['amenity']??$try['range'],
-                                $try['range']);
+        $toursArray = array_chunk($tours,1,1);
+        $toursCount = count($toursArray);
+
+        for ($i=0; $i < $toursCount; $i++) { 
+            $result = array_intersect($tours[$i]);
+        }
 
         if (!empty($result)) {
             $packages = Package::findOrFail($result);

@@ -145,22 +145,22 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 											<a 
 												@if(Auth::user())
 													@foreach(Auth::user()->wishlist as $wishlist)
-														@if($wishlist->package_id == $tour->id)
+														@if($wishlist->package_id == $element->id)
 															href="{{route('wishlist.remove', $wishlist->id)}}" class="wish_bt liked"
 														@else
-															href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
+															href="{{route('wishlist.add', $element->id)}}" class="wish_bt"
 														@endif
 													@endforeach
 												@else
-													href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
+													href="{{route('wishlist.add', $element->id)}}" class="wish_bt"
 												@endif
 											></a>
-											<a href="{{route('tour.show', $tour->slug)}}">
-												<img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
+											<a href="{{route('tour.show', $element->slug)}}">
+												<img src="{{asset($element->avatar)}}" class="img-fluid" alt="" /> 
 											</a> 
 										</figure>
 										<div class="wrapper">
-											<h3><a href="tour-details.php">{{dynamicLang($element->name)}}</a></h3>
+											<h3><a href="{{route('tour.show', $element->slug)}}">{{dynamicLang($element->name)}}</a></h3>
 											@if($element->rating > 0) 
 											<div class="d-flex align-items-center">
 												<div class="rating">

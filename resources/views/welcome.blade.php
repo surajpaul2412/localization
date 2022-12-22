@@ -129,8 +129,13 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
             
             <div class="slick-slider">
                 @foreach($tours as $tour)
-                <div class="item"> 
+                <div class="item">
                     <div class="box_grid">
+                        @if($tour->seal == 1)
+                        <div class="ribbon">
+                            <span>Popular</span>
+                        </div>
+                        @endif
                         <figure>
                             <a href="{{route('wishlist.add',$tour->id)}}" class="wish_bt"></a>
                             <a href="{{route('tour.show', $tour->slug)}}">
@@ -179,7 +184,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
             <div class="slick-travel-product">
                 @foreach($amenities as $amenity)
                 <div class="item"> 
-                    <a href="#0" class="box-item style-2"> 
+                    <a href="{{route('search.amenity',$amenity->id)}}" class="box-item style-2"> 
                         <img src="{{$amenity->icon}}" alt="{{$amenity->name}}" />
                         <p>{{dynamicLang($amenity->name)}}</p>
                     </a> 

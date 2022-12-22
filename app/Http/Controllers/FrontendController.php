@@ -13,6 +13,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Review;
 use App\Models\UserAddress;
+use App\Models\Amenity;
 use Auth;
 use Hash;
 use Session;
@@ -142,10 +143,10 @@ class FrontendController extends Controller
     public function searchCity($id) {
         $city = City::findOrFail($id);
         $search = $city->name??'';
-        $tours = [];
+        $packages = [];
 
         if ($search) {
-            $tours = Package::whereStatus(1)
+            $packages = Package::whereStatus(1)
                     ->where('name', 'like', '%' . $search . '%')
                     ->orWhereHas('city', function($q) use ($search) {
                         $q->where('name', 'like', '%' . $search . '%')
@@ -155,37 +156,52 @@ class FrontendController extends Controller
                         });
                     })->get();
         }
-        return view('frontend.tour-search', compact('tours','search'));
+        return view('frontend.tour-search', compact('packages','search'));
     }
 
     public function searchCategory($id){
         $category = Category::findOrFail($id);
         $search = $category->name??'';
-        $tours = [];
+        $packages = [];
 
         if ($search) {
-            $tours = Package::whereStatus(1)
+            $packages = Package::whereStatus(1)
                     ->where('name', 'like', '%' . $search . '%')
                     ->orWhereHas('category', function($q) use ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                     })->get();
         }
-        return view('frontend.tour-search', compact('tours','search'));
+        return view('frontend.tour-search', compact('packages','search'));
     }
 
     public function searchActivity($id){
         $activity = Activity::findOrFail($id);
         $search = $activity->name??'';
-        $tours = [];
+        $packages = [];
 
         if ($search) {
-            $tours = Package::whereStatus(1)
+            $packages = Package::whereStatus(1)
                     ->where('name', 'like', '%' . $search . '%')
                     ->orWhereHas('activity', function($q) use ($search) {
                         $q->where('name', 'like', '%' . $search . '%');
                     })->get();
         }
-        return view('frontend.tour-search', compact('tours','search'));
+        return view('frontend.tour-search', compact('packages','search'));
+    }
+
+    public function searchAmenity($id)
+    {
+        $amenity = Amenity::findOrFail($id);
+        $search = $amenity->name??'';
+
+        if ($search) {
+            $packages = Package::whereStatus(1)
+                    ->where('name', 'like', '%' . $id . '%')
+                    ->orWhereHas('amenities', function($q) use ($id) {
+                        $q->where('amenity_id', '=' ,$id);
+                    })->get();
+        }
+        return view('frontend.tour-search', compact('packages','search'));
     }
 
     public function cart()

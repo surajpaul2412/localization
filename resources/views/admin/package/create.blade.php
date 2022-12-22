@@ -403,10 +403,21 @@
                                     </div>
                                 </div>  
                             </div>
-                        </div> 
-                        <div class="card-footer text-right"> 
-                            <button type="" class="btn btn-warning">Cancel</button>
-                            <button type="submit" class="btn btn-success m-0">Submit</button>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between"> 
+                            <div class="seal-box"> 
+                                <div class="form-group m-0">
+                                    <div class="switch switch-success d-inline m-r-10">
+                                        <input type="checkbox" id="switch-s-1" class="form-control form-control-sm setmin_charge" name="seal">  
+                                        <label for="switch-s-1" class="cr"></label>
+                                    </div>
+                                    <label class="col-form-label">Seal</label>
+                                </div>
+                            </div> 
+                            <div class="action">     
+                                <button type="" class="btn btn-warning">Cancel</button>
+                                <button type="submit" class="btn btn-success m-0">Submit</button>
+                            </div> 
                         </div>
                     </form>  
                 </div>

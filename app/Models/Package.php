@@ -35,6 +35,10 @@ class Package extends Model
             }
         }
 
+        if(isset($data['seal'])){
+            $data['seal'] = 1;
+        }
+
         return Package::create([
             'name'=>$data['name'],
             'slug'=>$data['slug'],
@@ -89,6 +93,10 @@ class Package extends Model
             $image_name = 'uploads/tour/'.$image_name;
         }
 
+        if(isset($data['seal'])){
+            $data['seal'] = 1;
+        }
+
         return Package::whereId($id)->update([
             'name'=>$data['name'],
             'slug'=>$data['slug'],
@@ -112,7 +120,7 @@ class Package extends Model
             'meeting_point'=>$data['meeting_point']??null,
             'important_information'=>$data['important_information']??null,
             'status'=>$data['status']??Package::findOrFail($id)->status,
-            'seal'=>$data['seal']??Package::findOrFail($id)->seal,
+            'seal'=>$data['seal']??0,
         ]);
     }
 

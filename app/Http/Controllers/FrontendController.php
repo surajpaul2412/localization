@@ -7,6 +7,7 @@ use App\Models\Package;
 use App\Models\PackageAmenity;
 use App\Models\User;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\Category;
 use App\Models\Newsletter;
 use App\Models\Cart;
@@ -113,6 +114,27 @@ class FrontendController extends Controller
                 $search = $request->search;
                 $packages = [];
                 if ($search) {
+                    $exactCityName = City::whereName($search)->pluck('id')->first();
+                    if ($exactCityName) {
+                        $packages = Package::whereStatus(1)->whereCityId($exactCityName)->get();
+                        return view('frontend.tour-location', compact('packages','search'));
+                    }
+
+                    $exactCountryName = Country::whereName($search)->pluck('name')->first();
+                    if ($exactCountryName) {
+                        $packages = Package::whereStatus(1)
+                            ->where('name', 'like', '%' . request('search') . '%')
+                            ->orWhereHas('city', function($q) {
+                                $q->where('name', '=',request('search'))
+                                    ->orWhereHas('country', function($q1) {
+                                    $q1->where('name', '=', request('search'))
+                                       ->whereStatus(1);
+                                });
+                            })->get();
+
+                        return view('frontend.tour-location', compact('packages','search'));
+                    }
+
                     $packages = Package::whereStatus(1)
                             ->where('name', 'like', '%' . request('search') . '%')
                             ->orWhereHas('city', function($q) {
@@ -142,6 +164,7 @@ class FrontendController extends Controller
 
     public function searchCity($id) {
         $city = City::findOrFail($id);
+        $requests['city'] = [$city->id];
         $search = $city->name??'';
         $packages = [];
 
@@ -156,11 +179,12 @@ class FrontendController extends Controller
                         });
                     })->get();
         }
-        return view('frontend.tour-search', compact('packages','search'));
+        return view('frontend.tour-search', compact('packages','search','requests'));
     }
 
     public function searchCategory($id){
         $category = Category::findOrFail($id);
+        $requests['category'] = [$category->id];
         $search = $category->name??'';
         $packages = [];
 
@@ -171,11 +195,12 @@ class FrontendController extends Controller
                         $q->where('name', 'like', '%' . $search . '%');
                     })->get();
         }
-        return view('frontend.tour-search', compact('packages','search'));
+        return view('frontend.tour-search', compact('packages','search','requests'));
     }
 
     public function searchActivity($id){
         $activity = Activity::findOrFail($id);
+        $requests['activity'] = [$activity->id];
         $search = $activity->name??'';
         $packages = [];
 
@@ -186,12 +211,13 @@ class FrontendController extends Controller
                         $q->where('name', 'like', '%' . $search . '%');
                     })->get();
         }
-        return view('frontend.tour-search', compact('packages','search'));
+        return view('frontend.tour-search', compact('packages','search','requests'));
     }
 
     public function searchAmenity($id)
     {
         $amenity = Amenity::findOrFail($id);
+        $requests['amenity'] = [$amenity->id];
         $search = $amenity->name??'';
 
         if ($search) {
@@ -201,7 +227,7 @@ class FrontendController extends Controller
                         $q->where('amenity_id', '=' ,$id);
                     })->get();
         }
-        return view('frontend.tour-search', compact('packages','search'));
+        return view('frontend.tour-search', compact('packages','search','requests'));
     }
 
     public function cart()

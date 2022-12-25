@@ -10,10 +10,8 @@ use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Country;
 
-$cities = City::all();
-$activities = Activity::whereStatus(1)->get();
-$amenities = Amenity::whereStatus(1)->get();
-$categories = Category::whereStatus(1)->get();
+
+
 $countries = Country::whereStatus(1)->pluck('name')->toArray();
 $searchCity = City::pluck('name')->toArray();
 $suggestions = json_encode(array_merge($countries, $searchCity));
@@ -27,18 +25,6 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8">
-							<!-- <form action="{{route('search')}}" method="POST" class="row g-0 custom-search-input-2">
-                            	@csrf
-								<div class="col-lg-10">
-									<div class="form-group">
-										<input class="form-control" type="text" name="search" placeholder="Where are you going?" required />
-										<i class="icon_pin_alt"></i>
-									</div>
-								</div> 
-								<div class="col-lg-2">
-									<input type="submit" class="btn_search" value="Search">
-								</div>
-							</form>  -->
 							<div class="autocomplete">
 								<form action="{{route('search')}}" method="POST" class="row g-0 custom-search-input-2">
 									@csrf 

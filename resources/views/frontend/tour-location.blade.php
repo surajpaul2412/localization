@@ -33,7 +33,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 	                                @csrf 
 	                                <div class="col-lg-10">
 	                                    <div class="form-group">
-	                                        <input id="myInput" class="form-control" type="text" name="search" placeholder="{{dynamicLang('Where are you going?')}}" required />
+	                                        <input id="myInput" class="form-control" type="text" name="search" placeholder="{{dynamicLang('Where are you going?')}}" value="{{$search}}" required />
 	                                        <i class="icon_pin_alt"></i>
 	                                    </div>
 	                                </div> 
@@ -57,7 +57,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 				<div id="amenities-filter" class="owl-carousel owl-theme">  
 					@foreach($amenities as $amenity)
 					<div class="item"> 
-						<a href="{{route('search.amenity',$amenity->id)}}" class="box-item style-3">  
+						<a href="{{route('search.amenityFilter',[$amenity->id,$search])}}" class="box-item style-3">  
 							<img src="{{$amenity->icon}}" alt="{{$amenity->name}}" />
 							<p>{{dynamicLang($amenity->name)}}</p>
 						</a> 

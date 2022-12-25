@@ -52,6 +52,7 @@ Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 
 Route::get('search/category/{id}', [App\Http\Controllers\FrontendController::class, 'searchCategory'])->name('search.category');
 Route::get('search/activity/{id}', [App\Http\Controllers\FrontendController::class, 'searchActivity'])->name('search.activity');
 Route::get('search/amenity/{id}', [App\Http\Controllers\FrontendController::class, 'searchAmenity'])->name('search.amenity');
+Route::get('search/amenityFilter/{id}/{search}', [App\Http\Controllers\FrontendController::class, 'searchAmenityFilter'])->name('search.amenityFilter');
 Route::any('search', [App\Http\Controllers\FrontendController::class, 'search'])->name('search');
 // Route::get('tours/filter', [App\Http\Controllers\FrontendController::class, 'searchFilter'])->name('searchFilter');
 Route::get('filter', [App\Http\Controllers\FrontendController::class, 'searchFilter'])->name('searchFilter');

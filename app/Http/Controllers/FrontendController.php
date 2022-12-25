@@ -15,6 +15,7 @@ use App\Models\Order;
 use App\Models\Review;
 use App\Models\UserAddress;
 use App\Models\Amenity;
+use App\Models\Activity;
 use Auth;
 use Hash;
 use Session;
@@ -26,8 +27,64 @@ class FrontendController extends Controller
         return view('frontend.tour', compact('packages'));
     }
 
+    public function searchAmenityFilter($id, $search)
+    {
+        try {
+            $ifCity = City::whereName($search)->pluck('country_id')->first();
+            if (empty($ifCity)) {
+                $ifCity = Country::whereName($search)->pluck('id')->first();
+
+            }
+            $cities = City::whereCountryId($ifCity)->get();
+            $activities = Activity::whereStatus(1)->get();
+            $amenities = Amenity::whereStatus(1)->get();
+            $categories = Category::whereStatus(1)->get();
+            $requests = array(
+                'amenity'=>[$id]
+            );
+
+            $packages = [];
+            if ($search) {
+                $exactCityName = City::whereName($search)->pluck('id')->first();
+                if ($exactCityName) {
+                    $packages = Package::whereStatus(1)->whereCityId($exactCityName)->get();
+                }
+
+                $exactCountryName = Country::whereName($search)->pluck('name')->first();
+                if ($exactCountryName) {
+                    $packages = Package::whereStatus(1)
+                        ->where('name', 'like', '%' . request('search') . '%')
+                        ->orWhereHas('city', function($q) {
+                            $q->where('name', '=',request('search'))
+                                ->orWhereHas('country', function($q1) {
+                                $q1->where('name', '=', request('search'))
+                                   ->whereStatus(1);
+                            });
+                        })->get();
+
+                }
+
+                $packages = Package::whereStatus(1)
+                        ->where('name', 'like', '%' . request('search') . '%')
+                        ->orWhereHas('city', function($q) {
+                            $q->where('name', 'like', '%' . request('search') . '%')
+                                ->orWhereHas('country', function($q1) {
+                                $q1->where('name', 'like', '%' . request('search') . '%')
+                                   ->whereStatus(1);
+                            });
+                        })->get();
+            }
+
+            return view('frontend.tour-search', compact('packages','requests','search','cities','activities','amenities','categories'));
+        } catch(\Exception $e){
+            dd($e->getMessage());
+            return redirect('/tours');
+        }
+    }
+
     public function searchFilter(Request $request){
         $requests = $request->all();
+        dd($requests);
         $cityArray = $categoryArray = $activityArray = $amenityArray = [];
         if ($request->city) {
             foreach ($request->city as $key => $cityId) {
@@ -96,7 +153,6 @@ class FrontendController extends Controller
         } else {
             $packages = Package::whereStatus(2)->get();
         }
-        // dd($requests);
         return view('frontend.tour', compact('packages','requests'));
     }
 
@@ -145,7 +201,12 @@ class FrontendController extends Controller
                                 });
                             })->get();
                 }
-                return view('frontend.tour-search', compact('packages','search'));
+
+                $cities = City::all();
+                $activities = Activity::whereStatus(1)->get();
+                $amenities = Amenity::whereStatus(1)->get();
+                $categories = Category::whereStatus(1)->get();
+                return view('frontend.tour-search', compact('packages','search','cities','activities','amenities','categories'));
             }
             return redirect('/tours');
         } catch(\Exception $e){
@@ -179,7 +240,11 @@ class FrontendController extends Controller
                         });
                     })->get();
         }
-        return view('frontend.tour-search', compact('packages','search','requests'));
+        $cities = City::all();
+        $activities = Activity::whereStatus(1)->get();
+        $amenities = Amenity::whereStatus(1)->get();
+        $categories = Category::whereStatus(1)->get();
+        return view('frontend.tour-search', compact('packages','search','requests','cities','activities','amenities','categories'));
     }
 
     public function searchCategory($id){
@@ -195,7 +260,11 @@ class FrontendController extends Controller
                         $q->where('name', 'like', '%' . $search . '%');
                     })->get();
         }
-        return view('frontend.tour-search', compact('packages','search','requests'));
+        $cities = City::all();
+        $activities = Activity::whereStatus(1)->get();
+        $amenities = Amenity::whereStatus(1)->get();
+        $categories = Category::whereStatus(1)->get();
+        return view('frontend.tour-search', compact('packages','search','requests','cities','activities','amenities','categories'));
     }
 
     public function searchActivity($id){
@@ -211,7 +280,11 @@ class FrontendController extends Controller
                         $q->where('name', 'like', '%' . $search . '%');
                     })->get();
         }
-        return view('frontend.tour-search', compact('packages','search','requests'));
+        $cities = City::all();
+        $activities = Activity::whereStatus(1)->get();
+        $amenities = Amenity::whereStatus(1)->get();
+        $categories = Category::whereStatus(1)->get();
+        return view('frontend.tour-search', compact('packages','search','requests','cities','activities','amenities','categories'));
     }
 
     public function searchAmenity($id)
@@ -227,7 +300,11 @@ class FrontendController extends Controller
                         $q->where('amenity_id', '=' ,$id);
                     })->get();
         }
-        return view('frontend.tour-search', compact('packages','search','requests'));
+        $cities = City::all();
+        $activities = Activity::whereStatus(1)->get();
+        $amenities = Amenity::whereStatus(1)->get();
+        $categories = Category::whereStatus(1)->get();
+        return view('frontend.tour-search', compact('packages','search','requests','cities','activities','amenities','categories'));
     }
 
     public function cart()

@@ -447,6 +447,7 @@ header ul.top-right-area li select.form-currency.form-control, header ul.top-rig
 }
 .travel-products .item .box-item.style-2 p { 
     margin: 0 ;
+    width: 100%;
 }
 
 
@@ -721,8 +722,7 @@ section#description, section#reviews, #also-likes, #tour_plan, #add_review, #tou
     position: relative;
     right: 10px;
 
-    font-family: themify;
-    speak: none;
+    font-family: themify; 
     font-style: normal;
     font-weight: 400;
     font-variant: normal;
@@ -931,6 +931,14 @@ ul.dahs_navbar li a.active {
 }
 .slick-initialized .slick-slide {
     padding: 10px;
+}
+
+.box_grid figure img.trust-badges {
+    width: 60px;
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
 }
 
 

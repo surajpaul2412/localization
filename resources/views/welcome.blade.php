@@ -130,13 +130,11 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
             <div class="slick-slider">
                 @foreach($tours as $tour)
                 <div class="item">
-                    <div class="box_grid">
-                        @if($tour->seal == 1)
-                        <div class="ribbon">
-                            <span>Popular</span>
-                        </div>
-                        @endif
+                    <div class="box_grid"> 
                         <figure>
+                            @if($tour->seal == 1)
+                            <img class="trust-badges" src="{{asset('images/trust-badge.png')}}" width="60px" />
+                            @endif
                             <a href="{{route('wishlist.add',$tour->id)}}" class="wish_bt"></a>
                             <a href="{{route('tour.show', $tour->slug)}}">
                                 <img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 

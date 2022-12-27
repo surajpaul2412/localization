@@ -24,136 +24,168 @@ class FrontendController extends Controller
 {
     public function tour() {
         $packages = Package::whereStatus(1)->get();
-        return view('frontend.tour', compact('packages'));
+
+        $cities = City::all();
+        $activities = Activity::whereStatus(1)->get();
+        $amenities = Amenity::whereStatus(1)->get();
+        $categories = Category::whereStatus(1)->get();
+        return view('frontend.tour', compact('packages','cities','activities','amenities','categories'));
     }
 
     public function searchAmenityFilter($id, $search)
     {
         try {
             $ifCity = City::whereName($search)->pluck('country_id')->first();
+            $requests['city'] = [$ifCity];
             if (empty($ifCity)) {
                 $ifCity = Country::whereName($search)->pluck('id')->first();
-
             }
             $cities = City::whereCountryId($ifCity)->get();
             $activities = Activity::whereStatus(1)->get();
             $amenities = Amenity::whereStatus(1)->get();
             $categories = Category::whereStatus(1)->get();
-            $requests = array(
-                'amenity'=>[$id]
-            );
+            $requests['amenity'] = [$id];
 
             $packages = [];
             if ($search) {
-                $exactCityName = City::whereName($search)->pluck('id')->first();
-                if ($exactCityName) {
-                    $packages = Package::whereStatus(1)->whereCityId($exactCityName)->get();
-                }
-
-                $exactCountryName = Country::whereName($search)->pluck('name')->first();
-                if ($exactCountryName) {
-                    $packages = Package::whereStatus(1)
-                        ->where('name', 'like', '%' . request('search') . '%')
-                        ->orWhereHas('city', function($q) {
-                            $q->where('name', '=',request('search'))
-                                ->orWhereHas('country', function($q1) {
-                                $q1->where('name', '=', request('search'))
-                                   ->whereStatus(1);
-                            });
-                        })->get();
-
-                }
-
-                $packages = Package::whereStatus(1)
-                        ->where('name', 'like', '%' . request('search') . '%')
-                        ->orWhereHas('city', function($q) {
-                            $q->where('name', 'like', '%' . request('search') . '%')
-                                ->orWhereHas('country', function($q1) {
-                                $q1->where('name', 'like', '%' . request('search') . '%')
-                                   ->whereStatus(1);
-                            });
-                        })->get();
-            }
-
-            return view('frontend.tour-search', compact('packages','requests','search','cities','activities','amenities','categories'));
-        } catch(\Exception $e){
-            dd($e->getMessage());
-            return redirect('/tours');
-        }
-    }
-
-    public function searchFilter(Request $request){
-        $requests = $request->all();
-        dd($requests);
-        $cityArray = $categoryArray = $activityArray = $amenityArray = [];
-        if ($request->city) {
-            foreach ($request->city as $key => $cityId) {
+                $cityArray = $amenityArray = [];
+                // CITY
+                $cityId = City::whereName($search)->pluck('id')->first();
                 $cityTemp = Package::whereStatus(1)->whereCityId($cityId)->pluck('id')->toArray();
                 if(!empty($cityTemp)) {
                     foreach ($cityTemp as $index => $value) {
                         $cityArray[] = $value;
                     }
                 }
-            }
-            $tours[] = $cityArray;
-        }
+                $tours[] = $cityArray;
 
-        if ($request->range) {
-            $range = explode(';',$request->range);
-            $rangeArray = Package::whereStatus(1)->whereBetween('adult_price',[$range[0],$range[1]])->pluck('id')->toArray();
-            $tours[]=$rangeArray;
-        }
-
-        if ($request->category) {
-            foreach ($request->category as $key => $categoryId) {
-                $categoryTemp = Package::whereStatus(1)->whereCategoryId($categoryId)->pluck('id')->toArray();
-                if(!empty($categoryTemp)) {
-                    foreach ($categoryTemp as $index => $value) {
-                        $categoryArray[] = $value;
-                    }
-                }
-            }
-            $tours[]=$categoryArray;
-        }
-
-        if ($request->activity) {
-            foreach ($request->activity as $key => $activityId) {
-                $activityTemp = Package::whereStatus(1)->whereActivityId($activityId)->pluck('id')->toArray();
-                if(!empty($activityTemp)) {
-                    foreach ($activityTemp as $index => $value) {
-                        $activityArray[] = $value;
-                    }
-                }
-            }
-            $tours[]=$activityArray;
-        }
-
-        if ($request->amenity) {
-            foreach ($request->amenity as $key => $amenityId) {
-                $amenityTemp = PackageAmenity::whereAmenityId($amenityId)->pluck('package_id')->toArray();
+                // AMENITY
+                $amenityTemp = PackageAmenity::whereAmenityId($id)->pluck('package_id')->toArray();
                 if(!empty($amenityTemp)) {
                     foreach ($amenityTemp as $index => $value) {
                         $amenityArray[] = $value;
                     }
                 }
+                $tours[]=$amenityArray;
+
+                $toursArray = array_chunk($tours,1,1);
+                $toursCount = count($toursArray);
+
+                for ($i=0; $i < $toursCount; $i++) { 
+                    $result = array_intersect($tours[$i]);
+                }
+
+                if (!empty($result)) {
+                    $packages = Package::findOrFail($result);
+                } else {
+                    $packages = Package::whereStatus(2)->get();
+                }
             }
-            $tours[]=$amenityArray;
-        }
-
-
-        $toursArray = array_chunk($tours,1,1);
-        $toursCount = count($toursArray);
-
-        for ($i=0; $i < $toursCount; $i++) { 
-            $result = array_intersect($tours[$i]);
-        }
-
-        if (!empty($result)) {
-            $packages = Package::findOrFail($result);
-        } else {
+            return view('frontend.tour-search', compact('packages','requests','search','cities','activities','amenities','categories'));
+        } catch(\Exception $e){
+            // dd($e->getMessage());
             $packages = Package::whereStatus(2)->get();
+            return view('frontend.tour', compact('packages','requests','search','cities','activities','amenities','categories'));
         }
-        return view('frontend.tour', compact('packages','requests'));
+    }
+
+    public function searchFilter(Request $request){
+        try {
+            $requests = $request->all();
+            $search = '';
+            if (!empty($request->hidden_cityOrCountry)) {
+                $search = $request->hidden_cityOrCountry;
+                $ifLoc = City::whereName($request->hidden_cityOrCountry)->pluck('country_id')->first();
+                $requests['city'] = [$ifLoc];
+                if (empty($ifLoc)) {
+                    $ifLoc = Country::whereName($request->hidden_cityOrCountry)->pluck('id')->first();
+                }
+            }
+            // Filter start
+
+            $cityArray = $categoryArray = $activityArray = $amenityArray = [];
+            if ($request->city) {
+                foreach ($request->city as $key => $cityId) {
+                    $cityTemp = Package::whereStatus(1)->whereCityId($cityId)->pluck('id')->toArray();
+                    if(!empty($cityTemp)) {
+                        foreach ($cityTemp as $index => $value) {
+                            $cityArray[] = $value;
+                        }
+                    }
+                }
+                $tours[] = $cityArray;
+            }
+
+            if ($request->range) {
+                $range = explode(';',$request->range);
+                $rangeArray = Package::whereStatus(1)->whereBetween('adult_price',[$range[0],$range[1]])->pluck('id')->toArray();
+                $tours[]=$rangeArray;
+            }
+
+            if ($request->category) {
+                foreach ($request->category as $key => $categoryId) {
+                    $categoryTemp = Package::whereStatus(1)->whereCategoryId($categoryId)->pluck('id')->toArray();
+                    if(!empty($categoryTemp)) {
+                        foreach ($categoryTemp as $index => $value) {
+                            $categoryArray[] = $value;
+                        }
+                    }
+                }
+                $tours[]=$categoryArray;
+            }
+
+            if ($request->activity) {
+                foreach ($request->activity as $key => $activityId) {
+                    $activityTemp = Package::whereStatus(1)->whereActivityId($activityId)->pluck('id')->toArray();
+                    if(!empty($activityTemp)) {
+                        foreach ($activityTemp as $index => $value) {
+                            $activityArray[] = $value;
+                        }
+                    }
+                }
+                $tours[]=$activityArray;
+            }
+
+            if ($request->amenity) {
+                foreach ($request->amenity as $key => $amenityId) {
+                    $amenityTemp = PackageAmenity::whereAmenityId($amenityId)->pluck('package_id')->toArray();
+                    if(!empty($amenityTemp)) {
+                        foreach ($amenityTemp as $index => $value) {
+                            $amenityArray[] = $value;
+                        }
+                    }
+                }
+                $tours[]=$amenityArray;
+            }
+
+            $toursArray = array_chunk($tours,1,1);
+            $toursCount = count($toursArray);
+
+            for ($i=0; $i < $toursCount; $i++) { 
+                $result = array_intersect($tours[$i]);
+            }
+
+            if (!empty($result)) {
+                $packages = Package::findOrFail($result);
+            } else {
+                $packages = Package::whereStatus(2)->get();
+            }
+            // Filter ends
+
+            if (!empty($ifLoc)) {
+                $cities = City::whereCountryId($ifLoc)->get();
+            }else{
+                $cities = City::all();
+            }
+            $activities = Activity::whereStatus(1)->get();
+            $amenities = Amenity::whereStatus(1)->get();
+            $categories = Category::whereStatus(1)->get();
+            return view('frontend.tour', compact('packages','requests','search','cities','activities','amenities','categories'));
+        } catch(\Exception $e){
+            // dd($e->getMessage());
+            $packages = Package::whereStatus(2)->get();
+            return view('frontend.tour', compact('packages','requests','search','cities','activities','amenities','categories'));
+        }
     }
 
     public function tourShow($slug) {
@@ -225,26 +257,10 @@ class FrontendController extends Controller
 
     public function searchCity($id) {
         $city = City::findOrFail($id);
-        $requests['city'] = [$city->id];
-        $search = $city->name??'';
-        $packages = [];
+        $search = $city->name;
+        $packages = Package::whereStatus(1)->whereCityId($id)->get();
 
-        if ($search) {
-            $packages = Package::whereStatus(1)
-                    ->where('name', 'like', '%' . $search . '%')
-                    ->orWhereHas('city', function($q) use ($search) {
-                        $q->where('name', 'like', '%' . $search . '%')
-                            ->orWhereHas('country', function($q1) use ($search) {
-                            $q1->where('name', 'like', '%' . $search . '%')
-                               ->whereStatus(1);
-                        });
-                    })->get();
-        }
-        $cities = City::all();
-        $activities = Activity::whereStatus(1)->get();
-        $amenities = Amenity::whereStatus(1)->get();
-        $categories = Category::whereStatus(1)->get();
-        return view('frontend.tour-search', compact('packages','search','requests','cities','activities','amenities','categories'));
+        return view('frontend.tour-location', compact('packages','search'));
     }
 
     public function searchCategory($id){

@@ -18,6 +18,7 @@ class CreateCitiesTable extends Migration
             $table->string('name');
             $table->integer('country_id');
             $table->string('avatar')->default('uploads/city/default.jpg');
+            $table->integer('seal')->default(0);
             $table->timestamps();
         });
     }

@@ -84,6 +84,24 @@
                                         </div> 
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Seal:</label>
+                                                <select class="form-control" name="seal">
+                                                    <option value="0" selected>Ordinary</option>
+                                                    <option value="1">Popular</option>
+                                                </select>
+                                                @error('seal')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
                             </div>  
                         </div>  
                         <div class="card-footer text-right"> 

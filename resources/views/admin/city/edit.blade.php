@@ -57,7 +57,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group fill">  
                                         <label class="control-label">Country Name<span>*</span></label>
-                                        <select class="form-control form-control-sm js-example-basic-single" name="country_id" required> 
+                                        <select class="form-control form-control-sm js-example-basic-single" name="country_id" required>
                                             <option value="">--Select Country--</option>
                                             @foreach($country as $row)
                                             <option value="{{$row->id}}" {{ $row->id == $city->country->id ? 'selected' : '' }}>{{$row->name}}</option>
@@ -80,7 +80,25 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Seal:</label>
+                                                <select class="form-control" name="seal">
+                                                    <option value="0">Ordinary</option>
+                                                    <option value="1" {{ $city->seal == 1 ? 'selected' : '' }}>Popular</option>
+                                                </select>
+                                                @error('seal')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
                             </div>
                         </div>  
                         <div class="card-footer text-right"> 

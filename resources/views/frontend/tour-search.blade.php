@@ -30,7 +30,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 									@csrf 
 									<div class="col-lg-10">
 										<div class="form-group">
-											<input id="myInput" class="form-control" type="text" name="search" placeholder="{{dynamicLang('Where are you going?')}}" required />
+											<input id="myInput" class="form-control" type="text" name="search" value="{{$search??''}}" placeholder="{{dynamicLang('Where are you going?')}}" required />
 											<i class="icon_pin_alt"></i>
 										</div>
 									</div> 
@@ -75,7 +75,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 																	@endif
 																@endforeach
 															@endif
-												>
+												/>
 												<span class="checkmark"></span>
 											</label>
 										</li>
@@ -189,6 +189,14 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 										</li>
 									</ul>
 								</div> -->
+								<div class="filter_type">
+									<ul>
+										<li>
+											<input type="hidden" name="hidden_cityOrCountry" value="{{$search??''}}" />
+										</li>
+									</ul>
+								</div>
+								
 								<button class="btn btn-primary w-100 mt-3" type="submit">Filter</button>
 							</form>
 							<!--/collapse -->
@@ -230,7 +238,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 												</a> 
 											</figure>
 											<div class="wrapper">
-												<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang($tour->name)}}</a></h3> 
+												<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',35,' ...'))}}</a></h3> 
 												@if($tour->rating > 0)
 	                        <div class="d-flex align-items-center">
 	                            <div class="rating">

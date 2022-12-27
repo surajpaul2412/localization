@@ -27,23 +27,23 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8">
-	                    <div class="advance-seach-box-inner">
-	                        <div class="autocomplete">
-	                            <form action="{{route('search')}}" method="POST" class="row g-0 custom-search-input-2">
-	                                @csrf 
-	                                <div class="col-lg-10">
-	                                    <div class="form-group">
-	                                        <input id="myInput" class="form-control" type="text" name="search" placeholder="{{dynamicLang('Where are you going?')}}" value="{{$search}}" required />
-	                                        <i class="icon_pin_alt"></i>
-	                                    </div>
-	                                </div> 
-	                                <div class="col-lg-2">
-	                                    <input type="submit" class="btn_search" value="Search">
-	                                </div> 
-	                            </form>
-	                        </div>
-	                    </div> 
-	                </div> 
+	            <div class="advance-seach-box-inner">
+	                <div class="autocomplete">
+	                    <form action="{{route('search')}}" method="POST" class="row g-0 custom-search-input-2">
+	                        @csrf 
+	                        <div class="col-lg-10">
+	                            <div class="form-group">
+	                                <input id="myInput" class="form-control" type="text" name="search" placeholder="{{dynamicLang('Where are you going?')}}" value="{{$search}}" required />
+	                                <i class="icon_pin_alt"></i>
+	                            </div>
+	                        </div> 
+	                        <div class="col-lg-2">
+	                            <input type="submit" class="btn_search" value="Search">
+	                        </div> 
+	                    </form>
+	                </div>
+	            </div> 
+	        </div> 
 				</div>
 				<h1 class="my-4">{{$search}}</h1>
 			</div>
@@ -98,7 +98,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 									</a> 
 								</figure>
 								<div class="wrapper">
-									<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang($tour->name)}}</a></h3> 
+									<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',35,' ...'))}}</a></h3> 
 									@if($tour->rating > 0)
 						                <div class="d-flex align-items-center">
 						                    <div class="rating">

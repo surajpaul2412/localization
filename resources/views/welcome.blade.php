@@ -17,7 +17,7 @@ use App\Models\Country;
 
 $amenities = Amenity::inRandomOrder()->whereStatus(1)->get();
 $tours = Package::inRandomOrder()->whereStatus(1)->get();
-$cities = City::inRandomOrder()->get();
+$cities = City::take(10)->orderBy('seal','DESC')->get();
 $categories = Category::whereStatus(1)->get();
 $countries = Country::whereStatus(1)->pluck('name')->toArray();
 $searchCity = City::pluck('name')->toArray();
@@ -33,7 +33,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
        <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
             <div class="container">
                 <p>{{dynamicLang('Explore Thailand & Southeast Asia with')}}</p>
-                <h1>{{dynamicLang('Local Experts')}}</h1> 
+                <h1>{{dynamicLang('Local Experts')}}</h1>
                 <div class="image-icon">
                     <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/home/tripadvisor/2018-tripadvisor.png" />
                     <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/home/tripadvisor/2019-tripadvisor.png" />
@@ -41,28 +41,6 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                 
             </div>
         </div>
-        <!-- <div class="hero-search-form">
-            <div class="container">
-                <div class="row justify-content-center">
-                    
-                    <div class="col-lg-8">
-                        <form action="{{route('search')}}" method="POST" class="row g-0 custom-search-input-2">
-                            @csrf
-                            <div class="col-lg-10">
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name="search" placeholder="Where are you going?" required />
-                                    <i class="icon_pin_alt"></i>
-                                </div>
-                            </div> 
-                            <div class="col-lg-2">
-                                <input type="submit" class="btn_search" value="Search">
-                            </div>
-                        </form>  
-
-                    </div>
-                </div> 
-            </div>
-        </div> -->
     </div>
     <!-- /Background YouTube Parallax -->
 
@@ -141,7 +119,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                             </a> 
                         </figure>
                         <div class="wrapper">
-                            <h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang($tour->name)}}</a></h3>
+                            <h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',35,' ...'))}}</a></h3>
                             @if($tour->rating > 0)
                             <div class="d-flex align-items-center">
                                 <div class="rating">
@@ -184,7 +162,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                 <div class="item"> 
                     <a href="{{route('search.amenity',$amenity->id)}}" class="box-item style-2"> 
                         <img src="{{$amenity->icon}}" alt="{{$amenity->name}}" />
-                        <p>{{dynamicLang($amenity->name)}}</p>
+                        <p>{{dynamicLang(\Illuminate\Support\Str::limit($amenity->name ?? '',35,' ...'))}}</p>
                     </a> 
                 </div>
                 @endforeach
@@ -208,9 +186,11 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                 @foreach($cities as $city)
                 <div class="item"> 
                     <a href="{{route('search.city',$city->id)}}" class="grid_item relative">
-                        <!-- <div class="ribbon">
+                        @if($city->seal == 1)
+                        <div class="ribbon">
                             <span>Popular</span>
-                        </div> -->
+                        </div>
+                        @endif
                         <figure> 
                             <img src="{{asset($city->avatar)}}" class="img-fluid" alt="{{$city->name}}" />
                             <div class="info"> 

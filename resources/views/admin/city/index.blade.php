@@ -45,6 +45,7 @@
                                         <th class="col-1">Sr.No.</th>
                                         <th>city Name</th>   
                                         <th>country</th>   
+                                        <th>Popular</th>   
                                         <th class="col-1">Action</th>
                                     </tr>
                                 </thead>
@@ -55,6 +56,7 @@
                                         <td>{{$index+1}}</td>
                                         <td class="text-wrap">{{$page->name}}</td>
                                         <td class="text-wrap">{{$page->country->name}}</td>
+                                        <td class="text-wrap">{{$page->seal}}</td>
                                         <td class="d-flex">  
                                             <a href="{{ route('admin.city.edit', $page->id) }}" class="btn btn-info btn-xs mr-1" title="Edit"><i class="feather icon-edit"></i></a>
                                             <form method="POST" action="{{ route('admin.city.destroy', $page->id) }}">

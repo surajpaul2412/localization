@@ -5,15 +5,8 @@
 
 @php
 use App\Models\City;
-use App\Models\Activity;
-use App\Models\Amenity;
-use App\Models\Category;
 use App\Models\Country;
 
-$cities = City::all();
-$activities = Activity::whereStatus(1)->get();
-$amenities = Amenity::whereStatus(1)->get();
-$categories = Category::whereStatus(1)->get();
 $countries = Country::whereStatus(1)->pluck('name')->toArray();
 $searchCity = City::pluck('name')->toArray();
 $suggestions = json_encode(array_merge($countries, $searchCity));
@@ -33,7 +26,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 	                				@csrf
 									<div class="col-lg-10">
 										<div class="form-group">
-											<input id="myInput" class="form-control" type="text" name="search" placeholder="{{dynamicLang('Where are you going?')}}" required />
+											<input id="myInput" class="form-control" type="text" name="search" value="{{$search??''}}" placeholder="{{dynamicLang('Where are you going?')}}" required />
 											<i class="icon_pin_alt"></i>
 										</div>
 									</div> 
@@ -192,6 +185,13 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 										</li>
 									</ul>
 								</div> -->
+								<div class="filter_type">
+									<ul>
+										<li>
+											<input type="hidden" name="hidden_cityOrCountry" value="{{$search??''}}" />
+										</li>
+									</ul>
+								</div>
 								<button class="btn btn-primary w-100 mt-3" type="submit">Filter</button>
 							</form>
 							<!--/collapse -->

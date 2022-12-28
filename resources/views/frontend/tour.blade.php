@@ -225,7 +225,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 												</a> 
 											</figure>
 											<div class="wrapper">
-												<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang($tour->name)}}</a></h3> 
+												<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3> 
 												@if($tour->rating > 0)
 							                        <div class="d-flex align-items-center">
 							                            <div class="rating">

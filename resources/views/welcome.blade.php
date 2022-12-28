@@ -119,7 +119,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                             </a> 
                         </figure>
                         <div class="wrapper">
-                            <h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',35,' ...'))}}</a></h3>
+                            <h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3>
                             @if($tour->rating > 0)
                             <div class="d-flex align-items-center">
                                 <div class="rating">
@@ -161,7 +161,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                 @foreach($amenities as $amenity)
                 <div class="item"> 
                     <a href="{{route('search.amenity',$amenity->id)}}" class="box-item style-2"> 
-                        <img src="{{$amenity->icon}}" alt="{{$amenity->name}}" />
+                        <img src="{{asset($amenity->icon)}}" alt="{{$amenity->name}}" />
                         <p>{{dynamicLang(\Illuminate\Support\Str::limit($amenity->name ?? '',35,' ...'))}}</p>
                     </a> 
                 </div>

@@ -58,7 +58,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 					@foreach($amenities as $amenity)
 					<div class="item"> 
 						<a href="{{route('search.amenityFilter',[$amenity->id,$search])}}" class="box-item style-3">  
-							<img src="{{$amenity->icon}}" alt="{{$amenity->name}}" />
+							<img src="{{asset($amenity->icon)}}" alt="{{$amenity->name}}" />
 							<p>{{dynamicLang($amenity->name)}}</p>
 						</a> 
 					</div> 
@@ -98,17 +98,17 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 									</a> 
 								</figure>
 								<div class="wrapper">
-									<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',35,' ...'))}}</a></h3> 
+									<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3> 
 									@if($tour->rating > 0)
-						                <div class="d-flex align-items-center">
-						                    <div class="rating">
-						                        @foreach(range(1, $tour->rating) as $index)
-						                        <i class="fas fa-star"></i>
-						                        @endforeach
-						                    </div> 
-						                    <a href="#">({{$tour->reviews->count()}})</a>
-						                </div> 
-						            @endif
+		                <div class="d-flex align-items-center">
+		                    <div class="rating">
+		                        @foreach(range(1, $tour->rating) as $index)
+		                        <i class="fas fa-star"></i>
+		                        @endforeach
+		                    </div> 
+		                    <a href="#">({{$tour->reviews->count()}})</a>
+		                </div> 
+		            	@endif
 								</div> 
 								<ul class="d-flex justify-content-between align-items-center"> 
 									<li>

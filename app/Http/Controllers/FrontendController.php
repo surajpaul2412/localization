@@ -91,12 +91,15 @@ class FrontendController extends Controller
 
     public function searchFilter(Request $request){
         try {
+            // dd($request->all());
             $requests = $request->all();
             $search = '';
             if (!empty($request->hidden_cityOrCountry)) {
                 $search = $request->hidden_cityOrCountry;
                 $ifLoc = City::whereName($request->hidden_cityOrCountry)->pluck('country_id')->first();
-                $requests['city'] = [$ifLoc];
+                if(empty($request->city)){
+                    $requests['city'] = [$ifLoc];
+                }
                 if (empty($ifLoc)) {
                     $ifLoc = Country::whereName($request->hidden_cityOrCountry)->pluck('id')->first();
                 }

@@ -71,8 +71,18 @@ class FrontendController extends Controller
                 $toursArray = array_chunk($tours,1,1);
                 $toursCount = count($toursArray);
 
-                for ($i=0; $i < $toursCount; $i++) { 
-                    $result = array_intersect($tours[$i]);
+                if($toursCount == 1){
+                    $result = array_intersect($tours[0]);
+                }elseif($toursCount == 2){
+                    $result = array_intersect($tours[0],$tours[1]);
+                }elseif($toursCount == 3){
+                    $result = array_intersect($tours[0],$tours[1],$tours[2]);
+                }elseif($toursCount == 4){
+                    $result = array_intersect($tours[0],$tours[1],$tours[2],$tours[3]);
+                }elseif($toursCount == 5){
+                    $result = array_intersect($tours[0],$tours[1],$tours[2],$tours[3],$tours[4]);
+                }elseif($toursCount == 6){
+                    $result = array_intersect($tours[0],$tours[1],$tours[2],$tours[3],$tours[4],$tours[5]);
                 }
 
                 if (!empty($result)) {
@@ -164,9 +174,25 @@ class FrontendController extends Controller
             $toursArray = array_chunk($tours,1,1);
             $toursCount = count($toursArray);
 
-            for ($i=0; $i < $toursCount; $i++) { 
-                $result = array_intersect($tours[$i]);
+            if($toursCount == 1){
+                $result = array_intersect($tours[0]);
+            }elseif($toursCount == 2){
+                $result = array_intersect($tours[0],$tours[1]);
+            }elseif($toursCount == 3){
+                $result = array_intersect($tours[0],$tours[1],$tours[2]);
+            }elseif($toursCount == 4){
+                $result = array_intersect($tours[0],$tours[1],$tours[2],$tours[3]);
+            }elseif($toursCount == 5){
+                $result = array_intersect($tours[0],$tours[1],$tours[2],$tours[3],$tours[4]);
+            }elseif($toursCount == 6){
+                $result = array_intersect($tours[0],$tours[1],$tours[2],$tours[3],$tours[4],$tours[5]);
             }
+
+            // for ($i=0; $i < $toursCount; $i++) { 
+            //     $result = array_intersect($tours[$i]);
+            //     if($i==1){
+            //     dd($result);}
+            // }
 
             if (!empty($result)) {
                 $packages = Package::findOrFail($result);

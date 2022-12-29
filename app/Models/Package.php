@@ -13,7 +13,7 @@ class Package extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name','slug','category_id','adult_price','child_price','infant_price','capacity','duration','avatar','city_id','activity_id','description','status','meta_title','meta_keywords','meta_description','highlights','full_description','includes','meeting_point','important_information','seal','icon'
+        'name','slug','category_id','adult_price','child_price','infant_price','capacity','duration','avatar','city_id','activity_id','description','status','meta_title','meta_keywords','meta_description','highlights','full_description','includes','meeting_point','important_information','seal','icon','combo','discount'
     ];
 
     public static function createPackage($data) {
@@ -37,6 +37,9 @@ class Package extends Model
 
         if(isset($data['seal'])){
             $data['seal'] = 1;
+        }
+        if(isset($data['combo'])){
+            $data['combo'] = 1;
         }
 
         return Package::create([
@@ -63,6 +66,8 @@ class Package extends Model
             'important_information'=>$data['important_information'],
             'status'=>$data['status']??1,
             'seal'=>$data['seal']??0,
+            'combo'=>$data['combo']??0,
+            'discount'=>$data['discount']??0,
         ]);
     }
 
@@ -96,6 +101,9 @@ class Package extends Model
         if(isset($data['seal'])){
             $data['seal'] = 1;
         }
+        if(isset($data['combo'])){
+            $data['combo'] = 1;
+        }
 
         return Package::whereId($id)->update([
             'name'=>$data['name'],
@@ -121,6 +129,8 @@ class Package extends Model
             'important_information'=>$data['important_information']??null,
             'status'=>$data['status']??Package::findOrFail($id)->status,
             'seal'=>$data['seal']??0,
+            'combo'=>$data['combo']??0,
+            'discount'=>$data['discount']??0,
         ]);
     }
 

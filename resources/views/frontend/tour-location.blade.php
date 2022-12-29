@@ -79,6 +79,11 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 						@foreach($packages as $index => $tour)
 						<div class="col isotope-item">
 							<div class="box_grid">
+								@if($tour->combo == 1)
+                <div class="ribbon">
+                    <span>Combo</span>
+                </div>
+                @endif
 								<figure>
 									<a 
 										@if(Auth::user())
@@ -98,6 +103,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 									</a> 
 								</figure>
 								<div class="wrapper">
+									<badge class="btn-success btn p-1">{{$tour->category->name}}</badge>
 									<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3> 
 									@if($tour->rating > 0)
 		                <div class="d-flex align-items-center">
@@ -112,7 +118,11 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 								</div> 
 								<ul class="d-flex justify-content-between align-items-center"> 
 									<li>
-										<span><b>{{dynamicLang('Price')}}: </b> {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->adult_price)}}<small>/{{dynamicLang('person')}}</small></span>
+										<span>
+                        <b>{{dynamicLang('Price')}}: </b>
+                        <del>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price)}}</del>
+                    {{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price-($tour->adult_price*$tour->discount)/100)}}<small>/{{dynamicLang('person')}}</small>
+                    </span>
 									</li> 
 								</ul>
 							</div>

@@ -133,7 +133,7 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Capacity<span>*</span></label>
                                                         <input type="number" name="capacity" class="form-control form-control-sm " placeholder="Eg: 1, 2, 3, 4 etc" value="{{ old('capacity') }}" required/>
@@ -144,11 +144,22 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div class="form-group">  
                                                         <label class="col-form-label">Duration<span>*</span></label>
                                                         <input type="text" name="duration" class="form-control form-control-sm " placeholder="Eg: 23.84944" value="{{ old('duration') }}" required/>
                                                         @error('duration')
+                                                            <div class="text-danger">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">  
+                                                        <label class="col-form-label">Discount<span>(%)</span></label>
+                                                        <input type="text" name="discount" class="form-control form-control-sm " placeholder="Eg: 10" value="{{ old('discount') }}" required/>
+                                                        @error('discount')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
@@ -413,7 +424,17 @@
                                     </div>
                                     <label class="col-form-label">Seal</label>
                                 </div>
-                            </div> 
+                            </div>
+                            <div class="seal-box"> 
+                                <div class="form-group m-0">
+                                    <div class="switch switch-success d-inline m-r-10">
+                                        <input type="checkbox" id="switch-s-2" class="form-control form-control-sm setmin_charge" name="combo">  
+                                        <label for="switch-s-2" class="cr"></label>
+                                    </div>
+                                    <label class="col-form-label">Combo</label>
+                                </div>
+                            </div>
+
                             <div class="action">     
                                 <button type="" class="btn btn-warning">Cancel</button>
                                 <button type="submit" class="btn btn-success m-0">Submit</button>

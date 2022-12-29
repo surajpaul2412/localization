@@ -49,6 +49,7 @@ Route::post('payment', [App\Http\Controllers\FrontendController::class, 'payment
 Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');
 Route::get('tours/{slug}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
 Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 'searchCity'])->name('search.city');
+Route::get('search/country/{id}', [App\Http\Controllers\FrontendController::class, 'searchCountry'])->name('search.country');
 Route::get('search/category/{id}', [App\Http\Controllers\FrontendController::class, 'searchCategory'])->name('search.category');
 Route::get('search/activity/{id}', [App\Http\Controllers\FrontendController::class, 'searchActivity'])->name('search.activity');
 Route::get('search/amenity/{id}', [App\Http\Controllers\FrontendController::class, 'searchAmenity'])->name('search.amenity');

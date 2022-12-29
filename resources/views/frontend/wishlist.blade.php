@@ -59,7 +59,8 @@
 																	</div> 
 																	<a href="#">(56)</a>   
 																</div>  -->
-																<span class="price">{{dynamicLang('Price')}}: <strong>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($row['package']['adult_price'])}}</strong> /{{dynamicLang('per person')}}</span>
+																<span class="price">{{dynamicLang('Price')}}: <strong>{{Session::get('currency_symbol')??'₹'}} 
+																{{switchCurrency($row['package']['adult_price']-($row['package']['adult_price']*$row['package']['discount'])/100)}}</strong> /{{dynamicLang('per person')}}</span>
 															</div>
 															<ul>
 																<li><a class="text-danger" href="{{route('wishlist.remove',$row['id'])}}">{{dynamicLang('Remove')}}</a></li>

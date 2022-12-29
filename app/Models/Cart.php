@@ -36,8 +36,9 @@ class Cart extends Model
             $infantPrice = ($package->infant_price*$item->qty_infant);
 
             $totAmt = $totAmt + ($adultPrice + $childPrice + $infantPrice);
+            $finalAmt = $totAmt - ($totAmt*$package->discount)/100;
         }
-        return $totAmt;
+        return $finalAmt;
     }
 
     public static function itemPrice($item){

@@ -40,7 +40,17 @@
                     <form class="custom-form" method="POST" action="{{ route('admin.tours.update', $package->id) }}" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf
-                        <div class="card-header"></div>
+                        <div class="card-header d-flex justify-content-end">
+                            <div class="seal-box"> 
+                                <div class="form-group m-0">
+                                    <div class="switch switch-success d-inline m-r-10">
+                                        <input type="checkbox" id="switch-s-2" class="form-control form-control-sm setmin_charge" name="combo" {{ $package->combo == 1 ? 'checked' : '' }} />
+                                        <label for="switch-s-2" class="cr"></label>
+                                    </div>
+                                    <label class="col-form-label">Combo</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card-body">
                             <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -410,16 +420,6 @@
                                         <label for="switch-s-1" class="cr"></label>
                                     </div>
                                     <label class="col-form-label">Seal</label>
-                                </div>
-                            </div>
-
-                            <div class="seal-box"> 
-                                <div class="form-group m-0">
-                                    <div class="switch switch-success d-inline m-r-10">
-                                        <input type="checkbox" id="switch-s-2" class="form-control form-control-sm setmin_charge" name="combo" {{ $package->combo == 1 ? 'checked' : '' }} />
-                                        <label for="switch-s-2" class="cr"></label>
-                                    </div>
-                                    <label class="col-form-label">Combo</label>
                                 </div>
                             </div>
 

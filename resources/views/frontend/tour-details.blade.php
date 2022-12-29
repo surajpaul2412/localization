@@ -369,6 +369,11 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 						@method('POST')
 						@csrf
 						<div class="form-group">
+							<div class="custom-datepicker">
+								<label for="datepicker">
+									<input type="text" id="datepicker" name="" autocomplete="off" placeholder="Pick a Date" />
+								</label>
+							</div>	
 							<input class="form-control" type="date" name="date" required />
 						</div>  
 						
@@ -380,18 +385,21 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							<ul class="cart_details">
 								<li>
 									<div class="qtyButtons">
-										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->presentPrice($tour->adult_price))}} / {{dynamicLang('Adults')}}</label>
+										<label>{{dynamicLang('Adults')}}</label>
+										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->presentPrice($tour->adult_price))}}</span>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="1">
 									</div>
 								</li>
 								<li>
 									<div class="qtyButtons">
-										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->presentPrice($tour->child_price))}} / {{dynamicLang('Childrens')}}</label>
+										<label>{{dynamicLang('Childrens')}}</label>
+										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->presentPrice($tour->child_price))}} </span>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								<li>
 									<div class="qtyButtons">
-										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->presentPrice($tour->infant_price))}} / {{dynamicLang('Infant')}}</label>
+										<label>{{dynamicLang('Infant')}}</label> 
+										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->presentPrice($tour->infant_price))}}</span>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								</li>
@@ -425,13 +433,22 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 	</div>
 	<!-- /bg_color_1 -->
 </main> 
+
 @endsection
 
 @section('script')
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
 <script src="{{asset('js/input_qty.js')}}"></script>
 
 <!-- DATEPICKER  -->
 <script>
+	$( function() {
+		$( "#datepicker" ).datepicker({
+			dateFormat: "dd-mm-yy"
+			,	duration: "fast"
+		});
+	} );
+
 	$(function() {
 		$('input[name="dates"]').daterangepicker({
 			autoUpdateInput: false,
@@ -443,7 +460,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 			}
 		});
 		$('input[name="dates"]').on('apply.daterangepicker', function(ev, picker) {
-			$(this).val(picker.startDate.format('MM-DD-YY') + ' > ' + picker.endDate.format('MM-DD-YY'));
+			$(this).val(picker.startDate.format('DD-MM-YY') + ' > ' + picker.endDate.format('DD-MM-YY'));
 		});
 		$('input[name="dates"]').on('cancel.daterangepicker', function(ev, picker) {
 			$(this).val('');

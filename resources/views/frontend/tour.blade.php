@@ -211,7 +211,10 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 					                            <span>Combo</span>
 					                        </div>
 					                        @endif
-											<figure>
+											<figure>									
+												@if($tour->seal == 1)
+												<img class="trust-badges" src="{{asset('images/trust-badge.png')}}" width="40px" />
+												@endif
 												<a 
 													@if(Auth::user())
 														@foreach(Auth::user()->wishlist as $wishlist)
@@ -230,7 +233,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 												</a> 
 											</figure>
 											<div class="wrapper">
-												<badge class="btn-success btn p-1">{{$tour->category->name}}</badge>
+                            					<badge class="category-names text-white bg-black py-1 px-2 rounded">{{$tour->category->name}}</badge>
 												<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3> 
 												@if($tour->rating > 0)
 							                        <div class="d-flex align-items-center">
@@ -245,11 +248,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 											</div> 
 											<ul class="d-flex justify-content-between align-items-center"> 
 												<li>
-													<span>
-					                                    <b>{{dynamicLang('Price')}}: </b>
-					                                    <del>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price)}}</del>
-					                                {{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price-($tour->adult_price*$tour->discount)/100)}}<small>/{{dynamicLang('person')}}</small>
-					                                </span>
+													<span><b>{{dynamicLang('From')}}: </b><small><del><b>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price)}}</b></del></small>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price-($tour->adult_price*$tour->discount)/100)}}</b><small>/{{dynamicLang('person')}}</small></span>
 												</li> 
 											</ul>
 										</div>

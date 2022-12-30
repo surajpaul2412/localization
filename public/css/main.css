@@ -1101,6 +1101,26 @@ table {
 }
 
 
+ul.card-tours-availbility-list {
+    margin: 0;
+}
+.card-tours-availbility-list li.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ebebeb;
+    padding: 5px 0;
+}
+.card-tours-availbility-list li.item:last-child { 
+    border-bottom: 0px; 
+}
+.form-control-remark {
+    min-height: 50px !important;
+}
+
+
+
+
 /* // X-Small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap */
 
@@ -1111,7 +1131,11 @@ table {
 @media (min-width: 768px) { }
 
 /* // Large devices (desktops, 992px and up) */
-@media (min-width: 992px) { }
+@media (min-width: 992px) { 
+    input.razorpay-payment-button {
+        width: 67%;
+    }
+}
 
 /* // X-Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { }

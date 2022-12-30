@@ -127,23 +127,14 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                             <badge class="category-names text-white bg-black py-1 px-2 rounded">{{$tour->category->name}}</badge>
                             <h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3>
 
-                            <div class="d-flex align-items-center">
-                                <div class="rating">
-                                    <i class="fas fa-star"></i> 
-                                    <i class="me-2 fs-6">4.5</i>
-                                </div> 
-                                <div>(56 reviews)</div>   
-                            </div>
-                            
                             @if($tour->rating > 0)
                             <div class="d-flex align-items-center">
                                 <div class="rating">
-                                    @foreach(range(1, $tour->rating) as $index)
-                                    <i class="fas fa-star"></i>
-                                    @endforeach
+                                    <i class="fas fa-star"></i> 
+                                    <i class="me-2 fs-6">{{$tour->rating}}</i>
                                 </div> 
-                                <a href="#">({{$tour->reviews->count()}})</a>
-                            </div> 
+                                <div>({{$tour->reviews->count()}} Reviews)</div>   
+                            </div>
                             @endif
                         </div>
                         <ul class="d-flex justify-content-between align-items-center">                             

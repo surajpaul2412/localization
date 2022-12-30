@@ -233,8 +233,7 @@ class FrontendController extends Controller
                 if ($search) {
                     $exactCityName = City::whereName($search)->pluck('id')->first();
                     if ($exactCityName) {
-                        $packages = Package::whereStatus(1)->whereCityId($exactCityName)->get();
-                        return view('frontend.tour-location', compact('packages','search'));
+                        return redirect()->route('search.city',['id' => $exactCityName]);
                     }
 
                     $exactCountryName = Country::whereName($search)->pluck('name')->first();
@@ -271,6 +270,7 @@ class FrontendController extends Controller
             }
             return redirect('/tours');
         } catch(\Exception $e){
+            dd($e->getMessage());
             return redirect('/tours');
         }
     }
@@ -288,7 +288,13 @@ class FrontendController extends Controller
         $city = City::findOrFail($id);
         $search = $city->name;
         $packages = Package::whereStatus(1)->whereCityId($id)->get();
+        return view('frontend.tour-location', compact('packages','search'));
+    }
 
+    public function searchCountry($id) {
+        $country = Country::findOrFail($id);
+        $search = $city->name;
+        dd("do here");
         return view('frontend.tour-location', compact('packages','search'));
     }
 
@@ -391,6 +397,9 @@ class FrontendController extends Controller
         $request->validate([
             'date' => 'required|date|after:today'
         ]);
+
+        $date = $request['date'];
+        $request['date'] = date("Y-m-d", strtotime($date));
 
         if (array_sum($request->qtyInput) > 0){
             if (Auth::user()) {

@@ -250,13 +250,12 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 												<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3> 
 												@if($tour->rating > 0)
 												<div class="d-flex align-items-center">
-													<div class="rating">
-														@foreach(range(1, $tour->rating) as $index)
-														<i class="fas fa-star"></i>
-														@endforeach
-													</div> 
-													<a href="#">({{$tour->reviews->count()}})</a>
-												</div> 
+	                          <div class="rating">
+	                              <i class="fas fa-star"></i> 
+	                              <i class="me-2 fs-6">{{$tour->rating}}</i>
+	                          </div> 
+	                          <div>({{$tour->reviews->count()}} Reviews)</div>   
+	                      </div>
 											@endif
 											</div> 
 											<ul class="d-flex justify-content-between align-items-center"> 

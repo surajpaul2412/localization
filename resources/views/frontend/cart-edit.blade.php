@@ -149,15 +149,14 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 										</figure>
 										<div class="wrapper">
 											<h3><a href="tour-details.php">{{dynamicLang($element->name)}}</a></h3>
-											@if($element->rating > 0) 
+											@if($element->rating > 0)
 											<div class="d-flex align-items-center">
-												<div class="rating">
-													@foreach(range(1, $element->rating) as $index)
-													<i class="fas fa-star"></i>
-													@endforeach
-												</div> 
-												<a href="#">({{$element->reviews->count()}})</a>   
-											</div> 
+						                      <div class="rating">
+						                          <i class="fas fa-star"></i> 
+						                          <i class="me-2 fs-6">{{$element->rating}}</i>
+						                      </div> 
+						                      <div>({{$element->reviews->count()}} Reviews)</div>   
+							                 </div>
 											@endif
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 

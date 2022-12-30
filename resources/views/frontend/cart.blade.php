@@ -105,9 +105,17 @@
 				                            @endif
 											<p class="fs-6 mb-1">{{dynamicLang('Date selected')}}: <strong>{{$item->date??'Not Selected'}}</strong></p>
 											<ul class="d-flex justify-content-start m-0">
-												<li><span class="py-1 px-2 me-1 bg-success text-white rounded">{{dynamicLang('Adult')}}: {{Session::get('currency_symbol')??'₹'}}{{switchCurrency($item->package->adult_price)}} x {{$item->qty_adult??'Not Selected'}}</span></li>
-												<li><span class="py-1 px-2 me-1 bg-success text-white rounded">{{dynamicLang('Child')}}: {{Session::get('currency_symbol')??'₹'}}{{switchCurrency($item->package->child_price)}} x {{$item->qty_child??'Not Selected'}}</span></li>
-												<li><span class="py-1 px-2 me-1 bg-success text-white rounded">{{dynamicLang('Infant')}}: {{Session::get('currency_symbol')??'₹'}}{{switchCurrency($item->package->infant_price)}} x {{$item->qty_infant??'Not Selected'}}</span></li>
+												@if($item->qty_adult > 0)
+												<li><span class="py-1 px-2 me-1 bg-success text-white rounded">{{dynamicLang('Adult')}}: {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($item->package->adult_price-($item->package->adult_price*$item->package->discount)/100)}} x {{$item->package->qty_adult??'Not Selected'}}</span></li>
+												@endif
+
+												@if($item->qty_child > 0)
+												<li><span class="py-1 px-2 me-1 bg-success text-white rounded">{{dynamicLang('Child')}}: {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($item->package->child_price-($item->package->child_price*$item->package->discount)/100)}}} x {{$item->qty_child??'Not Selected'}}</span></li>
+												@endif
+
+												@if($item->qty_infant > 0)
+												<li><span class="py-1 px-2 me-1 bg-success text-white rounded">{{dynamicLang('Infant')}}: {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($item->package->infant_price-($item->package->infant_price*$item->package->discount)/100)}} x {{$item->qty_infant??'Not Selected'}}</span></li>
+												@endif
 											</ul> 
 										</div> 
 									</div>

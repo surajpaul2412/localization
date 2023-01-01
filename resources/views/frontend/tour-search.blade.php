@@ -62,15 +62,15 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 								<div class="filter_type">
 									<h6>{{dynamicLang('Destinations')}}</h6>
 									<ul>
-										@foreach($cities as $index => $city)
+										@foreach($countryList as $index => $country)
 										<li>
-											<label class="container_check">{{dynamicLang($city->name)}} <large>, {{dynamicLang($city->country->name)}}</large>
+											<label class="container_check">{{dynamicLang($country->name)}}
 												<input type="checkbox" 
-															name="city[]" 
-															value="{{$city->id}}"
-															@if(isset($requests['city']))
-																@foreach($requests['city'] as $cityArray)
-																	@if($cityArray == $city->id)
+															name="country[]" 
+															value="{{$country->id}}"
+															@if(isset($requests['country']))
+																@foreach($requests['country'] as $countryArray)
+																	@if($countryArray == $country->id)
 																		checked
 																	@endif
 																@endforeach

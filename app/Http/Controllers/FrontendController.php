@@ -231,42 +231,27 @@ class FrontendController extends Controller
                 $search = $request->search;
                 $packages = [];
                 if ($search) {
-                    $exactCityName = City::whereName($search)->pluck('id')->first();
-                    if ($exactCityName) {
-                        return redirect()->route('search.city',['id' => $exactCityName]);
+                    $exactCityId = City::whereName($search)->pluck('id')->first();
+                    if ($exactCityId) {
+                        return redirect()->route('search.city',['id' => $exactCityId]);
                     }
 
-                    $exactCountryName = Country::whereName($search)->pluck('name')->first();
-                    if ($exactCountryName) {
-                        $packages = Package::whereStatus(1)
-                            ->where('name', 'like', '%' . request('search') . '%')
-                            ->orWhereHas('city', function($q) {
-                                $q->where('name', '=',request('search'))
-                                    ->orWhereHas('country', function($q1) {
-                                    $q1->where('name', '=', request('search'))
-                                       ->whereStatus(1);
-                                });
-                            })->get();
-
-                        return view('frontend.tour-location', compact('packages','search'));
+                    $exactCountryId = Country::whereName($search)->pluck('id')->first();
+                    if ($exactCountryId) {
+                        return redirect()->route('search.country',['id' => $exactCountryId]);
                     }
 
-                    $packages = Package::whereStatus(1)
-                            ->where('name', 'like', '%' . request('search') . '%')
-                            ->orWhereHas('city', function($q) {
-                                $q->where('name', 'like', '%' . request('search') . '%')
-                                    ->orWhereHas('country', function($q1) {
-                                    $q1->where('name', 'like', '%' . request('search') . '%')
-                                       ->whereStatus(1);
-                                });
-                            })->get();
+                    return redirect()->route('search.term',['search' => $search]);
                 }
 
-                $cities = City::all();
-                $activities = Activity::whereStatus(1)->get();
-                $amenities = Amenity::whereStatus(1)->get();
-                $categories = Category::whereStatus(1)->get();
-                return view('frontend.tour-search', compact('packages','search','cities','activities','amenities','categories'));
+                
+                // dd($packages);
+
+                // $cities = City::all();
+                // $activities = Activity::whereStatus(1)->get();
+                // $amenities = Amenity::whereStatus(1)->get();
+                // $categories = Category::whereStatus(1)->get();
+                // return view('frontend.tour-search', compact('packages','search','cities','activities','amenities','categories'));
             }
             return redirect('/tours');
         } catch(\Exception $e){
@@ -293,9 +278,30 @@ class FrontendController extends Controller
 
     public function searchCountry($id) {
         $country = Country::findOrFail($id);
-        $search = $city->name;
-        dd("do here");
+        $search = $country->name;
+        $packages = Package::whereStatus(1)
+                            ->WhereHas('city.country', function($q) use($country) {
+                                $q->whereId($country->id);
+                            })->get();
         return view('frontend.tour-location', compact('packages','search'));
+    }
+
+    public function searchTerm($search) {
+        $packages = Package::whereStatus(1)
+                            ->where('name', 'like', '%' . request('search') . '%')
+                            ->orWhereHas('city', function($q) {
+                                $q->where('name', 'like', '%' . request('search') . '%')
+                                    ->orWhereHas('country', function($q1) {
+                                    $q1->where('name', 'like', '%' . request('search') . '%')
+                                       ->whereStatus(1);
+                                });
+                            })->get();
+
+        $countryList = Country::whereStatus(1)->get();
+        $activities = Activity::whereStatus(1)->get();
+        $amenities = Amenity::whereStatus(1)->get();
+        $categories = Category::whereStatus(1)->get();
+        return view('frontend.tour-search', compact('packages','search','countryList','activities','amenities','categories'));
     }
 
     public function searchCategory($id){

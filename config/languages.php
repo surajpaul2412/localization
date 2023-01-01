@@ -6,7 +6,7 @@ return [
         'flag-icon' => 'us'
     ],
     'fr' => [
-        'display' => 'Français',
+        'display' => 'French',
         'flag-icon' => 'fr'
     ],
     'es' => [

@@ -27,7 +27,7 @@ class Cart extends Model
             $cartItems = Cart::whereUserId(session()->getId())->get();
         }
 
-        $totAmt = 0;
+        $totAmt = 0;$finalAmt = 0;
         foreach ($cartItems as $key => $item) {
             $package = Package::findOrFail($item->package_id);
 

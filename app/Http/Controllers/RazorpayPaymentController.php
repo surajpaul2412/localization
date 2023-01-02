@@ -68,7 +68,7 @@ class RazorpayPaymentController extends Controller
                             $orderData['child_qty'] = $item->qty_child;
                             $orderData['infant_qty'] = $item->qty_infant;
                             $orderData['price'] = Cart::itemPrice($item);
-                            $orderData['tax'] = $request->tax;
+                            $orderData['tax'] = $request->tax??0;
                             $orderData['order_status'] = 'In Progress';
                             $orderData['razorpay_payment_id'] = $response->id;
                             $order = Order::create($orderData);
@@ -110,7 +110,7 @@ class RazorpayPaymentController extends Controller
                             $orderData['child_qty'] = $item->qty_child;
                             $orderData['infant_qty'] = $item->qty_infant;
                             $orderData['price'] = Cart::itemPrice($item);
-                            $orderData['tax'] = $request->tax;
+                            $orderData['tax'] = $request->tax??0;
                             $orderData['order_status'] = 'In Progress';
                             $orderData['razorpay_payment_id'] = $response->id;
                             $order = Order::create($orderData);
@@ -171,7 +171,7 @@ class RazorpayPaymentController extends Controller
                         $orderData['child_qty'] = $item->qty_child;
                         $orderData['infant_qty'] = $item->qty_infant;
                         $orderData['price'] = Cart::itemPrice($item);
-                        $orderData['tax'] = $request->tax;
+                        $orderData['tax'] = $request->tax??0;
                         $orderData['order_status'] = 'In Progress';
                         $orderData['razorpay_payment_id'] = $response->id;
                         $order = Order::create($orderData);

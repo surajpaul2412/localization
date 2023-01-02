@@ -43,6 +43,8 @@ class Cart extends Model
 
     public static function itemPrice($item){
         $package = Package::findOrFail($item->package_id);
-        return ($package->adult_price*$item->qty_adult)+($package->child_price*$item->qty_child)+($package->infant_price*$item->qty_infant);
+        $totAmt = ($package->adult_price*$item->qty_adult)+($package->child_price*$item->qty_child)+($package->infant_price*$item->qty_infant);
+        $finalAmt = $totAmt - ($totAmt*$package->discount)/100;
+        return $finalAmt;
     }
 }

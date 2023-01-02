@@ -5,6 +5,7 @@
 @section('css')
 <style>
 	.razorpay-payment-button{
+		display: none;
 		width: 100%;
 		background-color: #ff7a68;
 		border:none;
@@ -16,6 +17,7 @@
 
 @php
 use App\Models\Razorpay;
+use App\Models\Cart;
 
 $razorpay = Razorpay::findOrFail(1);
 $key = $razorpay['key'];
@@ -72,19 +74,20 @@ $secret_key = $razorpay['secret_key'];
 							<span class="fs-5 fw-bold">Tours Details</span>
 						</div>
 						<div class="card-body"> 
-							<!-- Items  -->
+							@if($cartItems->count())
+							@foreach($cartItems as $item)
 							<div class="box_cart card border rounded mb-3"> 
 								<div class="card-body">
 									<div class="row g-0">
 										<div class="col-lg-2">
 											<figure class="m-0"> 
-												<a href="#"><img src="http://127.0.0.1:8000/uploads/tour/1954303343.jpg" class="img-fluid" /></a>
+												<a href="#"><img src="{{asset($item->package->avatar)}}" class="img-fluid" /></a>
 											</figure>
 										</div>
 										<div class="col-lg-10">
 											<div class="wrapper ms-2"> 
-												<h3 class="fs-5 m-0"><a href="#">Coral Island Tour with Lunch</a></h3> 		
-												<p>Group of 12 (Per Person)</p>									  
+												<h3 class="fs-5 m-0"><a href="{{route('tour.show',$item->package->slug)}}">{{dynamicLang($item->package->name)}}</a></h3> 		
+												 <p>Group of {{$item->qty_adult+$item->qty_child+$item->qty_infant}} (Per Person)</p>
 											</div> 
 										</div>
 									</div>
@@ -95,33 +98,9 @@ $secret_key = $razorpay['secret_key'];
 										<textarea name="" id="" cols="30" rows="5" class="form-control form-control-sm form-control-remark" placeholder="Enter Hotel name and Airpoart name With Address...."></textarea> 
 									</div>								 
 								</div>								
-							</div>	
-							
-							<!-- Items  -->
-							<div class="box_cart card border rounded mb-3"> 
-								<div class="card-body">
-									<div class="row g-0">
-										<div class="col-lg-2">
-											<figure class="m-0"> 
-												<a href="#"><img src="http://127.0.0.1:8000/uploads/tour/1954303343.jpg" class="img-fluid" /></a>
-											</figure>
-										</div>
-										<div class="col-lg-10">
-											<div class="wrapper ms-2"> 
-												<h3 class="fs-5 m-0"><a href="#">Bali Instagram Tour</a></h3> 		
-												<p>Group of 12 (Per Person)</p>									  
-											</div> 
-										</div>
-									</div>
-								</div>
-								<div class="card-footer bg-white">
-									<div class="form-group">
-										<label class="col-form-label">Remarks</label>
-										<textarea name="" id="" cols="30" rows="5" class="form-control form-control-sm form-control-remark" placeholder="Enter Hotel name and Airpoart name With Address...."></textarea> 
-									</div>								 
-								</div>								
-							</div>	
-							 
+							</div>
+							@endforeach
+							@endif
 						</div> 
 
 					</div>
@@ -256,64 +235,39 @@ $secret_key = $razorpay['secret_key'];
 							<span class="fs-5 fw-bold">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($cartAmount)}}</span>
 						</div>
 						<div class="card-body">
-							<div class="card border rounded mb-2">
-								<div class="card-header bg-white">
-									<p class="fs-6 m-0">Coral Island Tour with Lunch</p>
+							@if($cartItems->count())
+								@foreach($cartItems as $item)
+								<div class="card border rounded mb-2">
+									<div class="card-header bg-white">
+										<p class="fs-6 m-0">{{dynamicLang($item->package->name)}}</p>
+									</div>
+									<div class="card-body">
+										<ul class="card-tours-availbility-list">
+											<li class="item">
+												<span><b>Date</b></span>
+												<span>{{$item->date??'Not Selected'}}</span>
+											</li>
+											<li class="item">
+												<span><b>Quantity</b></span>
+												<span>{{$item->qty_adult}} x Adult, {{$item->qty_child}} x Child, {{$item->qty_infant}} x infant</span>
+											</li> 
+											<li class="item">
+												<span><b>Covered Area</b></span>
+												<span>{{$item->package->city->name}}</span>
+											</li>
+											<li class="item">
+												<span><b>Activity & Duration</b></span>
+												<span>{{$item->package->duration}}-{{$item->package->activity->name}}</span>
+											</li>
+										</ul>
+									</div>
+									<div class="card-footer d-flex justify-content-between align-items-center">
+										<span class="fs-6">Amount</span>
+										<span class="fs-6 fw-bold">{{Session::get('currency_symbol')??'₹'}} {{switchCurrency(Cart::itemPrice($item))}}</span>
+									</div>
 								</div>
-								<div class="card-body">
-									<ul class="card-tours-availbility-list">
-										<li class="item">
-											<span><b>Date</b></span>
-											<span>31 Dec 2022</span>
-										</li>
-										<li class="item">
-											<span><b>Quantity</b></span>
-											<span>12 x Adult, 1 x Child</span>
-										</li> 
-										<li class="item">
-											<span><b>Covered Area</b></span>
-											<span>Bali</span>
-										</li>
-										<li class="item">
-											<span><b>Activity & Duration</b></span>
-											<span>1-day Private Tour</span>
-										</li>
-									</ul>
-								</div>
-								<div class="card-footer d-flex justify-content-between align-items-center">
-									<span class="fs-6">Amount</span>
-									<span class="fs-6 fw-bold">₹8,364</span>
-								</div>
-							</div>
-							<div class="card border rounded mb-2">
-								<div class="card-header bg-white">
-									<p class="fs-6 m-0">Bali Instagram Tour</p>
-								</div>
-								<div class="card-body">
-									<ul class="card-tours-availbility-list">
-										<li class="item">
-											<span><b>Date</b></span>
-											<span>31 Dec 2022</span>
-										</li>
-										<li class="item">
-											<span><b>Quantity</b></span>
-											<span>12 x Adult, 1 x Child</span>
-										</li> 
-										<li class="item">
-											<span><b>Covered Area</b></span>
-											<span>Bali</span>
-										</li>
-										<li class="item">
-											<span><b>Activity & Duration</b></span>
-											<span>1-day Private Tour</span>
-										</li>
-									</ul>
-								</div>
-								<div class="card-footer d-flex justify-content-between align-items-center">
-									<span class="fs-6">Amount</span>
-									<span class="fs-6 fw-bold">₹8,364</span>
-								</div>
-							</div>
+								@endforeach
+							@endif
 						</div>
 						<div class="card-footer">
 						<button type="submit" class="btn w-100 btn-success">{{dynamicLang('Pay Now')}}</button>

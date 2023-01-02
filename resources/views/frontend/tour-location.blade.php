@@ -57,11 +57,17 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 				<div id="amenities-filter" class="owl-carousel owl-theme">  
 					@foreach($amenities as $amenity)
 					<div class="item"> 
-						<a href="{{route('search.amenityFilter',[$amenity->id,$search])}}" class="box-item style-3">  
+						<!-- <a href="{{route('search.amenityFilter',[$amenity->id,$search])}}" class="box-item style-3">  
 							<img src="{{asset($amenity->icon)}}" alt="{{$amenity->name}}" />
 							<p>{{dynamicLang($amenity->name)}}</p>
-						</a> 
-					</div> 
+						</a>  -->
+
+
+
+						<input class="searchType box-item style-3" type="checkbox" id="{{$amenity->id}}">
+						<label>{{dynamicLang($amenity->name)}}</label></input>
+
+					</div>
 					@endforeach
 				</div> 
 			</div>	
@@ -88,19 +94,22 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 									@if($tour->seal == 1)
 									<img class="trust-badges" src="{{asset('images/trust-badge.png')}}" width="40px" />
 									@endif
-									<a 
 										@if(Auth::user())
-											@foreach(Auth::user()->wishlist as $wishlist)
-												@if($wishlist->package_id == $tour->id)
-													href="{{route('wishlist.remove', $wishlist->id)}}" class="wish_bt liked"
-												@else
-													href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
-												@endif
-											@endforeach
+											@if(Auth::user()->wishlist->count() > 0)
+												@foreach(Auth::user()->wishlist as $wishlist)
+													@if($wishlist->package_id == $tour->id)
+														<a href="{{route('wishlist.remove', $wishlist->id)}}" class="wish_bt liked"></a>
+													@else
+														<a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+													@endif
+												@endforeach
+											@else
+												<a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+											@endif
 										@else
-											href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"
+											<a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
 										@endif
-									></a>
+									
 									<a href="{{route('tour.show', $tour->slug)}}">
 										<img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
 									</a> 
@@ -153,7 +162,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
     </style>
 
     <div class="container">
-<button type="button" class="btn btn-primary btn-sm httpbin">Jquery Post</button>
+<!-- <button type="button" class="btn btn-primary btn-sm httpbin">Jquery Post</button> -->
 <div class="result"></div>
 </div>
 
@@ -269,6 +278,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 </script>
 <!-- Ajax call -->
 <script>
+// custom
 $(document).ready(function () {
   $(".httpbin").click(function () {
     $.ajax({
@@ -295,6 +305,70 @@ $(document).ready(function () {
       }
     });
   });
+});
+
+
+
+
+
+
+
+
+// final
+$('.searchType').click(function() {
+	// alert($(this).attr('id'));
+	info = [];
+	info[0] = '1';
+	info[1] = '2';
+
+	if(this.checked){
+		// GET method
+		$.ajax({
+        type: 'POST',
+        headers: {
+        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+     		},
+        url: "http://127.0.0.1:8000/search/test",
+        success:function(data){
+         alert("success");
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+		// POST method
+	// 	$.ajax({
+	// 		headers: {
+  //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //    	},
+  //     type: "POST",
+  //     url: 'https://httpbin.org/post',
+  //     data: info,
+  //     dataType: "json",
+  //     // data: $(this).attr('id'), //--> send id of checked checkbox on other page
+  //     success: function(data) {
+  //     	console.log(data);
+  //         alert('it worked');
+  //         alert(data);
+  //         $('#container').html(data);
+  //     },
+  //      error: function() {
+  //         alert('it broke');
+  //     },
+  //     complete: function() {
+  //         // alert('it completed');
+  //     }
+  // });
+	}
 });
 </script>
 @endsection

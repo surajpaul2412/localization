@@ -258,11 +258,21 @@ class FrontendController extends Controller
         return view('frontend.tour-location', compact('packages','search'));
     }
 
-    public function searchCityAmenity(Request $req)
+    public function searchCityAmenity($id, $aminityIds)
     {
-        dd("here");
-        dd($search);
-        // code...
+        $amenityId = explode(',',$aminityIds);
+        $packages = Package::whereStatus(1)
+                            ->whereCityId($id)
+                            ->WhereHas('amenities', function($q) use($amenityId) {
+                                $q->whereIn('amenity_id', $amenityId);
+                            })->get();
+
+        return response()->json([
+            'status'=>'ok',
+            'message'=>'success',
+            'packages'=> $packages,
+            'amenityId'=>$amenityId
+        ]);
     }
 
     public function searchCountry($id) {

@@ -49,8 +49,8 @@ Route::post('payment', [App\Http\Controllers\FrontendController::class, 'payment
 Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->name('tour');
 Route::get('tours/{slug}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
 Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 'searchCity'])->name('search.city');
+Route::get('search/city/{id}/{aminityIds}', [App\Http\Controllers\FrontendController::class, 'searchCityAmenity'])->name('search.cityAmenity');
 // Route::post('search/city/{id}/{amenityArray}', [App\Http\Controllers\FrontendController::class, 'searchCityAmenity'])->name('search.cityAmenity');
-Route::post('search/test', [App\Http\Controllers\FrontendController::class, 'searchCityAmenity'])->name('test');
 
 
 

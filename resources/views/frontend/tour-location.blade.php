@@ -316,23 +316,30 @@ $(document).ready(function () {
 
 // final
 $('.searchType').click(function() {
-	// alert($(this).attr('id'));
 	info = [];
-	info[0] = '1';
-	info[1] = '2';
+	console.log($(this).attr('id'));
+	console.log(info);
+	
+	// info[0] = '1';
+	// info[1] = '2';
+
+
+	// console.log(info);
 
 	if(this.checked){
+		// console.log(info);
+		let appUrl = 'http://localhost/tour/public/search/city/1/'+info;
 		// GET method
-		$.ajax({
-        type: 'POST',
-        headers: {
-        	'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-     		},
-        url: "http://127.0.0.1:8000/search/test",
-        success:function(data){
-         alert("success");
-        }
-    });
+		// $.ajax({
+    //     type: 'GET',
+    //     url: appUrl,
+    //     success:function(data){
+    //      console.log(data);
+    //     },
+    //    error: function(err) {
+    //     console.log(err);
+    //   }
+    // });
 
 
 

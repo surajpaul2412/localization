@@ -64,13 +64,20 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 
 
 
-						<input class="searchType box-item style-3" type="checkbox" id="{{$amenity->id}}">
+						<input class="searchType box-item style-3" type="checkbox" name="amenityId" id="{{$amenity->id}}">
 						<label>{{dynamicLang($amenity->name)}}</label></input>
 
 					</div>
 					@endforeach
 				</div> 
 			</div>	
+
+			<!-- filter -->
+			<div class="" align="right">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+				  Filter
+				</button>
+			</div>
 		</div>
 		<!-- /container -->
 	</div>
@@ -80,7 +87,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 		<div class="container"> 
 
 			<div id="loadContent" class="isotope-wrapper">
-				<div class="row row-cols-1 row-cols-lg-4">
+				<div class="row row-cols-1 row-cols-lg-4 packages-grid">
 					@if($packages->count())
 						@foreach($packages as $index => $tour)
 						<div class="col isotope-item">
@@ -147,28 +154,38 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 	<!-- /isotope-wrapper --> 
 
     @include('layouts.frontend.partials.ads')
+</main>
 
-    <!-- try -->
-    <style>
-    	.container{
-			padding-top:5px;
-			}
-			.result{
-			padding-top:5px;
-			}
-			ul{
-			padding-bottom:5px;
-			}
-    </style>
 
-    <div class="container">
-<!-- <button type="button" class="btn btn-primary btn-sm httpbin">Jquery Post</button> -->
-<div class="result"></div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter1233" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-    <!-- try end -->
-	
-</main>
+
+<div class="card">
+	<form>
+		
+	</form>
+</div>
+
+
 @endsection
 
 @section('script') 
@@ -279,33 +296,33 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 <!-- Ajax call -->
 <script>
 // custom
-$(document).ready(function () {
-  $(".httpbin").click(function () {
-    $.ajax({
-      type: "POST",
-      url: "https://httpbin.org/post",
-      data: "test=POST+PROJECT&by=Eddie+Kidiw",
-      dataType: "json",
-      success: function (data) {
-        $(".result").append(
-          '<ul class="list-group"><li class="list-group-item">' +
-            data.form["by"] +
-            '</li><li class="list-group-item">' +
-            data["form"]["test"] +
-            '</li><li class="list-group-item">' +
-            data["headers"]["User-Agent"] +
-            '</li><li class="list-group-item">' +
-            data["headers"]["Content-Type"] +
-            '</li><li class="list-group-item">' +
-            data["headers"]["Accept-Encoding"] +
-            '</li><li class="list-group-item">' +
-            data["headers"]["Accept-Language"] +
-            "</li></ul>"
-        );
-      }
-    });
-  });
-});
+// $(document).ready(function () {
+//   $(".httpbin").click(function () {
+//     $.ajax({
+//       type: "POST",
+//       url: "https://httpbin.org/post",
+//       data: "test=POST+PROJECT&by=Eddie+Kidiw",
+//       dataType: "json",
+//       success: function (data) {
+//         $(".result").append(
+//           '<ul class="list-group"><li class="list-group-item">' +
+//             data.form["by"] +
+//             '</li><li class="list-group-item">' +
+//             data["form"]["test"] +
+//             '</li><li class="list-group-item">' +
+//             data["headers"]["User-Agent"] +
+//             '</li><li class="list-group-item">' +
+//             data["headers"]["Content-Type"] +
+//             '</li><li class="list-group-item">' +
+//             data["headers"]["Accept-Encoding"] +
+//             '</li><li class="list-group-item">' +
+//             data["headers"]["Accept-Language"] +
+//             "</li></ul>"
+//         );
+//       }
+//     });
+//   });
+// });
 
 
 
@@ -316,66 +333,37 @@ $(document).ready(function () {
 
 // final
 $('.searchType').click(function() {
-	info = [];
-	console.log($(this).attr('id'));
-	console.log(info);
-	
-	// info[0] = '1';
-	// info[1] = '2';
 
+	var amenity = [];
+	$.each($("input[name='amenityId']:checked"), function(){
+    amenity.push($(this).attr('id'));
+  });
+  var amenitySize = amenity.length;
+  amenityId = amenity.join(",");
 
-	// console.log(info);
-
-	if(this.checked){
-		// console.log(info);
-		let appUrl = 'http://localhost/tour/public/search/city/1/'+info;
+	if(amenitySize > 0){
+		let appUrl = 'http://localhost/tour/public/search/city/1/'+amenityId;
 		// GET method
-		// $.ajax({
-    //     type: 'GET',
-    //     url: appUrl,
-    //     success:function(data){
-    //      console.log(data);
-    //     },
-    //    error: function(err) {
-    //     console.log(err);
-    //   }
-    // });
-
-
-
-
-
-
-
-
-
-
-
-
-		// POST method
-	// 	$.ajax({
-	// 		headers: {
-  //       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  //    	},
-  //     type: "POST",
-  //     url: 'https://httpbin.org/post',
-  //     data: info,
-  //     dataType: "json",
-  //     // data: $(this).attr('id'), //--> send id of checked checkbox on other page
-  //     success: function(data) {
-  //     	console.log(data);
-  //         alert('it worked');
-  //         alert(data);
-  //         $('#container').html(data);
-  //     },
-  //      error: function() {
-  //         alert('it broke');
-  //     },
-  //     complete: function() {
-  //         // alert('it completed');
-  //     }
-  // });
+		$.ajax({
+        type: 'GET',
+        url: appUrl,
+        success:function(data){
+        	$('.isotope-item').hide();
+        	$('.list-group').remove();
+        	$(".packages-grid").append(
+	          '<div class="col list-group mt-4"><ul><li>Obj: '+JSON.stringify(data.packages) +'</li></ul></div>'
+	        );
+        },
+       error: function(err) {
+        console.log(err);
+      }
+    });
+	} else {
+		$('.list-group').remove();
+		$('.isotope-item').show();
 	}
+
+
 });
 </script>
 @endsection

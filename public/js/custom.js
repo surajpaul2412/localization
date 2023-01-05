@@ -99,6 +99,35 @@ jQuery( function ( $ ) {
           }
         ]
     });
+
+    // item Slide
+	$('.slick-amenities-filter').slick({
+        slidesToShow:7,
+        arrows: false,
+        dots: false,
+        infinite: true,
+        speed: 500, 
+        autoplaySpeed: 2000,
+        autoplay:true,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              arrows: true,
+              dots: false,
+              slidesToShow:3
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              arrows: true,
+              dots: false,
+              slidesToShow:2
+            }
+          }
+        ]
+    });
     
 
 });

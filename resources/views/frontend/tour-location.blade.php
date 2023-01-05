@@ -53,31 +53,58 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 	
 	<div class="filters_listing sticky_horizontal">
 		<div class="container">
-			<div class="py-3"> 
-				<div id="amenities-filter" class="owl-carousel owl-theme">  
+			<div class="position-relative py-3"> 
+				<!-- [Amenities filter] Start -->
+				<div class="slick-amenities-filter me-2">  
 					@foreach($amenities as $amenity)
 					<div class="item"> 
 						<!-- <a href="{{route('search.amenityFilter',[$amenity->id,$search])}}" class="box-item style-3">  
 							<img src="{{asset($amenity->icon)}}" alt="{{$amenity->name}}" />
 							<p>{{dynamicLang($amenity->name)}}</p>
-						</a>  -->
-
-
-
-						<input class="searchType box-item style-3" type="checkbox" name="amenityId" id="{{$amenity->id}}">
-						<label>{{dynamicLang($amenity->name)}}</label></input>
+						</a>  --> 
+						<div class="form-check form-option p-0">
+							<input class="form-check-input" type="checkbox" name="amenityId" id="{{$amenity->id}}">
+							<label class="form-option-label" for="{{$amenity->id}}">{{dynamicLang($amenity->name)}}</label>
+						</div>  
 
 					</div>
 					@endforeach
+					 
 				</div> 
-			</div>	
+				<!-- [Button trigger modal] Start -->
+				<div class="filter-btn">
+					<button type="button" class="btn_1 btn-sm" data-bs-toggle="modal" data-bs-target="#filterModal"> <i class="ti-align-left"></i> Filter</button>
+				</div>
 
-			<!-- filter -->
-			<div class="" align="right">
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-				  Filter
-				</button>
-			</div>
+				<!-- <div class="text-left pb-0 pt-2">
+					<div class="form-check form-option form-check-inline mb-2">
+						<input class="form-check-input" type="checkbox" name="sizes" id="af5" value="48">
+						<label class="form-option-label" for="af5">Tour Guide</label>
+					</div>                                                                                      
+					<div class="form-check form-option form-check-inline mb-2">
+						<input class="form-check-input" type="checkbox" name="sizes" id="af1" value="44">
+						<label class="form-option-label" for="af1">Hotel Drop-Off</label>
+					</div>
+					<div class="form-check form-option form-check-inline mb-2">
+						<input class="form-check-input" type="checkbox" name="sizes" id="af2" value="45">
+						<label class="form-option-label" for="af2">Hotel Pick-Up</label>
+					</div>
+					<div class="form-check form-option form-check-inline mb-2">
+						<input class="form-check-input" type="checkbox" name="sizes" id="af3" value="46">
+						<label class="form-option-label" for="af3">Luggage Delivery</label>
+					</div>
+					<div class="form-check form-option form-check-inline mb-2">
+						<input class="form-check-input" type="checkbox" name="sizes" id="af4" value="47">
+						<label class="form-option-label" for="af4">Private Transfer</label>
+					</div>
+					<div class="form-check form-option form-check-inline mb-2">
+						<input class="form-check-input" type="checkbox" name="sizes" id="af5" value="48">
+						<label class="form-option-label" for="af5">Transport Services</label>
+					</div> 
+				</div> -->
+
+			</div>	 
+			
 		</div>
 		<!-- /container -->
 	</div>
@@ -157,26 +184,24 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 </main>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter1233" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- [filterModal] Start -->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div> 
 
 
 <div class="card">
@@ -185,9 +210,8 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 	</form>
 </div>
 
-
+  
 @endsection
-
 @section('script') 
 <script>
 	function autocomplete(inp, arr) {

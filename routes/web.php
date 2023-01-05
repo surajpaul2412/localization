@@ -50,7 +50,7 @@ Route::get('tours', [App\Http\Controllers\FrontendController::class, 'tour'])->n
 Route::get('tours/{slug}', [App\Http\Controllers\FrontendController::class, 'tourShow'])->name('tour.show');
 Route::get('search/city/{id}', [App\Http\Controllers\FrontendController::class, 'searchCity'])->name('search.city');
 Route::get('search/city/{id}/{aminityIds}', [App\Http\Controllers\FrontendController::class, 'searchCityAmenity'])->name('search.cityAmenity');
-// Route::post('search/city/{id}/{amenityArray}', [App\Http\Controllers\FrontendController::class, 'searchCityAmenity'])->name('search.cityAmenity');
+Route::get('search/country/{id}/{aminityIds}', [App\Http\Controllers\FrontendController::class, 'searchCountryAmenity'])->name('search.countryAmenity');
 
 
 

@@ -5,6 +5,7 @@
 
 @php
 use App\Models\Amenity;
+use App\Models\Activity;
 use App\Models\Package;
 use App\Models\City;
 use App\Models\Category;
@@ -14,9 +15,11 @@ $amenities = Amenity::inRandomOrder()->whereStatus(1)->get();
 $tours = Package::inRandomOrder()->whereStatus(1)->get();
 $cities = City::inRandomOrder()->get();
 $categories = Category::whereStatus(1)->get();
+$activities = Activity::whereStatus(1)->get();
 $countries = Country::whereStatus(1)->pluck('name')->toArray();
 $searchCity = City::pluck('name')->toArray();
 $suggestions = json_encode(array_merge($countries, $searchCity));
+$api_url = json_encode(env("API_URL"));
 
 @endphp
 
@@ -57,16 +60,11 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 				<!-- [Amenities filter] Start -->
 				<div class="slick-amenities-filter me-2">  
 					@foreach($amenities as $amenity)
-					<div class="item"> 
-						<!-- <a href="{{route('search.amenityFilter',[$amenity->id,$search])}}" class="box-item style-3">  
-							<img src="{{asset($amenity->icon)}}" alt="{{$amenity->name}}" />
-							<p>{{dynamicLang($amenity->name)}}</p>
-						</a>  --> 
+					<div class="item">
 						<div class="form-check form-option p-0">
-							<input class="form-check-input" type="checkbox" name="amenityId" id="{{$amenity->id}}">
+							<input class="form-check-input searchType" type="checkbox" name="amenityId" id="{{$amenity->id}}">
 							<label class="form-option-label" for="{{$amenity->id}}">{{dynamicLang($amenity->name)}}</label>
-						</div>  
-
+						</div>
 					</div>
 					@endforeach
 					 
@@ -189,25 +187,94 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Select Filters</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				...
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<form>
+					<div class="filter_type">
+						<h6>{{dynamicLang('Category')}}</h6>
+						<ul>
+							@foreach($categories as $index => $category)
+							<li>
+								<label class="container_check">{{dynamicLang($category->name)}}
+									<input type="checkbox" 
+												name="category[]" 
+												value="{{$category->id}}"
+												@if(isset($requests['category']))
+													@foreach($requests['category'] as $categoryArray)
+														@if($categoryArray == $category->id)
+															checked
+														@endif
+													@endforeach
+												@endif
+									>
+									<span class="checkmark"></span>
+								</label>
+							</li>
+							@endforeach
+						</ul>
+					</div>
+
+					<div class="filter_type">
+						<h6>{{dynamicLang('Price')}}</h6>
+						<input type="text" id="range" name="range">
+					</div>
+
+					<div class="filter_type">
+						<h6>{{dynamicLang('Activity')}}</h6>
+						<ul>
+							@foreach($activities as $index => $activity)
+							<li>
+								<label class="container_check">{{dynamicLang($activity->name)}}
+									<input type="checkbox" 
+												name="activity[]" 
+												value="{{$activity->id}}"
+												@if(isset($requests['activity']))
+													@foreach($requests['activity'] as $activityArray)
+														@if($activityArray == $activity->id)
+															checked
+														@endif
+													@endforeach
+												@endif
+									>
+									<span class="checkmark"></span>
+								</label>
+							</li>
+							@endforeach
+						</ul>
+					</div>
+
+					<div class="filter_type">
+						<h6>{{dynamicLang('Amenity')}}</h6>
+						<ul>
+							@foreach($amenities as $index => $amenity)
+							<li>
+								<label class="container_check">{{dynamicLang($amenity->name)}}
+									<input type="checkbox" 
+												name="amenity[]" 
+												value="{{$amenity->id}}"
+												@if(isset($requests['amenity']))
+													@foreach($requests['amenity'] as $amenityArray)
+														@if($amenityArray == $amenity->id)
+															checked
+														@endif
+													@endforeach
+												@endif
+									>
+									<span class="checkmark"></span>
+								</label>
+							</li>
+							@endforeach
+						</ul>
+					</div>
+
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Apply Filter</button>
+				</form>
 			</div>
 		</div>
 	</div>
-</div> 
-
-
-<div class="card">
-	<form>
-		
-	</form>
 </div>
 
   
@@ -317,77 +384,121 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 	/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
 	autocomplete(document.getElementById("myInput"), countries);
 </script>
-<!-- Ajax call -->
+@if(isset($requests['range']))
 <script>
-// custom
-// $(document).ready(function () {
-//   $(".httpbin").click(function () {
-//     $.ajax({
-//       type: "POST",
-//       url: "https://httpbin.org/post",
-//       data: "test=POST+PROJECT&by=Eddie+Kidiw",
-//       dataType: "json",
-//       success: function (data) {
-//         $(".result").append(
-//           '<ul class="list-group"><li class="list-group-item">' +
-//             data.form["by"] +
-//             '</li><li class="list-group-item">' +
-//             data["form"]["test"] +
-//             '</li><li class="list-group-item">' +
-//             data["headers"]["User-Agent"] +
-//             '</li><li class="list-group-item">' +
-//             data["headers"]["Content-Type"] +
-//             '</li><li class="list-group-item">' +
-//             data["headers"]["Accept-Encoding"] +
-//             '</li><li class="list-group-item">' +
-//             data["headers"]["Accept-Language"] +
-//             "</li></ul>"
-//         );
-//       }
-//     });
-//   });
-// });
-
-
-
-
-
-
-
-
-// final
-$('.searchType').click(function() {
-
-	var amenity = [];
-	$.each($("input[name='amenityId']:checked"), function(){
-    amenity.push($(this).attr('id'));
-  });
-  var amenitySize = amenity.length;
-  amenityId = amenity.join(",");
-
-	if(amenitySize > 0){
-		let appUrl = 'http://localhost/tour/public/search/city/1/'+amenityId;
-		// GET method
-		$.ajax({
-        type: 'GET',
-        url: appUrl,
-        success:function(data){
-        	$('.isotope-item').hide();
-        	$('.list-group').remove();
-        	$(".packages-grid").append(
-	          '<div class="col list-group mt-4"><ul><li>Obj: '+JSON.stringify(data.packages) +'</li></ul></div>'
-	        );
-        },
-       error: function(err) {
-        console.log(err);
-      }
+	 $("#range").ionRangeSlider({
+        hide_min_max: true,
+        keyboard: true,
+        min: 10,
+        max: 2000,
+        from: <?php $rangeJs = explode(';',$requests['range']); echo $rangeJs[0]??10; ?>,
+        to: <?php $rangeJs = explode(';',$requests['range']); echo $rangeJs[1]??1000; ?>,
+        type: 'double',
+        step: 1,
+        prefix: "Min. ",
+        grid: false
     });
-	} else {
-		$('.list-group').remove();
-		$('.isotope-item').show();
-	}
-
-
-});
 </script>
+@else
+<script>
+	 $("#range").ionRangeSlider({
+        hide_min_max: true,
+        keyboard: true,
+        min: 10,
+        max: 2000,
+        from: 10,
+        to: 1000,
+        type: 'double',
+        step: 1,
+        prefix: "Min. ",
+        grid: false
+    });
+</script>
+@endif
+
+
+
+@if($searchType == 'city')
+<!-- City | AJAX call -->
+<script>
+	$('.searchType').click(function() {
+		var url = <?php echo $api_url; ?>;
+
+		var amenity = [];
+		$.each($("input[name='amenityId']:checked"), function(){
+	    amenity.push($(this).attr('id'));
+	  });
+	  var amenitySize = amenity.length;
+	  amenityId = amenity.join(",");
+
+		if(amenitySize > 0){
+			$.ajax({
+	        type: 'GET',
+	        url: url+'/search/city/1/'+amenityId,
+	        success:function(data){
+	        	$('.isotope-item').hide();
+	        	$('.list-group').remove();
+
+	        	if(data.packages.length == 0){
+	        		$(".packages-grid").append(
+			          '<div class="col list-group mt-4"><ul><li>No Tours Found</li></ul></div>'
+			        );
+	        	}else{
+	        		$(".packages-grid").append(
+			          '<div class="col list-group mt-4"><ul><li>Obj: '+JSON.stringify(data.packages) +'</li></ul></div>'
+			        );
+	        	}
+	        },
+	       error: function(err) {
+	        console.log(err);
+	      }
+	    });
+		} else {
+			$('.list-group').remove();
+			$('.isotope-item').show();
+		}
+	});
+</script>
+@else
+<!-- Country | AJAX call -->
+<script>
+	$('.searchType').click(function() {
+		var url = <?php echo $api_url; ?>;
+
+		var amenity = [];
+		$.each($("input[name='amenityId']:checked"), function(){
+	    amenity.push($(this).attr('id'));
+	  });
+	  var amenitySize = amenity.length;
+	  amenityId = amenity.join(",");
+
+		if(amenitySize > 0){
+			$.ajax({
+	        type: 'GET',
+	        url: url+'/search/country/1/'+amenityId,
+	        success:function(data){
+	        	$('.isotope-item').hide();
+	        	$('.list-group').remove();
+
+	        	if(data.packages.length == 0){
+	        		$(".packages-grid").append(
+			          '<div class="col list-group mt-4"><ul><li>No Tours Found</li></ul></div>'
+			        );
+	        	}else{
+	        		$(".packages-grid").append(
+			          '<div class="col list-group mt-4"><ul><li>Obj: '+JSON.stringify(data.packages) +'</li></ul></div>'
+			        );
+	        	}
+	        },
+	       error: function(err) {
+	        console.log(err);
+	      }
+	    });
+		} else {
+			$('.list-group').remove();
+			$('.isotope-item').show();
+		}
+	});
+</script>
+@endif
 @endsection

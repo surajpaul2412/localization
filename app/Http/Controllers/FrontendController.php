@@ -254,8 +254,9 @@ class FrontendController extends Controller
     public function searchCity($id) {
         $city = City::findOrFail($id);
         $search = $city->name;
+        $searchType = 'city';
         $packages = Package::whereStatus(1)->whereCityId($id)->get();
-        return view('frontend.tour-location', compact('packages','search'));
+        return view('frontend.tour-location', compact('packages','search','searchType'));
     }
 
     public function searchCityAmenity($id, $aminityIds)
@@ -275,14 +276,35 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function searchCountryAmenity($id, $aminityIds)
+    {
+        $amenityId = explode(',',$aminityIds);
+        $packages = Package::whereStatus(1)
+                            ->WhereHas('city.country', function($q) use($id) {
+                                $q->whereId($id);
+                            })
+                            ->WhereHas('amenities', function($q) use($amenityId) {
+                                $q->whereIn('amenity_id', $amenityId);
+                            })
+                            ->get();
+
+        return response()->json([
+            'status'=>'ok',
+            'message'=>'success',
+            'packages'=> $packages,
+            'amenityId'=>$amenityId
+        ]);
+    }
+
     public function searchCountry($id) {
         $country = Country::findOrFail($id);
         $search = $country->name;
+        $searchType = 'country';
         $packages = Package::whereStatus(1)
                             ->WhereHas('city.country', function($q) use($country) {
                                 $q->whereId($country->id);
                             })->get();
-        return view('frontend.tour-location', compact('packages','search'));
+        return view('frontend.tour-location', compact('packages','search','searchType'));
     }
 
     public function searchTerm($search) {

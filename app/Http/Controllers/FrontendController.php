@@ -498,92 +498,100 @@ class FrontendController extends Controller
 
     public function searchCityAmenity($id, $aminityIds)
     {
-        $amenityId = explode(',',$aminityIds);
-        $packages = Package::whereStatus(1)
-                            ->whereCityId($id)
-                            ->WhereHas('amenities', function($q) use($amenityId) {
-                                $q->whereIn('amenity_id', $amenityId);
-                            })
-                            ->with('category')
-                            ->withCount('reviews')
-                            ->get();
+        try{
+            $amenityId = explode(',',$aminityIds);
+            $packages = Package::whereStatus(1)
+                                ->whereCityId($id)
+                                ->WhereHas('amenities', function($q) use($amenityId) {
+                                    $q->whereIn('amenity_id', $amenityId);
+                                })
+                                ->with('category')
+                                ->withCount('reviews')
+                                ->get();
 
-        foreach ($packages as $key => $package) {
-            $packages[$key]['name'] = dynamicLang(\Illuminate\Support\Str::limit($package->name ?? '',25,' ...'));
-            $packages[$key]['rating'] = $package->rating;
-            $packages[$key]['currency_symbol'] = Session::get('currency_symbol')??'₹';
-            $packages[$key]['adult_price'] = switchCurrency($package->adult_price);
-            $packages[$key]['new_price'] = switchCurrency($package->adult_price-($package->adult_price*$package->discount)/100);
+            foreach ($packages as $key => $package) {
+                $packages[$key]['name'] = dynamicLang(\Illuminate\Support\Str::limit($package->name ?? '',25,' ...'));
+                $packages[$key]['rating'] = $package->rating;
+                $packages[$key]['currency_symbol'] = Session::get('currency_symbol')??'₹';
+                $packages[$key]['adult_price'] = switchCurrency($package->adult_price);
+                $packages[$key]['new_price'] = switchCurrency($package->adult_price-($package->adult_price*$package->discount)/100);
 
-            if(Auth::user()){
-                if(Auth::user()->wishlist->count() > 0){
-                    foreach (Auth::user()->wishlist as $key => $wishlist) {
-                        if ($wishlist->package_id == $package->id) {
-                            $packages[$key]['wishlist'] = 'added';
-                        }else{
-                            $packages[$key]['wishlist'] = 'not_added';
+                if(Auth::user()){
+                    if(Auth::user()->wishlist->count() > 0){
+                        foreach (Auth::user()->wishlist as $key => $wishlist) {
+                            if ($wishlist->package_id == $package->id) {
+                                $packages[$key]['wishlist'] = 'added';
+                            }else{
+                                $packages[$key]['wishlist'] = 'not_added';
+                            }
                         }
+                    }else{
+                        $packages[$key]['wishlist'] = 'not_added';
                     }
                 }else{
                     $packages[$key]['wishlist'] = 'not_added';
                 }
-            }else{
-                $packages[$key]['wishlist'] = 'not_added';
             }
-        }
 
-        return response()->json([
-            'status'=>'ok',
-            'message'=>'success',
-            'packages'=> $packages,
-            'amenityId'=>$amenityId
-        ]);
+            return response()->json([
+                'status'=>'ok',
+                'message'=>'success',
+                'packages'=> $packages,
+                'amenityId'=>$amenityId
+            ]);
+        } catch(\Exception $e){
+            dd($e->getMessage());
+        }
     }
 
     public function searchCountryAmenity($id, $aminityIds)
     {
-        $amenityId = explode(',',$aminityIds);
-        $packages = Package::whereStatus(1)
-                            ->WhereHas('city.country', function($q) use($id) {
-                                $q->whereId($id);
-                            })
-                            ->WhereHas('amenities', function($q) use($amenityId) {
-                                $q->whereIn('amenity_id', $amenityId);
-                            })
-                            ->with('category')
-                            ->withCount('reviews')
-                            ->get();
+        try{
+            $amenityId = explode(',',$aminityIds);
+            $packages = Package::whereStatus(1)
+                                ->WhereHas('city.country', function($q) use($id) {
+                                    $q->whereId($id);
+                                })
+                                ->WhereHas('amenities', function($q) use($amenityId) {
+                                    $q->whereIn('amenity_id', $amenityId);
+                                })
+                                ->with('category')
+                                ->withCount('reviews')
+                                ->get();
 
-        foreach ($packages as $key => $package) {
-            $packages[$key]['name'] = dynamicLang(\Illuminate\Support\Str::limit($package->name ?? '',25,' ...'));
-            $packages[$key]['rating'] = $package->rating;
-            $packages[$key]['currency_symbol'] = Session::get('currency_symbol')??'₹';
-            $packages[$key]['adult_price'] = switchCurrency($package->adult_price);
-            $packages[$key]['new_price'] = switchCurrency($package->adult_price-($package->adult_price*$package->discount)/100);
+            foreach ($packages as $key => $package) {
+                $packages[$key]['name'] = dynamicLang(\Illuminate\Support\Str::limit($package->name ?? '',25,' ...'));
+                $packages[$key]['rating'] = $package->rating;
+                $packages[$key]['currency_symbol'] = Session::get('currency_symbol')??'₹';
+                $packages[$key]['adult_price'] = switchCurrency($package->adult_price);
+                $packages[$key]['new_price'] = switchCurrency($package->adult_price-($package->adult_price*$package->discount)/100);
 
-            if(Auth::user()){
-                if(Auth::user()->wishlist->count() > 0){
-                    foreach (Auth::user()->wishlist as $key => $wishlist) {
-                        if ($wishlist->package_id == $package->id) {
-                            $packages[$key]['wishlist'] = 'added';
-                        }else{
-                            $packages[$key]['wishlist'] = 'not_added';
+                if(Auth::user()){
+                    if(Auth::user()->wishlist->count() > 0){
+                        foreach (Auth::user()->wishlist as $key => $wishlist) {
+                            if ($wishlist->package_id == $package->id) {
+                                $packages[$key]['wishlist'] = 'added';
+                            }else{
+                                $packages[$key]['wishlist'] = 'not_added';
+                            }
                         }
+                    }else{
+                        $packages[$key]['wishlist'] = 'not_added';
                     }
                 }else{
                     $packages[$key]['wishlist'] = 'not_added';
                 }
-            }else{
-                $packages[$key]['wishlist'] = 'not_added';
             }
-        }
 
-        return response()->json([
-            'status'=>'ok',
-            'message'=>'success',
-            'packages'=> $packages,
-            'amenityId'=>$amenityId
-        ]);
+            return response()->json([
+                'status'=>'ok',
+                'message'=>'success',
+                'packages'=> $packages,
+                'amenityId'=>$amenityId
+            ]);
+        } catch(\Exception $e){
+            dd($e->getMessage());
+        }
     }
 
     public function searchCountry($id) {

@@ -199,7 +199,8 @@ $api_url = json_encode(env("API_URL"));
 							<li>
 								<label class="container_check">{{dynamicLang($category->name)}}
 									<input type="checkbox" 
-												name="category[]" 
+												class="filterType" 
+												name="categoryId" 
 												value="{{$category->id}}"
 												@if(isset($requests['category']))
 													@foreach($requests['category'] as $categoryArray)
@@ -218,7 +219,7 @@ $api_url = json_encode(env("API_URL"));
 
 					<div class="filter_type">
 						<h6>{{dynamicLang('Price')}}</h6>
-						<input type="text" id="range" name="range">
+						<input class="filterType" type="text" id="range" name="rangeId" value="">
 					</div>
 
 					<div class="filter_type">
@@ -228,7 +229,8 @@ $api_url = json_encode(env("API_URL"));
 							<li>
 								<label class="container_check">{{dynamicLang($activity->name)}}
 									<input type="checkbox" 
-												name="activity[]" 
+												class="filterType" 
+												name="activityId" 
 												value="{{$activity->id}}"
 												@if(isset($requests['activity']))
 													@foreach($requests['activity'] as $activityArray)
@@ -252,7 +254,8 @@ $api_url = json_encode(env("API_URL"));
 							<li>
 								<label class="container_check">{{dynamicLang($amenity->name)}}
 									<input type="checkbox" 
-												name="amenity[]" 
+												class="filterType" 
+												name="amenityId" 
 												value="{{$amenity->id}}"
 												@if(isset($requests['amenity']))
 													@foreach($requests['amenity'] as $amenityArray)
@@ -268,9 +271,8 @@ $api_url = json_encode(env("API_URL"));
 							@endforeach
 						</ul>
 					</div>
-
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Apply Filter</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Apply Filter</button>
 				</form>
 			</div>
 		</div>
@@ -421,83 +423,345 @@ $api_url = json_encode(env("API_URL"));
 @if($searchType == 'city')
 <!-- City | AJAX call -->
 <script>
-	$('.searchType').click(function() {
-		var url = <?php echo $api_url; ?>;
+	$( document ).ready(function() {
+		$('.searchType').click(function() {
+			var url = <?php echo $api_url; ?>;
 
-		var amenity = [];
-		$.each($("input[name='amenityId']:checked"), function(){
-	    amenity.push($(this).attr('id'));
-	  });
-	  var amenitySize = amenity.length;
-	  amenityId = amenity.join(",");
+			var amenity = [];
+			$.each($("input[name='amenityId']:checked"), function(){
+		    amenity.push($(this).attr('id'));
+		  });
+		  var amenitySize = amenity.length;
+		  amenityId = amenity.join(",");
 
-		if(amenitySize > 0){
-			$.ajax({
-	        type: 'GET',
-	        url: url+'/search/city/1/'+amenityId,
-	        success:function(data){
-	        	$('.isotope-item').hide();
-	        	$('.list-group').remove();
+			if(amenitySize > 0){
+				$.ajax({
+		        type: 'GET',
+		        url: url+'/search/city/'+{{$id}}+'/'+amenityId,
+		        success:function(data){
+		        	$('.isotope-item').hide();
+		        	$('.list-group').remove();
 
-	        	if(data.packages.length == 0){
-	        		$(".packages-grid").append(
-			          '<div class="col list-group mt-4"><ul><li>No Tours Found</li></ul></div>'
-			        );
-	        	}else{
-	        		$(".packages-grid").append(
-			          '<div class="col list-group mt-4"><ul><li>Obj: '+JSON.stringify(data.packages) +'</li></ul></div>'
-			        );
-	        	}
-	        },
-	       error: function(err) {
-	        console.log(err);
-	      }
-	    });
-		} else {
-			$('.list-group').remove();
-			$('.isotope-item').show();
-		}
+		        	if(data.packages.length == 0){
+		        		$(".packages-grid").append(
+				          '<div class="col list-group mt-4"><ul><li>No Tours Found</li></ul></div>'
+				        );
+		        	}else{
+		        		$.each(data.packages, function(r){
+				        	var avatar = url + '/' +data.packages[r].avatar;
+				        	var slug = url + '/tours/' +data.packages[r].slug;
+				        	var wishlistAdd = url + '/wishlist/add/' +data.packages[r].id;
+				        	var wishlistRemove = url + '/wishlist/remove/' +data.packages[r].id;
+
+				        	$(".packages-grid").append(
+					          '<div class="col list-group">' +
+					          	'<div class="box_grid">' +
+					          		(data.packages[r].combo == 1 ? '<div class="ribbon"><span>Combo</span></div>': '') +
+					          		'<figure>' +
+					          			(data.packages[r].seal == 1 ? '<img class="trust-badges" src="{{asset("images/trust-badge.png")}}" width="40px" />': '') +
+
+					          			(data.packages[r].wishlist == 'not_added' ? '<a href="'+wishlistAdd+'" class="wish_bt"></a>': '<a href="'+wishlistRemove+'" class="wish_bt liked"></a>') +
+
+					          			'<a href="'+ slug +'">' +
+														'<img src="'+ avatar +'" class="img-fluid" />' + 
+													'</a>' +
+					          		'</figure>' +
+
+					          		'<div class="wrapper">' +
+					          			'<badge class="category-names text-white bg-black py-1 px-2 rounded">'+ data.packages[r].category.name +'</badge>' +
+					          			'<h3><a href="'+slug+'">'+ data.packages[r].name +'</a></h3>' +
+					          			(data.packages[r].rating > 0 ? '<div class="d-flex align-items-center"><div class="rating"><i class="fas fa-star"></i><i class="me-2 fs-6">'+data.packages[r].rating+'</i></div><div>('+data.packages[r].reviews_count+' Reviews)</div></div>': '') +
+					          		'</div>' +
+
+					          		'<ul class="d-flex justify-content-between align-items-center"> ' +
+													'<li>' +
+														'<span><b>From: </b><small>'+data.packages[r].currency_symbol+'<del><b>'+data.packages[r].adult_price +'</b></del></small> '+ data.packages[r].new_price+'<small>/person</small></span>' +
+													'</li>' +
+												'</ul>' +			
+					          	'</div>' +
+					          '</div>'
+					        );
+						    });
+		        	}
+		        },
+		       error: function(err) {
+		        console.log(err);
+		      }
+		    });
+			} else {
+				$('.list-group').remove();
+				$('.isotope-item').show();
+			}
+		});
+	});
+</script>
+<!-- filter | Modal -->
+<script>
+	$( document ).ready(function() {
+		$('.filterType').change(function() {
+			var url = <?php echo $api_url; ?>;
+
+			// category
+			var category = [];
+			$.each($("input[name='categoryId']:checked"), function(){
+		    category.push($(this).attr('value'));
+		  });
+		  var categorySize = category.length;
+		  categoryId = category.join(",");
+
+		  // activityId
+		  var activity = [];
+			$.each($("input[name='activityId']:checked"), function(){
+		    activity.push($(this).attr('value'));
+		  });
+		  var activitySize = activity.length;
+		  activityId = activity.join(",");
+
+		  // amenityId
+		  var amenity = [];
+			$.each($("input[name='amenityId']:checked"), function(){
+		    amenity.push($(this).attr('value'));
+		  });
+		  var amenitySize = amenity.length;
+		  amenityId = amenity.join(",");
+
+		  // rangeId
+		  var range = document.getElementById("range").value;
+
+		  if(categorySize > 0 || activitySize > 0 || amenitySize > 0 || range){
+				$.ajax({
+		        type: 'POST',
+		        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+		        url: url+'/search/location/city/'+{{$id}},
+		        data: {'category':categoryId,'range':range,'activity':activityId,'amenity':amenityId},
+		        dataType: "json",
+		        success:function(data){
+		        	$('.isotope-item').hide();
+		        	$('.list-group').remove();
+
+		        	if(data.packages.length == 0){
+		        		$(".packages-grid").append(
+				          '<div class="col list-group mt-4"><ul><li>No Tours Found</li></ul></div>'
+				        );
+		        	}else{
+				        $.each(data.packages, function(r){
+				        	var avatar = url + '/' +data.packages[r].avatar;
+				        	var slug = url + '/tours/' +data.packages[r].slug;
+				        	var wishlistAdd = url + '/wishlist/add/' +data.packages[r].id;
+				        	var wishlistRemove = url + '/wishlist/remove/' +data.packages[r].id;
+
+				        	$(".packages-grid").append(
+					          '<div class="col list-group">' +
+					          	'<div class="box_grid">' +
+					          		(data.packages[r].combo == 1 ? '<div class="ribbon"><span>Combo</span></div>': '') +
+					          		'<figure>' +
+					          			(data.packages[r].seal == 1 ? '<img class="trust-badges" src="{{asset("images/trust-badge.png")}}" width="40px" />': '') +
+
+					          			(data.packages[r].wishlist == 'not_added' ? '<a href="'+wishlistAdd+'" class="wish_bt"></a>': '<a href="'+wishlistRemove+'" class="wish_bt liked"></a>') +
+
+					          			'<a href="'+ slug +'">' +
+														'<img src="'+ avatar +'" class="img-fluid" />' + 
+													'</a>' +
+					          		'</figure>' +
+
+					          		'<div class="wrapper">' +
+					          			'<badge class="category-names text-white bg-black py-1 px-2 rounded">'+ data.packages[r].category.name +'</badge>' +
+					          			'<h3><a href="'+slug+'">'+ data.packages[r].name +'</a></h3>' +
+					          			(data.packages[r].rating > 0 ? '<div class="d-flex align-items-center"><div class="rating"><i class="fas fa-star"></i><i class="me-2 fs-6">'+data.packages[r].rating+'</i></div><div>('+data.packages[r].reviews_count+' Reviews)</div></div>': '') +
+					          		'</div>' +
+
+					          		'<ul class="d-flex justify-content-between align-items-center"> ' +
+													'<li>' +
+														'<span><b>From: </b><small>'+data.packages[r].currency_symbol+'<del><b>'+data.packages[r].adult_price +'</b></del></small> '+ data.packages[r].new_price+'<small>/person</small></span>' +
+													'</li>' +
+												'</ul>' +			
+					          	'</div>' +
+					          '</div>'
+					        );
+						    });
+		        	}
+		        },
+		       error: function(err) {
+		        console.log(err);
+		      }
+		    });
+			} else {
+				$('.list-group').remove();
+				$('.isotope-item').show();
+			}
+		});
 	});
 </script>
 @else
 <!-- Country | AJAX call -->
 <script>
-	$('.searchType').click(function() {
-		var url = <?php echo $api_url; ?>;
+	$( document ).ready(function() {
+		$('.searchType').click(function() {
+			var url = <?php echo $api_url; ?>;
 
-		var amenity = [];
-		$.each($("input[name='amenityId']:checked"), function(){
-	    amenity.push($(this).attr('id'));
-	  });
-	  var amenitySize = amenity.length;
-	  amenityId = amenity.join(",");
+			var amenity = [];
+			$.each($("input[name='amenityId']:checked"), function(){
+		    amenity.push($(this).attr('id'));
+		  });
+		  var amenitySize = amenity.length;
+		  amenityId = amenity.join(",");
 
-		if(amenitySize > 0){
-			$.ajax({
-	        type: 'GET',
-	        url: url+'/search/country/1/'+amenityId,
-	        success:function(data){
-	        	$('.isotope-item').hide();
-	        	$('.list-group').remove();
+			if(amenitySize > 0){
+				$.ajax({
+		        type: 'GET',
+		        url: url+'/search/country/'+{{$id}}+'/'+amenityId,
+		        success:function(data){
+		        	$('.isotope-item').hide();
+		        	$('.list-group').remove();
 
-	        	if(data.packages.length == 0){
-	        		$(".packages-grid").append(
-			          '<div class="col list-group mt-4"><ul><li>No Tours Found</li></ul></div>'
-			        );
-	        	}else{
-	        		$(".packages-grid").append(
-			          '<div class="col list-group mt-4"><ul><li>Obj: '+JSON.stringify(data.packages) +'</li></ul></div>'
-			        );
-	        	}
-	        },
-	       error: function(err) {
-	        console.log(err);
-	      }
-	    });
-		} else {
-			$('.list-group').remove();
-			$('.isotope-item').show();
-		}
+		        	if(data.packages.length == 0){
+		        		$(".packages-grid").append(
+				          '<div class="col list-group mt-4"><ul><li>No Tours Found</li></ul></div>'
+				        );
+		        	}else{
+				        $.each(data.packages, function(r){
+				        	var avatar = url + '/' +data.packages[r].avatar;
+				        	var slug = url + '/tours/' +data.packages[r].slug;
+				        	var wishlistAdd = url + '/wishlist/add/' +data.packages[r].id;
+				        	var wishlistRemove = url + '/wishlist/remove/' +data.packages[r].id;
+
+				        	$(".packages-grid").append(
+					          '<div class="col list-group">' +
+					          	'<div class="box_grid">' +
+					          		(data.packages[r].combo == 1 ? '<div class="ribbon"><span>Combo</span></div>': '') +
+					          		'<figure>' +
+					          			(data.packages[r].seal == 1 ? '<img class="trust-badges" src="{{asset("images/trust-badge.png")}}" width="40px" />': '') +
+
+					          			(data.packages[r].wishlist == 'not_added' ? '<a href="'+wishlistAdd+'" class="wish_bt"></a>': '<a href="'+wishlistRemove+'" class="wish_bt liked"></a>') +
+
+					          			'<a href="'+ slug +'">' +
+														'<img src="'+ avatar +'" class="img-fluid" />' + 
+													'</a>' +
+					          		'</figure>' +
+
+					          		'<div class="wrapper">' +
+					          			'<badge class="category-names text-white bg-black py-1 px-2 rounded">'+ data.packages[r].category.name +'</badge>' +
+					          			'<h3><a href="'+slug+'">'+ data.packages[r].name +'</a></h3>' +
+					          			(data.packages[r].rating > 0 ? '<div class="d-flex align-items-center"><div class="rating"><i class="fas fa-star"></i><i class="me-2 fs-6">'+data.packages[r].rating+'</i></div><div>('+data.packages[r].reviews_count+' Reviews)</div></div>': '') +
+					          		'</div>' +
+
+					          		'<ul class="d-flex justify-content-between align-items-center"> ' +
+													'<li>' +
+														'<span><b>From: </b><small>'+data.packages[r].currency_symbol+'<del><b>'+data.packages[r].adult_price +'</b></del></small> '+ data.packages[r].new_price+'<small>/person</small></span>' +
+													'</li>' +
+												'</ul>' +			
+					          	'</div>' +
+					          '</div>'
+					        );
+						    });
+		        	}
+		        },
+		       error: function(err) {
+		        console.log(err);
+		      }
+		    });
+			} else {
+				$('.list-group').remove();
+				$('.isotope-item').show();
+			}
+		});
+	});
+</script>
+<!-- filter | Modal -->
+<script>
+	$( document ).ready(function() {
+		$('.filterType').change(function() {
+			var url = <?php echo $api_url; ?>;
+
+			// category
+			var category = [];
+			$.each($("input[name='categoryId']:checked"), function(){
+		    category.push($(this).attr('value'));
+		  });
+		  var categorySize = category.length;
+		  categoryId = category.join(",");
+
+		  // activityId
+		  var activity = [];
+			$.each($("input[name='activityId']:checked"), function(){
+		    activity.push($(this).attr('value'));
+		  });
+		  var activitySize = activity.length;
+		  activityId = activity.join(",");
+
+		  // amenityId
+		  var amenity = [];
+			$.each($("input[name='amenityId']:checked"), function(){
+		    amenity.push($(this).attr('value'));
+		  });
+		  var amenitySize = amenity.length;
+		  amenityId = amenity.join(",");
+
+		  // rangeId
+		  var range = document.getElementById("range").value;
+
+		  if(categorySize > 0 || activitySize > 0 || amenitySize > 0 || range){
+				$.ajax({
+		        type: 'POST',
+		        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+		        url: url+'/search/location/country/'+{{$id}},
+		        data: {'category':categoryId,'range':range,'activity':activityId,'amenity':amenityId},
+		        dataType: "json",
+		        success:function(data){
+		        	$('.isotope-item').hide();
+		        	$('.list-group').remove();
+
+		        	if(data.packages.length == 0){
+		        		$(".packages-grid").append(
+				          '<div class="col list-group mt-4"><ul><li>No Tours Found</li></ul></div>'
+				        );
+		        	}else{
+				        $.each(data.packages, function(r){
+				        	var avatar = url + '/' +data.packages[r].avatar;
+				        	var slug = url + '/tours/' +data.packages[r].slug;
+				        	var wishlistAdd = url + '/wishlist/add/' +data.packages[r].id;
+				        	var wishlistRemove = url + '/wishlist/remove/' +data.packages[r].id;
+
+				        	$(".packages-grid").append(
+					          '<div class="col list-group">' +
+					          	'<div class="box_grid">' +
+					          		(data.packages[r].combo == 1 ? '<div class="ribbon"><span>Combo</span></div>': '') +
+					          		'<figure>' +
+					          			(data.packages[r].seal == 1 ? '<img class="trust-badges" src="{{asset("images/trust-badge.png")}}" width="40px" />': '') +
+
+					          			(data.packages[r].wishlist == 'not_added' ? '<a href="'+wishlistAdd+'" class="wish_bt"></a>': '<a href="'+wishlistRemove+'" class="wish_bt liked"></a>') +
+
+					          			'<a href="'+ slug +'">' +
+														'<img src="'+ avatar +'" class="img-fluid" />' + 
+													'</a>' +
+					          		'</figure>' +
+
+					          		'<div class="wrapper">' +
+					          			'<badge class="category-names text-white bg-black py-1 px-2 rounded">'+ data.packages[r].category.name +'</badge>' +
+					          			'<h3><a href="'+slug+'">'+ data.packages[r].name +'</a></h3>' +
+					          			(data.packages[r].rating > 0 ? '<div class="d-flex align-items-center"><div class="rating"><i class="fas fa-star"></i><i class="me-2 fs-6">'+data.packages[r].rating+'</i></div><div>('+data.packages[r].reviews_count+' Reviews)</div></div>': '') +
+					          		'</div>' +
+
+					          		'<ul class="d-flex justify-content-between align-items-center"> ' +
+													'<li>' +
+														'<span><b>From: </b><small>'+data.packages[r].currency_symbol+'<del><b>'+data.packages[r].adult_price +'</b></del></small> '+ data.packages[r].new_price+'<small>/person</small></span>' +
+													'</li>' +
+												'</ul>' +			
+					          	'</div>' +
+					          '</div>'
+					        );
+						    });
+		        	}
+		        },
+		       error: function(err) {
+		        console.log(err);
+		      }
+		    });
+			} else {
+				$('.list-group').remove();
+				$('.isotope-item').show();
+			}
+		});
 	});
 </script>
 @endif

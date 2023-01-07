@@ -53,6 +53,10 @@ Route::get('search/city/{id}/{aminityIds}', [App\Http\Controllers\FrontendContro
 Route::get('search/country/{id}/{aminityIds}', [App\Http\Controllers\FrontendController::class, 'searchCountryAmenity'])->name('search.countryAmenity');
 
 
+Route::post('search/location/city/{id}', [App\Http\Controllers\FrontendController::class, 'searchCityLocationFilter'])->name('search.cityLocationFilter');
+Route::post('search/location/country/{id}', [App\Http\Controllers\FrontendController::class, 'searchCountryLocationFilter'])->name('search.countryLocationFilter');
+
+
 
 Route::get('search/country/{id}', [App\Http\Controllers\FrontendController::class, 'searchCountry'])->name('search.country');
 Route::get('search/term={search}', [App\Http\Controllers\FrontendController::class, 'searchTerm'])->name('search.term');

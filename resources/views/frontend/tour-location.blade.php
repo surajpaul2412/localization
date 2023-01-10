@@ -58,7 +58,7 @@ $api_url = json_encode(env("API_URL"));
 		<div class="container">
 			<div class="position-relative py-3"> 
 				<!-- [Amenities filter] Start -->
-				<div class="slick-amenities-filter me-2">  
+				<div class="slick-amenities-filter me-2  d-none d-lg-block">  
 					@foreach($amenities as $amenity)
 					<div class="item">
 						<div class="form-check form-option p-0">
@@ -181,10 +181,14 @@ $api_url = json_encode(env("API_URL"));
     @include('layouts.frontend.partials.ads')
 </main>
 
+<style>
+	.border-bottom { border-bottom: 1px solid #ededed; }
+	.border-top-0 { border-bottom: 0px solid #ededed; }
+</style>
 
 <!-- [filterModal] Start -->
 <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-dialog-scrollable modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Select Filters</h5>
@@ -192,12 +196,25 @@ $api_url = json_encode(env("API_URL"));
 			</div>
 			<div class="modal-body">
 				<form>
-					<div class="filter_type">
-						<h6>{{dynamicLang('Category')}}</h6>
-						<ul>
+					<div class="filter_type border-bottom"> 
+						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Category')}}</h6>
+						<ul class="d-flex flex-wrap">
 							@foreach($categories as $index => $category)
 							<li>
-								<label class="container_check">{{dynamicLang($category->name)}}
+								<div class="form-check form-option p-0 me-2"> 
+									<input type="checkbox" class="form-check-input filterType" id="cat_{{$category->id}}" name="categoryId" value="{{$category->id}}"
+										@if(isset($requests['category']))
+											@foreach($requests['category'] as $categoryArray)
+												@if($categoryArray == $category->id)
+													checked
+												@endif
+											@endforeach
+										@endif
+									/>
+									<label class="form-option-label" for="cat_{{$category->id}}">{{dynamicLang($category->name)}}</label>
+								</div>
+
+								<!-- <label class="container_check">{{dynamicLang($category->name)}}
 									<input type="checkbox" 
 												class="filterType" 
 												name="categoryId" 
@@ -211,23 +228,39 @@ $api_url = json_encode(env("API_URL"));
 												@endif
 									>
 									<span class="checkmark"></span>
-								</label>
+								</label> -->
 							</li>
 							@endforeach
 						</ul>
 					</div>
 
-					<div class="filter_type">
-						<h6>{{dynamicLang('Price')}}</h6>
-						<input class="filterType" type="text" id="range" name="rangeId" value="">
+					<div class="filter_type border-bottom">
+						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Price')}}</h6>
+						<div class="mb-3">
+							<input class="filterType" type="text" id="range" name="rangeId" value="">
+						</div>
 					</div>
 
-					<div class="filter_type">
-						<h6>{{dynamicLang('Activity')}}</h6>
-						<ul>
+					<div class="filter_type border-bottom">
+						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Activity')}}</h6>
+						<ul class="d-flex flex-wrap">
 							@foreach($activities as $index => $activity)
 							<li>
-								<label class="container_check">{{dynamicLang($activity->name)}}
+								<div class="form-check form-option p-0 me-2"> 
+									<input type="checkbox" class="form-check-input filterType" name="activityId" id="act_{{$activity->id}}" value="{{$activity->id}}"
+													@if(isset($requests['activity']))
+														@foreach($requests['activity'] as $activityArray)
+															@if($activityArray == $activity->id)
+																checked
+															@endif
+														@endforeach
+													@endif
+										>
+									<label class="form-option-label" for="act_{{$activity->id}}">Private Transfers</label>
+								</div>
+
+
+								<!-- <label class="container_check">{{dynamicLang($activity->name)}}
 									<input type="checkbox" 
 												class="filterType" 
 												name="activityId" 
@@ -241,18 +274,32 @@ $api_url = json_encode(env("API_URL"));
 												@endif
 									>
 									<span class="checkmark"></span>
-								</label>
+								</label> -->
 							</li>
 							@endforeach
 						</ul>
 					</div>
 
-					<div class="filter_type">
-						<h6>{{dynamicLang('Amenity')}}</h6>
-						<ul>
+					<div class="filter_type d-block d-lg-none">
+						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Amenity')}}</h6>
+						<ul class="d-flex flex-wrap">
 							@foreach($amenities as $index => $amenity)
 							<li>
-								<label class="container_check">{{dynamicLang($amenity->name)}}
+								
+								<div class="form-check form-option p-0 me-2"> 
+									<input type="checkbox" class="form-check-input filterType" name="amenityId" id="ame_{{$amenity->id}}" value="{{$amenity->id}}"
+												@if(isset($requests['amenity']))
+													@foreach($requests['amenity'] as $amenityArray)
+														@if($amenityArray == $amenity->id)
+															checked
+														@endif
+													@endforeach
+												@endif
+									>
+									<label class="form-option-label" for="ame_{{$amenity->id}}">{{dynamicLang($amenity->name)}}</label>
+								</div>
+
+								<!-- <label class="container_check">{{dynamicLang($amenity->name)}}
 									<input type="checkbox" 
 												class="filterType" 
 												name="amenityId" 
@@ -266,13 +313,13 @@ $api_url = json_encode(env("API_URL"));
 												@endif
 									>
 									<span class="checkmark"></span>
-								</label>
+								</label> -->
 							</li>
 							@endforeach
 						</ul>
 					</div>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Apply Filter</button>
+					<!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Apply Filter</button> -->
 				</form>
 			</div>
 		</div>

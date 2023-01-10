@@ -211,7 +211,7 @@ $api_url = json_encode(env("API_URL"));
 											@endforeach
 										@endif
 									/>
-									<label class="form-option-label" for="cat_{{$category->id}}">{{dynamicLang($category->name)}}</label>
+									<label class="form-option-label container_check" for="cat_{{$category->id}}">{{dynamicLang($category->name)}}</label>
 								</div>
 
 								<!-- <label class="container_check">{{dynamicLang($category->name)}}
@@ -256,7 +256,7 @@ $api_url = json_encode(env("API_URL"));
 														@endforeach
 													@endif
 										>
-									<label class="form-option-label" for="act_{{$activity->id}}">Private Transfers</label>
+									<label class="form-option-label container_check" for="act_{{$activity->id}}">Private Transfers</label>
 								</div>
 
 
@@ -296,7 +296,7 @@ $api_url = json_encode(env("API_URL"));
 													@endforeach
 												@endif
 									>
-									<label class="form-option-label" for="ame_{{$amenity->id}}">{{dynamicLang($amenity->name)}}</label>
+									<label class="form-option-label container_check" for="ame_{{$amenity->id}}">{{dynamicLang($amenity->name)}}</label>
 								</div>
 
 								<!-- <label class="container_check">{{dynamicLang($amenity->name)}}

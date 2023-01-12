@@ -442,6 +442,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 <script>
 	$( function() {
 		$( "#datepicker" ).datepicker({
+			minDate: 0,
 			dateFormat: "dd-mm-yy"
 			,	duration: "fast"
 		});

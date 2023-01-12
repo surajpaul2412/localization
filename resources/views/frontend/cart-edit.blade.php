@@ -356,7 +356,12 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 						@method('PATCH')
 						@csrf
 						<div class="form-group">
-							<input class="form-control" type="date" name="date" value="{{$cart->date}}" required/>
+							<div class="custom-datepicker">
+								<label for="datepicker">
+									<input class="form-control" type="" id="datepicker" name="date" value="{{$cart->date}}" required autocomplete="off" placeholder="Pick a Date" />
+								</label>
+							</div>
+							<!-- <input class="form-control" type="date" name="date" value="{{$cart->date}}" required/> -->
 						</div>  
 						
 						<div class="my-4">
@@ -401,10 +406,19 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 @endsection
 
 @section('script')
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
 <script src="{{asset('js/input_qty.js')}}"></script>
 
 <!-- DATEPICKER  -->
 <script>
+	$( function() {
+		$( "#datepicker" ).datepicker({
+			minDate: 0,
+			dateFormat: "dd-mm-yy"
+			,	duration: "fast"
+		});
+	} );
+
 	$(function() {
 		$('input[name="dates"]').daterangepicker({
 			autoUpdateInput: false,
@@ -416,7 +430,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 			}
 		});
 		$('input[name="dates"]').on('apply.daterangepicker', function(ev, picker) {
-			$(this).val(picker.startDate.format('MM-DD-YY') + ' > ' + picker.endDate.format('MM-DD-YY'));
+			$(this).val(picker.startDate.format('DD-MM-YY') + ' > ' + picker.endDate.format('DD-MM-YY'));
 		});
 		$('input[name="dates"]').on('cancel.daterangepicker', function(ev, picker) {
 			$(this).val('');

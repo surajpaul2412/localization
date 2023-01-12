@@ -705,6 +705,9 @@ class FrontendController extends Controller
             'date' => 'required|date|after:today'
         ]);
 
+        $date = $request['date'];
+        $request['date'] = date("Y-m-d", strtotime($date));
+
         if (array_sum($request->qtyInput) > 0){
             $data['date'] = $request->date;
             $data['qty_adult'] = $request->qtyInput[0];

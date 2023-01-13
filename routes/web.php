@@ -104,6 +104,12 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::get('pages/activate/{id}', [App\Http\Controllers\Admin\PageController::class, 'activate'])->name('pages.activate');
     Route::get('pages/deactivate/{id}', [App\Http\Controllers\Admin\PageController::class, 'deactivate'])->name('pages.deactivate');
     Route::delete('pages/destroy/{id}', [App\Http\Controllers\Admin\PageController::class, 'destroy'])->name('pages.destroy');
+    // Language
+    Route::get('language', [App\Http\Controllers\Admin\DashboardController::class, 'indexLang'])->name('language');
+    Route::post('language/update', [App\Http\Controllers\Admin\DashboardController::class, 'updateLang'])->name('language.update');
+    // currency
+    Route::get('currency', [App\Http\Controllers\Admin\DashboardController::class, 'indexCurr'])->name('currency');
+    Route::post('currency/update', [App\Http\Controllers\Admin\DashboardController::class, 'updateCurr'])->name('currency.update');
     // Testimonials
     Route::get('testimonials', [App\Http\Controllers\Admin\TestimonialController::class, 'index'])->name('testimonials');
     Route::get('testimonials/create', [App\Http\Controllers\Admin\TestimonialController::class, 'create'])->name('testimonials.create');

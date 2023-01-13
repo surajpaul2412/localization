@@ -3,18 +3,18 @@
 return [
     'en' => [
         'display' => 'English',
-        'flag-icon' => 'us'
+        'flag-icon' => 'eng'
     ],
     'fr' => [
         'display' => 'French',
-        'flag-icon' => 'fr'
+        'flag-icon' => 'guf'
     ],
     'es' => [
         'display' => 'Spanish',
-        'flag-icon' => 'es'
+        'flag-icon' => 'esp'
     ],
     'hi' => [
         'display' => 'Hindi',
-        'flag-icon' => 'in'
+        'flag-icon' => 'ind'
     ]
 ];

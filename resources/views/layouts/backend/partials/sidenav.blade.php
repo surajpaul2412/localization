@@ -47,8 +47,8 @@
                         <li><a href="general-setting.php">General Settings</a></li> 
                         <li><a href="#">Banners</a></li> 
                         <li><a href="{{route('admin.testimonials')}}">Testimonials</a></li> 
-                        <li><a href="#">Currency</a></li> 
-                        <li><a href="#">Language</a></li>  
+                        <li><a href="{{route('admin.currency')}}">Currency</a></li> 
+                        <li><a href="{{route('admin.language')}}">Language</a></li>  
                         <li><a href="{{route('admin.razorpay')}}">Payment Methods (Razorpay)</a></li> 
                         <li><a href="#">Social Links</a></li> 
                     </ul>

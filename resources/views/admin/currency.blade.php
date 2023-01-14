@@ -41,9 +41,9 @@
                                 <div class="col-sm-12">
                                     <div class="form-group fill">  
                                         <label class="control-label">Currency<span>*</span></label>
-                                        <select name="language" class="form-control">
+                                        <select name="currency" class="form-control">
                                             @foreach(currencies() as $curr)
-                                            <option>{{$curr->currency_symbol}} {{$curr->currency_code}}</option>
+                                            <option value="{{$curr->currency_code}}">{{$curr->currency_symbol}} {{$curr->currency_code}}</option>
                                             @endforeach
                                         </select>
                                         @error('currency')

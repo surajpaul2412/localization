@@ -19,24 +19,21 @@ class DashboardController extends Controller
         return view('admin.language', compact('setting'));
     }
 
-    public function updateLang()
+    public function updateLang(Request $req)
     {
+        Setting::findOrFail(1)->update(['language'=>$req->language]);
         return redirect('/admin/language')->with('success','Language Updated successfully.');
     }
-
-
-
-
-
-
+    
     public function indexCurr()
     {
         $setting = Setting::all();
         return view('admin.currency', compact('setting'));
     }
 
-    public function updateCurr()
+    public function updateCurr(Request $req)
     {
+        Setting::findOrFail(1)->update(['currency'=>$req->currency]);
         return redirect('/admin/currency')->with('success','Currency Updated successfully.');
     }
 

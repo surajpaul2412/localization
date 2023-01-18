@@ -10,6 +10,7 @@
 @section('content')
 <div class="pcoded-main-container">
     <div class="pcoded-content">
+
         <!-- [ breadcrumb ] start -->
         <div class="page-header">
             <div class="page-block">
@@ -79,4 +80,11 @@
         <!-- [ Main Content ] end -->
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+    // DataTable start
+    $('#report-table').DataTable();  
+</script>
 @endsection

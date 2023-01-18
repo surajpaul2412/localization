@@ -37,7 +37,7 @@
                         @csrf
                         <div class="card-header"></div>
                         <div class="card-body">
-                            <div class="row">   
+                            <!-- <div class="row">   
                                 <div class="col-sm-12">
                                     <div class="form-group fill">  
                                         <label class="control-label">Currency<span>*</span></label>
@@ -53,11 +53,46 @@
                                         @enderror
                                     </div>
                                 </div>
+                            </div> -->
+                    
+                            <div class="table-responsive">
+                                <table id="report-table" class="table table-sm table-bordered table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-1">SR.No.</th>   
+                                            <th>Currency Name</th> 
+                                            <th class="col-1">status</th> 
+                                            <th class="col-1">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        <tr>
+                                            <td>#1</td>  
+                                            <td>INR</td>
+                                            <td>
+                                                <button class="btn btn-success font-weight-bold btn-xs btn-block" disabled>Primary</button> 
+                                            </td>
+                                            <td> 
+                                                <a href="#" class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">Enable</a>  
+                                            </td>
+                                        </tr>                                
+                                        <tr>
+                                            <td>#2</td>  
+                                            <td>USD</td>
+                                            <td>
+                                                <button class="btn btn-warning font-weight-bold btn-xs btn-block">Set Primary</button> 
+                                            </td>
+                                            <td>  
+                                                <a href="#" class="btn btn-danger font-weight-bold btn-xs btn-block has-ripple text-white">Disable</a> 
+                                            </td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
                             </div>
                         </div>  
                         <div class="card-footer text-right"> 
-                            <button type="" class="btn btn-warning">Cancel</button>
-                            <button type="submit" class="btn btn-success m-0">Submit</button>
+                            <!-- <button type="" class="btn btn-warning">Cancel</button>
+                            <button type="submit" class="btn btn-success m-0">Submit</button> -->
                         </div>
                     </form>  
                 </div>

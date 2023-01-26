@@ -44,8 +44,7 @@
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">System Settings</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="general-setting.php">General Settings</a></li> 
-                        <li><a href="#">Banners</a></li> 
+                        <li><a href="{{route('admin.subscribers')}}">Subscribers</a></li> 
                         <li><a href="{{route('admin.testimonials')}}">Testimonials</a></li> 
                         <li><a href="{{route('admin.currency')}}">Currency</a></li> 
                         <li><a href="{{route('admin.language')}}">Language</a></li>  

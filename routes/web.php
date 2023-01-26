@@ -104,11 +104,24 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::get('pages/activate/{id}', [App\Http\Controllers\Admin\PageController::class, 'activate'])->name('pages.activate');
     Route::get('pages/deactivate/{id}', [App\Http\Controllers\Admin\PageController::class, 'deactivate'])->name('pages.deactivate');
     Route::delete('pages/destroy/{id}', [App\Http\Controllers\Admin\PageController::class, 'destroy'])->name('pages.destroy');
+    // subscribers
+    Route::get('subscribers', [App\Http\Controllers\Admin\DashboardController::class, 'subscribers'])->name('subscribers');
     // Language
     Route::get('language', [App\Http\Controllers\Admin\DashboardController::class, 'indexLang'])->name('language');
-    Route::post('language/update', [App\Http\Controllers\Admin\DashboardController::class, 'updateLang'])->name('language.update');
+    Route::get('language/default/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'langdefault'])->name('language.default');
+    Route::get('language/activate/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'langactivate'])->name('language.activate');
+    Route::get('language/deactivate/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'langdeactivate'])->name('language.deactivate');
     // currency
     Route::get('currency', [App\Http\Controllers\Admin\DashboardController::class, 'indexCurr'])->name('currency');
+    Route::get('subscribers/default/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'default'])->name('subscribers.default');
+    Route::get('subscribers/activate/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'activate'])->name('subscribers.activate');
+    Route::get('subscribers/deactivate/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'deactivate'])->name('subscribers.deactivate');
+
+
+
+
+
+
     Route::post('currency/update', [App\Http\Controllers\Admin\DashboardController::class, 'updateCurr'])->name('currency.update');
     // Testimonials
     Route::get('testimonials', [App\Http\Controllers\Admin\TestimonialController::class, 'index'])->name('testimonials');

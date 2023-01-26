@@ -22,4 +22,9 @@ function currencies() {
 	return $currencies;
 }
 
+function languages() {
+	$languages = DB::table('languages')->whereStatus(1)->get();
+	return $languages;
+}
+
 ?>

@@ -256,7 +256,7 @@ $api_url = json_encode(env("API_URL"));
 														@endforeach
 													@endif
 										>
-									<label class="form-option-label container_check" for="act_{{$activity->id}}">Private Transfers</label>
+									<label class="form-option-label container_check" for="act_{{$activity->id}}">{{dynamicLang($activity->name)}}</label>
 								</div>
 
 

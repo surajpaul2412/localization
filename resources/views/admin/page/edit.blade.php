@@ -26,7 +26,7 @@
                         </ul>
                     </div>
                     <div class="col-md-4 text-md-right"> 
-                        <a href="pages.php" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
+                        <a href="{{route('admin.pages')}}" class="btn btn-success" title="Back to List"><i class="fas fa-reply-all"></i> Back to list</a> 
                     </div>
                 </div>
             </div>

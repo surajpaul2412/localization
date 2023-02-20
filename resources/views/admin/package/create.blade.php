@@ -252,6 +252,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Icon Image:</label>
                                                         <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                        <small class="text-muted"><b>Eg::</b> Upload icon size - 128x128. </small>
                                                         @error('icon')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -263,6 +264,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Profile Image:</label>
                                                         <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                        <small class="text-muted"><b>Eg::</b> Upload image size - 800x600.</small>
                                                         @error('avatar')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -332,6 +334,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Select Multiple Images (Use Ctrl button)</label>
                                                 <input type="file" id="input-file-now" name="images[]" class="dropify1" multiple/>
+                                                <small class="text-muted"><b>Eg::</b> Upload image size - 800x600.</small>
                                             </div>
                                         </div>
                                         <!-- <div class="col-md-12">

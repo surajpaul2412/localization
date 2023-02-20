@@ -108,6 +108,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Icon Image:</label>
                                                 <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($activity->avatar)}}" />
+                                                <small class="text-muted"><b>Eg::</b> Upload icon size - 128x128. </small>
                                                 <input type="hidden" name="hidden_avatar" value="{{ $activity->avatar }}">
                                             </div>
                                         </div>

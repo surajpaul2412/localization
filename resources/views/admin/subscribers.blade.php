@@ -64,3 +64,10 @@
     </div>
 </div>
 @endsection
+
+@section('script')
+<script>
+    // DataTable start
+    $('#report-table').DataTable();  
+</script>
+@endsection

@@ -74,8 +74,9 @@
                                     <div class="row">  
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="col-form-label">Icon Image:</label>
+                                                <label class="col-form-label">Display Image:</label>
                                                 <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($city->avatar)}}" />
+                                                <small class="text-muted"><b>Eg::</b> Upload image size - 800x600.</small>
                                                 <input type="hidden" name="hidden_avatar" value="{{ $city->avatar }}">
                                             </div>
                                         </div>

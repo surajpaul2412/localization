@@ -75,6 +75,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Display Image:</label>
                                                 <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                <small class="text-muted"><b>Eg::</b> Upload image size - 800x600.</small>
                                                 @error('avatar')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>

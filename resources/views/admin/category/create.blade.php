@@ -117,13 +117,15 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Icon Image:</label>
-                                                <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" /> 
+                                                <small class="text-muted"><b>Eg::</b> Upload Icon image size - 400x300.</small>
                                             </div>
                                         </div> 
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Profile Image:</label>
                                                 <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                        <small class="text-muted"><b>Eg::</b> Upload image size - 437x640.</small>
                                             </div>
                                         </div> 
                                     </div>

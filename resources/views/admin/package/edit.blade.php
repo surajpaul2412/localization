@@ -256,6 +256,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Icon Image:</label>
                                                         <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($package->icon)}}" />
+                                                        <small class="text-muted"><b>Eg::</b> Upload icon size - 128x128. </small>
                                                         <input type="hidden" name="hidden_icon" value="{{ $package->icon }}">
                                                         @error('icon')
                                                             <div class="text-danger">
@@ -267,7 +268,8 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="col-form-label">Profile Image:</label>
-                                                        <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($package->avatar)}}" />
+                                                        <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($package->avatar)}}" /> 
+                                                        <small class="text-muted"><b>Eg::</b> Upload image size - 800x600.</small>
                                                         <input type="hidden" name="hidden_avatar" value="{{ $package->avatar }}">
                                                         @error('avatar')
                                                             <div class="text-danger">
@@ -338,6 +340,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Select Multiple Images (Use Ctrl button)</label>
                                                 <input type="file" id="input-file-now" name="images[]" class="dropify1" multiple/>
+                                                <small class="text-muted"><b>Eg::</b> Upload image size - 800x600.</small> 
                                             </div>
                                         </div>
                                         @foreach($package->gallery as $index => $gallery)

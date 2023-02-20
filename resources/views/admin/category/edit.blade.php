@@ -119,6 +119,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Icon Image:</label>
                                                 <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($category->icon)}}" />
+                                                <small class="text-muted"><b>Eg::</b> Upload Icon image size - 400x300.</small>
                                                 <input type="hidden" name="hidden_icon" value="{{ $category->icon }}">
                                             </div>
                                         </div> 
@@ -126,6 +127,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Profile Image:</label>
                                                 <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify1" data-max-file-size="2M" data-default-file="{{asset($category->avatar)}}" />
+                                                <small class="text-muted"><b>Eg::</b> Upload image size - 437x640.</small>
                                                 <input type="hidden" name="hidden_avatar" value="{{ $category->avatar }}">
                                             </div>
                                         </div> 

@@ -74,6 +74,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Icon Image:</label>
                                                 <input name="icon" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                <small class="text-muted"><b>Eg::</b> Upload icon size - 128x128. </small>
                                                 @error('icon')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>

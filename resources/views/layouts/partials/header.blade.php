@@ -12,6 +12,37 @@
                         </a>
                     </div>
                     <ul class="top-right-area m-0 d-flex justify-content-between align-items-center">  
+                        
+                        <!-- lang -->
+                        <li class="d-none d-lg-block nav-item dropdown">
+                            <a class="form-currency form-control nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <span class="flag-icon flag-icon-{{Config::get('languages')[App::getLocale()]['flag-icon']}}"></span> <span class="lang-text">{{ Config::get('languages')[App::getLocale()]['display'] }}</span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            @foreach (languages() as $lang => $language)
+                                @if ($language->code != App::getLocale())
+                                        <a class="dropdown-item" href="{{ route('lang.switch', $language->code) }}"><span class="flag-icon flag-icon-{{$language->flag}}"></span> {{$language->name}}</a>
+                                @endif
+                            @endforeach
+                            </div>
+                        </li>
+
+                        <!-- currency -->
+                        <li class="d-none d-lg-block nav-item dropdown">
+                            <a class="form-currency form-control nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Session::get('currency')?? 'INR' }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            @foreach (currencies() as $curr)
+                                <a class="dropdown-item" href="{{ route('curr.switch', $curr->id) }}">
+                                    {{$curr->currency_symbol}} {{$curr->currency_code}}
+                                </a>
+                            @endforeach
+                            </div>
+                        </li>
+                        
                         <li>
                             @livewire('wishlist')
                         </li>
@@ -54,35 +85,6 @@
                             </div>
                         </li>
                         @endif
-                        <!-- lang -->
-                        <li class="d-none d-lg-block nav-item dropdown">
-                            <a class="form-currency form-control nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <span class="flag-icon flag-icon-{{Config::get('languages')[App::getLocale()]['flag-icon']}}"></span> {{ Config::get('languages')[App::getLocale()]['display'] }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            @foreach (languages() as $lang => $language)
-                                @if ($language->code != App::getLocale())
-                                        <a class="dropdown-item" href="{{ route('lang.switch', $language->code) }}"><span class="flag-icon flag-icon-{{$language->flag}}"></span> {{$language->name}}</a>
-                                @endif
-                            @endforeach
-                            </div>
-                        </li>
-
-                        <!-- currency -->
-                        <li class="d-none d-lg-block nav-item dropdown">
-                            <a class="form-currency form-control nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Session::get('currency')?? 'INR' }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            @foreach (currencies() as $curr)
-                                <a class="dropdown-item" href="{{ route('curr.switch', $curr->id) }}">
-                                    {{$curr->currency_symbol}} {{$curr->currency_code}}
-                                </a>
-                            @endforeach
-                            </div>
-                        </li>
                     </ul>
                 </div>
             </div>

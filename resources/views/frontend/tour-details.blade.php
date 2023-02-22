@@ -370,6 +370,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 						<div class="form-group">
 							<div class="custom-datepicker">
 								<label for="datepicker">
+									<i class="ti ti-calendar"></i>
 									<input class="form-control" type="" id="datepicker" name="date" autocomplete="off" placeholder="Pick a Date" />
 								</label>
 							</div>

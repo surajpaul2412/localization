@@ -255,10 +255,10 @@ $secret_key = $razorpay['secret_key'];
 												<span><b>Covered Area</b></span>
 												<span>{{$item->package->city->name}}</span>
 											</li>
-											<li class="item">
+											<!-- <li class="item">
 												<span><b>Activity & Duration</b></span>
 												<span>{{$item->package->duration}}-{{$item->package->activity->name}}</span>
-											</li>
+											</li> -->
 										</ul>
 									</div>
 									<div class="card-footer d-flex justify-content-between align-items-center">

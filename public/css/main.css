@@ -87,7 +87,9 @@ header.header {
 header.header.sticky { 
     padding: 8px 15px;
 }
-
+.form-currency span.lang-text {
+    display: none;
+}
 main {
     margin-top: 58px;
 }
@@ -106,12 +108,18 @@ header ul.top-right-area li {
     margin-left: 16px;
     position: relative;
 }
-header.header ul.top-right-area li a {
+header.header ul.top-right-area li a { 
     color: var(--text-color);
     display: -webkit-inline-box;
+    border: 1px solid transparent;
+    /* padding: 5px 8px;
+    border-radius: 50px;
+    line-height: 0;
+    height: auto; */
 }
 header.header ul.top-right-area li a:hover, header.header.sticky ul.top-right-area li a:hover {
     color: var(--secondary-color);
+    /* border: 1px solid #d2d8dd; */
 }
 header.header.sticky ul.top-right-area li a {
     color: var(--text-color);
@@ -968,6 +976,12 @@ ul.dahs_navbar li a.active {
 	padding: 0;
 	border-radius: 0.5rem;
 }
+.custom-datepicker label i {
+    position: absolute !important;
+    right: 0 !important;
+    background-color: transparent !important;
+    color: #fff !important;
+}
 .custom-datepicker label input { 
 	display:block;
 	border: none;
@@ -991,6 +1005,10 @@ ul.dahs_navbar li a.active {
 } 
 .custom-datepicker label input::-ms-input-placeholder { /* Microsoft Edge */
     color: #fff;
+}
+
+.ui-datepicker-unselectable.ui-state-disabled span.ui-state-default {
+    color: #e3e3e3 !important;
 }
 
 .custom-datepicker input:focus {outline: none;}

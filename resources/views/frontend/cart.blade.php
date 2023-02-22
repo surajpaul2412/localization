@@ -67,7 +67,7 @@
 				                                <a href="#">({{$item->package->reviews->count()}})</a>
 				                            </div> 
 				                            @endif
-											<p class="fs-6 mb-1">{{dynamicLang('Date selected')}}: <strong>{{$item->date??'Not Selected'}}</strong></p>
+											<p class="fs-6 mb-1">{{dynamicLang('Date selected')}}: <strong>{{\Carbon\Carbon::parse($item->date)->format('d/m/Y')??'Not Selected'}}</strong></p>
 											<ul class="d-flex justify-content-start m-0">
 												@if($item->qty_adult > 0)
 												<li><span class="py-1 px-2 me-1 bg-success text-white rounded">{{dynamicLang('Adult')}}: {{Session::get('currency_symbol')??'₹'}} {{switchCurrency($item->package->adult_price-($item->package->adult_price*$item->package->discount)/100)}} x {{$item->qty_adult??'Not Selected'}}</span></li>

@@ -245,11 +245,23 @@ $secret_key = $razorpay['secret_key'];
 										<ul class="card-tours-availbility-list">
 											<li class="item">
 												<span><b>Date</b></span>
-												<span>{{$item->date??'Not Selected'}}</span>
+												<span>{{\Carbon\Carbon::parse($item->date)->format('d/m/Y')??'Not Selected'}}</span>
 											</li>
 											<li class="item">
 												<span><b>Quantity</b></span>
-												<span>{{$item->qty_adult}} x Adult, {{$item->qty_child}} x Child, {{$item->qty_infant}} x infant</span>
+												<span>
+													@if($item->qty_adult > 0)
+														{{$item->qty_adult}} x Adult
+													@endif
+
+													@if($item->qty_child > 0)
+														, {{$item->qty_child}} x Child
+													@endif
+
+													@if($item->qty_infant > 0)
+														, {{$item->qty_infant}} x infant
+													@endif
+												</span>
 											</li> 
 											<li class="item">
 												<span><b>Covered Area</b></span>

@@ -182,7 +182,7 @@ $secret_key = $razorpay['secret_key'];
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label>{{dynamicLang('Email')}}</label>
-											<input type="email" class="form-control" name="email" value="" />
+											<input id="my-input" type="email" class="form-control" name="email" value="" />
 										</div>
 									</div>
 									<div class="col-sm-6">
@@ -282,7 +282,7 @@ $secret_key = $razorpay['secret_key'];
 							@endif
 						</div>
 						<div class="card-footer">
-						<button type="submit" class="btn w-100 btn-success">{{dynamicLang('Pay Now')}}</button>
+						<button type="submit" class="btn w-100 btn-success btn-pay" @if(Auth::guest()) disabled @endif>{{dynamicLang('Pay Now')}}</button>
 						<p class="m-0 text-center"><small>{{dynamicLang('No money charged in this step')}}</small></p>
 						</div>
 					</div>
@@ -314,4 +314,16 @@ $secret_key = $razorpay['secret_key'];
 	</div>
 	<!-- /bg_color_1 -->
 </main>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	var checkInput = (e) => {
+	const content = $("#my-input").val().trim();
+	$('.btn-pay').prop('disabled', content === '');
+	};
+
+
+	$(document).on('keyup', '#my-input', checkInput);
+</script>
 @endsection

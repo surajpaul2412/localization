@@ -38,7 +38,7 @@
 				</div>
 				<!-- End bs-wizard -->
 				<div id="confirm">
-					<h4>{{dynamicLang('Order completed')}}!</h4>
+					<h4>{{dynamicLang('Booking Successful')}}!</h4>
 					<p>{{dynamicLang('Order placed successfully')}}</p>
 				</div>
 			</div>

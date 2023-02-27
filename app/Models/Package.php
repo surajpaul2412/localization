@@ -42,6 +42,8 @@ class Package extends Model
             $data['combo'] = 1;
         }
 
+        $duration = $data['hr'].','.$data['min'];
+
         return Package::create([
             'name'=>$data['name'],
             'slug'=>$data['slug'],
@@ -49,7 +51,7 @@ class Package extends Model
             'child_price'=>$data['child_price'],
             'infant_price'=>$data['infant_price'],
             'capacity'=>$data['capacity'],
-            'duration'=>$data['duration'],
+            'duration'=>$duration,
             'category_id'=>$data['category'],
             'city_id'=>$data['city'],
             'activity_id'=>$data['activity'],
@@ -105,6 +107,8 @@ class Package extends Model
             $data['combo'] = 1;
         }
 
+        $duration = $data['hr'].','.$data['min'];
+
         return Package::whereId($id)->update([
             'name'=>$data['name'],
             'slug'=>$data['slug'],
@@ -112,7 +116,7 @@ class Package extends Model
             'child_price'=>$data['child_price'],
             'infant_price'=>$data['infant_price'],
             'capacity'=>$data['capacity'],
-            'duration'=>$data['duration'],
+            'duration'=>$duration,
             'category_id'=>$data['category'],
             'city_id'=>$data['city'],
             'activity_id'=>$data['activity'],

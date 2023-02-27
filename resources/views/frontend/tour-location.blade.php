@@ -163,7 +163,12 @@ $api_url = json_encode(env("API_URL"));
 								</div> 
 								<ul class="d-flex justify-content-between align-items-center"> 
 									<li>
-										<span><b>{{dynamicLang('From')}}: </b><small><del><b>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price)}}</b></del></small>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price-($tour->adult_price*$tour->discount)/100)}}</b><small>/{{dynamicLang('person')}}</small></span>
+										<span><b>{{dynamicLang('From')}}: </b><small><del><b>
+											@if($tour->discount > 0)
+                          {{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price)}}</b></del></small>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price-($tour->adult_price*$tour->discount)/100)}}</b><small>/{{dynamicLang('person')}}</small></span>
+                      @else
+                          </b></del></small>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price-($tour->adult_price*$tour->discount)/100)}}</b><small>/{{dynamicLang('person')}}</small></span>
+                      @endif
 									</li> 
 								</ul>
 							</div>

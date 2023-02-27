@@ -11,7 +11,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 
 @section('content')
 <main>
-	<section class="hero_in tours_detail" style="background: url({{asset('images/home_section_1.jpg')}});">
+	<section class="hero_in tours_detail" style="background: url({{asset($tour->avatar)}});">
 		<div class="wrapper">
 			<div class="container">
 				<h1><span></span>{{dynamicLang('Tour detail page')}}</h1>
@@ -173,9 +173,12 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 										</div> 
 										<ul class="d-flex justify-content-between align-items-center"> 
 											<li>
-				                                <span>
-				                                	<b>{{dynamicLang('Price')}}: </b> <b>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($element->adult_price)}}</b><small>/{{dynamicLang('person')}}</small>
-				                                </span>
+				                                <span><b>{{dynamicLang('Price')}}: </b><small><del><b>
+												@if($element->discount > 0)
+						                            {{Session::get('currency_symbol')??'₹'}}{{switchCurrency($element->adult_price)}}</b></del></small>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($element->adult_price-($element->adult_price*$element->discount)/100)}}</b><small>/{{dynamicLang('person')}}</small></span>
+						                        @else
+						                            </b></del></small>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($element->adult_price-($element->adult_price*$element->discount)/100)}}</b><small>/{{dynamicLang('person')}}</small></span>
+						                        @endif
 				                            </li>
 										</ul>
 									</div>

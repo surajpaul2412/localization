@@ -157,8 +157,26 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">  
                                                         <label class="col-form-label">Duration<span>*</span></label>
-                                                        <input type="text" name="duration" class="form-control form-control-sm " placeholder="Eg: 23.84944" value="{{ old('duration') }}" required/>
-                                                        @error('duration')
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <input type="text" name="hr" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ old('hr') }}" required/>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label class="col-form-label">hr</label>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <input type="text" name="min" class="form-control form-control-sm " placeholder="Eg: 00" value="{{ old('min') }}" required/>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <label class="col-form-label">min</label>
+                                                            </div>
+                                                        </div>
+                                                        @error('hr')
+                                                            <div class="text-danger">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                        @enderror
+                                                        @error('min')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>

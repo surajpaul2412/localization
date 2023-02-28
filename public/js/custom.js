@@ -50,6 +50,8 @@ jQuery( function ( $ ) {
         cssEase: 'linear',
         autoplaySpeed: 2000,
         autoplay:true,
+        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='ti ti-angle-left' aria-hidden='true'></i></button>",
+        nextArrow:"<button type='button' class='slick-next pull-right'><i class='ti ti-angle-right' aria-hidden='true'></i></button>",
         responsive: [
           {
             breakpoint: 1024,
@@ -80,6 +82,8 @@ jQuery( function ( $ ) {
         cssEase: 'linear',
         autoplaySpeed: 2000,
         autoplay:true,
+        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='ti ti-angle-left' aria-hidden='true'></i></button>",
+        nextArrow:"<button type='button' class='slick-next pull-right'><i class='ti ti-angle-right' aria-hidden='true'></i></button>",
         responsive: [
           {
             breakpoint: 1024,
@@ -109,6 +113,8 @@ jQuery( function ( $ ) {
         speed: 500, 
         autoplaySpeed: 2000,
         autoplay:true,
+        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='ti ti-angle-left' aria-hidden='true'></i></button>",
+        nextArrow:"<button type='button' class='slick-next pull-right'><i class='ti ti-angle-right' aria-hidden='true'></i></button>",
         responsive: [
           {
             breakpoint: 1024,

@@ -8,7 +8,7 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 function switchCurrency($amt) {
 	$changeCurr = Session::get('currency')??'INR';
-	$currencyObj = Currency::convert()->from('INR')->to($changeCurr)->amount($amt)->round(2)->get();
+	$currencyObj = Currency::convert()->from('INR')->to($changeCurr)->amount((float)$amt)->round(2)->get();
 	return $currencyObj;
 }
 

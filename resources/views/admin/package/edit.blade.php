@@ -164,16 +164,16 @@
                                                         @endphp
                                                         <div class="row">
                                                             <div class="col-md-4">
-                                                                <input type="text" name="hr" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ $dur[0] }}" required/>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label class="col-form-label">hr</label>
+                                                                <div class="d-flex">
+                                                                    <input type="text" name="hr" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ $dur[0] }}" required/>
+                                                                    <label class="col-form-label">hr</label>
+                                                                </div>
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <input type="text" name="min" class="form-control form-control-sm " placeholder="Eg: 00" value="{{ $dur[1] }}" required/>
-                                                            </div>
-                                                            <div class="col-md-1">
-                                                                <label class="col-form-label">min</label>
+                                                                <div class="d-flex">
+                                                                    <input type="text" name="min" class="form-control form-control-sm " placeholder="Eg: 00" value="{{ $dur[1] }}" required/>
+                                                                    <label class="col-form-label">min</label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         @error('hr')
@@ -191,7 +191,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">  
                                                         <label class="col-form-label">Discount<span>(%)</span></label>
-                                                        <input type="text" name="discount" class="form-control form-control-sm " placeholder="Eg: 10" value="{{$package->discount}}" required/>
+                                                        <input type="text" name="discount" class="form-control form-control-sm " placeholder="Eg: 10" value="{{$package->discount}}" />
                                                         @error('discount')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>

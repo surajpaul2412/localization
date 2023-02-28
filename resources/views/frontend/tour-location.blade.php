@@ -64,8 +64,11 @@ $api_url = json_encode(env("API_URL"));
 						<div class="form-check form-option p-0">
 							<input class="form-check-input searchType" type="checkbox" name="amenityId" id="{{$amenity->id}}">
 							<!-- ABHISHEK -- modify -->
-							<label><img src="{{asset($amenity->icon)}}" alt="{{$amenity->name}}" /></label>
-							<label class="form-option-label" for="{{$amenity->id}}">{{dynamicLang($amenity->name)}}</label>
+							<!-- <label></label> -->
+							<label class="form-option-label py-1" for="{{$amenity->id}}">
+								<img src="{{asset($amenity->icon)}}" alt="{{$amenity->name}}" class="img-fluid" />
+								<p class="m-0">{{dynamicLang($amenity->name)}}</p>
+							</label>
 						</div>
 					</div>
 					@endforeach

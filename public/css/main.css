@@ -1225,7 +1225,9 @@ ul.card-tours-availbility-list {
     background-color: var(--primary-color) !important;  
 }
 
-
+.slick-amenities-filter {
+    margin-right: 100px;
+}
 
 
 /* // X-Small devices (portrait phones, less than 576px)

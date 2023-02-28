@@ -11,10 +11,10 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 
 @section('content')
 <main>
-	<section class="hero_in tours_detail" style="background: url({{asset('images/home_section_1.jpg')}});">
+	<section class="hero_in tours_detail" style="background: url({{asset($tour->avatar)}});">
 		<div class="wrapper">
 			<div class="container">
-				<h1><span></span>{{dynamicLang('Tour detail page')}}</h1>
+				<h1><span></span>{{dynamicLang($tour->name)}}</h1>
 			</div>
 			<span class="magnific-gallery">
 				@if($tour->gallery->count())
@@ -372,18 +372,18 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 							<ul class="cart_details">
 								<li>
 									<div class="qtyButtons">
-										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->presentPrice($tour->adult_price))}} / {{dynamicLang('Adults')}}</label>
+										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->adult_price)}} / {{dynamicLang('Adults')}}</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="{{$cart->qty_adult??0}}">
 									</div>
 								</li>
 								<li>
 									<div class="qtyButtons">
-										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->presentPrice($tour->child_price))}} / {{dynamicLang('Childrens')}}</label>
+										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->child_price)}} / {{dynamicLang('Childrens')}}</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="{{$cart->qty_child??0}}">
 									</div>
 								<li>
 									<div class="qtyButtons">
-										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->presentPrice($tour->infant_price))}} / {{dynamicLang('Infant')}}</label>
+										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->infant_price)}} / {{dynamicLang('Infant')}}</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="{{$cart->qty_infant??0}}">
 									</div>
 								</li>

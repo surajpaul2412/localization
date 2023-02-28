@@ -97,7 +97,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Adult Price<span>*</span></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="adult_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{$package->adult_price}}" required/>
+                                                            <input type="number" name="adult_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{$package->adult_price}}" required/>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
                                                             </div>
@@ -114,7 +114,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Child Price<span>*</span></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="child_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{$package->child_price}}" required/>
+                                                            <input type="number" name="child_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{$package->child_price}}" required/>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
                                                             </div>
@@ -131,7 +131,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Infant Price<span>*</span></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="infant_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{$package->infant_price}}" required/>
+                                                            <input type="number" name="infant_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{$package->infant_price}}" required/>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
                                                             </div>
@@ -165,13 +165,13 @@
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <div class="d-flex">
-                                                                    <input type="text" name="hr" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ $dur[0] }}" required/>
+                                                                    <input type="number" name="hr" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ $dur[0] }}" required/>
                                                                     <label class="col-form-label">hr</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <div class="d-flex">
-                                                                    <input type="text" name="min" class="form-control form-control-sm " placeholder="Eg: 00" value="{{ $dur[1] }}" required/>
+                                                                    <input type="number" name="min" class="form-control form-control-sm " placeholder="Eg: 00" value="{{ $dur[1] }}" required/>
                                                                     <label class="col-form-label">min</label>
                                                                 </div>
                                                             </div>
@@ -191,7 +191,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">  
                                                         <label class="col-form-label">Discount<span>(%)</span></label>
-                                                        <input type="text" name="discount" class="form-control form-control-sm " placeholder="Eg: 10" value="{{$package->discount}}" />
+                                                        <input type="number" name="discount" class="form-control form-control-sm " placeholder="Eg: 10" value="{{$package->discount}}" />
                                                         @error('discount')
                                                             <div class="text-danger">
                                                                 <strong>{{ $message }}</strong>
@@ -203,7 +203,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Category<span>*</span></label>  
                                                         <select name="category" class="form-control form-control-sm js-example-basic-single" required>
-                                                            <option>--Select Category--</option>
+                                                            <option value="">--Select Category--</option>
                                                             @foreach($categories as $category)
                                                             <option value="{{$category->id}}" {{ $category->id == $package->category->id ? 'selected' : '' }}>{{$category->name}}</option>
                                                             @endforeach
@@ -219,7 +219,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Location<span>*</span></label>  
                                                         <select name="city" class="form-control form-control-sm js-example-basic-single" required>
-                                                            <option>--Select Location--</option>
+                                                            <option value="">--Select Location--</option>
                                                             @foreach($countries as $country)
                                                             <optgroup label="{{$country->name}}">
                                                                 @foreach($country->cities as $city)
@@ -239,7 +239,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Activity<span>*</span></label>  
                                                         <select name="activity" class="form-control form-control-sm js-example-basic-single" required>
-                                                            <option>--Select Activity--</option>
+                                                            <option value="">--Select Activity--</option>
                                                             @foreach($activities as $activity)
                                                             <option value="{{$activity->id}}" {{ $activity->id == $package->activity->id ? 'selected' : '' }}>{{$activity->name}}</option>
                                                             @endforeach

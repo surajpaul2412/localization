@@ -14,7 +14,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 	<section class="hero_in tours_detail" style="background: url({{asset($tour->avatar)}});">
 		<div class="wrapper">
 			<div class="container">
-				<h1><span></span>{{dynamicLang('Tour detail page')}}</h1>
+				<h1><span></span>{{dynamicLang($tour->name)}}</h1>
 			</div>
 			<span class="magnific-gallery">
 				@if($tour->gallery->count())
@@ -388,20 +388,20 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 								<li>
 									<div class="qtyButtons">
 										<label>{{dynamicLang('Adults')}}</label>
-										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->presentPrice($tour->adult_price))}}</span>
+										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price)}}</span>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="1">
 									</div>
 								</li>
 								<li>
 									<div class="qtyButtons">
 										<label>{{dynamicLang('Childrens')}}</label>
-										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->presentPrice($tour->child_price))}} </span>
+										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->child_price)}} </span>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								<li>
 									<div class="qtyButtons">
 										<label>{{dynamicLang('Infant')}}</label> 
-										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->presentPrice($tour->infant_price))}}</span>
+										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->infant_price)}}</span>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								</li>

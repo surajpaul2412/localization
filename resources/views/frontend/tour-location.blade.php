@@ -58,7 +58,7 @@ $api_url = json_encode(env("API_URL"));
 		<div class="container">
 			<div class="position-relative py-3"> 
 				<!-- [Amenities filter] Start -->
-				<div class="slick-amenities-filter me-2  d-none d-lg-block">  
+				<div class="slick-amenities-filter d-none d-lg-block">  
 					@foreach($amenities as $amenity)
 					<div class="item">
 						<div class="form-check form-option p-0">

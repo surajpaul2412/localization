@@ -19,7 +19,7 @@ class CreatePackagesTable extends Migration
             $table->string('slug')->unique();
             $table->double('adult_price');
             $table->double('child_price');
-            $table->double('infant_price');
+            $table->double('infant_price')->default(0);
             $table->string('capacity');
             $table->string('duration');
             $table->integer('category_id');

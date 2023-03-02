@@ -398,6 +398,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 										<span class="me-2 fs-6">{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->child_price)}} </span>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
+								@if($tour->infant_price > 0)
 								<li>
 									<div class="qtyButtons">
 										<label>{{dynamicLang('Infant')}}</label> 
@@ -405,6 +406,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 										<input type="text" name="qtyInput[]" class="qtyInput" value="0">
 									</div>
 								</li>
+								@endif
 								<!-- <li>Tax <i class="ti-info-alt"></i> <span>₹40</span></li> -->
 								<!-- <li>Accident Insurance <span class="text-success">Free</span></li>  -->
 							</ul> 

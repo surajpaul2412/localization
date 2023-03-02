@@ -131,7 +131,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Infant Price<span>*</span></label>
                                                         <div class="input-group">
-                                                            <input type="number" name="infant_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{$package->infant_price}}" required/>
+                                                            <input type="number" name="infant_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{$package->infant_price}}"/>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
                                                             </div>
@@ -163,29 +163,33 @@
                                                             $dur = explode(",", $dur);
                                                         @endphp
                                                         <div class="row">
-                                                            <div class="col-md-4">
-                                                                <div class="d-flex">
-                                                                    <input type="number" name="hr" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ $dur[0] }}" required/>
-                                                                    <label class="col-form-label">hr</label>
+                                                            <div class="col-md-6">
+                                                                <div class="input-group">
+                                                                    <input type="number" name="hr" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ $dur[0] }}" min="0" required/>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">Hr</span>
+                                                                    </div>
                                                                 </div>
+                                                                @error('hr')
+                                                                    <div class="text-danger">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </div>
+                                                                @enderror
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <div class="d-flex">
-                                                                    <input type="number" name="min" class="form-control form-control-sm " placeholder="Eg: 00" value="{{ $dur[1] }}" required/>
-                                                                    <label class="col-form-label">min</label>
+                                                            <div class="col-md-6">
+                                                                <div class="input-group">
+                                                                    <input type="number" name="min" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ $dur[1] }}" min="0" required/>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">Min</span>
+                                                                    </div>
                                                                 </div>
+                                                                @error('min')
+                                                                    <div class="text-danger">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </div>
+                                                                @enderror
                                                             </div>
                                                         </div>
-                                                        @error('hr')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
-                                                        @error('min')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">

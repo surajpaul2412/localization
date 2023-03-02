@@ -130,7 +130,7 @@
                                                     <div class="form-group">
                                                         <label class="col-form-label">Infant Price<span>*</span></label>
                                                         <div class="input-group">
-                                                            <input type="number" name="infant_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{ old('infant_price') }}" required/>
+                                                            <input type="number" name="infant_price" class="form-control form-control-sm" placeholder="Eg: 100, 200, 500 etc" value="{{ old('infant_price') }}"/>
                                                             <div class="input-group-append">
                                                                 <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">INR</span>
                                                             </div>
@@ -159,28 +159,32 @@
                                                         <label class="col-form-label">Duration<span>*</span></label>
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <div class="d-flex">
-                                                                    <input type="number" name="hr" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ old('hr') }}" required/>                                                             
-                                                                    <label class="col-form-label ml-1">hr</label>
+                                                                <div class="input-group">
+                                                                    <input type="number" name="hr" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ old('hr') }}" min="0" required/>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">Hr</span>
+                                                                    </div>
                                                                 </div>
+                                                                @error('hr')
+                                                                    <div class="text-danger">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </div>
+                                                                @enderror
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <div class="d-flex">
-                                                                    <input type="number" name="min" class="form-control form-control-sm" placeholder="Eg: 00" value="{{ old('min') }}" required/>
-                                                                    <label class="col-form-label ml-1">min</label>
+                                                                <div class="input-group">
+                                                                    <input type="number" name="min" class="form-control form-control-sm" placeholder="Eg: 01" value="{{ old('min') }}" min="0" required/>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text input-group-text-sm py-0 px-2" id="basic-addon2">Min</span>
+                                                                    </div>
                                                                 </div>
+                                                                @error('min')
+                                                                    <div class="text-danger">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </div>
+                                                                @enderror
                                                             </div>
                                                         </div>
-                                                        @error('hr')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
-                                                        @error('min')
-                                                            <div class="text-danger">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -325,7 +329,7 @@
                                         <div class="col-md-6"> 
                                             <div class="form-group">
                                                 <label class="col-form-label">Meta Keywords:</label>
-                                                <textarea class="form-control form-control-sm @error('meta_keywords') is-invalid @enderror" name="meta_keywords" placeholder=""></textarea>
+                                                <textarea class="form-control form-control-sm @error('meta_keywords') is-invalid @enderror" name="meta_keywords" placeholder="">{{old('meta_keywords')}}</textarea>
                                                 @error('meta_keywords')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -336,7 +340,7 @@
                                         <div class="col-md-6">  
                                             <div class="form-group">
                                                 <label class="col-form-label">Meta Description:</label>
-                                                <textarea class="form-control form-control-sm @error('meta_description') is-invalid @enderror" name="meta_description" placeholder=""></textarea>
+                                                <textarea class="form-control form-control-sm @error('meta_description') is-invalid @enderror" name="meta_description" placeholder="">{{old('meta_description')}}</textarea>
                                                 @error('meta_description')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -390,7 +394,9 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Highlights:</label> 
-                                                <textarea class="@error('highlights') is-invalid @enderror" name="highlights" id="editor2"></textarea>
+                                                <textarea class="@error('highlights') is-invalid @enderror" name="highlights" id="editor2">
+                                                    {{old('highlights')}}
+                                                </textarea>
                                                 @error('highlights')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -401,7 +407,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Full description:</label> 
-                                                <textarea class="@error('full_description') is-invalid @enderror" name="full_description" id="editor3"></textarea>
+                                                <textarea class="@error('full_description') is-invalid @enderror" name="full_description" id="editor3">{{old('full_description')}}</textarea>
                                                 @error('full_description')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -412,7 +418,9 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Includes:</label> 
-                                                <textarea class="@error('includes') is-invalid @enderror" name="includes" id="editor4"></textarea>
+                                                <textarea class="@error('includes') is-invalid @enderror" name="includes" id="editor4">
+                                                    {{old('includes')}}
+                                                </textarea>
                                                 @error('includes')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -423,7 +431,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Meeting point:</label> 
-                                                <textarea class="@error('meeting_point') is-invalid @enderror" name="meeting_point" id="editor6"></textarea>
+                                                <textarea class="@error('meeting_point') is-invalid @enderror" name="meeting_point" id="editor6">{{old('meeting_point')}}</textarea>
                                                 @error('meeting_point')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -434,7 +442,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Important information:</label> 
-                                                <textarea class="@error('important_information') is-invalid @enderror" name="important_information" id="editor7"></textarea>
+                                                <textarea class="@error('important_information') is-invalid @enderror" name="important_information" id="editor7">{{old('important_information')}}</textarea>
                                                 @error('important_information')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>

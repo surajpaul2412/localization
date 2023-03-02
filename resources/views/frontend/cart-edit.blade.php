@@ -381,12 +381,15 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->child_price)}} / {{dynamicLang('Childrens')}}</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="{{$cart->qty_child??0}}">
 									</div>
+								</li>
+								@if($tour->infant_price > 0)
 								<li>
 									<div class="qtyButtons">
 										<label>{{Session::get('currency_symbol')??'₹'}} {{switchCurrency($tour->infant_price)}} / {{dynamicLang('Infant')}}</label>
 										<input type="text" name="qtyInput[]" class="qtyInput" value="{{$cart->qty_infant??0}}">
 									</div>
 								</li>
+								@endif
 							</ul> 
 						</div>
 

@@ -41,7 +41,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
             </div>
         </div>
     </div>
-    
+     
     <!-- Home Slider -->
     <section class="home-slider">
         <div class="hero-slider"> 
@@ -77,6 +77,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
         </div> 
     </section>
 
+    <!-- Search area -->
     <div class="advance-seach-box">
         <div class="container">
             <div class="row justify-content-center">  

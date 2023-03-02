@@ -58,8 +58,13 @@
             <div class="container"> 
                 <div class="row justify-content-center"> 
                     <div class="col-lg-6">
-                        <div class="copy-right text-center">
+                        <div class="copy-right text-center text-lg-start">
                             <p class="m-0">{{dynamicLang('Copyright © 2022')}} | <a href="{{URL('/')}}">GetBeds</a> | {{dynamicLang('All Rights Reserved.')}}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="developed_by text-center text-lg-end">
+                            <p class="m-0">Developed by: <a href="www.abhisan.com">Abhisan Technology</a></p>
                         </div>
                     </div>
                 </div>

@@ -40,6 +40,7 @@ jQuery( function ( $ ) {
 
     };loadMoreButton()  
 
+    
     // item Slide
 	$('.slick-slider').slick({
         slidesToShow:4,
@@ -130,6 +131,37 @@ jQuery( function ( $ ) {
               arrows: true,
               dots: false,
               slidesToShow:2
+            }
+          }
+        ]
+    });
+
+    // item Slide
+	$('.hero-slider').slick({
+        slidesToShow:1,
+        arrows: true,
+        dots: false,
+        infinite: true,
+        speed: 500, 
+        autoplaySpeed: 2000,
+        autoplay:true,
+        prevArrow:"<button type='button' class='slick-prev pull-left'><i class='ti ti-angle-left' aria-hidden='true'></i></button>",
+        nextArrow:"<button type='button' class='slick-next pull-right'><i class='ti ti-angle-right' aria-hidden='true'></i></button>",
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              arrows: true,
+              dots: false,
+              slidesToShow:1
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              arrows: true,
+              dots: false,
+              slidesToShow:1
             }
           }
         ]

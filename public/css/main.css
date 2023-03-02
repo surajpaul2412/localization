@@ -171,7 +171,25 @@ header ul.top-right-area li select.form-currency.form-control, header ul.top-rig
     background: url(../images/banner_bg_desktop.jpg) center center no-repeat; 
 }
 
+/* Slider Css */
+.slide-text {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.position-relative{
+    position: relative;
+}
   
+.home-slider .slick-next {
+    right: 15px;
+}
+.home-slider .slick-prev {
+    z-index: 9;
+    left: 15px;
+}
 
 
 .rating {

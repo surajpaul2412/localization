@@ -29,7 +29,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
 <main>
 
     <!-- Background YouTube Parallax -->
-    <div class="hero_single hero_single_videos jarallax" data-jarallax-video="mp4:{{asset('video/banner-short.mp4')}}">
+    <div class="hero_single hero_single_videos jarallax d-none" data-jarallax-video="mp4:{{asset('video/banner-short.mp4')}}">
        <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
             <div class="container">
                 <p>{{dynamicLang('Explore Thailand & Southeast Asia with')}}</p>
@@ -37,12 +37,45 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                 <div class="image-icon">
                     <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/home/tripadvisor/2018-tripadvisor.png" />
                     <img src="https://d34z6m0qj7i7g9.cloudfront.net/v5-assets/static/images/home/tripadvisor/2019-tripadvisor.png" />
-                </div>
-                
+                </div> 
             </div>
         </div>
     </div>
-    <!-- /Background YouTube Parallax -->
+    
+    <!-- Home Slider -->
+    <section class="home-slider">
+        <div class="hero-slider"> 
+            <div class="item p-0"> 
+                <div class="slide-item position-relative">
+                    <!-- <a href="#">   -->
+                        <img src="{{asset('images/slider/slide-03.jpg')}}" class="img-fluid desktop-view d-none d-lg-block" alt="" />  
+                        <img src="{{asset('images/slider/mobile-slide-01.jpg')}}" class="img-fluid mobile-view d-block d-lg-none" alt="" />  
+                        <!-- <div class="slide-text">
+                            <div class="container">
+                                <p class="mb-0">{{dynamicLang('Explore Thailand & Southeast Asia with')}}</p>
+                                <h1>{{dynamicLang('Local Experts')}}</h1>
+                            </div>    
+                        </div> -->
+                    <!-- </a>  -->
+                </div>
+            </div> 
+            <div class="item p-0"> 
+                <div class="slide-item position-relative">
+                    <!-- <a href="#">   -->
+                        <img src="{{asset('images/slider/slide-02.jpg')}}" class="img-fluid desktop-view d-none d-lg-block" alt="" />  
+                        <img src="{{asset('images/slider/mobile-slide-01.jpg')}}" class="img-fluid mobile-view d-block d-lg-none" alt="" />  
+                        <div class="slide-text">
+                            <!-- <div class="container">
+                                <p class="mb-0">{{dynamicLang('Explore Thailand & Southeast Asia with')}}</p>
+                                <h1>{{dynamicLang('Local Experts')}}</h1>
+                            </div>     -->
+                        </div>
+                    <!-- </a>  -->
+                </div>
+            </div> 
+             
+        </div> 
+    </section>
 
     <div class="advance-seach-box">
         <div class="container">

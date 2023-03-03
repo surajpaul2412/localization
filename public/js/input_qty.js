@@ -23,6 +23,7 @@
 
 		  if ($button.hasClass('qtyInc')) {
 			 var newVal = parseFloat(oldValue) + 1;
+			 console.log(tot);
 		  } else {
 			 // don't allow decrementing below zero
 			 if (oldValue > 0) {

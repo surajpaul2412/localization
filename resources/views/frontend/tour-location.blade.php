@@ -59,15 +59,27 @@ $api_url = json_encode(env("API_URL"));
 			<div class="position-relative py-3"> 
 				<!-- [Amenities filter] Start -->
 				<div class="slick-amenities-filter d-none d-lg-block">  
-					@foreach($amenities as $amenity)
+					<!-- @foreach($amenities as $amenity)
 					<div class="item">
 						<div class="form-check form-option p-0">
 							<input class="form-check-input searchType" type="checkbox" name="amenityId" id="{{$amenity->id}}">
-							<!-- ABHISHEK -- modify -->
-							<!-- <label></label> -->
 							<label class="form-option-label py-1" for="{{$amenity->id}}">
 								<img src="{{asset($amenity->icon)}}" alt="{{$amenity->name}}" class="img-fluid" />
 								<p class="m-0">{{dynamicLang($amenity->name)}}</p>
+							</label>
+						</div>
+					</div>
+					@endforeach -->
+
+
+
+					@foreach($categories as $category)
+					<div class="item">
+						<div class="form-check form-option p-0">
+							<input class="form-check-input searchType" type="checkbox" name="categoryId" id="{{$category->id}}">
+							<label class="form-option-label py-1" for="{{$category->id}}">
+								<img src="{{asset($category->icon)}}" alt="{{$category->name}}" class="img-fluid" />
+								<p class="m-0">{{dynamicLang($category->name)}}</p>
 							</label>
 						</div>
 					</div>
@@ -206,7 +218,47 @@ $api_url = json_encode(env("API_URL"));
 			</div>
 			<div class="modal-body">
 				<form>
-					<div class="filter_type border-bottom"> 
+
+					<div class="filter_type border-bottom">
+						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Amenity')}}</h6>
+						<ul class="d-flex flex-wrap">
+							@foreach($amenities as $index => $amenity)
+							<li>
+								
+								<div class="form-check form-option p-0 me-2"> 
+									<input type="checkbox" class="form-check-input filterType" name="amenityId" id="ame_{{$amenity->id}}" value="{{$amenity->id}}"
+												@if(isset($requests['amenity']))
+													@foreach($requests['amenity'] as $amenityArray)
+														@if($amenityArray == $amenity->id)
+															checked
+														@endif
+													@endforeach
+												@endif
+									>
+									<label class="form-option-label container_check" for="ame_{{$amenity->id}}">{{dynamicLang($amenity->name)}}</label>
+								</div>
+
+								<!-- <label class="container_check">{{dynamicLang($amenity->name)}}
+									<input type="checkbox" 
+												class="filterType" 
+												name="amenityId" 
+												value="{{$amenity->id}}"
+												@if(isset($requests['amenity']))
+													@foreach($requests['amenity'] as $amenityArray)
+														@if($amenityArray == $amenity->id)
+															checked
+														@endif
+													@endforeach
+												@endif
+									>
+									<span class="checkmark"></span>
+								</label> -->
+							</li>
+							@endforeach
+						</ul>
+					</div>
+
+					{{--<div class="filter_type border-bottom d-none"> 
 						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Category')}}</h6>
 						<ul class="d-flex flex-wrap">
 							@foreach($categories as $index => $category)
@@ -242,7 +294,7 @@ $api_url = json_encode(env("API_URL"));
 							</li>
 							@endforeach
 						</ul>
-					</div>
+					</div>--}}
 
 					<div class="filter_type border-bottom">
 						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Price')}}</h6>
@@ -290,46 +342,6 @@ $api_url = json_encode(env("API_URL"));
 						</ul>
 					</div>
 
-					<div class="filter_type d-block d-lg-none">
-						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Amenity')}}</h6>
-						<ul class="d-flex flex-wrap">
-							@foreach($amenities as $index => $amenity)
-							<li>
-								
-								<div class="form-check form-option p-0 me-2"> 
-									<input type="checkbox" class="form-check-input filterType" name="amenityId" id="ame_{{$amenity->id}}" value="{{$amenity->id}}"
-												@if(isset($requests['amenity']))
-													@foreach($requests['amenity'] as $amenityArray)
-														@if($amenityArray == $amenity->id)
-															checked
-														@endif
-													@endforeach
-												@endif
-									>
-									<label class="form-option-label container_check" for="ame_{{$amenity->id}}">{{dynamicLang($amenity->name)}}</label>
-								</div>
-
-								<!-- <label class="container_check">{{dynamicLang($amenity->name)}}
-									<input type="checkbox" 
-												class="filterType" 
-												name="amenityId" 
-												value="{{$amenity->id}}"
-												@if(isset($requests['amenity']))
-													@foreach($requests['amenity'] as $amenityArray)
-														@if($amenityArray == $amenity->id)
-															checked
-														@endif
-													@endforeach
-												@endif
-									>
-									<span class="checkmark"></span>
-								</label> -->
-							</li>
-							@endforeach
-						</ul>
-					</div>
-					<!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Apply Filter</button> -->
 				</form>
 			</div>
 		</div>
@@ -484,18 +496,19 @@ $api_url = json_encode(env("API_URL"));
 		$('.searchType').click(function() {
 			// var url = <?php echo $api_url; ?>;
 			var url = 'https://getbeds.starklikes.com';
+			// var url = 'http://localhost/tour/public';
 
-			var amenity = [];
-			$.each($("input[name='amenityId']:checked"), function(){
-		    amenity.push($(this).attr('id'));
+			var category = [];
+			$.each($("input[name='categoryId']:checked"), function(){
+		    category.push($(this).attr('id'));
 		  });
-		  var amenitySize = amenity.length;
-		  amenityId = amenity.join(",");
+		  var categorySize = category.length;
+		  categoryId = category.join(",");
 
-			if(amenitySize > 0){
+			if(categorySize > 0){
 				$.ajax({
 		        type: 'GET',
-		        url: url+'/search/city/'+{{$id}}+'/'+amenityId,
+		        url: url+'/search/city/'+{{$id}}+'/'+categoryId,
 		        success:function(data){
 		        	$('.isotope-item').hide();
 		        	$('.list-group').remove();
@@ -559,6 +572,7 @@ $api_url = json_encode(env("API_URL"));
 		$('.filterType').change(function() {
 			// var url = <?php echo $api_url; ?>;
 			var url = 'https://getbeds.starklikes.com';
+			// var url = 'http://localhost/tour/public';
 
 			// category
 			var category = [];
@@ -658,18 +672,19 @@ $api_url = json_encode(env("API_URL"));
 		$('.searchType').click(function() {
 			// var url = <?php echo $api_url; ?>;
 			var url = 'https://getbeds.starklikes.com';
+			// var url = 'http://localhost/tour/public';
 
-			var amenity = [];
-			$.each($("input[name='amenityId']:checked"), function(){
-		    amenity.push($(this).attr('id'));
+			var category = [];
+			$.each($("input[name='categoryId']:checked"), function(){
+		    category.push($(this).attr('id'));
 		  });
-		  var amenitySize = amenity.length;
-		  amenityId = amenity.join(",");
+		  var categorySize = category.length;
+		  categoryId = category.join(",");
 
-			if(amenitySize > 0){
+			if(categorySize > 0){
 				$.ajax({
 		        type: 'GET',
-		        url: url+'/search/country/'+{{$id}}+'/'+amenityId,
+		        url: url+'/search/country/'+{{$id}}+'/'+categoryId,
 		        success:function(data){
 		        	$('.isotope-item').hide();
 		        	$('.list-group').remove();
@@ -733,6 +748,7 @@ $api_url = json_encode(env("API_URL"));
 		$('.filterType').change(function() {
 			// var url = <?php echo $api_url; ?>;
 			var url = 'https://getbeds.starklikes.com';
+			// var url = 'http://localhost/tour/public';
 
 			// category
 			var category = [];

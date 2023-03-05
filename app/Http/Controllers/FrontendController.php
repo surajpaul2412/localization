@@ -325,6 +325,7 @@ class FrontendController extends Controller
     public function searchCountryLocationFilter($id, Request $request){
         try {
             $requests = $request->all();
+            dd($requests);
             // Filter start
 
             $countryArray = $categoryArray = $activityArray = $amenityArray = [];
@@ -496,15 +497,19 @@ class FrontendController extends Controller
         return view('frontend.tour-location', compact('packages','search','searchType','id'));
     }
 
-    public function searchCityAmenity($id, $aminityIds)
+    // amenity suraj final
+    public function searchCityAmenity($id, $categoryIds)
     {
         try{
-            $amenityId = explode(',',$aminityIds);
+            $categoryId = explode(',',$categoryIds);
+            $categoryArray = array();
+            foreach ($categoryId as $key => $value) {
+                $categoryArray[]=$value;
+            }
+
             $packages = Package::whereStatus(1)
                                 ->whereCityId($id)
-                                ->WhereHas('amenities', function($q) use($amenityId) {
-                                    $q->whereIn('amenity_id', $amenityId);
-                                })
+                                ->whereIn('category_id', $categoryArray)
                                 ->with('category')
                                 ->withCount('reviews')
                                 ->get();
@@ -537,24 +542,28 @@ class FrontendController extends Controller
                 'status'=>'ok',
                 'message'=>'success',
                 'packages'=> $packages,
-                'amenityId'=>$amenityId
+                'categoryId'=>$categoryId
             ]);
         } catch(\Exception $e){
             dd($e->getMessage());
         }
     }
 
-    public function searchCountryAmenity($id, $aminityIds)
+    // suraj final
+    public function searchCountryAmenity($id, $categoryIds)
     {
         try{
-            $amenityId = explode(',',$aminityIds);
+            $categoryId = explode(',',$categoryIds);
+            $categoryArray = array();
+            foreach ($categoryId as $key => $value) {
+                $categoryArray[]=$value;
+            }
+
             $packages = Package::whereStatus(1)
                                 ->WhereHas('city.country', function($q) use($id) {
                                     $q->whereId($id);
                                 })
-                                ->WhereHas('amenities', function($q) use($amenityId) {
-                                    $q->whereIn('amenity_id', $amenityId);
-                                })
+                                ->whereIn('category_id', $categoryArray)
                                 ->with('category')
                                 ->withCount('reviews')
                                 ->get();
@@ -587,7 +596,7 @@ class FrontendController extends Controller
                 'status'=>'ok',
                 'message'=>'success',
                 'packages'=> $packages,
-                'amenityId'=>$amenityId
+                'categoryId'=>$categoryId
             ]);
         } catch(\Exception $e){
             dd($e->getMessage());

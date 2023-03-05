@@ -22,6 +22,7 @@ $categories = Category::whereStatus(1)->get();
 $countries = Country::whereStatus(1)->pluck('name')->toArray();
 $searchCity = City::pluck('name')->toArray();
 $suggestions = json_encode(array_merge($countries, $searchCity));
+$combos = Package::whereCombo(1)->get();
 
 @endphp
 
@@ -108,10 +109,10 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
             <div class="main_title_3 d-flex justify-content-between align-items-center">
                 <div> 
                     <span><em></em></span>
-                    <h2>{{dynamicLang('Get Inspired')}}</h2> 
+                    <h2>{{dynamicLang('Get Combos')}}</h2> 
                 </div>  
             </div>
-            <div class="slick-get-inspired">
+            <!-- <div class="slick-get-inspired">
                 @foreach($categories as $category)
                 <div class="item"> 
                     <a href="{{route('search.category',$category->id)}}" class="box-item relative"> 
@@ -124,6 +125,52 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
                     </a>
                 </div>
                 @endforeach  
+            </div>  -->
+            <div class="slick-slider">
+                @foreach($combos as $tour)
+                <div class="item">
+                    <div class="box_grid"> 
+                        @if($tour->combo == 1)
+                        <div class="ribbon">
+                            <span>Combo</span>
+                        </div>
+                        @endif
+                        <figure>
+                            @if($tour->seal == 1)
+                            <img class="trust-badges" src="{{asset('images/trust-badge.png')}}" width="40px" />
+                            @endif
+                            <a href="{{route('wishlist.add',$tour->id)}}" class="wish_bt"></a>
+                            <a href="{{route('tour.show', $tour->slug)}}">
+                                <img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
+                            </a> 
+                        </figure>
+                        <div class="wrapper">
+                            <badge class="category-names text-white bg-black py-1 px-2 rounded">{{$tour->category->name}}</badge>
+                            <h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3>
+
+                            @if($tour->rating > 0)
+                            <div class="d-flex align-items-center">
+                                <div class="rating">
+                                    <i class="fas fa-star"></i> 
+                                    <i class="me-2 fs-6">{{$tour->rating}}</i>
+                                </div> 
+                                <div>({{$tour->reviews->count()}} Reviews)</div>   
+                            </div>
+                            @endif
+                        </div>
+                        <ul class="d-flex justify-content-between align-items-center">                             
+                            <li> 
+                                <span><b>{{dynamicLang('From')}}: </b><small><del><b>
+                                    @if($tour->discount > 0)
+                                        {{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price)}}</b></del></small>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price-($tour->adult_price*$tour->discount)/100)}}</b><small>/{{dynamicLang('person')}}</small></span>
+                                    @else
+                                        </b></del></small>{{Session::get('currency_symbol')??'₹'}}{{switchCurrency($tour->adult_price-($tour->adult_price*$tour->discount)/100)}}</b><small>/{{dynamicLang('person')}}</small></span>
+                                    @endif
+                            </li> 
+                        </ul>
+                    </div>
+                </div>
+                @endforeach
             </div> 
         </div>
     </section> 

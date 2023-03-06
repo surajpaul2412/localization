@@ -160,7 +160,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRand
 											</a> 
 										</figure>
 										<div class="wrapper">
-											<h3><a href="{{route('tour.show', $element->slug)}}">{{dynamicLang($element->name)}}</a></h3>
+										<h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',20,' ...'))}}</a></h3> 
 											@if($element->rating > 0)
 											<div class="d-flex align-items-center">
 						                      <div class="rating">

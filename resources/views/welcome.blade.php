@@ -43,45 +43,40 @@ $combos = Package::whereCombo(1)->get();
         </div>
     </div>
      
-    <!-- Home Slider -->
+    <!-- Home Slider Section  -->
     <section class="home-slider">
-        <div class="hero-slider"> 
+        <div class="hero-slider">  
             <div class="item p-0"> 
-                <div class="slide-item position-relative">
-                    <!-- <a href="#">   -->
-                        <img src="{{asset('images/slider/slide-03.jpg')}}" class="img-fluid desktop-view d-none d-lg-block" alt="" />  
-                        <img src="{{asset('images/slider/mobile-slide-01.jpg')}}" class="img-fluid mobile-view d-block d-lg-none" alt="" />  
-                        <!-- <div class="slide-text">
-                            <div class="container">
-                                <p class="mb-0">{{dynamicLang('Explore Thailand & Southeast Asia with')}}</p>
-                                <h1>{{dynamicLang('Local Experts')}}</h1>
-                            </div>    
-                        </div> -->
-                    <!-- </a>  -->
+                <div class="slide-item position-relative"> 
+                    <img src="{{asset('images/slider/slide-02.jpg')}}" class="img-fluid desktop-view d-none d-lg-block" alt="" />  
+                    <img src="{{asset('images/slider/mobile-slide-01.jpg')}}" class="img-fluid mobile-view d-block d-lg-none" alt="" />  
+                    <div class="slide-text">
+                        <div class="container">
+                            <h1 class="mb-0">{{dynamicLang('Local Experts')}}</h1>
+                            <p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium')}}</p>
+                        </div>    
+                    </div> 
                 </div>
-            </div> 
+            </div>  
             <div class="item p-0"> 
-                <div class="slide-item position-relative">
-                    <!-- <a href="#">   -->
-                        <img src="{{asset('images/slider/slide-02.jpg')}}" class="img-fluid desktop-view d-none d-lg-block" alt="" />  
-                        <img src="{{asset('images/slider/mobile-slide-01.jpg')}}" class="img-fluid mobile-view d-block d-lg-none" alt="" />  
-                        <div class="slide-text">
-                            <!-- <div class="container">
-                                <p class="mb-0">{{dynamicLang('Explore Thailand & Southeast Asia with')}}</p>
-                                <h1>{{dynamicLang('Local Experts')}}</h1>
-                            </div>     -->
-                        </div>
-                    <!-- </a>  -->
+                <div class="slide-item position-relative"> 
+                    <img src="{{asset('images/slider/slide-02.jpg')}}" class="img-fluid desktop-view d-none d-lg-block" alt="" />  
+                    <img src="{{asset('images/slider/mobile-slide-01.jpg')}}" class="img-fluid mobile-view d-block d-lg-none" alt="" />  
+                    <div class="slide-text">
+                        <div class="container">
+                            <h1 class="mb-0">{{dynamicLang('Local Experts')}}</h1>
+                            <p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium')}}</p>
+                        </div>    
+                    </div> 
                 </div>
-            </div> 
-             
+            </div>  
         </div> 
     </section>
 
     <!-- Search area -->
     <div class="advance-seach-box">
         <div class="container">
-            <div class="row justify-content-center">  
+            <div class="row justify-content-start">  
                 <div class="col-md-8">
                     <div class="advance-seach-box-inner">
                         <div class="autocomplete">
@@ -174,7 +169,68 @@ $combos = Package::whereCombo(1)->get();
             </div> 
         </div>
     </section> 
-    <!-- /Get Inspired --> 
+    <!-- /Get Inspired -->
+    
+    <section class="section-sm why-choose-us">
+        <div class="container">
+            <div class="main_title_3 d-flex justify-content-between align-items-center">
+                <div> 
+                    <span><em></em></span>
+                    <h2>Why choose GetBeds</h2> 
+                </div>  
+            </div>  
+            
+            <div class="row row-cols-2 row-cols-lg-4">
+                <div class="col">
+                    <div class="why-choose-box mb-3">
+                        <figure> 
+                            <img src="{{asset('images/why-choose/1.png')}}" width="64px" class="img-fluid" alt="" />  
+                        </figure>    
+                        <div class="info"> 
+                            <h5>Discover the possibilities</h5>
+                            <p>With nearly half a million attractions, hotels & more, you're sure to find joy.</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col">
+                    <div class="why-choose-box mb-3">
+                        <figure> 
+                            <img src="{{asset('images/why-choose/2.png')}}" width="64px" class="img-fluid" alt="" />  
+                        </figure>    
+                        <div class="info"> 
+                            <h5>Enjoy deals & delights</h5>
+                            <p>Quality activities. Great prices. Plus, earn Klook credits to save more.</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col">
+                    <div class="why-choose-box mb-3">
+                        <figure> 
+                            <img src="{{asset('images/why-choose/3.png')}}" width="64px" class="img-fluid" alt="" />  
+                        </figure>    
+                        <div class="info"> 
+                            <h5>Exploring made easy</h5>
+                            <p>Book last minute, skip lines & get free cancellation for easier exploring.</p>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col">
+                    <div class="why-choose-box mb-3">
+                        <figure> 
+                            <img src="{{asset('images/why-choose/4.png')}}" width="64px" class="img-fluid" alt="" />  
+                        </figure>    
+                        <div class="info"> 
+                            <h5>Travel you can trust</h5>
+                            <p>Read reviews & get reliable customer support. We're with you at every step.</p>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+            
+        </div>
+    </section> 
+    <!-- /Why Choose Us --> 
+
 
     <section class="section-sm popular-destinations bg-white">
         <div class="container">

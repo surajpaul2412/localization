@@ -174,10 +174,10 @@ header ul.top-right-area li select.form-currency.form-control, header ul.top-rig
 /* Slider Css */
 .slide-text {
     position: absolute;
-    top: 30%;
+    top: 40%;
     left: 0;
     width: 100%;
-    text-align: center;
+    text-align: start;
 }
 .position-relative{
     position: relative;
@@ -211,15 +211,25 @@ header ul.top-right-area li select.form-currency.form-control, header ul.top-rig
 .testimonial-box {
     position: relative;
     border-radius: 8px;
-    padding: 20px 24px;
+    /* padding: 20px 24px; */
+    padding: 0;
     height: 100%;
     background: rgba(36, 75, 82, 0.1);
 }
-.testimonial-box .head {
-    margin-bottom: 10px;
-}
+ 
 .testimonial-box img {
-    width: auto !important;
+    width: 100%;
+    margin: 0;
+}
+.testimonial-box .content-box {
+    width: 35%;
+    position: absolute;
+    top: 40%;
+    right: 5%;
+    z-index: 9;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 12px !important;
 }
 
 .testimonial-box .left > img {
@@ -909,7 +919,7 @@ ul.dahs_navbar li a.active {
 
 .advance-seach-box .autocomplete {
     position: absolute;
-    top: -80px;
+    top: -240px;
     width: 100%;
 }
 .autocomplete { 
@@ -1159,7 +1169,7 @@ ul.card-tours-availbility-list {
 /* Destination Filter Css */
 .filter-btn {
     position: absolute;
-    top: 25px;
+    top: 32px;
     right: 0;
 }
 
@@ -1214,7 +1224,7 @@ ul.card-tours-availbility-list {
     height: auto;
     
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

@@ -77,7 +77,7 @@ use App\Models\User;
                 </div>
             </div>  
             
-            <div class="row"> 
+            <div class="row d-none"> 
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
@@ -111,6 +111,7 @@ use App\Models\User;
                 </div>
             </div> 
             <!-- [ Main Content ] end --> 
+            
         </div>
     </div>
 @endsection

@@ -14,31 +14,24 @@ $testimonials = Testimonial::whereStatus(1)->get();
             <!-- <a href="#0"><strong>View all (57) <i class="arrow_carrot-right"></i></strong></a>  -->
         </div>
         
-        <div id="traveler-reviews" class="owl-carousel owl-theme">
+        <div id="traveler-reviews1" class="slick-traveler-reviews">
         	@foreach($testimonials as $index => $testimonial)
             <div class="item">  
                 <div class="testimonial-box">
-                    <div class="head d-flex justify-content-between">
-                        <div class="left d-flex justify-content-start align-items-center">
-                            <img src="{{asset($testimonial->avatar)}}" class="img-fluid" alt="avatar" />
-                            <div class="tit">
-                                <h4>{{dynamicLang($testimonial->name)}}</h4>
-                                <p class="d-flex justify-content-start align-items-center">
-                                    {{dynamicLang('Country')}}: {{dynamicLang($testimonial->country)}}
-                                </p>
-                            </div>
+                    <img src="{{asset($testimonial->avatar)}}" class="img-fluid" alt="avatar" />
+                    <div class="content-box p-2">
+                        <div class="rating">
+                            @foreach(range(1, $testimonial->stars) as $index)
+                            <i class="fas fa-star"></i>
+                            @endforeach
                         </div>
-                        <div class="right">
-                            <div class="rating">
-                                @foreach(range(1, $testimonial->stars) as $index)
-                                <i class="fas fa-star"></i>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="content">
-                        <p>{!! $testimonial->description !!}</p>
-                    </div>   
+                        <h4 class="mb-1">{{dynamicLang($testimonial->name)}}</h4>
+                        <!-- <p class="m-0">
+                            {{dynamicLang('Country')}}: {{dynamicLang($testimonial->country)}}
+                        </p> -->
+                        <p class="m-0">{!! $testimonial->description !!}</p>  
+                          
+                    </div>
                 </div>
             </div>
             @endforeach 

@@ -54,7 +54,7 @@ $api_url = json_encode(env("API_URL"));
 	</section>
 	<!--/hero_in-->
 	
-	<div class="filters_listing sticky_horizontal">
+	<div class="filters_listing sticky_horizontal1">
 		<div class="container">
 			<div class="position-relative py-3"> 
 				<!-- [Amenities filter] Start -->
@@ -69,9 +69,7 @@ $api_url = json_encode(env("API_URL"));
 							</label>
 						</div>
 					</div>
-					@endforeach -->
-
-
+					@endforeach --> 
 
 					@foreach($categories as $category)
 					<div class="item">

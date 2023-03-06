@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item mr-3">
-                <a href="{{URL('/')}}" class="pop-search"><i class="feather icon-home"></i> Home</a> 
+                <a href="{{URL('/')}}" class="pop-search" target="_blank"><i class="feather icon-home"></i> Home</a> 
             </li> 
         </ul>
         <ul class="navbar-nav navbar-right ml-auto">

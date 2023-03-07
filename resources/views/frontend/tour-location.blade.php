@@ -20,6 +20,7 @@ $countries = Country::whereStatus(1)->pluck('name')->toArray();
 $searchCity = City::pluck('name')->toArray();
 $suggestions = json_encode(array_merge($countries, $searchCity));
 $api_url = json_encode(env("API_URL"));
+$maxRange = Package::max('adult_price');
 
 @endphp
 
@@ -459,7 +460,7 @@ $api_url = json_encode(env("API_URL"));
         hide_min_max: true,
         keyboard: true,
         min: 10,
-        max: 2000,
+        max: <?php echo $maxRange??2000; ?>,
         from: <?php $rangeJs = explode(';',$requests['range']); echo $rangeJs[0]??10; ?>,
         to: <?php $rangeJs = explode(';',$requests['range']); echo $rangeJs[1]??1000; ?>,
         type: 'double',
@@ -474,9 +475,9 @@ $api_url = json_encode(env("API_URL"));
         hide_min_max: true,
         keyboard: true,
         min: 10,
-        max: 2000,
+        max: <?php echo $maxRange??2000; ?>,
         from: 10,
-        to: 1000,
+        to: <?php echo $maxRange/2??1000; ?>,
         type: 'double',
         step: 1,
         prefix: "Min. ",
@@ -493,8 +494,8 @@ $api_url = json_encode(env("API_URL"));
 	$( document ).ready(function() {
 		$('.searchType').click(function() {
 			// var url = <?php echo $api_url; ?>;
-			// var url = 'https://getbeds.starklikes.com';
-			var url = 'http://localhost/tour/public';
+			var url = 'https://getbeds.starklikes.com';
+			// var url = 'http://localhost/tour/public';
 
 			var category = [];
 			$.each($("input[name='categoryId']:checked"), function(){
@@ -569,8 +570,8 @@ $api_url = json_encode(env("API_URL"));
 	$( document ).ready(function() {
 		$('.filterType').change(function() {
 			// var url = <?php echo $api_url; ?>;
-			// var url = 'https://getbeds.starklikes.com';
-			var url = 'http://localhost/tour/public';
+			var url = 'https://getbeds.starklikes.com';
+			// var url = 'http://localhost/tour/public';
 
 			// category
 			var category = [];
@@ -669,8 +670,8 @@ $api_url = json_encode(env("API_URL"));
 	$( document ).ready(function() {
 		$('.searchType').click(function() {
 			// var url = <?php echo $api_url; ?>;
-			// var url = 'https://getbeds.starklikes.com';
-			var url = 'http://localhost/tour/public';
+			var url = 'https://getbeds.starklikes.com';
+			// var url = 'http://localhost/tour/public';
 
 			var category = [];
 			$.each($("input[name='categoryId']:checked"), function(){
@@ -745,8 +746,8 @@ $api_url = json_encode(env("API_URL"));
 	$( document ).ready(function() {
 		$('.filterType').change(function() {
 			// var url = <?php echo $api_url; ?>;
-			// var url = 'https://getbeds.starklikes.com';
-			var url = 'http://localhost/tour/public';
+			var url = 'https://getbeds.starklikes.com';
+			// var url = 'http://localhost/tour/public';
 
 			// category
 			var category = [];

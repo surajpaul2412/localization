@@ -6,7 +6,7 @@
 @php
 use App\Models\Package;
 
-$mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereStatus(1)->inRandomOrder()->take(5)->get();
+$mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereCityId($tour->city_id)->whereStatus(1)->inRandomOrder()->take(5)->get();
 @endphp
 
 @section('content')

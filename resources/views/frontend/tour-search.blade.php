@@ -10,11 +10,10 @@ use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Country;
 
-
-
 $countries = Country::whereStatus(1)->pluck('name')->toArray();
 $searchCity = City::pluck('name')->toArray();
 $suggestions = json_encode(array_merge($countries, $searchCity));
+$maxRange = Package::max('adult_price');
 
 @endphp
 
@@ -297,7 +296,7 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
         hide_min_max: true,
         keyboard: true,
         min: 10,
-        max: 2000,
+        max: <?php echo $maxRange??2000; ?>,
         from: <?php $rangeJs = explode(';',$requests['range']); echo $rangeJs[0]??10; ?>,
         to: <?php $rangeJs = explode(';',$requests['range']); echo $rangeJs[1]??1000; ?>,
         type: 'double',
@@ -312,9 +311,9 @@ $suggestions = json_encode(array_merge($countries, $searchCity));
         hide_min_max: true,
         keyboard: true,
         min: 10,
-        max: 2000,
+        max: <?php echo $maxRange??2000; ?>,
         from: 10,
-        to: 1000,
+        to: <?php echo $maxRange/2??1000; ?>,
         type: 'double',
         step: 1,
         prefix: "Min. ",

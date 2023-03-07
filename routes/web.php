@@ -208,20 +208,6 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::delete('banner/destroy/{id}', [App\Http\Controllers\Admin\BannerController::class, 'destroy'])->name('banner.destroy');
     Route::get('banner/activate/{id}', [App\Http\Controllers\Admin\BannerController::class, 'activate'])->name('banner.activate');
     Route::get('banner/deactivate/{id}', [App\Http\Controllers\Admin\BannerController::class, 'deactivate'])->name('banner.deactivate');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
 Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','middleware'=>['auth','customer']], function(){

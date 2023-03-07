@@ -493,8 +493,8 @@ $api_url = json_encode(env("API_URL"));
 	$( document ).ready(function() {
 		$('.searchType').click(function() {
 			// var url = <?php echo $api_url; ?>;
-			var url = 'https://getbeds.starklikes.com';
-			// var url = 'http://localhost/tour/public';
+			// var url = 'https://getbeds.starklikes.com';
+			var url = 'http://localhost/tour/public';
 
 			var category = [];
 			$.each($("input[name='categoryId']:checked"), function(){
@@ -569,8 +569,8 @@ $api_url = json_encode(env("API_URL"));
 	$( document ).ready(function() {
 		$('.filterType').change(function() {
 			// var url = <?php echo $api_url; ?>;
-			var url = 'https://getbeds.starklikes.com';
-			// var url = 'http://localhost/tour/public';
+			// var url = 'https://getbeds.starklikes.com';
+			var url = 'http://localhost/tour/public';
 
 			// category
 			var category = [];
@@ -669,8 +669,8 @@ $api_url = json_encode(env("API_URL"));
 	$( document ).ready(function() {
 		$('.searchType').click(function() {
 			// var url = <?php echo $api_url; ?>;
-			var url = 'https://getbeds.starklikes.com';
-			// var url = 'http://localhost/tour/public';
+			// var url = 'https://getbeds.starklikes.com';
+			var url = 'http://localhost/tour/public';
 
 			var category = [];
 			$.each($("input[name='categoryId']:checked"), function(){
@@ -745,8 +745,8 @@ $api_url = json_encode(env("API_URL"));
 	$( document ).ready(function() {
 		$('.filterType').change(function() {
 			// var url = <?php echo $api_url; ?>;
-			var url = 'https://getbeds.starklikes.com';
-			// var url = 'http://localhost/tour/public';
+			// var url = 'https://getbeds.starklikes.com';
+			var url = 'http://localhost/tour/public';
 
 			// category
 			var category = [];

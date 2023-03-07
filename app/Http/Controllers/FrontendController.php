@@ -101,7 +101,6 @@ class FrontendController extends Controller
 
     public function searchFilter(Request $request){
         try {
-            dd($request->all());
             $requests = $request->all();
             $search = '';
             // Filter start
@@ -325,7 +324,6 @@ class FrontendController extends Controller
     public function searchCountryLocationFilter($id, Request $request){
         try {
             $requests = $request->all();
-            dd($requests);
             // Filter start
 
             $countryArray = $categoryArray = $activityArray = $amenityArray = [];

@@ -14,6 +14,7 @@ use App\Models\Package;
 use App\Models\City;
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Banner;
 
 $amenities = Amenity::inRandomOrder()->whereStatus(1)->get();
 $tours = Package::inRandomOrder()->whereStatus(1)->get();
@@ -23,6 +24,7 @@ $countries = Country::whereStatus(1)->pluck('name')->toArray();
 $searchCity = City::pluck('name')->toArray();
 $suggestions = json_encode(array_merge($countries, $searchCity));
 $combos = Package::whereCombo(1)->get();
+$banners = Banner::whereStatus(1)->get();
 
 @endphp
 
@@ -45,31 +47,23 @@ $combos = Package::whereCombo(1)->get();
      
     <!-- Home Slider Section  -->
     <section class="home-slider">
-        <div class="hero-slider">  
+        <div class="hero-slider"> 
+            @if($banners->count())
+            @foreach($banners as $banner)
             <div class="item p-0"> 
                 <div class="slide-item position-relative"> 
-                    <img src="{{asset('images/slider/slide-02.jpg')}}" class="img-fluid desktop-view d-none d-lg-block" alt="" />  
-                    <img src="{{asset('images/slider/mobile-slide-01.jpg')}}" class="img-fluid mobile-view d-block d-lg-none" alt="" />  
+                    <img src="{{asset($banner->image)}}" class="img-fluid desktop-view d-none d-lg-block" alt="{{$banner->heading}}" />  
+                    <img src="{{asset($banner->mobile)}}" class="img-fluid mobile-view d-block d-lg-none" alt="{{$banner->heading}}" />  
                     <div class="slide-text">
                         <div class="container">
-                            <h1 class="mb-0">{{dynamicLang('Local Experts')}}</h1>
-                            <p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium')}}</p>
+                            <h1 class="mb-0">{{dynamicLang($banner->heading)}}</h1>
+                            <p>{{dynamicLang($banner->content)}}</p>
                         </div>    
                     </div> 
                 </div>
-            </div>  
-            <div class="item p-0"> 
-                <div class="slide-item position-relative"> 
-                    <img src="{{asset('images/slider/slide-02.jpg')}}" class="img-fluid desktop-view d-none d-lg-block" alt="" />  
-                    <img src="{{asset('images/slider/mobile-slide-01.jpg')}}" class="img-fluid mobile-view d-block d-lg-none" alt="" />  
-                    <div class="slide-text">
-                        <div class="container">
-                            <h1 class="mb-0">{{dynamicLang('Local Experts')}}</h1>
-                            <p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium')}}</p>
-                        </div>    
-                    </div> 
-                </div>
-            </div>  
+            </div> 
+            @endforeach
+            @endif 
         </div> 
     </section>
 

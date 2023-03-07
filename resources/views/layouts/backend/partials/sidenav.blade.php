@@ -45,6 +45,7 @@
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">System Settings</span></a>
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('admin.subscribers')}}">Subscribers</a></li> 
+                        <li><a href="{{route('admin.banner')}}">Home Slider</a></li> 
                         <li><a href="{{route('admin.testimonials')}}">Testimonials</a></li> 
                         <li><a href="{{route('admin.currency')}}">Currency</a></li> 
                         <li><a href="{{route('admin.language')}}">Language</a></li>  

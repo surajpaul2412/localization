@@ -199,6 +199,29 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     // razorpay creds
     Route::get('razorpay', [App\Http\Controllers\Admin\UserController::class, 'razorpay'])->name('razorpay');
     Route::patch('razorpay/{id}', [App\Http\Controllers\Admin\UserController::class, 'razorpayUpdate'])->name('razorpay.update');
+    // Banners
+    Route::get('banner', [App\Http\Controllers\Admin\BannerController::class, 'index'])->name('banner');
+    Route::get('banner/create', [App\Http\Controllers\Admin\BannerController::class, 'create'])->name('banner.create');
+    Route::post('banner/store', [App\Http\Controllers\Admin\BannerController::class, 'store'])->name('banner.store');
+    Route::get('banner/{id}/edit', [App\Http\Controllers\Admin\BannerController::class, 'edit'])->name('banner.edit');
+    Route::patch('banner/{id}', [App\Http\Controllers\Admin\BannerController::class, 'update'])->name('banner.update');
+    Route::delete('banner/destroy/{id}', [App\Http\Controllers\Admin\BannerController::class, 'destroy'])->name('banner.destroy');
+    Route::get('banner/activate/{id}', [App\Http\Controllers\Admin\BannerController::class, 'activate'])->name('banner.activate');
+    Route::get('banner/deactivate/{id}', [App\Http\Controllers\Admin\BannerController::class, 'deactivate'])->name('banner.deactivate');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 Route::group(['as'=>'customer.','prefix'=>'customer','namespace'=>'Customer','middleware'=>['auth','customer']], function(){

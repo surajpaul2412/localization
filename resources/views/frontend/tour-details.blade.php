@@ -137,7 +137,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereCityId($tour->cit
 								</div>  
 							</div> 
 							
-							<div id="you_might_also_like" class="owl-carousel owl-theme">
+							<div id="you_might_also" class="you-might-also">
 								@foreach($mightAlsoLike as $element)
 								<div class="item">
 									<div class="box_grid">
@@ -280,7 +280,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereCityId($tour->cit
 						</div>
 					</section>
 					<!-- /section -->
-					<hr>
+					<!-- <hr> -->
 
 					@if(Auth::user())
 					@if($tour->able_to_review)

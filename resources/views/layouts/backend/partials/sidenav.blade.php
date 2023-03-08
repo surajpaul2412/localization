@@ -31,11 +31,16 @@
 
                 <li class="nav-item {{ Request::is('admin/bookings') ? 'active' : '' }}">
                     <a href="{{route('admin.bookings')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-package"></i></span><span class="pcoded-mtext">Manage Bookings</span></a> 
-                </li>
+                </li> 
                 
-                <li class="nav-item {{ Request::is('admin/pages') ? 'active' : '' }}">
-                    <a href="{{route('admin.pages')}}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-clipboard"></i></span><span class="pcoded-mtext">Static Pages</span></a> 
-                </li>  
+                <li class="nav-item pcoded-hasmenu">
+                    <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-globe"></i></span><span class="pcoded-mtext">Appearance</span></a>
+                    <ul class="pcoded-submenu">
+                        <li><a href="{{route('admin.pages')}}">Pages</a></li> 
+                        <li><a href="{{route('admin.banner')}}">Home Slider</a></li> 
+                        <li><a href="{{route('admin.testimonials')}}">Testimonials</a></li>  
+                    </ul>
+                </li>
 
                 <li class="nav-item {{ Request::is('admin/reviews') ? 'active' : '' }}">
                     <a href="{{route('admin.review')}}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-star"></i></span><span class="pcoded-mtext">Manage Ratings</span></a> 
@@ -44,12 +49,10 @@
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">System Settings</span></a>
                     <ul class="pcoded-submenu">
-                        <li><a href="{{route('admin.subscribers')}}">Subscribers</a></li> 
-                        <li><a href="{{route('admin.banner')}}">Home Slider</a></li> 
-                        <li><a href="{{route('admin.testimonials')}}">Testimonials</a></li> 
                         <li><a href="{{route('admin.currency')}}">Currency</a></li> 
                         <li><a href="{{route('admin.language')}}">Language</a></li>  
                         <li><a href="{{route('admin.razorpay')}}">Payment Methods (Razorpay)</a></li>  
+                        <li><a href="{{route('admin.subscribers')}}">Subscribers</a></li>  
                     </ul>
                 </li>
                 @endif

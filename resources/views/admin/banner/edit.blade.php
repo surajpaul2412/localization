@@ -58,8 +58,9 @@
                                         </div>
                                         <div class="col-sm-12 mt-3">
                                             <div class="form-group fill">  
-                                                <label class="control-label">Slider Content</label>
-                                                <input type="text" class="form-control form-control-sm @error('content') is-invalid @enderror" placeholder="Enter content..." name="content" value="{{$banner->content}}" onkeyup="slug_url(this.value,'init_slug')"/>
+                                                <label class="control-label">Slider Content</label>  
+                                                <textare class="form-control form-control-sm @error('content') is-invalid @enderror" placeholder="Enter content..." name="content" value="{{$banner->content}}" onkeyup="slug_url(this.value,'init_slug')" id="editor1"></textarea> 
+
                                                 @error('content')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -73,14 +74,14 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="col-form-label">Desktop Image<span>*</span>:</label>
+                                                <label class="col-form-label">Desktop Banner<span>*</span>:</label>
                                                 <input name="image" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="12M" data-default-file="{{asset($banner->image)}}" />
                                                 <input type="hidden" name="hidden_image" value="{{ $banner->image }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="col-form-label">Mobile Image<span>*</span>:</label>
+                                                <label class="col-form-label">Mobile Banner<span>*</span>:</label>
                                                 <input name="mobile" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify1" data-max-file-size="12M" data-default-file="{{asset($banner->mobile)}}" />
                                                 <input type="hidden" name="hidden_mobile" value="{{ $banner->mobile }}">
                                             </div>

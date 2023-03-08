@@ -41,63 +41,72 @@
                         @csrf
                         <div class="card-header"></div>
                         <div class="card-body">
-                            <div class="row">   
-                                <div class="col-sm-5">
-                                    <div class="form-group fill">  
-                                        <label class="control-label">Name<span>*</span></label>
-                                        <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ old('name') }}" required/>
-                                        @error('name')
-                                            <div class="text-danger">
-                                                <strong>{{ $message }}</strong>
+                            <div class="row">  
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="form-group fill">  
+                                                <label class="control-label">Name<span>*</span></label>
+                                                <input type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Enter Name..." name="name" value="{{ old('name') }}" required/>
+                                                @error('name')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
                                             </div>
-                                        @enderror
-                                    </div>
-                                </div>   
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Country<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control form-control-sm @error('country') is-invalid @enderror" Placeholder="Enter your country." name="country" value="{{ old('country') }}"  required/>
-                                        @error('country')
-                                            <div class="text-danger">
-                                                <strong>{{ $message }}</strong>
+                                        </div>   
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Country<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control form-control-sm @error('country') is-invalid @enderror" Placeholder="Enter your country." name="country" value="{{ old('country') }}"  required/>
+                                                @error('country')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
                                             </div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Star<span class="text-danger">*</span></label>
-                                        <select class="form-control" name="stars">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                        @error('stars')
-                                            <div class="text-danger">
-                                                <strong>{{ $message }}</strong>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Star<span class="text-danger">*</span></label>
+                                                <select class="form-control form-control-sm" name="stars">
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                </select>
+                                                @error('stars')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
                                             </div>
-                                        @enderror
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Description:</label> 
+                                                <textarea class="@error('description') is-invalid @enderror" name="description" id="editor1"></textarea>
+                                                @error('description')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
+                                            </div> 
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Upload Avatar<span class="text-danger">*</span></label>
-                                        <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Description:</label> 
-                                        <textarea class="@error('description') is-invalid @enderror" name="description" id="editor1"></textarea>
-                                        @error('description')
-                                            <div class="text-danger">
-                                                <strong>{{ $message }}</strong>
+                                </div> 
+                                
+                                <div class="col-lg-4">
+                                    <div class="row"> 
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Upload Avatar<span class="text-danger">*</span></label>
+                                                <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
                                             </div>
-                                        @enderror
-                                    </div> 
-                                </div>
+                                        </div>
+                                    </div>
+                                </div> 
                             </div>  
                         </div>  
                         <div class="card-footer text-right"> 

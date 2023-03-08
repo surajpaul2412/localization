@@ -19,7 +19,7 @@ class DashboardController extends Controller
 
     public function indexLang()
     {
-        $languages = language::all();
+        $languages = Language::all();
         return view('admin.language', compact('languages'));
     }
 

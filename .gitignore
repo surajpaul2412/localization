@@ -49,7 +49,7 @@ Thumbs.db
 *.wmv
 
 # 
-# public/uploads/*
+public/uploads/*
 vendor/*
 *.env
 

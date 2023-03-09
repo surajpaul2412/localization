@@ -169,7 +169,7 @@ jQuery( function ( $ ) {
       
     // item Slide
     $('.slick-traveler-reviews').slick({
-          slidesToShow:1,
+          slidesToShow:2,
           arrows: true,
           dots: false,
           infinite: true,
@@ -184,7 +184,7 @@ jQuery( function ( $ ) {
               settings: {
                 arrows: true,
                 dots: false,
-                slidesToShow:1
+                slidesToShow:2
               }
             },
             {

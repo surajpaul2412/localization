@@ -127,7 +127,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereCityId($tour->cit
 						</div>  
 					</section>
 					<!-- /section -->
-
+					@if($mightAlsoLike->count())
 					<section id="also-likes" class="also-likes-contain">
 						<div class="container">
 							<div class="main_title_3 d-flex justify-content-between align-items-center">
@@ -148,7 +148,7 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereCityId($tour->cit
 											</a> 
 										</figure>
 										<div class="wrapper">
-											<h3><a href="tour-details.php">{{dynamicLang($element->name)}}</a></h3>
+											<h3><a href="tour-details.php">{{dynamicLang(\Illuminate\Support\Str::limit($element->name ?? '',20,' ...'))}}</a></h3>
 											@if($element->rating > 0)
 											<div class="d-flex align-items-center">
 						                      <div class="rating">
@@ -172,7 +172,8 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereCityId($tour->cit
 							</div>  
 
 						</div>
-					</section> 
+					</section>
+					@endif 
 					<!-- /You might also likes. -->   
 				
 					<section id="reviews">

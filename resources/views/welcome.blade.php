@@ -288,7 +288,7 @@ $banners = Banner::whereStatus(1)->get();
     <!-- /Tours Available Tomorrow -->  
     @include('layouts.frontend.partials.ads')
     
-    <section class="section-sm travel-products bg-white">
+    <section class="section-sm travel-products bg-white d-none">
         <div class="container">
             <div class="main_title_3 d-flex justify-content-between align-items-center">
                 <div> 

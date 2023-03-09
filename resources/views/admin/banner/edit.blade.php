@@ -57,17 +57,15 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 mt-3">
-                                            <div class="form-group fill">  
-                                                <label class="control-label">Slider Content</label>  
-
-                                                <textare class="@error('content') is-invalid @enderror" name="content" id="editor1">{{$banner->content}}</textarea> 
-
+                                            <div class="form-group">
+                                                <label class="col-form-label">Content:</label> 
+                                                <textarea class="@error('content') is-invalid @enderror" name="content" id="editor1">{{$banner->content}}</textarea>
                                                 @error('content')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
                                                     </div>
                                                 @enderror
-                                            </div>
+                                            </div> 
                                         </div>
                                     </div>  
                                 </div>

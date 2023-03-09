@@ -57,7 +57,7 @@ $banners = Banner::whereStatus(1)->get();
                     <div class="slide-text">
                         <div class="container">
                             <h1 class="mb-0 text-white">{{dynamicLang($banner->heading)}}</h1>
-                            <p class="text-white">{{dynamicLang($banner->content)}}</p>
+                            <p class="text-white">{!!$banner->content!!}</p>
                         </div>    
                     </div> 
                 </div>

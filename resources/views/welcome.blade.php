@@ -56,8 +56,8 @@ $banners = Banner::whereStatus(1)->get();
                     <img src="{{asset($banner->mobile)}}" class="img-fluid mobile-view d-block d-lg-none" alt="{{$banner->heading}}" />  
                     <div class="slide-text">
                         <div class="container">
-                            <h1 class="mb-0">{{dynamicLang($banner->heading)}}</h1>
-                            <p>{{dynamicLang($banner->content)}}</p>
+                            <h1 class="mb-0 text-white">{{dynamicLang($banner->heading)}}</h1>
+                            <p class="text-white">{{dynamicLang($banner->content)}}</p>
                         </div>    
                     </div> 
                 </div>

@@ -59,7 +59,8 @@
                                         <div class="col-sm-12 mt-3">
                                             <div class="form-group fill">  
                                                 <label class="control-label">Slider Content</label>  
-                                                <textare class="form-control form-control-sm @error('content') is-invalid @enderror" placeholder="Enter content..." name="content" value="{{$banner->content}}" onkeyup="slug_url(this.value,'init_slug')" id="editor1"></textarea> 
+
+                                                <textare class="@error('content') is-invalid @enderror" name="content" id="editor1">{{$banner->content}}</textarea> 
 
                                                 @error('content')
                                                     <div class="text-danger">

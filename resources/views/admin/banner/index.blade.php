@@ -43,10 +43,9 @@
                                 <thead>
                                     <tr>
                                         <th class="col-1">SR.No.</th> 
+                                        <th class="col-1">Banners</th> 
                                         <th>Title</th>
-                                        <th>content</th>
-                                        <th>Desktop Slider</th>  
-                                        <th>Mobile Slider</th>  
+                                        <th>content</th>   
                                         <th class="col-1">Status</th> 
                                         <th class="col-1">Action</th>
                                     </tr>
@@ -56,10 +55,12 @@
                                     @foreach($banners as $index => $banner)
                                     <tr>
                                         <td>{{$index+1}}.</td>
+                                        <td>
+                                            <img src="{{asset($banner->image)}}" width="60px"> 
+                                            <img src="{{asset($banner->mobile)}}" width="60px">
+                                        </td>
                                         <td>{{$banner->heading}}</td>
-                                        <td>{{$banner->content}}</td>
-                                        <td><img src="{{asset($banner->image)}}" width="100px"></td>
-                                        <td><img src="{{asset($banner->mobile)}}" width="100px"></td>
+                                        <td class="text-wrap">{{$banner->content}}</td>
                                         <td>
                                             @if($banner->status == 1)
                                             <a href="{{ route('admin.banner.deactivate', $banner->id) }}" class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">Active</a>

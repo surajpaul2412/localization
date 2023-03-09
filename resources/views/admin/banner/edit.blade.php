@@ -76,13 +76,15 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Desktop Banner<span>*</span>:</label>
                                                 <input name="image" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="12M" data-default-file="{{asset($banner->image)}}" />
+                                                <small class="text-muted"><b>Eg::</b> Upload icon size - 1920px*750px. </small>
                                                 <input type="hidden" name="hidden_image" value="{{ $banner->image }}">
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Mobile Banner<span>*</span>:</label>
-                                                <input name="mobile" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify1" data-max-file-size="12M" data-default-file="{{asset($banner->mobile)}}" />
+                                                <input name="mobile" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify1" data-max-file-size="12M" data-default-file="{{asset($banner->mobile)}}" />                                                
+                                                <small class="text-muted"><b>Eg::</b> Upload icon size - 800px*800px. </small>
                                                 <input type="hidden" name="hidden_mobile" value="{{ $banner->mobile }}">
                                             </div>
                                         </div> 

@@ -37,7 +37,7 @@
         <div class="row"> 
             <div class="col-sm-12">
                 <div class="card"> 
-                    <form class="custom-form" method="POST" action="{{ route('admin.city.store') }}">
+                    <form class="custom-form" method="POST" action="{{ route('admin.city.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header"></div>
                         <div class="card-body">

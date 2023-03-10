@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Review;
 use App\Models\Razorpay;
+use App\Models\Contact;
 use Carbon\carbon;
 use Auth;
 use File;
@@ -196,5 +197,19 @@ class UserController extends Controller
         $razorpay = Razorpay::findOrFail($id);
         $razorpay->update($request->all());
         return redirect('admin/razorpay')->with('success','Razorpay credentials updated successfully.');
+    }
+
+    public function settingIndex()
+    {
+        $cred = Contact::first();
+        return view('admin.setting.index', compact('cred'));
+    }
+
+    public function settingUpdate(Request $req, $id)
+    {
+        $cred = Contact::findOrFail($id);
+        $data = $req->all();
+        $cred->update($data);
+        return redirect('admin/setting')->with('success','General setting updated successfully.');
     }
 }

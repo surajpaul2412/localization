@@ -37,6 +37,8 @@ Route::get('wishlist', [App\Http\Controllers\HomeController::class, 'wishlist'])
 Route::get('wishlist/add/{productId}', [App\Http\Controllers\HomeController::class, 'wishlistAdd'])->name('wishlist.add')->middleware('auth');
 Route::get('wishlist/remove/{id}', [App\Http\Controllers\HomeController::class, 'wishlistRemove'])->name('wishlist.remove')->middleware('auth');
 Route::get('wishlist/moveToCart/{id}', [App\Http\Controllers\HomeController::class, 'wishlistMoveToCart'])->name('wishlist.moveToCart')->middleware('auth');
+Route::get('contact-us', [App\Http\Controllers\FrontendController::class, 'contact'])->name('contact-us');
+
 
 Route::get('cart', [App\Http\Controllers\FrontendController::class, 'cart'])->name('cart');
 Route::post('cart/add/{packageId}', [App\Http\Controllers\FrontendController::class, 'cartAdd'])->name('cart.add');
@@ -116,7 +118,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::get('subscribers/default/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'default'])->name('subscribers.default');
     Route::get('subscribers/activate/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'activate'])->name('subscribers.activate');
     Route::get('subscribers/deactivate/{id}', [App\Http\Controllers\Admin\DashboardController::class, 'deactivate'])->name('subscribers.deactivate');
-
+    // Setting
+    Route::get('setting', [App\Http\Controllers\Admin\UserController::class, 'settingIndex'])->name('setting');
+    Route::patch('setting/{id}', [App\Http\Controllers\Admin\UserController::class, 'settingUpdate'])->name('setting.update');
 
 
 

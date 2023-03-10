@@ -38,11 +38,11 @@
                     <div class="col-lg-3 col-md-6 ms-lg-auto">
                         <h5>{{dynamicLang('Useful links')}}</h5>
                         <ul class="links">
-                            <li><a href="#0">{{dynamicLang('About')}}</a></li> 
-                            <li><a href="#0">{{dynamicLang('Contacts')}}</a></li>
-                            <li><a href="#0">{{dynamicLang('Register')}}</a></li> 
-                            <li><a href="#0">{{dynamicLang('Privacy Policy')}}</a></li> 
-                            <li><a href="#0">{{dynamicLang('Terms of Use')}}</a></li> 
+                            <li><a href="{{URL('about-us')}}">{{dynamicLang('About')}}</a></li> 
+                            <li><a href="{{route('contact-us')}}">{{dynamicLang('Contacts')}}</a></li>
+                            <li><a href="{{route('register')}}">{{dynamicLang('Register')}}</a></li> 
+                            <li><a href="{{URL('privacy-policy')}}">{{dynamicLang('Privacy Policy')}}</a></li> 
+                            <li><a href="{{URL('terms-of-use')}}">{{dynamicLang('Terms of Use')}}</a></li> 
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6"> 

@@ -49,6 +49,7 @@
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">System Settings</span></a>
                     <ul class="pcoded-submenu">
+                        <li><a href="{{route('admin.setting')}}">General Setting</a></li> 
                         <li><a href="{{route('admin.currency')}}">Currency</a></li> 
                         <li><a href="{{route('admin.language')}}">Language</a></li>  
                         <li><a href="{{route('admin.razorpay')}}">Payment Methods (Razorpay)</a></li>  

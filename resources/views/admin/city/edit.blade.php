@@ -37,7 +37,7 @@
         <div class="row"> 
             <div class="col-sm-12">
                 <div class="card"> 
-                    <form class="custom-form" method="post" action="{{ route('admin.city.update', $city->id) }}">
+                    <form class="custom-form" method="post" action="{{ route('admin.city.update', $city->id) }}" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf
                         <div class="card-header"></div>

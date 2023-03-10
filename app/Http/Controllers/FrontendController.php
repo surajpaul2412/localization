@@ -16,6 +16,7 @@ use App\Models\Review;
 use App\Models\UserAddress;
 use App\Models\Amenity;
 use App\Models\Activity;
+use App\Models\Contact;
 use Auth;
 use Hash;
 use Session;
@@ -815,5 +816,11 @@ class FrontendController extends Controller
             return redirect()->back()->with('success','Review successfully submitted.');
         }
         return redirect()->back();
+    }
+
+    public function contact()
+    {
+        $data = Contact::all();
+        return view('frontend.contact-us', compact('data'));
     }
 }

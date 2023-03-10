@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="">
                                     <div class="form-group mb-3 form-check">
-                                        <input type="checkbox" name="default" class="form-check-input" id="exampleCheck1">
+                                        <input type="checkbox" name="default" class="form-check-input">
                                         <label class="form-check-label" for="exampleCheck1">{{dynamicLang('Mark as Default')}}</label>
                                     </div>
                                 </div>

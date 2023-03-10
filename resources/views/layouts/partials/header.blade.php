@@ -70,7 +70,7 @@
                                 </a>
                                 @else
                                 <a class="dropdown-item" href="{{ route('customer.order') }}">
-                                    {{ dynamicLang('Dashboard') }}
+                                    {{ dynamicLang('My Booking') }}
                                 </a>
                                 @endif
                                 <a class="dropdown-item" href="{{ route('logout') }}"

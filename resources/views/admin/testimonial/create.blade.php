@@ -103,6 +103,7 @@
                                             <div class="form-group">
                                                 <label class="col-form-label">Upload Avatar<span class="text-danger">*</span></label>
                                                 <input name="avatar" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                                <small class="text-muted"><b>Eg::</b> Upload icon size - 1000px*521px. </small>
                                             </div>
                                         </div>
                                     </div>

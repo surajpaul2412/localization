@@ -128,7 +128,21 @@ $banners = Banner::whereStatus(1)->get();
                             @if($tour->seal == 1)
                             <img class="trust-badges" src="{{asset('images/trust-badge.png')}}" width="40px" />
                             @endif
-                            <a href="{{route('wishlist.add',$tour->id)}}" class="wish_bt"></a>
+                            @if(Auth::user())
+                                @if(Auth::user()->wishlist->count() > 0)
+                                    @foreach(Auth::user()->wishlist as $wishlist)
+                                        @if($wishlist->package_id == $tour->id)
+                                            <a href="{{route('wishlist.remove', $wishlist->id)}}" class="wish_bt liked"></a>
+                                        @else
+                                            <a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+                                @endif
+                            @else
+                                <a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+                            @endif
                             <a href="{{route('tour.show', $tour->slug)}}">
                                 <img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
                             </a> 
@@ -249,7 +263,21 @@ $banners = Banner::whereStatus(1)->get();
                             @if($tour->seal == 1)
                             <img class="trust-badges" src="{{asset('images/trust-badge.png')}}" width="40px" />
                             @endif
-                            <a href="{{route('wishlist.add',$tour->id)}}" class="wish_bt"></a>
+                            @if(Auth::user())
+                                @if(Auth::user()->wishlist->count() > 0)
+                                    @foreach(Auth::user()->wishlist as $wishlist)
+                                        @if($wishlist->package_id == $tour->id)
+                                            <a href="{{route('wishlist.remove', $wishlist->id)}}" class="wish_bt liked"></a>
+                                        @else
+                                            <a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+                                @endif
+                            @else
+                                <a href="{{route('wishlist.add', $tour->id)}}" class="wish_bt"></a>
+                            @endif
                             <a href="{{route('tour.show', $tour->slug)}}">
                                 <img src="{{asset($tour->avatar)}}" class="img-fluid" alt="" /> 
                             </a> 

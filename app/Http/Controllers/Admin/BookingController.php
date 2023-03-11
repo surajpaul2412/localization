@@ -91,6 +91,7 @@ class BookingController extends Controller
             $mailDetails['title'] = 'Order update from GetBeds';
             if ($orderStatusdata['order_status'] == 'Confirmed'){
                 $mailDetails['body'] = 'Your order has been confirmed.';
+                $mailDetails['voucherNo'] = $request->get('order_comment');
                 \Mail::to($order->user->email)->send(new \App\Mail\ConfirmedMail($mailDetails));
             } elseif($orderStatusdata['order_status'] == 'Completed'){
                 $mailDetails['body'] = 'Your order has been Completed.';

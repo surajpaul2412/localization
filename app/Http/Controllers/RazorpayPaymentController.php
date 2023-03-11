@@ -51,6 +51,7 @@ class RazorpayPaymentController extends Controller
         $api = new Api($this->key, $this->secret_key);
   
         $payment = $api->payment->fetch($input['razorpay_payment_id']);
+        $orderNo = 'ORD'.rand(1,100000);
   
         if(count($input)  && !empty($input['razorpay_payment_id'])) {
             try {
@@ -59,7 +60,7 @@ class RazorpayPaymentController extends Controller
                     $cartItems = Cart::whereUserId(Auth::user()->id)->get();
                     if ($request->radio_address) {
                         foreach ($cartItems as $key => $item) {
-                            $orderData['order_no'] = 'ORD'.rand(1,100000);
+                            $orderData['order_no'] = $orderNo;
                             $orderData['user_id'] = Auth::user()->id;
                             $orderData['package_id'] = $item->package_id;
                             $orderData['user_address_id'] = $request->radio_address;
@@ -189,8 +190,18 @@ class RazorpayPaymentController extends Controller
             }
         }
 
-        // email confirmation 
-        // email template here
+        // customer confirmation 
+        $mailDetails['title'] = 'Booking Successfull from GetBeds';
+        $mailDetails['body'] = 'Your Booking has been confirmed.';
+        $mailDetails['orderNo'] = $orderNo;
+        \Mail::to(Auth::user()->email)->send(new \App\Mail\OrderMail($mailDetails));
+
+        // admin inform
+        $adminMailDetails['title'] = 'Booking Successfull from GetBeds';
+        $adminMailDetails['body'] = 'A new order has been Placed.';
+        $adminMailDetails['orderNo'] = $orderNo;
+        \Mail::to('suraj.paul.69@gmail.com')->send(new \App\Mail\AdminOrderMail($adminMailDetails));
+
         return redirect()->route('success')->with('success','Order Successfull.');
     }
 }

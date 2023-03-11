@@ -720,7 +720,7 @@ class FrontendController extends Controller
             $data['date'] = $request->date;
             $data['qty_adult'] = $request->qtyInput[0];
             $data['qty_child'] = $request->qtyInput[1];
-            $data['qty_infant'] = $request->qtyInput[2];
+            $data['qty_infant'] = $request->qtyInput[2]??0;
 
             Cart::whereId($id)->update($data);
             return redirect()->route('cart')->with('success','Cart item updated successfully.');
@@ -747,7 +747,7 @@ class FrontendController extends Controller
                     $data['date'] = $request->date;
                     $data['qty_adult'] = $request->qtyInput[0];
                     $data['qty_child'] = $request->qtyInput[1];
-                    $data['qty_infant'] = $request->qtyInput[2];
+                    $data['qty_infant'] = $request->qtyInput[2]??0;
 
                     Cart::create($data);
                     return redirect()->route('cart')->with('success','Tour added to cart successfully.');
@@ -762,7 +762,7 @@ class FrontendController extends Controller
                     $data['date'] = $request->date;
                     $data['qty_adult'] = $request->qtyInput[0];
                     $data['qty_child'] = $request->qtyInput[1];
-                    $data['qty_infant'] = $request->qtyInput[2];
+                    $data['qty_infant'] = $request->qtyInput[2]??0;
 
                     Cart::create($data);
                     return redirect()->route('cart')->with('success','Tour added to cart successfully.');

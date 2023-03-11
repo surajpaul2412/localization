@@ -17,6 +17,9 @@
                 <a href="{{URL('/')}}"><img src="{{asset('images/logo.png')}}" alt="Logo" class="logo_sticky"></a>
             </figure>
             <form method="POST" action="{{ route('login') }}">
+                @if (session('failure'))
+                <div class="alert alert-danger alert-dismissible in" role="alert">{{ session('failure') }}</div>
+                @endif
                 @csrf
                 <div class="form-group">
                     <label>{{ dynamicLang('Email') }}</label>

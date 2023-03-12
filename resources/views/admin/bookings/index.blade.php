@@ -62,11 +62,18 @@
                                         <td class="text-wrap">{{$booking->address->country}}</td>
                                         <td class="text-wrap">{{$booking->address->city}}</td>
                                         <td class="text-wrap">{{$booking->price}}.00</td>
-                                        <td class="text-wrap">
-                                            <a class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">{{$booking->order_status}}</a>
+                                        <td class="text-wrap"> 
+                                            @if($booking->order_status == "In Progress")                                         
+                                            <a href="#" class="btn btn-warning btn-xs" title="View Order" data-toggle="modal" data-target="#editBooking{{$index+1}}"><span class="badge badge-warning">{{$booking->order_status}}</span></a> 
+                                            @elseif($booking->order_status == "Cancelled")
+                                            <a href="#" class="btn btn-danger btn-xs" title="View Order" data-toggle="modal" data-target="#editBooking{{$index+1}}"><span class="badge badge-danger">{{$booking->order_status}}</span></a> 
+                                            @else
+                                            <a href="#" class="btn btn-success btn-xs" title="View Order" data-toggle="modal" data-target="#editBooking{{$index+1}}"><span class="badge badge-success">{{$booking->order_status}}</span></a> 
+                                            @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.bookings.show', $booking->id) }}" class="btn btn-info btn-xs mr-1" title="Edit"><i class="feather icon-edit"></i></a>
+                                            <!-- <a href="{{ route('admin.bookings.show', $booking->id) }}" class="btn btn-info btn-xs mr-1" title="Edit"><i class="feather icon-edit"></i></a> -->
+                                            <a href="#" class="btn btn-success btn-xs" title="View Order" data-toggle="modal" data-target="#viewBooking{{$index+1}}"><i class="feather icon-eye"></i></a> 
                                         </td>
                                     </tr>
                                     @endforeach
@@ -82,6 +89,122 @@
         <!-- [ Main Content ] end -->
     </div>
 </div>
+
+<!-- model -->
+@if($bookings->count())
+    @foreach($bookings as $index => $booking)
+    <div id="viewBooking{{$index+1}}" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form class="custom-form">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Booking Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body"> 
+                        <table class="table table-sm table-bordered table-striped mb-0"> 
+                            <tbody>
+                                <tr>
+                                    <th>Booking Id</th>
+                                    <td>#{{$booking->order_no}}</td>
+                                </tr>
+                                <tr>
+                                    <th>User</th>
+                                    <td>{{$booking->user->name}} <br><a href="#">{{$booking->user->email}}</a></td>
+                                </tr>
+                                <tr>
+                                    <th>Plan/Packeges</th>
+                                    <td>{{$booking->package->name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Departure date</th>
+                                    <td>{{$booking->date}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Seat - Price</th>
+                                    <td>{{$booking->adult_qty+$booking->child_qty+$booking->infant_qty}} / {{$booking->price}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Payemnt Id</th>
+                                    <td>{{$booking->razorpay_payment_id}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Booking Status</th>
+                                    @if($booking->order_status == "In Progress")
+                                    <td><span class="badge badge-warning">{{$booking->order_status}}</span></td>
+                                    @elseif($booking->order_status == "Cancelled")
+                                    <td><span class="badge badge-danger">{{$booking->order_status}}</span></td>
+                                    @else
+                                    <td><span class="badge badge-success">{{$booking->order_status}}</span></td>
+                                    @endif
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer bg-gray">
+                        <!-- <button type="button" class="btn btn-secondary btn-xs" data-dismiss="modal">Close</button> 
+                        <button type="submit" class="btn btn-success btn-xs has-ripple">Update</button> -->
+                    </div>
+                </div> 
+            </form>
+        </div>
+    </div>
+
+
+    <!-- edit -->
+    <div id="editBooking{{$index+1}}" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <form class="custom-form" method="post" action="{{ route('admin.booking.update', $booking->id) }}">
+                @method('PATCH')
+                @csrf 
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- <h5 class="modal-title">Booking Status</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+                    </div>
+                    <div class="modal-body">
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <div class="form-group fill">  
+                                    <label class="control-label">Add Comment<span>*</span></label>
+                                    <input class="form-control" name="order_comment" value="" required/>
+                                    @error('order_status')
+                                        <div class="text-danger">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <div class="form-group fill">  
+                                    <label class="control-label">Update Status<span>*</span></label>
+                                    <select name="order_status" class="form-control" required>
+                                        <option {{ $booking->order_status == "In Progress" ? 'selected' : '' }} value="In Progress">In Progress</option>
+                                        <option {{ $booking->order_status == "Confirmed" ? 'selected' : '' }} value="Confirmed">Confirmed</option>
+                                        <option {{ $booking->order_status == "Completed" ? 'selected' : '' }} value="Completed">Completed</option>
+                                        <option {{ $booking->order_status == "Cancelled" ? 'selected' : '' }} value="Cancelled">Cancelled By Admin</option>
+                                    </select>
+                                    @error('order_status')
+                                        <div class="text-danger">
+                                            <strong>{{ $message }}</strong>
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-xs" data-dismiss="modal">Close</button> 
+                        <button type="submit" class="btn btn-success btn-xs has-ripple">Update</button>
+                    </div>
+                </div> 
+            </form>
+        </div>
+    </div>
+    @endforeach
+@endif
 @endsection
 
 @section('script')

@@ -92,3 +92,9 @@ $(window).on('load', function() {
     });
 });
 </script> -->
+
+<script> 
+    setTimeout(function () { 
+        $(".alert").fadeOut();
+    }, 3000); 
+</script>

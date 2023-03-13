@@ -1260,6 +1260,26 @@ ul.card-tours-availbility-list {
 }
 
 
+/* Contact Box */
+.contact-info-box {
+    position: relative;
+}
+.contact-info-box i {
+    font-size: 34px !important;
+    color: #fb9149;
+}
+.contact-info-box .cont-txt .title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.contact-information .follow_us ul li a {
+    color: #fb9149 !important; 
+} 
+
+
+
+
 /* // X-Small devices (portrait phones, less than 576px)
 // No media query for `xs` since this is the default in Bootstrap */
 

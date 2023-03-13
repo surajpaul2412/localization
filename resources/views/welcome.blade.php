@@ -1,13 +1,5 @@
 @extends('layouts.frontend.app')
 
-@section('title')
-<title>GetBeds</title>
-@endsection
-
-@section('css')
-<style></style>
-@endsection
-
 @php
 use App\Models\Amenity;
 use App\Models\Package;
@@ -15,6 +7,7 @@ use App\Models\City;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Banner;
+use App\Models\Contact;
 
 $amenities = Amenity::inRandomOrder()->whereStatus(1)->get();
 $tours = Package::inRandomOrder()->whereStatus(1)->get();
@@ -25,8 +18,19 @@ $searchCity = City::pluck('name')->toArray();
 $suggestions = json_encode(array_merge($countries, $searchCity));
 $combos = Package::whereCombo(1)->get();
 $banners = Banner::whereStatus(1)->get();
+$cred = Contact::first();
 
 @endphp
+
+@section('title')
+<title>{{$cred->meta_title}} | {{env('APP_NAME')}}</title>
+<meta name="description" content="{{$cred->meta_description}}"> 
+<meta name="keywords" content="{{$cred->meta_keywords}}"> 
+@endsection
+
+@section('css')
+<style></style>
+@endsection
 
 @section('content')  
 <main>

@@ -57,11 +57,14 @@ class LoginController extends Controller
         $cartItems = Cart::whereUserId(session()->getId())->get();
         $credentials = $request->only('email','password');
         if (Auth::attempt($credentials)) {
-            foreach ($cartItems as $key => $item) {
-                $data['user_id'] = Auth::user()->id;
-                Cart::whereId($item->id)->update($data);
+            if(!empty(Auth::user()->email_verified_at)){
+                foreach ($cartItems as $key => $item) {
+                    $data['user_id'] = Auth::user()->id;
+                    Cart::whereId($item->id)->update($data);
+                }
+                return redirect('login');
             }
-            return redirect('login');
+            return redirect('login')->with('failure','Please verify your email first.');
         }
         return redirect('login')->with('failure','Please check your credentials.');
     }

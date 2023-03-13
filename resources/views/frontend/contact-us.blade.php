@@ -1,10 +1,15 @@
 @extends('layouts.frontend.app')
 @section('title')
-
+<title>Contact Us | {{env('APP_NAME')}}</title>
 @endsection
 
 @section('css')
 @endsection
+
+@php
+use App\Models\Contact;
+$cred = Contact::first();
+@endphp
 
 @section('content')
 <main>
@@ -86,7 +91,7 @@
 											<i class="ti-home fs-5 me-2"></i>
 											<div class="cont-txt"> 
 												<h4 class="title m-0">Address</h4>
-												<p class="mb-0">704, Saket, New Delhi, India-110044</p>
+												<p class="mb-0">{{$cred->address}}</p>
 											</div>
 										</div> 
 									</div>
@@ -97,7 +102,7 @@
 											<i class="ti-home fs-5 me-2"></i>
 											<div class="cont-txt"> 
 												<h4 class="title m-0">Email Id</h4>
-												<a href="mailto:info@gogetguide.com">info@gogetguide.com</a>
+												<a href="mailto:{{$cred->email}}">{{$cred->email}}</a>
 											</div>
 										</div> 
 									</div>
@@ -108,7 +113,7 @@
 											<i class="ti-home fs-5 me-2"></i>
 											<div class="cont-txt"> 
 												<h4 class="title m-0">Contact Number</h4>
-												<a href="tel:+919999585812">+91-9999585812</a></a>
+												<a href="tel:{{$cred->phone}}">{{$cred->phone}}</a></a>
 											</div>
 										</div> 
 									</div>
@@ -120,10 +125,10 @@
 							<div class="follow_us">
 								<ul> 
 									<li></li>
-									<li><a href="#0"><i class="ti-facebook"></i></a></li>
-									<li><a href="#0"><i class="ti-instagram"></i></a></li>
-									<li><a href="#0"><i class="ti-twitter-alt"></i></a></li>
-									<li><a href="#0"><i class="ti-google"></i></a></li> 
+									<li><a href="{{$cred->facebook}}"><i class="ti-facebook"></i></a></li>
+									<li><a href="{{$cred->instagram}}"><i class="ti-instagram"></i></a></li>
+									<li><a href="{{$cred->twitter}}"><i class="ti-twitter-alt"></i></a></li>
+									<li><a href="{{$cred->linkedin}}"><i class="ti-linkedin"></i></a></li> 
 								</ul>
 							</div>
 						</div>

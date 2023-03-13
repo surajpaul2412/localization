@@ -60,7 +60,12 @@
                                         <div class="col-sm-6">
                                             <div class="form-group fill">
                                                 <label class="col-form-label">System Email:</label>
-                                                <input type="text" class="form-control form-control-sm" placeholder="support@creatologics.com" spellcheck="false" data-ms-editor="true">
+                                                <input type="text" class="form-control form-control-sm" value="{{$cred->sys_email}}" spellcheck="false" name="sys_email" data-ms-editor="true">
+                                                @error('sys_email')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div> 
                                     </div>
@@ -73,19 +78,34 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Meta Title:</label>
-                                                <input type="text" class="form-control form-control-sm" name="meta_title" value="" placeholder="" /> 
+                                                <input type="text" class="form-control form-control-sm @error('email') is-invalid @enderror" name="meta_title" value="{{$cred->meta_title}}" placeholder="" /> 
+                                                @error('meta_title')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
                                             </div> 
                                         </div>   
                                         <div class="col-sm-6"> 
                                             <div class="form-group">
                                                 <label class="col-form-label">Meta Keywords:</label>
-                                                <textarea class="form-control form-control-sm" name="meta_keywords" placeholder=""></textarea> 
+                                                <textarea class="form-control form-control-sm" name="meta_keywords" placeholder="">{{$cred->meta_keywords}}</textarea> 
+                                                @error('meta_keywords')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
                                             </div> 
                                         </div>    
                                         <div class="col-sm-6">  
                                             <div class="form-group">
                                                 <label class="col-form-label">Meta Description:</label>
-                                                <textarea class="form-control form-control-sm" name="meta_description" placeholder=""></textarea> 
+                                                <textarea class="form-control form-control-sm" name="meta_description" placeholder="">{{$cred->meta_description}}</textarea> 
+                                                @error('meta_description')
+                                                    <div class="text-danger">
+                                                        <strong>{{ $message }}</strong>
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div> 
                                     </div>
@@ -107,7 +127,7 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label class="col-form-label">Phone:</label>
-                                                <input type="number" class="form-control form-control-sm @error('phone') is-invalid @enderror" placeholder="Enter key..." name="phone" value="{{$cred->phone}}" required/>
+                                                <input type="number" class="form-control form-control-sm @error('phone') is-invalid @enderror" name="phone" value="{{$cred->phone}}"/>
                                                 @error('phone')
                                                     <div class="text-danger">
                                                         <strong>{{ $message }}</strong>
@@ -118,7 +138,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="col-form-label">Address:</label>
-                                                <textarea class="form-control form-control-sm" Placeholder="Eg: you can add address with pincode.">{{$cred->address}}</textarea>
+                                                <textarea class="form-control form-control-sm" name="address">{{$cred->address}}</textarea>
                                             </div>
                                         </div>  
                                     </div> 

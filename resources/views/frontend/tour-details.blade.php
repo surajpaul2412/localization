@@ -1,6 +1,8 @@
 @extends('layouts.frontend.app')
 @section('title')
-<title>{{$tour->name}} | GetBeds</title>
+<title>{{$tour->meta_title}} | {{env('APP_NAME')}}</title>
+<meta name="description" content="{{$tour->meta_description}}"> 
+<meta name="keywords" content="{{$tour->meta_keywords}}"> 
 @endsection
 
 @php

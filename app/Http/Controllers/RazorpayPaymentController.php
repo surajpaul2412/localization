@@ -15,6 +15,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\UserAddress;
+use App\Models\Contact;
 use App\Models\Razorpay;
 use Auth;
 use Hash;
@@ -200,7 +201,8 @@ class RazorpayPaymentController extends Controller
         $adminMailDetails['title'] = 'Booking Successfull from GetBeds';
         $adminMailDetails['body'] = 'A new order has been Placed.';
         $adminMailDetails['orderNo'] = $orderNo;
-        \Mail::to('suraj.paul.69@gmail.com')->send(new \App\Mail\AdminOrderMail($adminMailDetails));
+        $contactAdmin = Contact::first()->sys_email;
+        \Mail::to($contactAdmin)->send(new \App\Mail\AdminOrderMail($adminMailDetails));
 
         return redirect()->route('success')->with('success','Order Successfull.');
     }

@@ -12,8 +12,8 @@
     --body-font-family: Montserrat, Prompt, Tahoma, sans-serif;  
     /* --primary-color: #f67b2d; 
     --secondary-color: #dd6e27;  */
-    --primary-color: #12adc1; 
-    --secondary-color: #0295a9;
+    --primary-color: #f29b18; 
+    --secondary-color: #52c5b6;
     --text-color: #4d4d5b;
 } 
 
@@ -32,6 +32,27 @@ p { margin-bottom: 16px; }
 /* [data-loader=circle-side] { 
     border: 2px solid var(--primary-color); 
 } */
+[data-loader=circle-side] {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    left: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    -webkit-animation: circle infinite .95s linear;
+    -moz-animation: circle infinite .95s linear;
+    -o-animation: circle infinite .95s linear;
+    animation: circle infinite .95s linear;
+    border: 2px solid var(--primary-color); 
+    border-top-color: rgba(0,0,0,.2);
+    border-right-color: rgba(0,0,0,.2);
+    border-bottom-color: rgba(0,0,0,.2);
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%;
+}
 a {
     color: var(--text-color);
 }
@@ -39,33 +60,46 @@ a:hover {
     color: var(--primary-color);
 }
 .btn_1.outline, a.btn_1.outline {
-    border: 2px solid var(--primary-color) !important;
-    color: var(--primary-color) !important;
+    border: 2px solid var(--secondary-color) !important;
+    color: var(--secondary-color) !important;
     padding: 11px 40px;
     background: 0 0;
 }
 .btn_1.outline:hover, a.btn_1.outline:hover {
-    background: var(--primary-color) !important;
-    border: 2px solid var(--primary-color) !important;
+    background: var(--secondary-color) !important;
+    border: 2px solid var(--secondary-color) !important;
     color: var(--bs-white) !important;
 }
-.btn_1.full-width.purchase:hover, a.btn_1.full-width.purchase:hover {
+/* .btn_1.full-width.purchase:hover, a.btn_1.full-width.purchase:hover {
     background-color: #277e51;
+} */
+.btn_1.full-width.purchase, a.btn_1.full-width.purchase {
+    background-color: var(--secondary-color); 
+}
+.btn_1.full-width.purchase:hover, a.btn_1.full-width.purchase:hover {
+    background-color: var(--secondary-color); 
 }
 
+
 /**/
-.main_title_3 span em, .score strong, .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span, .animated .block-vertical, #toTop:hover {
+.score strong, .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span, .animated .block-vertical, #toTop:hover {
     background-color: var(--primary-color) !important;
 }
 footer ul li a:hover, .bs-wizard>.bs-wizard-step>.bs-wizard-dot:after { 
     color: var(--primary-color); 
 }
+.main_title_3 span em, .hero_in .wrapper h1 span {
+    background-color: var(--secondary-color);
+}
 
+.btn_1.full-width.purchase:hover, a.btn_1.full-width.purchase:hover {
+    background-color: #4db7a9; 
+}
 .btn_1.btn-sm, a.btn_1.btn-sm {
     padding: 12px 20px;
 }
 .custom-search-input-2 input[type=submit], .btn_1, a.btn_1, #newsletter input[type=submit] { 
-    background-color: var(--primary-color); 
+    background-color: var(--secondary-color); 
     color: var(--bs-white) !important;
 }
 .custom-search-input-2 input[type=submit]:hover, .btn_1:hover, a.btn_1:hover, #newsletter input[type=submit]:hover {
@@ -402,7 +436,7 @@ a.wishlist_bt_top span.wishlist-counts {
     color: var(--text-color);
 }
 .box_grid ul li b {
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 .box_grid ul li small del b, .box_grid ul li small del {
     color: var(--text-color) !important;    
@@ -575,6 +609,13 @@ ul.amenities-details li {
 
 a.grid_item figure { 
     border-radius: 15px;
+}
+
+.slick-amenities-filter .slick-next {
+    right: -5px;
+}
+.slick-amenities-filter .slick-prev {
+    left: -5px;
 }
 
 /* CTA Css */
@@ -1024,7 +1065,7 @@ ul.dahs_navbar li a.active {
     color: #fff;
     width: 100%;
     margin-top: 0.5rem;
-    background-color: #f77b2d;
+    background-color: var(--primary-color);
     cursor: pointer;
 }
 .custom-datepicker label input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -1195,7 +1236,7 @@ ul.card-tours-availbility-list {
     /* color-adjust: exact; */
     print-color-adjust: exact;
 } 
-.form-check-input.searchType[type="checkbox"]:checked, .form-check-input.searchType[type="checkbox"]:not(:checked) {
+.form-check-input.searchType[type="checkbox"]:checked, .form-check-input.searchType[type="checkbox"]:not(:checked), #filterModal .form-check-input.filterType[type="checkbox"]:checked, #filterModal .form-check-input.filterType[type="checkbox"]:not(:checked) {
     position: absolute;
     left: -9999px;
 }
@@ -1249,7 +1290,7 @@ ul.card-tours-availbility-list {
 }
 
 #review_summary { 
-    background-color: #32a067 !important;
+    background-color: var(--secondary-color) !important;
 }
 .reviews-container .progress-bar {
     background-color: var(--primary-color) !important;  

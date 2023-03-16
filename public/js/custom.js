@@ -108,12 +108,12 @@ jQuery( function ( $ ) {
     // item Slide
     $('.slick-amenities-filter').slick({
           slidesToShow:7,
-          arrows: false,
+          arrows: true,
           dots: false,
           infinite: true,
           speed: 500, 
           autoplaySpeed: 2000,
-          autoplay:true,
+          autoplay:false,
           prevArrow:"<button type='button' class='slick-prev pull-left'><i class='ti ti-angle-left' aria-hidden='true'></i></button>",
           nextArrow:"<button type='button' class='slick-next pull-right'><i class='ti ti-angle-right' aria-hidden='true'></i></button>",
           responsive: [

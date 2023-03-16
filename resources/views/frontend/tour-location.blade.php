@@ -295,14 +295,14 @@ $maxRange = Package::max('adult_price');
 						</ul>
 					</div>--}}
 
-					<div class="filter_type border-bottom">
+					<div class="filter_type">
 						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Price')}}</h6>
 						<div class="mb-3">
 							<input class="filterType" type="text" id="range" name="rangeId" value="">
 						</div>
 					</div>
 
-					<div class="filter_type border-bottom">
+					<div class="filter_type border-bottom d-none">
 						<h6 class="m-0 pb-3 border-top-0">{{dynamicLang('Activity')}}</h6>
 						<ul class="d-flex flex-wrap">
 							@foreach($activities as $index => $activity)

@@ -38,11 +38,20 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|min:3|max:255'
+            'name' => 'required|string|min:3|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
+
+        $image = $request->file('image');
+        if($image != ''){
+            $image_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/city'), $image_name);
+            $image_name = 'uploads/city/'.$image_name;
+        }
 
         $data = $request->all();
         $data['status'] = 1;
+        $data['image'] = $image_name??'uploads/city/default.jpg';
         Country::create($data);
         return redirect('/admin/country')->with('success','Country created successfully.');
     }
@@ -69,11 +78,26 @@ class CountryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|min:3|max:255'
+            'name' => 'required|string|min:3|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
-
         $country = Country::findOrFail($id);
+
+        $image_name = $request->hidden_image;
+        $image = $request->file('image');
+        if($image != ''){
+            if ($country->image != 'uploads/city/default.jpg') {
+                if(File::exists($country->image)) {
+                    File::delete($country->image);
+                }
+            }
+            $image_name = rand() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/city'), $image_name);
+            $image_name = 'uploads/city/'.$image_name;
+        }
+
         $data = $request->all();
+        $data['image'] = $image_name;
         $country->update($data);
         return redirect('admin/country')->with('success', 'Country name has been successfully updated.');
     }

@@ -9,6 +9,7 @@ use App\Models\Activity;
 use App\Models\Amenity;
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\Package;
 
 $countries = Country::whereStatus(1)->pluck('name')->toArray();
 $searchCity = City::pluck('name')->toArray();

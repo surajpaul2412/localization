@@ -37,7 +37,7 @@
         <div class="row"> 
             <div class="col-sm-12">
                 <div class="card"> 
-                    <form class="custom-form" method="post" action="{{ route('admin.country.update', $country->id) }}">
+                    <form class="custom-form" method="post" action="{{ route('admin.country.update', $country->id) }}" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf
                         <div class="card-header"></div>
@@ -54,6 +54,14 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="form-group fill">
+                                        <label class="col-form-label">Display Image:</label>
+                                        <input name="image" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="{{asset($country->image)}}" />
+                                        <small class="text-muted"><b>Eg::</b> Upload image size - 800x600.</small>
+                                        <input type="hidden" name="hidden_image" value="{{ $country->image }}">
+                                    </div>
+                                </div>
                             </div>
                         </div>  
                         <div class="card-footer text-right"> 
@@ -68,4 +76,12 @@
         <!-- [ Main Content ] end -->
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>  
+    $(document).ready(function(){ 
+        $('.dropify').dropify(); 
+    }); 
+</script>
 @endsection

@@ -29,7 +29,7 @@ $cred = Contact::first();
     <section class="section page-content">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6">
+				<div class="col-lg-8 offset-2">
 					<div class="contact-form bg-white p-3 border rounded"> 
 
 						<form id="contactForm1" action="#" method="post"> 
@@ -80,7 +80,7 @@ $cred = Contact::first();
 					</div>	
 				</div>
 
-				<div class="col-lg-6">
+				<div class="col-lg-6 d-none">
 					<div class="contact-information">
 						<div class="col-lg-12"><h4 class="page-title mb-4">Need Help?</h4> </div>
 						<div class="col-lg-12">
@@ -143,7 +143,7 @@ $cred = Contact::first();
 					{{$data}}
 				</div>  -->
 
-				<div class="col-lg-12">
+				<div class="col-lg-12 d-none">
 					<div class="map-box mt-5">
 						<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14047.32046712315!2d77.3318964!3d28.3337424!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cdbddcfe1590f%3A0xaba6e1c24d366c69!2sAbhisan%20Technology%20Private%20Limited!5e0!3m2!1sen!2sin!4v1678693935193!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 					</div>

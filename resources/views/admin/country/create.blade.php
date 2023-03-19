@@ -37,7 +37,7 @@
         <div class="row"> 
             <div class="col-sm-12">
                 <div class="card"> 
-                    <form class="custom-form" method="POST" action="{{ route('admin.country.store') }}">
+                    <form class="custom-form" method="POST" action="{{ route('admin.country.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header"></div>
                         <div class="card-body">
@@ -51,6 +51,18 @@
                                                 <strong>{{ $message }}</strong>
                                             </div>
                                         @enderror
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group fill">
+                                        <label class="col-form-label">Display Image:</label>
+                                        <input name="image" type="file" data-allowed-file-extensions="png jpg gif jpeg" class="dropify" data-max-file-size="2M" data-default-file="" />
+                                        <small class="text-muted"><b>Eg::</b> Upload image size - 800x600.</small>
+                                        @error('image')
+                                            <div class="text-danger">
+                                                <strong>{{ $message }}</strong>
+                                            </div>
+                                        @enderror                                        
                                     </div>
                                 </div>
                             </div>  
@@ -67,4 +79,12 @@
         <!-- [ Main Content ] end -->
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>  
+    $(document).ready(function(){ 
+        $('.dropify').dropify(); 
+    }); 
+</script>
 @endsection

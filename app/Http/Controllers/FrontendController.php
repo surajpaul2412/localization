@@ -493,7 +493,8 @@ class FrontendController extends Controller
         $search = $city->name;
         $searchType = 'city';
         $packages = Package::whereStatus(1)->whereCityId($id)->get();
-        return view('frontend.tour-location', compact('packages','search','searchType','id'));
+        $banner = $city->country->image;
+        return view('frontend.tour-location', compact('packages','search','searchType','id','banner'));
     }
 
     // amenity suraj final
@@ -610,7 +611,8 @@ class FrontendController extends Controller
                             ->WhereHas('city.country', function($q) use($country) {
                                 $q->whereId($country->id);
                             })->get();
-        return view('frontend.tour-location', compact('packages','search','searchType','id'));
+        $banner = $country->image;
+        return view('frontend.tour-location', compact('packages','search','searchType','id','banner'));
     }
 
     public function searchTerm($search) {

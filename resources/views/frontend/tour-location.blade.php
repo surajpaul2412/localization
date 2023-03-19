@@ -25,8 +25,8 @@ $maxRange = Package::max('adult_price');
 @endphp
 
 @section('content')
-<main>  
-	<section class="hero_in tours" style="background: url({{asset('images/pattern_1.svg')}});" >
+<main>
+	<section class="hero_in tours" style="background: url({{asset($banner)}});" >
 		<div class="wrapper">
 			<div class="container">
 				<div class="row">

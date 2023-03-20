@@ -55,7 +55,7 @@
                                     <tr>
                                         <td>{{$index+1}}</td>
                                         <td class="text-wrap">{{$package->name}}</td>
-                                        <td class="text-wrap">{{$package->category->name}}</td>
+                                        <td class="text-wrap">{{$package->category->name??null}}</td>
                                         <td>
                                             @if($package->status == 1)
                                             <a href="{{ route('admin.tours.deactivate', $package->id) }}" class="btn btn-success font-weight-bold btn-xs btn-block has-ripple text-white">Enable</a>

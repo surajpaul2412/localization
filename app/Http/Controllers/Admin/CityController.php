@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Package;
 
 class CityController extends Controller
 {
@@ -114,6 +115,10 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
+        $packages = Package::whereCityId($id)->get();
+        foreach ($packages as $key => $value) {
+            Package::whereId($value->id)->update(['city_id'=>null]);
+        }
         City::findOrFail($id)->delete();
         return redirect('/admin/city')->with('success','City deleted successfully.');
     }

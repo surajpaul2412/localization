@@ -125,7 +125,7 @@ $cred = Contact::first();
                     <div class="box_grid"> 
                         @if($tour->combo == 1)
                         <div class="ribbon">
-                            <span>Combo</span>
+                            <span>Hot Deal</span>
                         </div>
                         @endif
                         <figure>
@@ -152,7 +152,9 @@ $cred = Contact::first();
                             </a> 
                         </figure>
                         <div class="wrapper">
-                            <badge class="category-names text-white bg-black py-1 px-2 rounded">{{$tour->category->name}}</badge>
+                            @if($tour->category)
+                            <badge class="category-names text-white bg-black py-1 px-2 rounded">{{$tour->category->name??null}}</badge>
+                            @endif
                             <h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3>
 
                             @if($tour->rating > 0)
@@ -260,7 +262,7 @@ $cred = Contact::first();
                     <div class="box_grid"> 
                         @if($tour->combo == 1)
                         <div class="ribbon">
-                            <span>Combo</span>
+                            <span>Hot Deal</span>
                         </div>
                         @endif
                         <figure>
@@ -287,7 +289,9 @@ $cred = Contact::first();
                             </a> 
                         </figure>
                         <div class="wrapper">
-                            <badge class="category-names text-white bg-black py-1 px-2 rounded">{{$tour->category->name}}</badge>
+                            @if($tour->category)
+                            <badge class="category-names text-white bg-black py-1 px-2 rounded">{{$tour->category->name??null}}</badge>
+                            @endif
                             <h3><a href="{{route('tour.show', $tour->slug)}}">{{dynamicLang(\Illuminate\Support\Str::limit($tour->name ?? '',25,' ...'))}}</a></h3>
 
                             @if($tour->rating > 0)

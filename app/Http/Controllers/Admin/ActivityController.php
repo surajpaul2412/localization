@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Activity;
+use App\Models\Package;
 use App\Models\City;
 use File;
 
@@ -126,6 +127,11 @@ class ActivityController extends Controller
             if(File::exists($activity->avatar)) {
                 File::delete($activity->avatar);
             }
+        }
+
+        $packages = Package::whereActivityId($activity->id)->get();
+        foreach ($packages as $key => $value) {
+            Package::whereId($value->id)->update(['activity_id'=>null]);
         }
         $activity->delete();
         return redirect('/admin/activities')->with('success','Activity deleted successfully.');

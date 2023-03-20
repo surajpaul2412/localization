@@ -1,3 +1,8 @@
+@php
+use App\Models\Contact;
+$cred = Contact::first();
+@endphp
+
     <!-- Start: footer -->
     <footer class="main-footer">
         <div class="top-footer py-5">  
@@ -28,10 +33,10 @@
                         <div class="follow_us">
                             <ul>
                                 <li>{{dynamicLang('Follow us')}}</li>
-                                <li><a href="#0"><i class="ti-facebook"></i></a></li>
-                                <li><a href="#0"><i class="ti-instagram"></i></a></li>
-                                <li><a href="#0"><i class="ti-twitter-alt"></i></a></li>
-                                <li><a href="#0"><i class="ti-google"></i></a></li> 
+                                <li><a href="{{$cred->facebook}}"><i class="ti-facebook"></i></a></li>
+                                <li><a href="{{$cred->instagram}}"><i class="ti-instagram"></i></a></li>
+                                <li><a href="{{$cred->twitter}}"><i class="ti-twitter-alt"></i></a></li>
+                                <li><a href="{{$cred->linkedin}}"><i class="ti-linkedin"></i></a></li> 
                             </ul>
                         </div>
                     </div>

@@ -209,7 +209,11 @@
                                                         <select name="category" class="form-control form-control-sm js-example-basic-single" required>
                                                             <option value="">--Select Category--</option>
                                                             @foreach($categories as $category)
-                                                            <option value="{{$category->id}}" {{ $category->id == $package->category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                                                                @if($package->category)
+                                                                <option value="{{$category->id}}" {{ $category->id == $package->category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                                                                @else
+                                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                         @error('category')
@@ -227,7 +231,11 @@
                                                             @foreach($countries as $country)
                                                             <optgroup label="{{$country->name}}">
                                                                 @foreach($country->cities as $city)
+                                                                @if($package->city)
                                                                 <option value="{{$city->id}}" {{ $city->id == $package->city->id ? 'selected' : '' }}>{{$city->name}}</option>
+                                                                @else
+                                                                <option value="{{$city->id}}">{{$city->name}}</option>
+                                                                @endif
                                                                 @endforeach
                                                             </optgroup>
                                                             @endforeach
@@ -245,7 +253,11 @@
                                                         <select name="activity" class="form-control form-control-sm js-example-basic-single" required>
                                                             <option value="">--Select Activity--</option>
                                                             @foreach($activities as $activity)
+                                                            @if($package->activity)
                                                             <option value="{{$activity->id}}" {{ $activity->id == $package->activity->id ? 'selected' : '' }}>{{$activity->name}}</option>
+                                                            @else
+                                                            <option value="{{$activity->id}}">{{$activity->name}}</option>
+                                                            @endif
                                                             @endforeach
                                                         </select>
                                                         @error('activity')

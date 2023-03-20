@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Package;
 use File;
 
 class CategoryController extends Controller
@@ -158,6 +159,11 @@ class CategoryController extends Controller
             if(File::exists($category->icon)) {
                 File::delete($category->icon);
             }
+        }
+
+        $packages = Package::whereCategoryId($category->id)->get();
+        foreach ($packages as $key => $value) {
+            Package::whereId($value->id)->update(['category_id'=>null]);
         }
         $category->delete();
         return redirect('/admin/category')->with('success','Category deleted successfully.');

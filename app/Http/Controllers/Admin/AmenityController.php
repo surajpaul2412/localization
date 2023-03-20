@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Amenity;
+use App\Models\PackageAmenity;
 use File;
 
 class AmenityController extends Controller
@@ -120,6 +121,8 @@ class AmenityController extends Controller
                 File::delete($amenity->icon);
             }
         }
+
+        PackageAmenity::whereAmenityId($amenity->id)->delete();
         $amenity->delete();
         return redirect('/admin/amenities')->with('success','Amenity deleted successfully.');
     }

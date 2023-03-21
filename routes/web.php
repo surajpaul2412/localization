@@ -184,6 +184,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin','namespace'=>'Admin','middleware'
     Route::get('tours/create', [App\Http\Controllers\Admin\PackageController::class, 'create'])->name('tours.create');
     Route::post('tours/store', [App\Http\Controllers\Admin\PackageController::class, 'store'])->name('tours.store');
     Route::get('tours/{id}/edit', [App\Http\Controllers\Admin\PackageController::class, 'edit'])->name('tours.edit');
+    Route::get('tours/{id}/copy', [App\Http\Controllers\Admin\PackageController::class, 'copy'])->name('tours.copy');
     Route::patch('tours/{id}', [App\Http\Controllers\Admin\PackageController::class, 'update'])->name('tours.update');
     Route::delete('tours/destroy/{id}', [App\Http\Controllers\Admin\PackageController::class, 'destroy'])->name('tours.destroy');
     Route::get('tours/activate/{id}', [App\Http\Controllers\Admin\PackageController::class, 'activate'])->name('tours.activate');

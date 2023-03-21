@@ -64,6 +64,8 @@
                                             @endif
                                         </td>
                                         <td class="d-flex">  
+                                            <a href="{{ route('admin.tours.copy', $package->id) }}" class="btn btn-warning btn-xs mr-1" title="Edit"><i class="feather icon-copy"></i></a>
+
                                             <a href="{{ route('admin.tours.edit', $package->id) }}" class="btn btn-info btn-xs mr-1" title="Edit"><i class="feather icon-edit"></i></a>
 
                                             <form method="POST" action="{{ route('admin.tours.destroy', $package->id) }}">

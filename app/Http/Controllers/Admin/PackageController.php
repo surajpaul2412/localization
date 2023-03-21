@@ -11,6 +11,7 @@ use App\Models\Amenity;
 use App\Models\Activity;
 use App\Models\PackageAmenity;
 use App\Models\PackageGallery;
+use Carbon\carbon;
 use File;
 
 class PackageController extends Controller
@@ -240,5 +241,34 @@ class PackageController extends Controller
         $package = Package::findOrFail($id);
         $package->update(['status'=>0]);
         return redirect('/admin/tours')->with('success', 'Tour has been successfully deactivated.');
+    }
+
+    public function copy($id)
+    {
+        $package = Package::findOrFail($id);
+        $newPackage = $package->replicate();
+        $newPackage->created_at = Carbon::now();
+        $newPackage->name = $newPackage->name . " Duplicate";
+        $newPackage->slug = $newPackage->slug."-duplicate";
+        $newPackage->save();
+
+        foreach ($package->amenities as $key => $amenity) {
+            $newPackageAmenity = PackageAmenity::findOrFail($amenity->id)->replicate();
+            $newPackageAmenity->package_id = $newPackage->id;
+            $newPackageAmenity->save();
+        }
+
+        foreach ($package->gallery as $key => $gallery) {
+            $newPackageGallery = PackageGallery::findOrFail($gallery->id)->replicate();
+            $newPackageGallery->package_id = $newPackage->id;
+            $newPackageGallery->save();
+        }
+
+        $package = Package::findOrFail($newPackage->id);
+        $categories = Category::whereStatus(1)->get();
+        $countries = Country::whereStatus(1)->get();
+        $amenities =  Amenity::whereStatus(1)->get();
+        $activities = Activity::whereStatus(1)->get();
+        return view('admin.package.edit', compact('categories','countries','amenities','package','activities'));
     }
 }

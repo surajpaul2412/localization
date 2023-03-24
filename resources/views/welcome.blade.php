@@ -190,7 +190,7 @@ $cred = Contact::first();
             <div class="main_title_3 d-flex justify-content-between align-items-center">
                 <div> 
                     <span><em></em></span>
-                    <h2>Why choose GetBeds</h2> 
+                    <h2>Why choose GoGetGuide</h2> 
                 </div>  
             </div>  
             
@@ -213,7 +213,7 @@ $cred = Contact::first();
                         </figure>    
                         <div class="info"> 
                             <h5>Enjoy deals & delights</h5>
-                            <p>Quality activities. Great prices. Plus, earn Klook credits to save more.</p>
+                            <p>Quality activities. Great prices. Plus, earn GoGetGuide credits to save more.</p>
                         </div>
                     </div>
                 </div> 

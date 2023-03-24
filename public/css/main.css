@@ -13,7 +13,7 @@
     /* --primary-color: #f67b2d; 
     --secondary-color: #dd6e27;  */
     --primary-color: #f29b18; 
-    --secondary-color: #52c5b6;
+    --secondary-color: #fa6352;
     --text-color: #4d4d5b;
 } 
 
@@ -319,8 +319,8 @@ a.wishlist_bt_top span.wishlist-counts {
     -webkit-transform: rotate(-45deg);
     width: 100px;
     display: block;
-    background: #79A70A;
-    background: linear-gradient(#9BC90D 0,#79A70A 100%);
+    background:var(--secondary-color);
+    /* background: linear-gradient(#9BC90D 0,#79A70A 100%); */
     box-shadow: 0 3px 10px -5px rgb(0 0 0);
     position: absolute;
     top: 19px;
@@ -623,8 +623,8 @@ section.cta-sec {
     position: relative;
 }
 section.cta-sec .row {
-    background-color: var(--primary-color);
-    padding: 50px 0;
+    /* background-color: var(--primary-color);
+    padding: 50px 0; */
     position: relative;
     border-radius: 15px; 
 }
@@ -956,7 +956,7 @@ ul.dahs_navbar li a.active {
 }
 .custom-search-input-2 i { 
     background-color: transparent; 
-    color: #12adc1;
+    color: var(--secondary-color);
 }
 .advance-seach-box-inner {position: relative;}
 

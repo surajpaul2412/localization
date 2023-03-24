@@ -339,28 +339,28 @@ $mightAlsoLike = Package::where('slug','!=',$tour->slug)->whereCityId($tour->cit
 									<div class="trust-box">
 										<img src="{{asset('images/icons/1.png')}}" alt="icon" />
 										<h3>15 {{dynamicLang('million')}}+</h3>
-										<p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p>
+										<!-- <p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p> -->
 									</div>
 								</div>
 								<div class="col">
 									<div class="trust-box">
 										<img src="{{asset('images/icons/2.png')}}" alt="icon" />
 										<h3>4/5</h3>
-										<p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p>
+										<!-- <p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p> -->
 									</div>
 								</div>
 								<div class="col">
 									<div class="trust-box">
 										<img src="{{asset('images/icons/3.png')}}" alt="icon" />
 										<h3>{{dynamicLang('In the Media')}}</h3>
-										<p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p>
+										<!-- <p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p> -->
 									</div>
 								</div>
 								<div class="col">
 									<div class="trust-box">
 										<img src="{{asset('images/icons/4.png')}}" alt="icon" />
 										<h3>24x7 {{dynamicLang('Help Center')}}</h3>
-										<p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p>
+										<!-- <p>{{dynamicLang('Sed ut perspiciatis unde omnis iste natus')}}.</p> -->
 									</div>
 								</div>
 							</div>  

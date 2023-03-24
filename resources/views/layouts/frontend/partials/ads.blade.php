@@ -1,6 +1,11 @@
 <section class="section-sm cta-sec bg-white">
     <div class="container clearfix">
-        <div class="row justify-content-between align-items-center"> 
+        <div class="row">
+            <div class="col-lg-12">
+                <img class="img-fluid" src="{{asset('images/cta-banner.jpg')}}" alt=""  />
+            </div>
+        </div>
+        <div class="row justify-content-between align-items-center d-none"> 
             <div class="col-lg-8">
                 <div class="content-block">  
                     <h3 class="text-white">{{dynamicLang('Enjoy a GREAT travel with us')}}</h3>
